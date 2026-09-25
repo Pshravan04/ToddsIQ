@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones, Sparkles, Trophy, Brain } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import productsData from '../data/products.json';
 import heroImage from '../assets/hero_toys_banner.jpg';
@@ -15,7 +15,10 @@ export default function Home() {
         <div className="container">
           <div className="toddsiq-hero-inner">
             <div className="hero-left">
-              <div className="hero-badge-kicker">✨ NEW ARRIVALS 2026</div>
+              <div className="hero-badge-kicker">
+                <Sparkles size={14} style={{ display: 'inline', marginRight: '4px', verticalAlign: 'text-top' }} /> 
+                NEW ARRIVALS 2026
+              </div>
               <h1 className="hero-title">Screen-Free Play That Powers <span>Little Minds</span>.</h1>
               <p className="hero-desc">
                 Ditch the tablets. Our premium, durable toys are designed by educators to spark curiosity, build spatial reasoning, and provide hours of open-ended fun.
@@ -52,7 +55,7 @@ export default function Home() {
                 
                 {/* Floating Elements */}
                 <div className="floating-card top-right">
-                  <div className="float-icon">🏆</div>
+                  <div className="float-icon"><Trophy size={20} color="var(--color-text-main)" /></div>
                   <div className="float-text">
                     <strong>Award Winning</strong>
                     <span>STEM Toys</span>
@@ -60,7 +63,7 @@ export default function Home() {
                 </div>
                 
                 <div className="floating-card bottom-left">
-                  <div className="float-icon">🧠</div>
+                  <div className="float-icon"><Brain size={20} color="var(--color-text-main)" /></div>
                   <div className="float-text">
                     <strong>Brain Building</strong>
                     <span>Logic & Math</span>
