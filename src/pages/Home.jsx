@@ -11,33 +11,66 @@ export default function Home() {
 
   return (
     <>
-      <section className="playjoy-hero">
-        <div className="container playjoy-hero-inner">
-          <div className="hero-left">
-            <div className="hero-kicker">PLAY. LEARN. GROW.</div>
-            <h1 className="hero-title">Amazing Toys<br/>Endless <span>Joy</span></h1>
-            <p className="hero-desc">Discover the perfect toys for every age and every adventure.</p>
-            <div className="hero-actions">
-              <Link to="/collections/best-sellers" className="btn btn-purple">
-                SHOP NOW
-              </Link>
-              <Link to="/collections/stem-science" className="btn btn-outline-dark">
-                EXPLORE COLLECTION
-              </Link>
-            </div>
-            <div className="hero-dots">
-              <div className="dot active"></div>
-              <div className="dot"></div>
-              <div className="dot"></div>
-            </div>
-          </div>
-          <div className="hero-right">
-            <div className="hero-badge">
-              <div className="hero-badge-inner">
-                BEST<br/>TOYS<br/>FOR HAPPY<br/>KIDS
+      <section className="toddsiq-hero">
+        <div className="container">
+          <div className="toddsiq-hero-inner">
+            <div className="hero-left">
+              <div className="hero-badge-kicker">✨ NEW ARRIVALS 2026</div>
+              <h1 className="hero-title">Screen-Free Play That Powers <span>Little Minds</span>.</h1>
+              <p className="hero-desc">
+                Ditch the tablets. Our premium, durable toys are designed by educators to spark curiosity, build spatial reasoning, and provide hours of open-ended fun.
+              </p>
+              
+              <div className="hero-actions">
+                <Link to="/collections/best-sellers" className="btn btn-primary" style={{ padding: '16px 32px', fontSize: '1.125rem' }}>
+                  Shop Best Sellers
+                </Link>
+                <Link to="/collections/stem-science" className="btn btn-outline" style={{ padding: '16px 32px', fontSize: '1.125rem', borderColor: '#e0e0e0', color: 'var(--color-text-main)' }}>
+                  Take the Quiz
+                </Link>
+              </div>
+              
+              <div className="hero-stats">
+                <div className="stat-item">
+                  <strong>50k+</strong>
+                  <span>Happy Parents</span>
+                </div>
+                <div className="stat-item">
+                  <strong>4.9/5</strong>
+                  <span>Average Rating</span>
+                </div>
+                <div className="stat-item">
+                  <strong>100%</strong>
+                  <span>Kid Approved</span>
+                </div>
               </div>
             </div>
-            <img src={heroImage} alt="Hero Toys" className="hero-image" />
+            
+            <div className="hero-right">
+              <div className="hero-image-wrapper">
+                <img src={heroImage} alt="Hero Toys" className="hero-main-image" />
+                
+                {/* Floating Elements */}
+                <div className="floating-card top-right">
+                  <div className="float-icon">🏆</div>
+                  <div className="float-text">
+                    <strong>Award Winning</strong>
+                    <span>STEM Toys</span>
+                  </div>
+                </div>
+                
+                <div className="floating-card bottom-left">
+                  <div className="float-icon">🧠</div>
+                  <div className="float-text">
+                    <strong>Brain Building</strong>
+                    <span>Logic & Math</span>
+                  </div>
+                </div>
+                
+                <div className="floating-shape shape-1"></div>
+                <div className="floating-shape shape-2"></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
