@@ -25,12 +25,8 @@ export default function Layout() {
       </div>
       <header>
         <div className="container nav-container">
-          <Link to="/" className="logo playjoy-logo">
-            <img src="/icons.svg#bear" alt="Bear Icon" className="logo-icon" style={{width: '32px', height: '32px'}} />
-            <div className="logo-text">
-              <span className="logo-primary">PlayJoy</span>
-              <span className="logo-secondary">TOY STORE</span>
-            </div>
+          <Link to="/" className="logo">
+            Todds<span>IQ</span>
           </Link>
           <nav className="nav-links playjoy-nav">
             <Link to="/collections/best-sellers">SHOP BY CATEGORY <ChevronDown size={14} /></Link>
