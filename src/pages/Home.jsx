@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones, Sparkles, Trophy, Brain, Palette, Star, Bot } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones, Sparkles, Trophy, Brain, Palette, Star, Bot, BatteryCharging, Infinity } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import productsData from '../data/products.json';
 import heroImage from '../assets/hero_toys_banner.jpg';
@@ -212,25 +212,35 @@ export default function Home() {
         </div>
       </section>
       
-      <section style={{ backgroundColor: 'var(--bg-learning)', padding: '6rem 0', margin: '4rem 0 0', borderRadius: '48px 48px 0 0' }}>
+      {/* Features Section */}
+      <section className="features-section">
         <div className="container text-center">
-          <h2 className="section-title">Built for Real Play</h2>
+          <h2 className="section-title">Built for <span className="highlight">Real Play</span></h2>
           <p className="section-subtitle">No screens. No subscriptions. Just high-quality tools that let kids be kids.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginTop: '3rem' }}>
-            <div style={{ background: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🧠</div>
-              <h3 style={{ fontWeight: 800, marginBottom: '0.5rem' }}>Brain-Building</h3>
-              <p style={{ color: 'var(--color-text-light)' }}>Develops spatial reasoning, logic, and creative problem solving naturally.</p>
+          
+          <div className="features-grid">
+            <div className="feature-card">
+              <div className="feature-icon-wrap icon-brain">
+                <Brain size={40} color="var(--color-primary)" fill="rgba(255,107,107,0.2)" className="pulse-anim" />
+              </div>
+              <h3 className="feature-title">Brain-Building</h3>
+              <p className="feature-desc">Develops spatial reasoning, logic, and creative problem solving naturally.</p>
             </div>
-            <div style={{ background: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>🔋</div>
-              <h3 style={{ fontWeight: 800, marginBottom: '0.5rem' }}>Long-Lasting</h3>
-              <p style={{ color: 'var(--color-text-light)' }}>Premium materials designed to survive real play and be passed down.</p>
+            
+            <div className="feature-card">
+              <div className="feature-icon-wrap icon-battery">
+                <BatteryCharging size={40} color="#10B981" fill="rgba(16,185,129,0.2)" className="bounce-anim" />
+              </div>
+              <h3 className="feature-title">Long-Lasting</h3>
+              <p className="feature-desc">Premium materials designed to survive real play and be passed down.</p>
             </div>
-            <div style={{ background: 'white', padding: '2rem', borderRadius: 'var(--radius-lg)' }}>
-              <div style={{ fontSize: '2rem', marginBottom: '1rem' }}>✨</div>
-              <h3 style={{ fontWeight: 800, marginBottom: '0.5rem' }}>Open-Ended</h3>
-              <p style={{ color: 'var(--color-text-light)' }}>There's no wrong way to play. We provide the tools, they provide the imagination.</p>
+            
+            <div className="feature-card">
+              <div className="feature-icon-wrap icon-infinity">
+                <Infinity size={40} color="#3B82F6" className="spin-anim-slow" />
+              </div>
+              <h3 className="feature-title">Open-Ended</h3>
+              <p className="feature-desc">There's no wrong way to play. We provide the tools, they provide the imagination.</p>
             </div>
           </div>
         </div>
