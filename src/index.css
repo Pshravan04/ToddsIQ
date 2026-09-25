@@ -1443,36 +1443,36 @@ header {
   position: relative;
   background-color: #111;
   color: #fff;
-  margin-top: 10rem;
-  overflow: hidden;
+  margin-top: 0;
 }
 
 .footer-wave {
   position: absolute;
-  top: -1px;
+  bottom: 100%; /* Position it directly above the footer */
   left: 0;
   width: 100%;
   overflow: hidden;
   line-height: 0;
   transform: rotate(180deg);
   z-index: 2;
+  margin-bottom: -1px; /* Prevent 1px gap */
 }
 
 .footer-wave svg {
   position: relative;
   display: block;
   width: calc(100% + 1.3px);
-  height: 80px;
+  height: 60px;
 }
 
 .footer-wave .shape-fill {
-  fill: #FFFFFF;
+  fill: #111; /* Matches footer background */
 }
 
 .footer-content {
   position: relative;
   z-index: 5;
-  padding: 8rem 0 4rem;
+  padding: 4rem 0 4rem;
 }
 
 .footer-grid {
