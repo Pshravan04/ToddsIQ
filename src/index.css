@@ -1120,37 +1120,65 @@ header {
   opacity: 0.5;
 }
 
-.features-bar {
+/* Trust Badges Redesign */
+.trust-badges-section {
   background: white;
-  border-bottom: 1px solid #eee;
-  padding: 1.5rem 0;
-  margin-bottom: 4rem;
+  padding: 3rem 0;
+  position: relative;
+  z-index: 10;
+  margin-top: -2rem; /* Pull up slightly over the hero section */
 }
-.features-grid {
+.trust-badges-grid {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
-.feature-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.feature-icon {
-  color: #333;
-}
-.feature-text {
+.trust-badge {
+  flex: 1;
+  min-width: 150px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 1rem;
+  background: white;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  border: 1px solid rgba(0,0,0,0.03);
 }
-.feature-title {
-  font-size: 0.85rem;
+.trust-badge:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-md);
+}
+.trust-icon-wrap {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+  transition: transform var(--transition-bounce);
+}
+.trust-badge:hover .trust-icon-wrap {
+  transform: scale(1.1) rotate(5deg);
+}
+.trust-title {
+  font-family: var(--font-primary);
   font-weight: 700;
-  color: #333;
+  font-size: 1.05rem;
+  color: var(--color-text-main);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
 }
-.feature-desc {
-  font-size: 0.75rem;
-  color: #777;
+.trust-desc {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+  line-height: 1.4;
+  margin: 0;
 }
 
 /* Creative Sections */

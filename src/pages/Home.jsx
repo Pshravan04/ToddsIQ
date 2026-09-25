@@ -80,41 +80,47 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="features-bar">
-        <div className="container features-grid">
-          <div className="feature-item">
-            <Truck size={32} strokeWidth={1.5} className="feature-icon" />
-            <div className="feature-text">
-              <span className="feature-title">FREE SHIPPING</span>
-              <span className="feature-desc">On Orders Over $59</span>
+      <section className="trust-badges-section">
+        <div className="container">
+          <div className="trust-badges-grid">
+            <div className="trust-badge">
+              <div className="trust-icon-wrap" style={{ backgroundColor: 'var(--bg-creative)' }}>
+                <Truck size={24} strokeWidth={2} color="var(--color-primary)" />
+              </div>
+              <h4 className="trust-title">Free Shipping</h4>
+              <p className="trust-desc">On orders over $59</p>
             </div>
-          </div>
-          <div className="feature-item">
-            <ShieldCheck size={32} strokeWidth={1.5} className="feature-icon" />
-            <div className="feature-text">
-              <span className="feature-title">SECURE PAYMENT</span>
-              <span className="feature-desc">100% Safe & Secure</span>
+            
+            <div className="trust-badge">
+              <div className="trust-icon-wrap" style={{ backgroundColor: 'var(--bg-sensory)' }}>
+                <ShieldCheck size={24} strokeWidth={2} color="#10B981" />
+              </div>
+              <h4 className="trust-title">Secure Payment</h4>
+              <p className="trust-desc">100% Safe & Secure</p>
             </div>
-          </div>
-          <div className="feature-item">
-            <Award size={32} strokeWidth={1.5} className="feature-icon" />
-            <div className="feature-text">
-              <span className="feature-title">PREMIUM QUALITY</span>
-              <span className="feature-desc">Safe & Non-Toxic</span>
+            
+            <div className="trust-badge">
+              <div className="trust-icon-wrap" style={{ backgroundColor: 'var(--bg-learning)' }}>
+                <Award size={24} strokeWidth={2} color="#06B6D4" />
+              </div>
+              <h4 className="trust-title">Premium Quality</h4>
+              <p className="trust-desc">Safe & Non-Toxic</p>
             </div>
-          </div>
-          <div className="feature-item">
-            <RefreshCcw size={32} strokeWidth={1.5} className="feature-icon" />
-            <div className="feature-text">
-              <span className="feature-title">EASY RETURNS</span>
-              <span className="feature-desc">30-Day Hassle Free Returns</span>
+            
+            <div className="trust-badge">
+              <div className="trust-icon-wrap" style={{ backgroundColor: 'var(--bg-active)' }}>
+                <RefreshCcw size={24} strokeWidth={2} color="#F59E0B" />
+              </div>
+              <h4 className="trust-title">Easy Returns</h4>
+              <p className="trust-desc">30-Day Hassle Free</p>
             </div>
-          </div>
-          <div className="feature-item">
-            <Headphones size={32} strokeWidth={1.5} className="feature-icon" />
-            <div className="feature-text">
-              <span className="feature-title">CUSTOMER SUPPORT</span>
-              <span className="feature-desc">We're Here To Help</span>
+            
+            <div className="trust-badge">
+              <div className="trust-icon-wrap" style={{ backgroundColor: 'var(--bg-building)' }}>
+                <Headphones size={24} strokeWidth={2} color="#8B5CF6" />
+              </div>
+              <h4 className="trust-title">24/7 Support</h4>
+              <p className="trust-desc">We're here to help</p>
             </div>
           </div>
         </div>
