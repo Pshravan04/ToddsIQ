@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Plus } from 'lucide-react';
+import { ShoppingBag, Star } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 export default function ProductCard({ product }) {
@@ -30,26 +30,39 @@ export default function ProductCard({ product }) {
 
   return (
     <Link to={`/product/${product.slug}`} className="product-card">
-      <div className={`product-image-container ${getCatClass(product.category)}`}>
-        <div className="category-badge">{product.category}</div>
+      <div className={`product-image-wrap ${getCatClass(product.category)}`}>
+        <div className="category-pill">{product.category || 'Toys'}</div>
         {product.thumbnail ? (
           <img src={product.thumbnail} alt={product.name} className="product-image" />
         ) : (
-          <div className="product-image" style={{display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ccc'}}>No Image</div>
+          <div className="product-image-fallback">No Image</div>
         )}
       </div>
-      <div className="product-info">
+      
+      <div className="product-content">
+        <div className="product-rating">
+          <div className="stars">
+            <Star size={14} fill="#FF9F43" color="#FF9F43" />
+            <Star size={14} fill="#FF9F43" color="#FF9F43" />
+            <Star size={14} fill="#FF9F43" color="#FF9F43" />
+            <Star size={14} fill="#FF9F43" color="#FF9F43" />
+            <Star size={14} fill="#FF9F43" color="#FF9F43" />
+          </div>
+          <span className="rating-count">(24)</span>
+        </div>
+        
         <h3 className="product-title">{product.name}</h3>
         <p className="product-desc">{product.shortDescription}</p>
-        <div className="product-footer">
+        
+        <div className="product-bottom">
           <div className="product-price">
             ${product.price?.toFixed(2)}
             {product.compareAtPrice && (
               <span className="price-compare">${product.compareAtPrice.toFixed(2)}</span>
             )}
           </div>
-          <button className="add-to-cart-quick" onClick={handleQuickAdd} title="Quick Add">
-            <Plus size={24} />
+          <button className="btn-add-cart" onClick={handleQuickAdd} title="Quick Add">
+            <ShoppingBag size={18} />
           </button>
         </div>
       </div>
