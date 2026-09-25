@@ -1366,7 +1366,7 @@ header {
   overflow: hidden;
 }
 
-.features-grid {
+.play-features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2.5rem;

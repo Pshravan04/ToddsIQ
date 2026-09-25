@@ -218,7 +218,7 @@ export default function Home() {
           <h2 className="section-title">Built for <span className="highlight">Real Play</span></h2>
           <p className="section-subtitle">No screens. No subscriptions. Just high-quality tools that let kids be kids.</p>
           
-          <div className="features-grid">
+          <div className="play-features-grid">
             <div className="feature-card">
               <div className="feature-icon-wrap icon-brain">
                 <Brain size={40} color="var(--color-primary)" fill="rgba(255,107,107,0.2)" className="pulse-anim" />
