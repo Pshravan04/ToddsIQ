@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones, Sparkles, Trophy, Brain, Palette } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones, Sparkles, Trophy, Brain, Palette, Star, Bot } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import productsData from '../data/products.json';
 import heroImage from '../assets/hero_toys_banner.jpg';
@@ -141,8 +141,12 @@ export default function Home() {
               <div className="blob-shape blob-2"></div>
               <img src={creativePotentialImg} alt="Child drawing with robot" className="creative-image img-blob-1" />
               {/* Floating vector icons */}
-              <div className="floating-vector fv-1">⭐</div>
-              <div className="floating-vector fv-2">🎨</div>
+              <div className="floating-vector fv-1">
+                <Star size={48} color="#FF9F43" fill="#FF9F43" />
+              </div>
+              <div className="floating-vector fv-2">
+                <Palette size={48} color="#10B981" fill="#10B981" />
+              </div>
             </div>
           </div>
         </div>
@@ -168,8 +172,12 @@ export default function Home() {
                <div className="blob-shape blob-3"></div>
               <img src={drawingCompanionImg} alt="ToddsIQ drawing robot" className="creative-image img-blob-2" />
               {/* Floating vector icons */}
-              <div className="floating-vector fv-3">🤖</div>
-              <div className="floating-vector fv-4">✨</div>
+              <div className="floating-vector fv-3">
+                <Bot size={48} color="#3B82F6" fill="#3B82F6" />
+              </div>
+              <div className="floating-vector fv-4">
+                <Sparkles size={64} color="#F59E0B" fill="#F59E0B" />
+              </div>
             </div>
           </div>
         </div>
