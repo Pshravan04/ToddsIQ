@@ -120,42 +120,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* New Split Content Sections */}
-      <section className="split-content-section mb-8">
+      {/* Creative Split Content Section 1 */}
+      <section className="creative-section section-1 mb-8">
         <div className="container">
-          <div className="split-content-inner">
-            <div className="split-text">
-              <div className="split-icon"><Sparkles size={24} color="var(--color-primary)" /></div>
-              <h2 className="split-title">The Secret to Unlocking Your Child's Creative Potential</h2>
-              <p className="split-desc">
+          <div className="creative-inner">
+            <div className="creative-text">
+              <div className="creative-icon-wrap">
+                <Sparkles size={28} color="var(--color-primary)" className="pulse-anim" />
+              </div>
+              <h2 className="creative-title">The Secret to Unlocking Your Child's <span className="highlight">Creative Potential</span></h2>
+              <p className="creative-desc">
                 When kids struggle with drawing, it can lower their confidence and hold back their imagination. ToddsIQ™ helps by guiding their hands through fun and engaging illustrations — boosting their artistic confidence with every sketch.
               </p>
-              <Link to="/products/drawing-robot" className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
-                Shop Now
+              <Link to="/products/drawing-robot" className="btn btn-primary creative-btn">
+                Shop Now <ArrowRight size={18} />
               </Link>
             </div>
-            <div className="split-image">
-              <img src={creativePotentialImg} alt="Child drawing with robot" className="rounded-image" />
+            <div className="creative-image-wrap">
+              <div className="blob-shape blob-1"></div>
+              <div className="blob-shape blob-2"></div>
+              <img src={creativePotentialImg} alt="Child drawing with robot" className="creative-image img-blob-1" />
+              {/* Floating vector icons */}
+              <div className="floating-vector fv-1">⭐</div>
+              <div className="floating-vector fv-2">🎨</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="split-content-section mb-8" style={{ backgroundColor: 'var(--bg-creative)', padding: '6rem 0', borderRadius: '48px', margin: '4rem 1rem' }}>
+      {/* Creative Split Content Section 2 */}
+      <section className="creative-section section-2 mb-8">
         <div className="container">
-          <div className="split-content-inner reverse">
-            <div className="split-text">
-              <div className="split-icon" style={{ backgroundColor: 'white' }}><Palette size={24} color="var(--color-primary)" /></div>
-              <h2 className="split-title">ToddsIQ™ – Your Child's Creative Companion!</h2>
-              <p className="split-desc">
+          <div className="creative-inner reverse">
+            <div className="creative-text">
+              <div className="creative-icon-wrap bg-white">
+                <Palette size={28} color="var(--color-primary)" className="bounce-anim" />
+              </div>
+              <h2 className="creative-title">ToddsIQ™ – Your Child's <span className="highlight-2">Creative Companion!</span></h2>
+              <p className="creative-desc">
                 Using smart technology and adorable design, ToddsIQ™ transforms screen time into creative time. It helps kids bring their ideas to life, guiding them through step-by-step drawings with incredible accuracy.
               </p>
-              <Link to="/products/drawing-robot" className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
-                Shop Now
+              <Link to="/products/drawing-robot" className="btn btn-primary creative-btn">
+                Shop Now <ArrowRight size={18} />
               </Link>
             </div>
-            <div className="split-image">
-              <img src={drawingCompanionImg} alt="ToddsIQ drawing robot" className="rounded-image" />
+            <div className="creative-image-wrap">
+               <div className="blob-shape blob-3"></div>
+              <img src={drawingCompanionImg} alt="ToddsIQ drawing robot" className="creative-image img-blob-2" />
+              {/* Floating vector icons */}
+              <div className="floating-vector fv-3">🤖</div>
+              <div className="floating-vector fv-4">✨</div>
             </div>
           </div>
         </div>
