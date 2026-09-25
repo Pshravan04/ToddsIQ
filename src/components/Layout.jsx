@@ -55,39 +55,72 @@ export default function Layout() {
         <Outlet />
       </main>
       
-      <footer>
-        <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem' }}>
-          <div>
-            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '1rem' }}>Todds<span style={{ color: 'var(--color-primary)' }}>IQ</span></h3>
-            <p style={{ color: '#a0a0a0' }}>Screen-free favorites designed to turn curiosity into hands-on play.</p>
-          </div>
-          <div>
-            <h4 style={{ fontWeight: 700, marginBottom: '1rem' }}>Shop</h4>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', color: '#a0a0a0' }}>
-              <li><Link to="/collections/best-sellers">Best Sellers</Link></li>
-              <li><Link to="/collections/stem-science">STEM & Science</Link></li>
-              <li><Link to="/collections/arts-crafts">Arts & Crafts</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 style={{ fontWeight: 700, marginBottom: '1rem' }}>Support</h4>
-            <ul style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', color: '#a0a0a0' }}>
-              <li>FAQ</li>
-              <li>Shipping & Returns</li>
-              <li>Contact Us</li>
-            </ul>
-          </div>
-          <div>
-            <h4 style={{ fontWeight: 700, marginBottom: '1rem' }}>Join the Club</h4>
-            <p style={{ color: '#a0a0a0', marginBottom: '1rem' }}>Get 10% off your first order and exclusive access to new releases.</p>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <input type="email" placeholder="Email address" style={{ padding: '10px', borderRadius: '8px', border: 'none', outline: 'none', width: '100%' }} />
-              <button className="btn btn-primary" style={{ padding: '10px 16px' }}>Join</button>
+      <footer className="animated-footer">
+        <div className="footer-wave">
+          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
+          </svg>
+        </div>
+        
+        <div className="container footer-content">
+          <div className="footer-grid">
+            <div className="footer-brand-col">
+              <h3 className="footer-logo">
+                <span className="bounce-letter" style={{animationDelay: '0.1s'}}>T</span>
+                <span className="bounce-letter" style={{animationDelay: '0.2s'}}>o</span>
+                <span className="bounce-letter" style={{animationDelay: '0.3s'}}>d</span>
+                <span className="bounce-letter" style={{animationDelay: '0.4s'}}>d</span>
+                <span className="bounce-letter" style={{animationDelay: '0.5s'}}>s</span>
+                <span className="bounce-letter highlight" style={{animationDelay: '0.6s'}}>I</span>
+                <span className="bounce-letter highlight" style={{animationDelay: '0.7s'}}>Q</span>
+              </h3>
+              <p className="footer-tagline">Screen-free favorites designed to turn curiosity into hands-on play.</p>
+              
+              <div className="social-links">
+                <a href="#" className="social-icon"><span>Fb</span></a>
+                <a href="#" className="social-icon"><span>Ig</span></a>
+                <a href="#" className="social-icon"><span>Tw</span></a>
+                <a href="#" className="social-icon"><span>Tt</span></a>
+              </div>
+            </div>
+            
+            <div className="footer-links-col">
+              <h4 className="footer-heading">Shop</h4>
+              <ul className="animated-link-list">
+                <li><Link to="/collections/best-sellers">Best Sellers</Link></li>
+                <li><Link to="/collections/stem-science">STEM & Science</Link></li>
+                <li><Link to="/collections/arts-crafts">Arts & Crafts</Link></li>
+              </ul>
+            </div>
+            
+            <div className="footer-links-col">
+              <h4 className="footer-heading">Support</h4>
+              <ul className="animated-link-list">
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Shipping & Returns</a></li>
+                <li><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+            
+            <div className="footer-newsletter-col">
+              <h4 className="footer-heading">Join the Club</h4>
+              <p className="newsletter-desc">Get 10% off your first order and exclusive access to new releases.</p>
+              <div className="newsletter-form-group">
+                <input type="email" placeholder="Email address" className="newsletter-input" />
+                <button className="btn btn-primary newsletter-btn">Join</button>
+              </div>
             </div>
           </div>
+          
+          {/* Floating animated elements inside footer */}
+          <div className="footer-floating ff-1"></div>
+          <div className="footer-floating ff-2"></div>
         </div>
-        <div className="container" style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid #333', textAlign: 'center', color: '#666', fontSize: '0.875rem' }}>
-          &copy; {new Date().getFullYear()} ToddsIQ. All rights reserved.
+        
+        <div className="footer-bottom">
+          <div className="container">
+            <p>&copy; {new Date().getFullYear()} ToddsIQ. All rights reserved.</p>
+          </div>
         </div>
       </footer>
       
