@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import productsData from '../data/products.json';
+import heroImage from '../assets/hero_toys_banner.jpg';
 
 export default function Home() {
   const bestSellers = productsData.slice(0, 4);
@@ -10,19 +11,72 @@ export default function Home() {
 
   return (
     <>
-      <section className="hero">
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '2rem' }}>
-          <div className="hero-content">
-            <h1>Curiosity,<br/>meet play.</h1>
-            <p>Hands-on, screen-free experiences designed to turn "I don't know" into "Look what I made!"</p>
-            <Link to="/collections/best-sellers" className="btn btn-primary" style={{ padding: '16px 32px', fontSize: '1.25rem' }}>
-              Shop Best Sellers
-            </Link>
+      <section className="playjoy-hero">
+        <div className="container playjoy-hero-inner">
+          <div className="hero-left">
+            <div className="hero-kicker">PLAY. LEARN. GROW.</div>
+            <h1 className="hero-title">Amazing Toys<br/>Endless <span>Joy</span></h1>
+            <p className="hero-desc">Discover the perfect toys for every age and every adventure.</p>
+            <div className="hero-actions">
+              <Link to="/collections/best-sellers" className="btn btn-purple">
+                SHOP NOW
+              </Link>
+              <Link to="/collections/stem-science" className="btn btn-outline-dark">
+                EXPLORE COLLECTION
+              </Link>
+            </div>
+            <div className="hero-dots">
+              <div className="dot active"></div>
+              <div className="dot"></div>
+              <div className="dot"></div>
+            </div>
           </div>
-          <div style={{ flex: 1, maxWidth: '500px', display: 'flex', justifyContent: 'center' }}>
-            {/* The primary ToddsIQ hero product from Stitch, here represented by a featured image */}
-            <div style={{ position: 'relative', width: '100%', aspectRatio: '1', backgroundColor: 'var(--bg-creative)', borderRadius: '50%', padding: '2rem' }}>
-              <img src={productsData[0]?.images[0]} alt="Hero Product" style={{ width: '100%', height: '100%', objectFit: 'contain', mixBlendMode: 'multiply', transform: 'scale(1.2)' }} />
+          <div className="hero-right">
+            <div className="hero-badge">
+              <div className="hero-badge-inner">
+                BEST<br/>TOYS<br/>FOR HAPPY<br/>KIDS
+              </div>
+            </div>
+            <img src={heroImage} alt="Hero Toys" className="hero-image" />
+          </div>
+        </div>
+      </section>
+
+      <section className="features-bar">
+        <div className="container features-grid">
+          <div className="feature-item">
+            <Truck size={32} strokeWidth={1.5} className="feature-icon" />
+            <div className="feature-text">
+              <span className="feature-title">FREE SHIPPING</span>
+              <span className="feature-desc">On Orders Over $59</span>
+            </div>
+          </div>
+          <div className="feature-item">
+            <ShieldCheck size={32} strokeWidth={1.5} className="feature-icon" />
+            <div className="feature-text">
+              <span className="feature-title">SECURE PAYMENT</span>
+              <span className="feature-desc">100% Safe & Secure</span>
+            </div>
+          </div>
+          <div className="feature-item">
+            <Award size={32} strokeWidth={1.5} className="feature-icon" />
+            <div className="feature-text">
+              <span className="feature-title">PREMIUM QUALITY</span>
+              <span className="feature-desc">Safe & Non-Toxic</span>
+            </div>
+          </div>
+          <div className="feature-item">
+            <RefreshCcw size={32} strokeWidth={1.5} className="feature-icon" />
+            <div className="feature-text">
+              <span className="feature-title">EASY RETURNS</span>
+              <span className="feature-desc">30-Day Hassle Free Returns</span>
+            </div>
+          </div>
+          <div className="feature-item">
+            <Headphones size={32} strokeWidth={1.5} className="feature-icon" />
+            <div className="feature-text">
+              <span className="feature-title">CUSTOMER SUPPORT</span>
+              <span className="feature-desc">We're Here To Help</span>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
-import { ShoppingBag, Search } from 'lucide-react';
+import { ShoppingCart, Search, User, Truck, Tag, RefreshCcw, ChevronDown } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
@@ -10,24 +10,46 @@ export default function Layout() {
 
   return (
     <>
+      <div className="announcement-bar">
+        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div className="announcement-item">
+            <Truck size={16} /> FREE SHIPPING ON ORDERS OVER $59
+          </div>
+          <div className="announcement-item">
+            <Tag size={16} /> 10% OFF YOUR FIRST ORDER | USE CODE: TOY10
+          </div>
+          <div className="announcement-item">
+            <RefreshCcw size={16} /> EASY RETURNS WITHIN 30 DAYS
+          </div>
+        </div>
+      </div>
       <header>
         <div className="container nav-container">
-          <Link to="/" className="logo">
-            Todds<span>IQ</span>
+          <Link to="/" className="logo playjoy-logo">
+            <img src="/icons.svg#bear" alt="Bear Icon" className="logo-icon" style={{width: '32px', height: '32px'}} />
+            <div className="logo-text">
+              <span className="logo-primary">PlayJoy</span>
+              <span className="logo-secondary">TOY STORE</span>
+            </div>
           </Link>
-          <nav className="nav-links">
-            <Link to="/collections/best-sellers">Best Sellers</Link>
-            <Link to="/collections/stem-science">STEM & Science</Link>
-            <Link to="/collections/creative-play">Creative Play</Link>
-            <Link to="/collections/build-construct">Building</Link>
+          <nav className="nav-links playjoy-nav">
+            <Link to="/collections/best-sellers">SHOP BY CATEGORY <ChevronDown size={14} /></Link>
+            <Link to="/collections/stem-science">AGE <ChevronDown size={14} /></Link>
+            <Link to="/collections/creative-play">BRANDS</Link>
+            <Link to="/collections/build-construct">BEST SELLERS</Link>
+            <Link to="/collections/new-arrivals">NEW ARRIVALS</Link>
+            <Link to="/collections/sale" className="text-sale">SALE</Link>
           </nav>
-          <div className="nav-actions">
+          <div className="nav-actions playjoy-actions">
             <button className="nav-icon" onClick={() => setIsSearchOpen(true)}>
-              <Search size={24} />
+              <Search size={22} />
             </button>
-            <button className="nav-icon" onClick={() => setIsCartOpen(true)}>
-              <ShoppingBag size={24} />
-              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+            <button className="nav-icon">
+              <User size={22} />
+            </button>
+            <button className="nav-icon cart-icon-btn" onClick={() => setIsCartOpen(true)}>
+              <ShoppingCart size={22} />
+              <span className="cart-badge">{cartCount}</span>
             </button>
           </div>
         </div>
