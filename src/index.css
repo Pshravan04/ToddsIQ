@@ -1123,3 +1123,70 @@ footer {
   font-size: 0.75rem;
   color: #777;
 }
+
+/* Split Content Section */
+.split-content-inner {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.split-content-inner.reverse {
+  flex-direction: row-reverse;
+}
+
+.split-text {
+  flex: 1;
+}
+
+.split-image {
+  flex: 1;
+}
+
+.rounded-image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  object-fit: cover;
+  aspect-ratio: 4/3;
+}
+
+.split-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--bg-stem);
+  border-radius: 50%;
+  margin-bottom: 1.5rem;
+}
+
+.split-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-text-main);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.split-desc {
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .split-content-inner, .split-content-inner.reverse {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .split-title {
+    font-size: 2rem;
+  }
+}

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones, Sparkles, Trophy, Brain } from 'lucide-react';
+import { ArrowRight, Truck, ShieldCheck, Award, RefreshCcw, Headphones, Sparkles, Trophy, Brain, Palette } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
 import productsData from '../data/products.json';
 import heroImage from '../assets/hero_toys_banner.jpg';
+import creativePotentialImg from '../assets/creative_potential_robot.jpg';
+import drawingCompanionImg from '../assets/drawing_companion_robot.jpg';
 
 export default function Home() {
   const bestSellers = productsData.slice(0, 4);
@@ -113,6 +115,47 @@ export default function Home() {
             <div className="feature-text">
               <span className="feature-title">CUSTOMER SUPPORT</span>
               <span className="feature-desc">We're Here To Help</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Split Content Sections */}
+      <section className="split-content-section mb-8">
+        <div className="container">
+          <div className="split-content-inner">
+            <div className="split-text">
+              <div className="split-icon"><Sparkles size={24} color="var(--color-primary)" /></div>
+              <h2 className="split-title">The Secret to Unlocking Your Child's Creative Potential</h2>
+              <p className="split-desc">
+                When kids struggle with drawing, it can lower their confidence and hold back their imagination. ToddsIQ™ helps by guiding their hands through fun and engaging illustrations — boosting their artistic confidence with every sketch.
+              </p>
+              <Link to="/products/drawing-robot" className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
+                Shop Now
+              </Link>
+            </div>
+            <div className="split-image">
+              <img src={creativePotentialImg} alt="Child drawing with robot" className="rounded-image" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="split-content-section mb-8" style={{ backgroundColor: 'var(--bg-creative)', padding: '6rem 0', borderRadius: '48px', margin: '4rem 1rem' }}>
+        <div className="container">
+          <div className="split-content-inner reverse">
+            <div className="split-text">
+              <div className="split-icon" style={{ backgroundColor: 'white' }}><Palette size={24} color="var(--color-primary)" /></div>
+              <h2 className="split-title">ToddsIQ™ – Your Child's Creative Companion!</h2>
+              <p className="split-desc">
+                Using smart technology and adorable design, ToddsIQ™ transforms screen time into creative time. It helps kids bring their ideas to life, guiding them through step-by-step drawings with incredible accuracy.
+              </p>
+              <Link to="/products/drawing-robot" className="btn btn-primary" style={{ marginTop: '1.5rem' }}>
+                Shop Now
+              </Link>
+            </div>
+            <div className="split-image">
+              <img src={drawingCompanionImg} alt="ToddsIQ drawing robot" className="rounded-image" />
             </div>
           </div>
         </div>
