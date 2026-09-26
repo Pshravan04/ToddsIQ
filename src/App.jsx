@@ -1,5 +1,4 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+﻿import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Collection from './pages/Collection';
@@ -11,11 +10,11 @@ function App() {
     <CartProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="collections/:id" element={<Collection />} />
-            <Route path="product/:slug" element={<Product />} />
-          </Route>
+          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/collections/:id" element={<Layout><Collection /></Layout>} />
+          <Route path="/collections" element={<Layout><Collection /></Layout>} />
+          <Route path="/products/:id" element={<Layout><Product /></Layout>} />
+          <Route path="/product/:slug" element={<Layout><Product /></Layout>} />
         </Routes>
       </BrowserRouter>
     </CartProvider>

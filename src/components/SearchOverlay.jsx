@@ -1,77 +1,65 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Search } from 'lucide-react';
-import { useCart } from '../context/CartContext';
-import { useNavigate } from 'react-router-dom';
-import productsData from '../data/products.json';
+import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import products from '../data/products.json';
 
-export default function SearchOverlay() {
-  const { isSearchOpen, setIsSearchOpen } = useCart();
+export default function SearchOverlay({ open, onClose }) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const navigate = useNavigate();
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (isSearchOpen && inputRef.current) {
-      setTimeout(() => inputRef.current.focus(), 100);
-    }
-  }, [isSearchOpen]);
+    if (open) { setQuery(''); setTimeout(() => inputRef.current?.focus(), 100); }
+  }, [open]);
 
-  useEffect(() => {
-    if (query.trim().length > 1) {
-      const q = query.toLowerCase();
-      const matches = productsData.filter(p => 
-        p.name.toLowerCase().includes(q) || 
-        p.category.toLowerCase().includes(q) ||
-        (p.categories && p.categories.some(c => c.toLowerCase().includes(q)))
-      );
-      setResults(matches);
-    } else {
-      setResults([]);
-    }
-  }, [query]);
+  const results = query.trim().length > 1
+    ? products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || (p.category || '').toLowerCase().includes(query.toLowerCase())).slice(0, 6)
+    : [];
 
-  const handleProductClick = (slug) => {
-    setIsSearchOpen(false);
-    navigate(`/product/${slug}`);
-  };
-
-  if (!isSearchOpen) return null;
+  const TRENDING = ['Drawing Robot', 'STEM Kit', 'Building Blocks', 'Puzzle Sets'];
 
   return (
-    <div className={`search-overlay ${isSearchOpen ? 'open' : ''}`}>
-      <button className="search-close btn-icon" onClick={() => setIsSearchOpen(false)}>
-        <X size={32} />
-      </button>
-      <div className="search-input-wrap">
-        <input 
+    <div className={`search-overlay${open ? ' open' : ''}`} role="dialog" aria-modal="true" aria-label="Search">
+      <div className="search-box">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{color:'var(--text-muted)',flexShrink:0}}>
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
           ref={inputRef}
-          type="text" 
-          placeholder="Search for toys, categories..." 
+          className="search-input"
+          placeholder="Search for toys, age groups, interests…"
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={e => setQuery(e.target.value)}
         />
-        <Search size={32} style={{ position: 'absolute', right: 0, top: '1.2rem', color: 'var(--color-text-muted)' }} />
+        <button className="search-close" onClick={onClose} aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
       </div>
-
-      <div className="search-results">
-        {results.length > 0 && (
-          <div className="product-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '2rem' }}>
-            {results.map(prod => (
-              <div key={prod.id} style={{ cursor: 'pointer', textAlign: 'center' }} onClick={() => handleProductClick(prod.slug)}>
-                <div style={{ background: '#f5f5f5', borderRadius: '16px', padding: '16px', marginBottom: '12px' }}>
-                  <img src={prod.thumbnail} alt={prod.name} style={{ width: '100%', aspectRatio: '1', objectFit: 'contain' }} />
+      <div className="search-suggestions">
+        {results.length > 0 ? (
+          <>
+            <p style={{fontSize:'.75rem',fontWeight:700,textTransform:'uppercase',letterSpacing:'.08em',color:'var(--text-muted)',marginBottom:'.75rem'}}>Results</p>
+            {results.map(p => (
+              <Link key={p.id} to={`/products/${p.id}`} onClick={onClose} style={{display:'flex',alignItems:'center',gap:'1rem',padding:'.75rem',borderRadius:'var(--r-md)',transition:'background var(--t-fast)'}}>
+                <img src={p.images?.[0] || p.image} alt={p.name} style={{width:48,height:48,objectFit:'cover',borderRadius:'var(--r-sm)',background:'var(--bg-subtle)'}}/>
+                <div>
+                  <p style={{fontWeight:600,color:'var(--ink-navy)',fontSize:'.9375rem'}}>{p.name}</p>
+                  <p style={{fontSize:'.8rem',color:'var(--text-muted)'}}>$${p.price}</p>
                 </div>
-                <h4 style={{ fontWeight: 700 }}>{prod.name}</h4>
-                <div style={{ color: 'var(--color-text-light)', fontSize: '0.875rem' }}>${prod.price}</div>
-              </div>
+              </Link>
             ))}
-          </div>
-        )}
-        {query.length > 1 && results.length === 0 && (
-          <div className="text-center mt-8">
-            <h3 style={{ color: 'var(--color-text-muted)' }}>No results found for "{query}"</h3>
-          </div>
+          </>
+        ) : (
+          <>
+            <p style={{fontSize:'.75rem',fontWeight:700,textTransform:'uppercase',letterSpacing:'.08em',color:'var(--text-muted)',marginBottom:'.75rem'}}>Trending</p>
+            <div style={{display:'flex',gap:'.5rem',flexWrap:'wrap'}}>
+              {TRENDING.map(t => (
+                <button key={t} onClick={() => setQuery(t)} style={{padding:'.375rem .875rem',background:'var(--bg-subtle)',border:'none',borderRadius:'var(--r-pill)',fontSize:'.8rem',fontWeight:500,cursor:'pointer',color:'var(--text-secondary)'}}>
+                  {t}
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

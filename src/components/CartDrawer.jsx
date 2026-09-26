@@ -1,95 +1,79 @@
-import React from 'react';
-import { X, Plus, Minus, ArrowRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { Link } from 'react-router-dom';
-import productsData from '../data/products.json';
 
-export default function CartDrawer() {
-  const { cart, isCartOpen, setIsCartOpen, updateQuantity, removeFromCart, cartTotal } = useCart();
-
-  // Simple upsell logic: grab products not in cart
-  const cartProductIds = cart.map(c => c.product.id);
-  const upsellProducts = productsData.filter(p => !cartProductIds.includes(p.id)).slice(0, 2);
-
-  if (!isCartOpen) return null;
+export default function CartDrawer({ open, onClose }) {
+  const { cartItems, cartTotal, updateQty, removeItem } = useCart();
+  const FREE_SHIPPING = 50;
+  const progress = Math.min((cartTotal / FREE_SHIPPING) * 100, 100);
+  const remaining = Math.max(FREE_SHIPPING - cartTotal, 0);
 
   return (
-    <div className={`cart-overlay ${isCartOpen ? 'open' : ''}`} onClick={() => setIsCartOpen(false)}>
-      <div className="cart-panel" onClick={e => e.stopPropagation()}>
+    <>
+      <div className={`cart-overlay${open ? ' open' : ''}`} onClick={onClose} />
+      <aside className={`cart-drawer${open ? ' open' : ''}`} role="dialog" aria-modal="true" aria-label="Shopping cart">
         <div className="cart-header">
-          <h2>Your Cart</h2>
-          <button onClick={() => setIsCartOpen(false)} className="btn-icon">
-            <X size={24} />
+          <span className="cart-title">Your Bag 🛍️</span>
+          <button className="cart-close" onClick={onClose} aria-label="Close cart">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6 6 18M6 6l12 12"/>
+            </svg>
           </button>
         </div>
-        
-        <div className="cart-items">
-          {cart.length === 0 ? (
-            <div className="text-center mt-8">
-              <p className="mb-4 text-muted">Your cart is empty.</p>
-              <button className="btn btn-primary" onClick={() => setIsCartOpen(false)}>
-                Start Shopping
-              </button>
+
+        <div className="shipping-progress">
+          <p className="shipping-label">
+            {remaining > 0
+              ? `Add $${remaining.toFixed(2)} more for FREE shipping! 🚚`
+              : '🎉 You unlocked free shipping!'}
+          </p>
+          <div className="shipping-track">
+            <div className="shipping-fill" style={{ width: `${progress}%` }} />
+          </div>
+        </div>
+
+        <div className="cart-items-list">
+          {cartItems.length === 0 ? (
+            <div className="cart-empty">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+                <path d="M16 10a4 4 0 0 1-8 0"/>
+              </svg>
+              <p style={{color:'var(--text-muted)',marginTop:'1rem',fontSize:'.9375rem'}}>Your bag is empty</p>
+              <p style={{fontSize:'.85rem',color:'var(--text-muted)',opacity:.7,marginTop:'.25rem'}}>Add some toys to get started!</p>
             </div>
           ) : (
-            cart.map(item => (
-              <div key={`${item.product.id}-${item.variant.id}`} className="cart-item">
-                <div className="cart-item-img">
-                  <img src={item.product.thumbnail} alt={item.product.name} />
-                </div>
-                <div className="cart-item-info">
-                  <h4 className="cart-item-title">{item.product.name}</h4>
-                  <div className="cart-item-variant">{item.variant.name}</div>
-                  <div className="cart-item-actions">
-                    <div className="quantity-ctrl">
-                      <button onClick={() => updateQuantity(item.product.id, item.variant.id, item.quantity - 1)}>
-                        <Minus size={14} />
-                      </button>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => updateQuantity(item.product.id, item.variant.id, item.quantity + 1)}>
-                        <Plus size={14} />
-                      </button>
-                    </div>
-                    <div style={{fontWeight: 800}}>
-                      ${(item.variant.price * item.quantity).toFixed(2)}
-                    </div>
+            cartItems.map(item => (
+              <div key={item.id} className="cart-item">
+                <img className="cart-item-img" src={item.image} alt={item.name} />
+                <div>
+                  <p className="cart-item-name">{item.name}</p>
+                  <p className="cart-item-variant">{item.variant || ''}</p>
+                  <div className="cart-item-qty">
+                    <button className="qty-btn" onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
+                    <span style={{fontSize:'.875rem',fontWeight:600}}>{item.qty}</span>
+                    <button className="qty-btn" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                    <button onClick={() => removeItem(item.id)} style={{marginLeft:'auto',color:'var(--text-muted)',fontSize:'.75rem',background:'none',border:'none',cursor:'pointer'}}>Remove</button>
                   </div>
                 </div>
+                <div className="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
               </div>
             ))
           )}
-
-          {cart.length > 0 && upsellProducts.length > 0 && (
-            <div className="cart-upsell">
-              <div className="cart-upsell-title">Keep the play going</div>
-              <div className="flex" style={{flexDirection: 'column', gap: '1rem'}}>
-                {upsellProducts.map(up => (
-                  <Link to={`/product/${up.slug}`} key={up.id} onClick={() => setIsCartOpen(false)} className="upsell-item">
-                    <img src={up.thumbnail} alt={up.name} style={{width: 60, height: 60, objectFit: 'contain', background: '#f5f5f5', borderRadius: 8}} />
-                    <div style={{flexGrow: 1}}>
-                      <div style={{fontWeight: 700, fontSize: '0.9rem'}}>{up.name}</div>
-                      <div style={{color: 'var(--color-primary)', fontWeight: 800}}>${up.price}</div>
-                    </div>
-                    <Plus size={20} color="var(--color-primary)" />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
 
-        {cart.length > 0 && (
-          <div className="cart-footer">
-            <div className="cart-total">
-              <span>Subtotal</span>
-              <span>${cartTotal.toFixed(2)}</span>
-            </div>
-            <button className="btn btn-primary" style={{width: '100%'}}>
-              Checkout <ArrowRight size={18} />
-            </button>
+        <div className="cart-foot">
+          <div className="cart-total-row">
+            <span className="cart-total-label">Subtotal</span>
+            <span className="cart-total-value">$${cartTotal.toFixed(2)}</span>
           </div>
-        )}
-      </div>
-    </div>
+          <p style={{fontSize:'.8rem',color:'var(--text-muted)',textAlign:'center'}}>Taxes and shipping calculated at checkout</p>
+          <button className="btn btn-primary btn-lg" style={{justifyContent:'center'}} disabled={cartItems.length === 0}>
+            Checkout →
+          </button>
+          <button className="btn btn-outline" style={{justifyContent:'center'}} onClick={onClose}>
+            Continue Shopping
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

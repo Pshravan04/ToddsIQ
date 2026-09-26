@@ -1,131 +1,165 @@
-import React from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { ShoppingCart, Search, User, Truck, Tag, RefreshCcw, ChevronDown } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
 
-export default function Layout() {
-  const { cartCount, setIsCartOpen, setIsSearchOpen } = useCart();
+const NAV = [
+  {
+    label: 'Shop by Age',
+    mega: true,
+    ages: [
+      { label: 'Tiny Tots', sub: '0–18 months', emoji: '🍼', color: '#FF9F7F', bg: '#FFF4F2', href: '/collections/tiny-tots' },
+      { label: 'Toddlers', sub: '18 mo–3 yrs',  emoji: '🧸', color: '#6C8EF5', bg: '#EEF1FD', href: '/collections/toddlers' },
+      { label: 'Pre-K',    sub: '3–5 years',    emoji: '🎨', color: '#1F9D8A', bg: '#E8F8F5', href: '/collections/pre-k' },
+      { label: 'Big Kids', sub: '6–12 years',   emoji: '🔭', color: '#FFB627', bg: '#FFF8E7', href: '/collections/big-kids' },
+    ],
+    interests: [
+      { label: 'STEM & Science', emoji: '🔬', color: '#6C8EF5' },
+      { label: 'Arts & Crafts',  emoji: '🎨', color: '#F06292' },
+      { label: 'Building',       emoji: '🧱', color: '#FFB627' },
+      { label: 'Reading',        emoji: '📚', color: '#1F9D8A' },
+      { label: 'Math & Logic',   emoji: '🧮', color: '#FF6154' },
+      { label: 'Sensory Play',   emoji: '🌈', color: '#66BB6A' },
+    ],
+  },
+  { label: 'New Arrivals', href: '/collections/new' },
+  { label: 'Best Sellers', href: '/collections/best-sellers' },
+  { label: 'Gift Sets',    href: '/collections/gifts' },
+  { label: '🔥 Sale',      href: '/collections/sale', sale: true },
+];
+
+const CHIPS = [
+  '🚀 Free shipping on orders over $50',
+  '🎁 Gift wrapping available',
+  '⭐ 10,000+ happy families',
+  '🔒 30-day hassle-free returns',
+  '🌱 Eco-friendly packaging',
+  '✨ Expert-curated toys',
+];
+
+export default function Layout({ children }) {
+  const { cartCount, cartTotal } = useCart();
+  const [cartOpen, setCartOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') { setCartOpen(false); setSearchOpen(false); } };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  const doubled = [...CHIPS, ...CHIPS];
 
   return (
     <>
+      {/* Announcement Bar */}
       <div className="announcement-bar">
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div className="announcement-item">
-            <Truck size={16} /> FREE SHIPPING ON ORDERS OVER $59
-          </div>
-          <div className="announcement-item">
-            <Tag size={16} /> 10% OFF YOUR FIRST ORDER | USE CODE: TOY10
-          </div>
-          <div className="announcement-item">
-            <RefreshCcw size={16} /> EASY RETURNS WITHIN 30 DAYS
-          </div>
+        <div className="announcement-track">
+          {doubled.map((chip, i) => (
+            <span key={i} className="announcement-chip">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <circle cx="7" cy="7" r="6" fill="currentColor" opacity=".2"/>
+                <circle cx="7" cy="7" r="2.5" fill="currentColor"/>
+              </svg>
+              {chip}
+            </span>
+          ))}
         </div>
       </div>
-      <header>
-        <div className="container nav-container">
-          <Link to="/" className="logo">
-            Todds<span>IQ</span>
-          </Link>
-          <nav className="nav-links playjoy-nav">
-            <Link to="/collections/best-sellers">SHOP BY CATEGORY <ChevronDown size={14} /></Link>
-            <Link to="/collections/stem-science">AGE <ChevronDown size={14} /></Link>
-            <Link to="/collections/creative-play">BRANDS</Link>
-            <Link to="/collections/build-construct">BEST SELLERS</Link>
-            <Link to="/collections/new-arrivals">NEW ARRIVALS</Link>
-            <Link to="/collections/sale" className="text-sale">SALE</Link>
+
+      {/* Header */}
+      <header style={{ boxShadow: scrolled ? 'var(--shadow-md)' : 'var(--shadow-xs)' }}>
+        <div className="container">
+          <nav className="nav-container">
+            <Link to="/" className="logo">Todds<span>IQ</span>™</Link>
+
+            <ul className="nav-links">
+              {NAV.map((item) => (
+                <li key={item.label} className="nav-item">
+                  {item.mega ? (
+                    <>
+                      <button className={`nav-link${item.sale ? ' nav-link-sale' : ''}`}>
+                        {item.label}
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+                          <path d="M6 8L1 3h10z"/>
+                        </svg>
+                      </button>
+                      <div className="mega-menu">
+                        <div>
+                          <p className="mega-col-title">Shop by Age</p>
+                          <div className="mega-age-tiles">
+                            {item.ages.map(a => (
+                              <Link key={a.label} to={a.href} className="mega-age-tile">
+                                <div className="mega-age-dot" style={{ background: a.bg }}>
+                                  <span>{a.emoji}</span>
+                                </div>
+                                <div className="mega-age-text">
+                                  <strong>{a.label}</strong>
+                                  <span>{a.sub}</span>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <p className="mega-col-title">Shop by Interest</p>
+                          <div className="mega-interest-list">
+                            {item.interests.map(int => (
+                              <a key={int.label} href="#" className="mega-interest-link">
+                                <span className="mega-interest-icon" style={{ background: int.color + '20' }}>
+                                  {int.emoji}
+                                </span>
+                                {int.label}
+                              </a>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <Link to={item.href || '#'} className={`nav-link${item.sale ? ' nav-link-sale' : ''}`}>
+                      {item.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ul>
+
+            <div className="nav-actions">
+              <button className="nav-icon" onClick={() => setSearchOpen(true)} aria-label="Search">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+                </svg>
+              </button>
+              <button className="nav-icon" aria-label="Account">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </button>
+              <button className="nav-icon" onClick={() => setCartOpen(true)} aria-label="Cart">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+                {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+              </button>
+            </div>
           </nav>
-          <div className="nav-actions playjoy-actions">
-            <button className="nav-icon" onClick={() => setIsSearchOpen(true)}>
-              <Search size={22} />
-            </button>
-            <button className="nav-icon">
-              <User size={22} />
-            </button>
-            <button className="nav-icon cart-icon-btn" onClick={() => setIsCartOpen(true)}>
-              <ShoppingCart size={22} />
-              <span className="cart-badge">{cartCount}</span>
-            </button>
-          </div>
         </div>
       </header>
-      
-      <main>
-        <Outlet />
-      </main>
-      
-      <footer className="animated-footer">
-        <div className="footer-wave">
-          <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
-          </svg>
-        </div>
-        
-        <div className="container footer-content">
-          <div className="footer-grid">
-            <div className="footer-brand-col">
-              <h3 className="footer-logo">
-                <span className="bounce-letter" style={{animationDelay: '0.1s'}}>T</span>
-                <span className="bounce-letter" style={{animationDelay: '0.2s'}}>o</span>
-                <span className="bounce-letter" style={{animationDelay: '0.3s'}}>d</span>
-                <span className="bounce-letter" style={{animationDelay: '0.4s'}}>d</span>
-                <span className="bounce-letter" style={{animationDelay: '0.5s'}}>s</span>
-                <span className="bounce-letter highlight" style={{animationDelay: '0.6s'}}>I</span>
-                <span className="bounce-letter highlight" style={{animationDelay: '0.7s'}}>Q</span>
-              </h3>
-              <p className="footer-tagline">Screen-free favorites designed to turn curiosity into hands-on play.</p>
-              
-              <div className="social-links">
-                <a href="#" className="social-icon"><span>Fb</span></a>
-                <a href="#" className="social-icon"><span>Ig</span></a>
-                <a href="#" className="social-icon"><span>Tw</span></a>
-                <a href="#" className="social-icon"><span>Tt</span></a>
-              </div>
-            </div>
-            
-            <div className="footer-links-col">
-              <h4 className="footer-heading">Shop</h4>
-              <ul className="animated-link-list">
-                <li><Link to="/collections/best-sellers">Best Sellers</Link></li>
-                <li><Link to="/collections/stem-science">STEM & Science</Link></li>
-                <li><Link to="/collections/arts-crafts">Arts & Crafts</Link></li>
-              </ul>
-            </div>
-            
-            <div className="footer-links-col">
-              <h4 className="footer-heading">Support</h4>
-              <ul className="animated-link-list">
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Shipping & Returns</a></li>
-                <li><a href="#">Contact Us</a></li>
-              </ul>
-            </div>
-            
-            <div className="footer-newsletter-col">
-              <h4 className="footer-heading">Join the Club</h4>
-              <p className="newsletter-desc">Get 10% off your first order and exclusive access to new releases.</p>
-              <div className="newsletter-form-group">
-                <input type="email" placeholder="Email address" className="newsletter-input" />
-                <button className="btn btn-primary newsletter-btn">Join</button>
-              </div>
-            </div>
-          </div>
-          
-          {/* Floating animated elements inside footer */}
-          <div className="footer-floating ff-1"></div>
-          <div className="footer-floating ff-2"></div>
-        </div>
-        
-        <div className="footer-bottom">
-          <div className="container">
-            <p>&copy; {new Date().getFullYear()} ToddsIQ. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-      
-      <CartDrawer />
-      <SearchOverlay />
+
+      <main>{children}</main>
+
+      <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
