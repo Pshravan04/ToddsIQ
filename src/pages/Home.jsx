@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import ProductCard from '../components/ProductCard';
@@ -121,6 +122,14 @@ const HERO_IMG_2 = (products[3]?.images?.[0]) || (products[3]?.thumbnail);
 export default function Home() {
   const featured = products.slice(0, 8);
   const bestsellers = products.slice(0, 4);
+
+  const carouselRef = useRef(null);
+  const scrollCarousel = (direction) => {
+    if (carouselRef.current) {
+      const scrollAmount = 320;
+      carouselRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+    }
+  };
 
   return (
     <>
@@ -249,6 +258,136 @@ export default function Home() {
                 </div>
               </Link>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SHORTS / VIDEOS SECTION */}
+      <section className="videos-section" style={{ padding: '4rem 0', background: 'var(--bg-subtle)' }}>
+        <div className="container" style={{ padding: 0 }}>
+          <div className="text-center mb-12">
+            <span className="section-eyebrow">See them in action</span>
+            <h2 className="section-title">Play <span className="coral">Time</span></h2>
+          </div>
+          
+          <div style={{ position: 'relative' }}>
+            <button 
+              onClick={() => scrollCarousel('left')}
+              className="carousel-btn carousel-btn-left"
+              aria-label="Scroll left"
+              style={{
+                position: 'absolute',
+                left: '1rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                background: 'white',
+                border: '1px solid var(--border-color)',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                color: 'var(--ink-navy)'
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+
+            <button 
+              onClick={() => scrollCarousel('right')}
+              className="carousel-btn carousel-btn-right"
+              aria-label="Scroll right"
+              style={{
+                position: 'absolute',
+                right: '1rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                zIndex: 10,
+                background: 'white',
+                border: '1px solid var(--border-color)',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                color: 'var(--ink-navy)'
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+
+            <div 
+              ref={carouselRef}
+              style={{ 
+              display: 'flex', 
+              gap: '1rem', 
+              overflowX: 'auto', 
+              padding: '0 1.5rem', 
+              scrollbarWidth: 'none', 
+              msOverflowStyle: 'none' 
+            }}>
+            {[
+              { id: 1, text: 'GUARANTEED to leave your children speechless... 🤯', src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157' },
+              { id: 2, text: "Every child's dream gift... 😍🎁", src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471' },
+              { id: 3, text: 'The perfect gift for kids 🎁', src: HERO_IMG },
+              { id: 4, text: 'Great for letter tracing haha', src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/8d2866f8c0704749a16f130631538b6e.jpg?v=1762025724' },
+              { id: 5, text: 'Children will not believe their eyes... 👀', src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-aquadoodle-book-01.png?v=1789972636' }
+            ].map(video => (
+              <div key={video.id} style={{ 
+                width: '280px',
+                minWidth: '280px', 
+                flexShrink: 0, 
+                display: 'flex', 
+                flexDirection: 'column', 
+                gap: '0.75rem' 
+              }}>
+                <div style={{ 
+                  position: 'relative', 
+                  borderRadius: 'var(--r-lg)', 
+                  overflow: 'hidden', 
+                  aspectRatio: '9/16', 
+                  background: '#000' 
+                }}>
+                  <img src={video.src} alt="Video thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
+                  <div style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', right: '1.5rem', color: 'white', fontWeight: 700, fontSize: '1.2rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)', lineHeight: 1.3 }}>
+                    {video.text}
+                  </div>
+                  <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', width: '40px', height: '40px', background: 'rgba(255,255,255,0.3)', backdropFilter: 'blur(4px)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                  </div>
+                </div>
+                
+                {/* Mini Product Card */}
+                <Link to="/products/thoson-bot" style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.75rem', 
+                  background: 'white', 
+                  padding: '0.75rem', 
+                  borderRadius: 'var(--r-md)', 
+                  border: '1px solid var(--border-color)',
+                  textDecoration: 'none',
+                  color: 'inherit'
+                }}>
+                  <img src={HERO_IMG} alt="ToddsIQ Drawing Robot" style={{ width: '48px', height: '48px', borderRadius: '4px', objectFit: 'cover' }} />
+                  <div>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--ink-navy)', lineHeight: 1.2, marginBottom: '0.2rem' }}>ToddsIQ™ Drawing Robot - Interactive...</div>
+                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'baseline' }}>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>$150.00</span>
+                      <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)' }}>$89.99</span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+            </div>
           </div>
         </div>
       </section>
