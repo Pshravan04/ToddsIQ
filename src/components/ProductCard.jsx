@@ -10,23 +10,26 @@ const StarIcon = () => (
 export default function ProductCard({ product }) {
   const { addItem } = useCart();
   const {
-    id, name, price, compareAtPrice, images, image, category,
+    id, title, name, price, compareAtPrice, images, thumbnail, image, categories, category,
     badge, rating = 4.8, reviewCount = 128, isNew
   } = product;
 
-  const img = images?.[0] || image;
+  // Fallbacks for updated products.json schema
+  const displayTitle = title || name;
+  const img = images?.[0] || thumbnail || image;
+  const displayCategory = categories?.[0] || category;
   const savings = compareAtPrice ? Math.round(((compareAtPrice - price) / compareAtPrice) * 100) : 0;
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    addItem({ id, name, price, image: img });
+    addItem({ id, name: displayTitle, price, image: img });
   };
 
   return (
     <Link to={`/products/${id}`} className="product-card">
       <div className="product-img-wrap">
-        <img src={img} alt={name} loading="lazy" />
+        <img src={img} alt={displayTitle} loading="lazy" />
         {badge && <span className={`product-badge badge-${badge.toLowerCase().replace(' ','-')}`}>{badge}</span>}
         {!badge && isNew && <span className="product-badge badge-new">NEW</span>}
         {!badge && !isNew && compareAtPrice && <span className="product-badge badge-sale">SALE</span>}
@@ -38,17 +41,17 @@ export default function ProductCard({ product }) {
       </div>
 
       <div className="product-body">
-        {category && <span className="product-cat">{category}</span>}
-        <h3 className="product-name">{name}</h3>
+        {displayCategory && <span className="product-cat">{displayCategory}</span>}
+        <h3 className="product-name">{displayTitle}</h3>
         <div className="product-stars">
           {Array.from({length: 5}).map((_, i) => (
             <StarIcon key={i} style={{ opacity: i < Math.floor(rating) ? 1 : 0.3 }} />
           ))}
-          <span className="review-count">({reviewCount})</span>
+          <span className="review-count">({product.reviews || reviewCount})</span>
         </div>
         <div className="product-price-row">
-          <span className="price-now">$${Number(price).toFixed(2)}</span>
-          {compareAtPrice && <span className="price-was">$${Number(compareAtPrice).toFixed(2)}</span>}
+          <span className="price-now">${Number(price).toFixed(2)}</span>
+          {compareAtPrice && <span className="price-was">${Number(compareAtPrice).toFixed(2)}</span>}
           {savings > 0 && <span className="price-save">Save {savings}%</span>}
         </div>
       </div>

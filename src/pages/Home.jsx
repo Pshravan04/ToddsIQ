@@ -1,127 +1,12 @@
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import productsData from '../data/products.json';
 import { useCart } from '../context/CartContext';
-import ProductCard from '../components/ProductCard';
-import products from '../data/products.json';
 
-/* ── Inline SVG icons (avoids emoji encoding issues) ── */
-const IconShield   = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>;
-const IconTruck    = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>;
-const IconRefresh  = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>;
-const IconAward    = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>;
-const IconLeaf     = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 8C8 10 5.9 16.17 3.82 22c1.95-1.97 5.14-4 8.18-4 1.5 0 2.98.29 4.17.95C21 16 21 9 17 8z"/></svg>;
-const IconHeart    = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>;
-const IconStar     = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>;
-const IconSparkle  = () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>;
-const IconArrow    = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>;
-const IconGift     = () => <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>;
-const IconDraw     = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF6154" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>;
-const IconTrophy   = () => <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1F9D8A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="8 21 12 17 16 21"/><line x1="12" y1="17" x2="12" y2="11"/><path d="M7 4H4a2 2 0 0 0-2 2v2a4 4 0 0 0 4 4"/><path d="M17 4h3a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4"/><rect x="7" y="2" width="10" height="11" rx="1"/></svg>;
-const IconBrain    = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-1.14"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-1.14"/></svg>;
-const IconPhone    = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>;
-const IconSprout   = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 1 3.3 1.8 7 7 0 0 1 1.6 3.3c-2.3.4-4-.2-5.3-.9-1.3-.7-2.4-2.3-3-4.3 1.3-.3 2.6-.2 3.4.1z"/></svg>;
-const IconTarget   = () => <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>;
-
-/* ── Data ── */
-const TRUST = [
-  { Icon: IconShield,  label: 'Safety First',   sub: 'All toys rigorously tested',  color: '#FF6154', bg: '#FFF1F0' },
-  { Icon: IconTruck,   label: 'Free Shipping',  sub: 'On all orders over $50',      color: '#1F9D8A', bg: '#E8F8F5' },
-  { Icon: IconRefresh, label: '30-Day Returns', sub: 'Hassle-free, no questions',   color: '#6C8EF5', bg: '#EEF1FD' },
-  { Icon: IconAward,   label: 'Expert Curated', sub: 'Vetted by child dev experts', color: '#FFB627', bg: '#FFF8E7' },
-  { Icon: IconLeaf,    label: 'Eco Packaging',  sub: '100% recyclable materials',   color: '#66BB6A', bg: '#F0FAF1' },
-  { Icon: IconHeart,   label: '10K+ Families',  sub: 'Loved by parents worldwide',  color: '#F06292', bg: '#FEF0F4' },
-];
-
-const AGE_CARDS = [
-  { label: 'Tiny Tots',  sub: '0-18 months', desc: '18 toys', pill: '0-18 mo',  pillBg: 'rgba(255,97,84,.8)',   href: '/collections/tiny-tots',    bgClass: 'age-toddler-bg',   Icon: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" strokeWidth="1.5"><path d="M3 9h18v7a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9z"/><path d="M3 9a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3"/><line x1="12" y1="6" x2="12" y2="3"/></svg> },
-  { label: 'Toddlers',   sub: '18 mo-3 yrs', desc: '24 toys', pill: '18 mo-3', pillBg: 'rgba(108,142,245,.8)', href: '/collections/toddlers',     bgClass: 'age-preschool-bg', Icon: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" strokeWidth="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> },
-  { label: 'Big Kids',   sub: '6-12 years',  desc: '31 toys', pill: '6-12 yrs', pillBg: 'rgba(255,182,39,.8)',  href: '/collections/big-kids',     bgClass: 'age-bigkids-bg',   Icon: () => <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" strokeWidth="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> },
-];
-
-const BENTO = [
-  { label: 'STEM & Science', count: '42 toys', bg: '#EEF1FD', color: '#6C8EF5', wide: false, tall: true,  Icon: () => <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#6C8EF5" strokeWidth="2" strokeLinecap="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg> },
-  { label: 'Arts & Crafts',  count: '28 toys', bg: '#FEF0F4', color: '#F06292', wide: false, tall: false, Icon: () => <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F06292" strokeWidth="2" strokeLinecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> },
-  { label: 'Building',       count: '19 toys', bg: '#FFF8E7', color: '#FFB627', wide: true,  tall: false, Icon: () => <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FFB627" strokeWidth="2" strokeLinecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> },
-  { label: 'Math & Logic',   count: '15 toys', bg: '#FFF1F0', color: '#FF6154', wide: false, tall: false, Icon: () => <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FF6154" strokeWidth="2" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> },
-  { label: 'Sensory Play',   count: '22 toys', bg: '#F0FAF1', color: '#66BB6A', wide: false, tall: false, Icon: () => <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#66BB6A" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg> },
-];
-
-const TESTIMONIALS = [
-  { text: 'My 4-year-old has been using the Drawing Robot for 3 months and her artistic confidence has skyrocketed! She used to get frustrated — now she draws every single day.', name: 'Sarah M.', role: 'Mom of 2, California', rating: 5 },
-  { text: "We've bought from a lot of toy brands but ToddsIQ genuinely stands out. The quality is premium, shipping was lightning-fast, and my son absolutely loves his STEM kit.", name: 'James K.', role: 'Dad of 3, Texas', rating: 5 },
-  { text: "The perfect gift for my niece's birthday! She's been obsessed ever since. So much better than yet another screen-based toy. Worth every penny.", name: 'Emily R.', role: 'Aunt & teacher, New York', rating: 5 },
-];
-
-const BENEFITS = [
-  { Icon: IconBrain,  title: 'Brain-Building Play',  desc: 'Every toy is designed to develop critical thinking, creativity, and problem-solving skills through hands-on exploration.', color: '#6C8EF5', bg: '#EEF1FD' },
-  { Icon: IconPhone,  title: 'Screen-Free Fun',      desc: 'We believe the best memories are made away from screens. Our toys engage imagination in the real, physical world.', color: '#1F9D8A', bg: '#E8F8F5' },
-  { Icon: IconSprout, title: 'Grow With Them',       desc: 'Age-appropriate designs that challenge kids just enough - building confidence with every new skill mastered.',      color: '#66BB6A', bg: '#F0FAF1' },
-  { Icon: IconTarget, title: 'Expert Chosen',        desc: 'Curated by child development specialists, educators, and parents - only the best makes it into our catalog.',        color: '#FFB627', bg: '#FFF8E7' },
-];
-
-/* ── Footer ── */
-function SiteFooter() {
-  return (
-    <footer className="site-footer">
-      <div className="footer-orb footer-orb-1" />
-      <div className="footer-orb footer-orb-2" />
-      <div className="container">
-        <div className="footer-inner">
-          <div>
-            <span className="footer-logo">Todds<span>IQ</span>™</span>
-            <p className="footer-tagline">Screen-free toys that grow your child's brain — one creative adventure at a time.</p>
-            <div className="footer-social">
-              {['IG','TW','FB','YT','PT'].map(s => (
-                <a key={s} href="#" className="social-btn" aria-label={s}>{s}</a>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="footer-col-title">Shop</p>
-            <div className="footer-links">
-              {['New Arrivals','Best Sellers','Shop by Age','STEM & Science','Arts & Crafts','Gift Sets','Sale'].map(l => (
-                <a key={l} href="#">{l}</a>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="footer-col-title">Help</p>
-            <div className="footer-links">
-              {['FAQ','Shipping & Returns','Track Order','Contact Us','Wholesale'].map(l => (
-                <a key={l} href="#">{l}</a>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="footer-col-title">Stay in the Loop</p>
-            <p className="footer-nl-label">Get new toy drops, parenting tips, and exclusive discounts — straight to your inbox.</p>
-            <div className="footer-input-row">
-              <input className="footer-email" type="email" placeholder="your@email.com" />
-              <button className="btn btn-primary btn-sm">Join</button>
-            </div>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>© 2025 ToddsIQ™. All rights reserved. Made with love for curious kids everywhere.</p>
-          <div className="footer-bottom-links">
-            {['Privacy Policy','Terms of Service','Accessibility'].map(l => (
-              <a key={l} href="#">{l}</a>
-            ))}
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-/* ── Hero image: first product from data ── */
-const HERO_IMG = (products[0]?.images?.[0]) || (products[0]?.thumbnail);
-const HERO_IMG_2 = (products[3]?.images?.[0]) || (products[3]?.thumbnail);
-
-/* ── Home Page ── */
 export default function Home() {
-  const featured = products.slice(0, 8);
-  const bestsellers = products.slice(0, 4);
+  const { addItem } = useCart();
+  const featured = productsData.slice(0, 8);
+  const bestsellers = productsData.slice(0, 4);
 
   const carouselRef = useRef(null);
   const scrollCarousel = (direction) => {
@@ -131,414 +16,848 @@ export default function Home() {
     }
   };
 
+  const handleQuickAdd = (e, product) => {
+    e.preventDefault();
+    addItem({ ...product, price: product.price }, 1);
+  };
+
   return (
     <>
-      {/* HERO */}
-      <section className="hero-section">
-        <div className="container">
-          <div className="hero-inner">
-            <div>
-              <div className="hero-kicker">
-                <IconStar />
-                Trusted by 10,000+ families worldwide
-              </div>
-              <h1 className="hero-title">
-                Toys That Spark<br />
-                <span className="coral">Curiosity</span>, Build<br />
-                <span className="teal">Confidence</span>
-              </h1>
-              <p className="hero-desc">
-                Screen-free, brain-building toys designed by child development experts — from wobbling first steps to big-kid STEM adventures.
-              </p>
-              <div className="hero-actions">
-                <Link to="/collections/all" className="btn btn-primary btn-lg">
-                  Shop All Toys &rarr;
-                </Link>
-                <Link to="/collections/new" className="btn btn-outline btn-lg">
-                  New Arrivals
-                </Link>
-              </div>
-              <div className="hero-stats">
-                <div className="stat-item">
-                  <strong>10K+</strong>
-                  <span>Happy Families</span>
-                </div>
-                <div className="stat-item">
-                  <strong>4.9 Stars</strong>
-                  <span>Average Rating</span>
-                </div>
-                <div className="stat-item">
-                  <strong>120+</strong>
-                  <span>Unique Toys</span>
-                </div>
-              </div>
-            </div>
+      <div className="flex flex-col w-full overflow-hidden">
 
-            <div className="hero-visual">
-              <div className="hero-blob" />
-              <img
-                className="hero-img"
-                src={HERO_IMG}
-                alt="ToddsIQ brain-building toys for curious kids"
-                onError={e => { e.target.onerror = null; e.target.style.background = 'linear-gradient(135deg,#FFD97D,#FF6154)'; }}
-              />
-              <div className="hero-float top">
-                <div className="float-icon" style={{ background: '#FFF8E7' }}>
-                  <IconDraw />
-                </div>
-                <div className="float-text">
-                  <strong>New Drop!</strong>
-                  <span>Art &amp; STEM Bundle</span>
-                </div>
-              </div>
-              <div className="hero-float bot">
-                <div className="float-icon" style={{ background: '#E8F8F5' }}>
-                  <IconTrophy />
-                </div>
-                <div className="float-text">
-                  <strong>Best Seller</strong>
-                  <span>Drawing Robot &mdash; 4.9</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<section className="relative w-full min-h-[600px] lg:h-[700px] flex items-center overflow-hidden">
+  {/* Background Image & Gradient Overlays */}
+  <div className="absolute inset-0 z-0">
+    <img 
+      src="/hero-bg.png" 
+      alt="Child playing with ToddsIQ Drawing Bot" 
+      className="w-full h-full object-cover object-[70%_center] md:object-center"
+    />
+    <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/80 to-transparent md:w-[70%] lg:w-[60%]"></div>
+  </div>
 
-      {/* TRUST MARQUEE */}
-      <div className="marquee-section">
-        <div className="marquee-track">
-          {[...Array(3)].flatMap((_, ri) => TRUST.map((t, i) => (
-            <span key={ri + '-' + i} className="marquee-chip">
-              <IconSparkle />
-              {t.label}
-            </span>
-          )))}
-        </div>
+  <div className="max-w-7xl mx-auto w-full px-gutter relative z-10 py-12">
+    <div className="max-w-xl flex flex-col gap-6">
+      
+      {/* Logo inside Hero */}
+      <div className="mb-2">
+        <span className="font-display-hero text-4xl text-[#0b3359] font-black tracking-tight">
+          Todds<span className="text-[#f58f29]">IQ</span><span className="text-sm align-super ml-1">™</span>
+        </span>
       </div>
 
-      {/* TRUST BADGES */}
-      <section className="trust-section">
-        <div className="container">
-          <div className="trust-grid">
-            {TRUST.map(({ Icon, label, sub, color, bg }) => (
-              <div key={label} className="trust-badge">
-                <div className="trust-icon-bg" style={{ background: bg, color }}>
-                  <Icon />
-                </div>
-                <p className="trust-label">{label}</p>
-                <p className="trust-sub">{sub}</p>
-              </div>
-            ))}
-          </div>
+      {/* Kicker Badge */}
+      <div className="inline-flex items-center gap-2 self-start bg-transparent border border-[#d1d9e0] px-4 py-1.5 rounded-full text-[#0b3359] font-bold text-sm tracking-wide shadow-sm bg-white/30 backdrop-blur-sm">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dcb650" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-90"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        Award-Winning STEM Toys
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dcb650" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-90"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+
+      {/* Headline */}
+      <h1 className="font-display-hero text-5xl md:text-6xl lg:text-[4rem] text-[#0b3359] font-black tracking-tight leading-[1.1]">
+        Spark brilliant minds <br /> with <span className="text-[#f58f29] relative inline-block z-10">zero screens.<svg className="absolute -bottom-1 left-0 w-full h-3 text-[#fcd5a0] -z-10" viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M0,15 C50,0 150,0 200,15" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round"/></svg></span>
+      </h1>
+
+      {/* Description */}
+      <p className="font-body-lg text-lg text-[#0b3359]/80 max-w-md leading-relaxed">
+        ToddsIQ™ crafts physical creative companions and tactile engineering kits that turn restless hours into deep, joyful focus. Built for little hands, loved by 28,000+ families.
+      </p>
+
+      {/* Buttons */}
+      <div className="flex flex-wrap items-center gap-4 pt-2">
+        <a className="px-6 py-3.5 bg-[#f58f29] text-white rounded-full font-label-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2" href="#catalog">
+          <span>Shop the Catalog</span>
+          <span className="material-symbols-outlined text-base">arrow_forward</span>
+        </a>
+        <a className="px-6 py-3.5 bg-transparent text-[#0b3359] rounded-full border border-[#0b3359] font-label-lg shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all flex items-center gap-2" href="#quiz">
+          <span className="material-symbols-outlined text-[#0b3359]">psychology</span>
+          <span>Take the 45s Toy Quiz</span>
+        </a>
+      </div>
+
+      {/* Social Proof */}
+      <div className="flex items-center gap-4 pt-4">
+        <div className="flex -space-x-3">
+          <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=1" alt="Parent" />
+          <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=5" alt="Parent" />
+          <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=9" alt="Parent" />
         </div>
-      </section>
-
-      {/* SHOP BY AGE */}
-      <section className="age-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <span className="section-eyebrow">Find the perfect fit</span>
-            <h2 className="section-title">Shop by <span className="coral">Age</span></h2>
-            <p className="section-sub" style={{ margin: '1rem auto 0' }}>Every toy matched to your child's developmental stage — so they're always perfectly challenged.</p>
+        <div className="font-display-hero text-2xl font-bold text-[#0b3359]">+28k</div>
+        <div className="flex flex-col ml-2">
+          <div className="flex text-[#f58f29] text-sm">
+            ★★★★★
           </div>
-          <div className="age-grid">
-            {AGE_CARDS.map(card => (
-              <Link key={card.label} to={card.href} className="age-card">
-                <div className={'age-card-bg ' + card.bgClass} />
-                <div className="age-card-overlay" />
-                <div style={{ position: 'absolute', top: '1.5rem', right: '1.5rem', zIndex: 3 }}>
-                  <card.Icon />
-                </div>
-                <div className="age-card-body">
-                  <span className="age-pill" style={{ background: card.pillBg }}>{card.pill}</span>
-                  <h3 className="age-card-title">{card.label}</h3>
-                  <p className="age-card-sub">{card.sub} &middot; {card.desc}</p>
-                  <span className="age-card-arrow">Explore collection &rarr;</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <span className="font-body-sm text-xs text-[#0b3359]/70 mt-0.5">
+            4.9/5 rating from verified parents
+          </span>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-      {/* SHORTS / VIDEOS SECTION */}
-      <section className="videos-section" style={{ padding: '4rem 0', background: 'var(--bg-subtle)' }}>
-        <div className="container" style={{ padding: 0 }}>
-          <div className="text-center mb-12">
-            <span className="section-eyebrow">See them in action</span>
-            <h2 className="section-title">Play <span className="coral">Time</span></h2>
-          </div>
-          
-          <div style={{ position: 'relative' }}>
-            <button 
-              onClick={() => scrollCarousel('left')}
-              className="carousel-btn carousel-btn-left"
-              aria-label="Scroll left"
-              style={{
-                position: 'absolute',
-                left: '1rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 10,
-                background: 'white',
-                border: '1px solid var(--border-color)',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                color: 'var(--ink-navy)'
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
+<section className="w-full bg-surface-container-high border-y-2 border-on-surface py-space-sm overflow-hidden select-none">
+<div className="flex whitespace-nowrap animate-[marquee_24s_linear_infinite] gap-space-xl items-center font-label-md text-label-md text-on-surface">
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-primary text-base">phonelink_off</span> 100% SCREEN-FREE FOCUS</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-tertiary text-base">pan_tool</span> TACTILE FINE-MOTOR SKILLS</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-secondary text-base">verified</span> NON-TOXIC &amp; SAFETY TESTED</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-primary-container text-base">favorite</span> LOVED BY 28,000+ PARENTS</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-tertiary-container text-base">spa</span> MONTESSORI-ALIGNED PLAY</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-primary text-base">do_not_disturb_on</span> ZERO ALGORITHMIC DOPAMINE</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-primary text-base">phonelink_off</span> 100% SCREEN-FREE FOCUS</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-tertiary text-base">pan_tool</span> TACTILE FINE-MOTOR SKILLS</span>
+<span className="text-on-surface-variant">•</span>
+<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-secondary text-base">verified</span> NON-TOXIC &amp; SAFETY TESTED</span>
+</div>
+</section>
 
-            <button 
-              onClick={() => scrollCarousel('right')}
-              className="carousel-btn carousel-btn-right"
-              aria-label="Scroll right"
-              style={{
-                position: 'absolute',
-                right: '1rem',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                zIndex: 10,
-                background: 'white',
-                border: '1px solid var(--border-color)',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                color: 'var(--ink-navy)'
-              }}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
+<section className="w-full px-gutter py-space-2xl bg-surface">
+<div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Tailored Developmental Stages</span>
+<h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">Shop by Age &amp; Milestone</h2>
+</div>
+<p className="font-body-md text-body-md text-on-surface-variant max-w-md">
+          Every kit is precision-calibrated for growing neural connections, pincer-grasp coordination, and open-ended experimentation.
+        </p>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
 
-            <div 
-              ref={carouselRef}
-              style={{ 
-              display: 'flex', 
-              gap: '1rem', 
-              overflowX: 'auto', 
-              padding: '0 1.5rem', 
-              scrollbarWidth: 'none', 
-              msOverflowStyle: 'none' 
-            }}>
-            {[
-              { id: 1, text: 'GUARANTEED to leave your children speechless... 🤯', src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157' },
-              { id: 2, text: "Every child's dream gift... 😍🎁", src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471' },
-              { id: 3, text: 'The perfect gift for kids 🎁', src: HERO_IMG },
-              { id: 4, text: 'Great for letter tracing haha', src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/8d2866f8c0704749a16f130631538b6e.jpg?v=1762025724' },
-              { id: 5, text: 'Children will not believe their eyes... 👀', src: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-aquadoodle-book-01.png?v=1789972636' }
-            ].map(video => (
-              <div key={video.id} style={{ 
-                width: '280px',
-                minWidth: '280px', 
-                flexShrink: 0, 
-                display: 'flex', 
-                flexDirection: 'column', 
-                gap: '0.75rem' 
-              }}>
-                <div style={{ 
-                  position: 'relative', 
-                  borderRadius: 'var(--r-lg)', 
-                  overflow: 'hidden', 
-                  aspectRatio: '9/16', 
-                  background: '#000' 
-                }}>
-                  <img src={video.src} alt="Video thumbnail" style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.8 }} />
-                  <div style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', right: '1.5rem', color: 'white', fontWeight: 700, fontSize: '1.2rem', textShadow: '0 2px 4px rgba(0,0,0,0.5)', lineHeight: 1.3 }}>
-                    {video.text}
-                  </div>
-                  <div style={{ position: 'absolute', bottom: '1.5rem', right: '1.5rem', width: '40px', height: '40px', background: 'rgba(255,255,255,0.3)', backdropFilter: 'blur(4px)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                  </div>
-                </div>
-                
-                {/* Mini Product Card */}
-                <Link to="/products/thoson-bot" style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '0.75rem', 
-                  background: 'white', 
-                  padding: '0.75rem', 
-                  borderRadius: 'var(--r-md)', 
-                  border: '1px solid var(--border-color)',
-                  textDecoration: 'none',
-                  color: 'inherit'
-                }}>
-                  <img src={HERO_IMG} alt="ToddsIQ Drawing Robot" style={{ width: '48px', height: '48px', borderRadius: '4px', objectFit: 'cover' }} />
-                  <div>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--ink-navy)', lineHeight: 1.2, marginBottom: '0.2rem' }}>ToddsIQ™ Drawing Robot - Interactive...</div>
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'baseline' }}>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>$150.00</span>
-                      <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-main)' }}>$89.99</span>
-                    </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
-            </div>
-          </div>
-        </div>
-      </section>
+<div className="group bg-surface-container-lowest rounded-3xl p-space-lg border-2 border-on-surface shadow-[5px_5px_0px_#1c1c18] hover:-translate-y-1 hover:shadow-[7px_7px_0px_#1c1c18] transition-all flex flex-col justify-between">
+<div className="space-y-space-md">
+<div className="flex justify-between items-center">
+<span className="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold border border-on-surface">
+                Ages 1–3
+              </span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">8 Curated Kits</span>
+</div>
+<div className="h-44 rounded-2xl bg-surface-container-low overflow-hidden relative border border-outline-variant">
+<img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A toddler sitting at a low blonde wood Montessori sensory table grasping pastel wooden nesting blocks and soft textured silicone stacking toys under clean diffused daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdncwwO8LdzpCjcM_8f54wBrSVuoAmdBlSyj7qvd2FTVra_sFR5AqaEr8WaAM5enVg7iyLnYRGQZ1NksEuqSOk2qf_DYkm3VAZY1Yz5jTaqCfm3YF46u1w0clbaCiZem6LA-cUqGgnPTbi-q_kKOblCaUq8EZGpL2zDbjfH3h9_tcKbKJqF1KkpZABJ9W4cQEH8ym-cAV4D_wbVRvcUTIOkN8ATeaDYBPgPmsoRme8KLqhdlho1AS5CA"/>
+<div className="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<div className="absolute bottom-3 left-3 text-on-primary">
+<span className="font-label-md text-label-md font-bold block">First Marks &amp; Grasp</span>
+</div>
+</div>
+<div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface">Toddler Play</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Sensory exploration, first strokes, tactile discovery, grasp &amp; soft nesting geometry.</p>
+</div>
 
-      {/* FEATURED PRODUCTS */}
-      <section className="products-section">
-        <div className="container">
-          <div className="products-header">
-            <div>
-              <span className="section-eyebrow">Handpicked for you</span>
-              <h2 className="section-title">Featured <span className="teal">Toys</span></h2>
-            </div>
-            <Link to="/collections/all" className="btn btn-outline">View All &rarr;</Link>
-          </div>
-          <div className="product-grid">
-            {featured.map(p => <ProductCard key={p.id} product={p} />)}
-          </div>
-        </div>
-      </section>
+<div className="space-y-1.5 pt-2 border-t border-surface-container">
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">NestWood Full Pack</span><span className="font-bold text-primary">$49</span>
+</div>
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">AquaDoodle Book</span><span className="font-bold text-primary">$25</span>
+</div>
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">SquishBlocks Tactile Set</span><span className="font-bold text-primary">$49</span>
+</div>
+</div>
+</div>
+<Link className="mt-space-lg w-full py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-center font-label-md text-label-md rounded-xl border border-on-surface transition-colors flex items-center justify-center gap-1" to="/collections/toddler">
+<span className="">Browse Ages 1–3</span>
+<span className="material-symbols-outlined text-sm">arrow_forward</span>
+</Link>
+</div>
 
-      {/* BENTO INTEREST GRID */}
-      <section className="interest-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <span className="section-eyebrow">Something for every spark</span>
-            <h2 className="section-title">Shop by <span className="coral">Interest</span></h2>
+<div className="group bg-surface-container-lowest rounded-3xl p-space-lg border-2 border-on-surface shadow-[6px_6px_0px_#ff6154] hover:-translate-y-1 hover:shadow-[8px_8px_0px_#ff6154] transition-all flex flex-col justify-between relative">
+<div className="absolute -top-3 right-6 bg-primary-container text-on-primary font-label-sm text-label-sm uppercase tracking-wider px-3 py-0.5 rounded-full border border-on-surface">
+            Most Popular Stage
           </div>
-          <div className="bento-grid">
-            {BENTO.map(tile => (
-              <a
-                key={tile.label}
-                href="#"
-                className={'bento-tile' + (tile.wide ? ' wide' : '') + (tile.tall ? ' tall' : '')}
-                style={{ background: tile.bg }}
-              >
-                <div style={{ color: tile.color, marginBottom: '.875rem' }}>
-                  <tile.Icon />
-                </div>
-                <div>
-                  <p className="bento-title">{tile.label}</p>
-                  <p className="bento-count">{tile.count}</p>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
+<div className="space-y-space-md">
+<div className="flex justify-between items-center">
+<span className="px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold border border-on-surface">
+                Ages 3–5
+              </span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">14 Curated Kits</span>
+</div>
+<div className="h-44 rounded-2xl bg-surface-container-low overflow-hidden relative border border-outline-variant">
+<img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A focused 4-year-old child and smiling mother collaborating with a pastel pink smart drawing machine on a sunlit wooden craft table, tracing lines with washable pens beside illustrated word flashcards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgSoyDMhkUpIS3bFZZWFyz5m9QcC7QYTnNcI184BzgckUZctEFnqyDbwK0nn5u97TX_xrjDbBhoJg0d_CbmNQWmhW10cQrsjYTLEzOonX2RZgLFIiSsvXIHNK8hev9D3Bu3wQYQlbRTvOJ1nOW66FtmaGydIVx0qPtlY-u0u93TJe2QP_5olPfUjI1w9W-SLMYwsul5-DkmhVGwvsbQqRnFmq7xrapCpczxa-icY-U_JC5SnowUlh_dw"/>
+<div className="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<div className="absolute bottom-3 left-3 text-on-primary">
+<span className="font-label-md text-label-md font-bold block">Guided Drawing &amp; Phonics</span>
+</div>
+</div>
+<div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface">Preschool &amp; Pre-K</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Guided drawing mentors, early phonics mastery, spatial logic, and snap track engineering.</p>
+</div>
+<div className="space-y-1.5 pt-2 border-t border-surface-container">
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">ToddsIQ Bot Full Pack</span><span className="font-bold text-primary">$89</span>
+</div>
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">TurboMonster Track</span><span className="font-bold text-primary">$39</span>
+</div>
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">Count Crew Number Blocks</span><span className="font-bold text-primary">$49</span>
+</div>
+</div>
+</div>
+<Link className="mt-space-lg w-full py-2.5 bg-primary-container text-on-primary text-center font-label-md text-label-md rounded-xl border border-on-surface shadow-[2px_2px_0px_#1c1c18] hover:bg-primary transition-colors flex items-center justify-center gap-1" to="/collections/preschool">
+<span className="">Browse Ages 3–5</span>
+<span className="material-symbols-outlined text-sm">arrow_forward</span>
+</Link>
+</div>
 
-      {/* BENEFITS */}
-      <section className="benefits-section">
-        <div className="container">
-          <div className="text-center mb-12">
-            <span className="section-eyebrow">Why ToddsIQ™</span>
-            <h2 className="section-title">Play That <span className="coral">Actually Matters</span></h2>
-          </div>
-          <div className="benefits-grid">
-            {BENEFITS.map(b => (
-              <div key={b.title} className="benefit-card">
-                <div className="benefit-icon-box" style={{ background: b.bg, color: b.color }}>
-                  <b.Icon />
-                </div>
-                <h3 className="benefit-title">{b.title}</h3>
-                <p className="benefit-desc">{b.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+<div className="group bg-surface-container-lowest rounded-3xl p-space-lg border-2 border-on-surface shadow-[5px_5px_0px_#1c1c18] hover:-translate-y-1 hover:shadow-[7px_7px_0px_#1c1c18] transition-all flex flex-col justify-between">
+<div className="space-y-space-md">
+<div className="flex justify-between items-center">
+<span className="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold border border-on-surface">
+                Ages 5+
+              </span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">11 Curated Kits</span>
+</div>
+<div className="h-44 rounded-2xl bg-surface-container-low overflow-hidden relative border border-outline-variant">
+<img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="An older child building an intricate three-dimensional kinetic magnetic track system with climbing cars and suspension loops across a hardwood room floor in warm natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWDLjOZUb6gQTYJmMKEFbQmMYVa2fjTz5qF7LEC_h4kuwdOzozt-eoe2Q6qx5NFNvc6_eQZN5cpa44kMOGVP4CRlAJztommG6sA5FzAC4EzcCyCWvXW4-uzhlOxAiVZC8oUsBjfb80iln4WqF-aR9Dh2XAj3QrbA60i5En8VI-88QW2PARaPyq5mJhNWjca1KPmVXVHPW4YOc7HBq1Rf8afKgcJ8V756tshNvl5dGez4ooS9wMZlGhoA"/>
+<div className="absolute inset-0 bg-gradient-to-t from-on-surface/40 to-transparent"></div>
+<div className="absolute bottom-3 left-3 text-on-primary">
+<span className="font-label-md text-label-md font-bold block">Complex STEM Physics</span>
+</div>
+</div>
+<div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface">Big Kids &amp; Explorers</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Multi-level track physics, handheld optical microscopes, and advanced mechanical building sets.</p>
+</div>
+<div className="space-y-1.5 pt-2 border-t border-surface-container">
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">MagTrack 3D Master Set</span><span className="font-bold text-primary">$69</span>
+</div>
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">SpiderRacer Duo Set</span><span className="font-bold text-primary">$39</span>
+</div>
+<div className="flex justify-between font-body-sm text-body-sm text-on-surface">
+<span className="">Spell &amp; Play Master Lab</span><span className="font-bold text-primary">$49</span>
+</div>
+</div>
+</div>
+<Link className="mt-space-lg w-full py-2.5 bg-surface-container hover:bg-surface-container-high text-on-surface text-center font-label-md text-label-md rounded-xl border border-on-surface transition-colors flex items-center justify-center gap-1" to="/collections/big-kids">
+<span className="">Browse Ages 5+</span>
+<span className="material-symbols-outlined text-sm">arrow_forward</span>
+</Link>
+</div>
+</div>
+</div>
+</section>
 
-      {/* BEST SELLERS */}
-      <section className="products-section" style={{ background: 'var(--bg-subtle)', paddingTop: '4rem', paddingBottom: '4rem' }}>
-        <div className="container">
-          <div className="products-header">
-            <div>
-              <span className="section-eyebrow">Parent favourites</span>
-              <h2 className="section-title">Best <span className="teal">Sellers</span></h2>
-            </div>
-            <Link to="/collections/best-sellers" className="btn btn-outline">See All &rarr;</Link>
-          </div>
-          <div className="product-grid">
-            {bestsellers.map(p => <ProductCard key={p.id} product={p} />)}
-          </div>
-        </div>
-      </section>
+<section className="w-full px-gutter py-space-2xl bg-surface-container-low border-y-2 border-on-surface">
+<div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
+<div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<span className="font-label-sm text-label-sm uppercase tracking-wider text-tertiary font-bold">Tested in 28,000+ Homes</span>
+<h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">Award-Winning Bestsellers</h2>
+</div>
 
-      {/* TESTIMONIALS */}
-      <section className="testimonials-section">
-        <div className="t-bg-orb t-bg-orb-1" />
-        <div className="t-bg-orb t-bg-orb-2" />
-        <div className="container">
-          <h2 className="testimonials-title">10,000+ families can&apos;t be wrong</h2>
-          <div className="testimonials-grid">
-            {TESTIMONIALS.map(t => (
-              <div key={t.name} className="t-card">
-                <div className="t-stars">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="t-text">&ldquo;{t.text}&rdquo;</p>
-                <div className="t-author">
-                  <strong>{t.name}</strong>
-                  <span>{t.role}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+<div className="flex items-center gap-2 flex-wrap">
+<button className="px-4 py-1.5 rounded-full bg-surface-container-lowest font-label-sm text-label-sm text-on-surface border-2 border-on-surface shadow-[2px_2px_0px_#1c1c18] font-bold">All Ages</button>
+<button className="px-4 py-1.5 rounded-full bg-surface hover:bg-surface-container font-label-sm text-label-sm text-on-surface-variant border border-outline transition-colors">Ages 1–3</button>
+<button className="px-4 py-1.5 rounded-full bg-surface hover:bg-surface-container font-label-sm text-label-sm text-on-surface-variant border border-outline transition-colors">Ages 3–5</button>
+<button className="px-4 py-1.5 rounded-full bg-surface hover:bg-surface-container font-label-sm text-label-sm text-on-surface-variant border border-outline transition-colors">Ages 5+</button>
+</div>
+</div>
 
-      {/* GIFT BANNER */}
-      <section className="gift-section">
-        <div className="container">
-          <div className="gift-inner">
-            <div>
-              <span className="gift-eyebrow">The perfect present</span>
-              <h2 className="gift-title">Not sure what to buy?<br />We&apos;ve got you covered.</h2>
-              <p className="gift-sub">Take our 60-second quiz and we'll match your child with their perfect toy — guaranteed to delight.</p>
-              <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem', flexWrap: 'wrap' }}>
-                <a href="#" className="btn btn-light btn-lg">Take the Gift Quiz &rarr;</a>
-                <a href="#" className="btn" style={{ background: 'rgba(255,255,255,.15)', color: 'white', border: '2px solid rgba(255,255,255,.3)' }}>Browse Gift Sets</a>
-              </div>
-            </div>
-            <div style={{ flexShrink: 0, zIndex: 1 }}>
-              <IconGift />
-            </div>
-          </div>
-        </div>
-      </section>
+<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg pt-space-sm">
 
-      {/* NEWSLETTER */}
-      <section className="newsletter-section">
-        <div className="container">
-          <div className="newsletter-box">
-            <span className="section-eyebrow">Join the ToddsIQ family</span>
-            <h2 className="section-title">Get <span className="coral">10% Off</span> Your First Order</h2>
-            <p style={{ marginTop: '.75rem', color: 'var(--text-secondary)', fontSize: '.9375rem' }}>
-              Plus early access to new arrivals, expert parenting tips, and exclusive member discounts.
+<div className="bg-surface-container-lowest rounded-2xl p-space-md border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-sm">
+<div className="relative rounded-xl overflow-hidden bg-surface-container aspect-square">
+<img className="w-full h-full object-cover" data-alt="The ToddsIQ drawing bot set with colored flashcards, erasable markers, and custom drawing pad on white surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5bBGQnmznI09dVVNxCHR-T-SP1UyydkcJje-pM3BPYwrE8myXg7CJMzagc80CBx12knNnzb7C1AXVLqcGK7w3DLqaMsKokeMF2PW1HIDgz_Tc8leLqOjG3idv7MhBHKJsfCOzYXjEF9S8mPJRo_UyLPtFIIB-tsGdI_OEevaZQ98BGjzBzVn1COfRyZ4Bbo-nH_ejVt0xkKf1LeesYM2mUj-r0IsyyLHWdLYaBqpyXYGzBRJ3yd4Pvw"/>
+<span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-primary-container text-on-primary font-label-sm text-label-sm font-bold border border-on-surface shadow-sm">SAVE 31%</span>
+<span className="absolute top-2.5 right-2.5 px-2 py-1 rounded-md bg-surface-container-lowest/90 font-label-sm text-label-sm text-on-surface border border-outline-variant">Ages 3–8</span>
+</div>
+<div>
+<div className="flex items-center gap-1 text-tertiary-container pt-1">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="font-label-sm text-label-sm text-on-surface font-bold">4.9</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">(480 reviews)</span>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface mt-0.5">ToddsIQ™ Bot – Full Pack</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Includes 150 hardbound step-by-step drawing cards + dual non-toxic markers.</p>
+</div>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<div>
+<span className="font-headline-sm text-headline-sm text-primary font-bold">$89.00</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant line-through ml-1.5">$129.00</span>
+</div>
+<button className="px-3.5 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-xl font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1" onClick={() => {}}>
+<span className="material-symbols-outlined text-sm">add_shopping_cart</span>
+<span className="">Quick Add</span>
+</button>
+</div>
+</div>
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-md border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-sm">
+<div className="relative rounded-xl overflow-hidden bg-surface-container aspect-square">
+<img className="w-full h-full object-cover" data-alt="Vibrant colorful 3D flexible magnetic track pieces arranged into an elevated spiral roller coaster bridge with motorized light-up car." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3yk-07Bz9ercQaEOtvPsFwJEPHMQJsCrR5uhYWBl-jLR_IUj8G1PMtTzg5TJgSLgjRKvNmFtOJb5HKMvqktPDQxJzU5eN0S8KEWHtFz9X0Vtg-HlTYP04ioL8bJg4Qt02Rq30ljLaM061A8G_8oD7yuAeF579VHJSM0b0DRkjb2CjiMVGh5X745onqEWMhuSWtYiteb0pm0apk2SLZkH-SAm8QRrQmUEZOzn41GbjoiFIVQkuFHjwyA"/>
+<span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-tertiary-container text-on-tertiary font-label-sm text-label-sm font-bold border border-on-surface shadow-sm">SAVE 50%</span>
+<span className="absolute top-2.5 right-2.5 px-2 py-1 rounded-md bg-surface-container-lowest/90 font-label-sm text-label-sm text-on-surface border border-outline-variant">Ages 4–12</span>
+</div>
+<div>
+<div className="flex items-center gap-1 text-tertiary-container pt-1">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="font-label-sm text-label-sm text-on-surface font-bold">4.9</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">(342 reviews)</span>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface mt-0.5">MagTrack™ 3D Train Set</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Anti-gravity flexible serpentine track pieces with vertical wall climbing ability.</p>
+</div>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<div>
+<span className="font-body-sm text-body-sm text-on-surface-variant">From</span>
+<span className="font-headline-sm text-headline-sm text-primary font-bold ml-1">$69.00</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant line-through ml-1">$139.00</span>
+</div>
+<a className="px-3.5 py-2 bg-surface-container-highest hover:bg-surface-container text-on-surface rounded-xl font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1" data-path="building-construction" href="#">
+<span className="">Choose Tier</span>
+<span className="material-symbols-outlined text-sm">tune</span>
+</a>
+</div>
+</div>
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-md border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-sm">
+<div className="relative rounded-xl overflow-hidden bg-surface-container aspect-square">
+<img className="w-full h-full object-cover" data-alt="Handcrafted organic beechwood stacking arches and nesting sensory cylinders smoothly sanded with botanical pastel dye finishes on natural linen." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASB91V6QbG7-uoX-BJmCHljD16ggZzhyCHSmKDibNz_0EQ9rQ8EV6Va8NDySCcbqP7Th2N-HM3kjq8R_bEATsXoLYdqYfZBk0CM_pCklJRp5cds7X61_z2oEjB63DGniHVwfN76hlbr4AShZUkkuwttqbcZCWNQZgP_p1bzyfeLMhCi6bXlzIo6BYIosWTjy6uDy8u7Ylcav68t69uL6xXWnHezL3_VpXJlwbsqNO8BbAeF4Z64QWrAw"/>
+<span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-primary-fixed-dim text-on-primary-fixed font-label-sm text-label-sm font-bold border border-on-surface shadow-sm">SAVE 28%</span>
+<span className="absolute top-2.5 right-2.5 px-2 py-1 rounded-md bg-surface-container-lowest/90 font-label-sm text-label-sm text-on-surface border border-outline-variant">Ages 1–3</span>
+</div>
+<div>
+<div className="flex items-center gap-1 text-tertiary-container pt-1">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="font-label-sm text-label-sm text-on-surface font-bold">4.8</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">(180 reviews)</span>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface mt-0.5">NestWood™ Full Pack</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Handmade FSC-certified wooden tactile puzzles designed for early spatial grasping.</p>
+</div>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<div>
+<span className="font-headline-sm text-headline-sm text-primary font-bold">$49.00</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant line-through ml-1.5">$69.00</span>
+</div>
+<button className="px-3.5 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-xl font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1" onClick={() => {}}>
+<span className="material-symbols-outlined text-sm">add_shopping_cart</span>
+<span className="">Quick Add</span>
+</button>
+</div>
+</div>
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-md border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-sm">
+<div className="relative rounded-xl overflow-hidden bg-surface-container aspect-square">
+<img className="w-full h-full object-cover" data-alt="A handheld portable optical pocket microscope for kids illuminating a leaf vein with LED light on a nature exploration table." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwBg6WzCSSkv5FKZVdqtounSWoWyOQ6PGnN4hd_9p5JIqHfpoAIHKXLKRMtkAmLAOcj1hH0gfjBeVG8l0-_hL4zIqcvEgfKHlbejGWzOmiVOqMVC9dWYxzFT_LIWaonfXJtyHO69ZoyCyfIOcZdv2jhSv3DDC7KgFne7Rl883QUbYSV6H8fWljA-tUA7Ipwpa1k41QcASKuluwFxspFlsnLuFPYwI6QwekgbVuIijgHjoCgzPMxn_KaA"/>
+<span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-primary-container text-on-primary font-label-sm text-label-sm font-bold border border-on-surface shadow-sm">SAVE 30%</span>
+<span className="absolute top-2.5 right-2.5 px-2 py-1 rounded-md bg-surface-container-lowest/90 font-label-sm text-label-sm text-on-surface border border-outline-variant">Ages 5+</span>
+</div>
+<div>
+<div className="flex items-center gap-1 text-tertiary-container pt-1">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="font-label-sm text-label-sm text-on-surface font-bold">4.9</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">(94 reviews)</span>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface mt-0.5">Thoson MicroScope Explorer™</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">60x-120x high-definition pocket optical lens with prepared specimen slides.</p>
+</div>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<div>
+<span className="font-headline-sm text-headline-sm text-primary font-bold">$69.00</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant line-through ml-1.5">$99.00</span>
+</div>
+<button className="px-3.5 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-xl font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1" onClick={() => {}}>
+<span className="material-symbols-outlined text-sm">add_shopping_cart</span>
+<span className="">Quick Add</span>
+</button>
+</div>
+</div>
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-md border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-sm">
+<div className="relative rounded-xl overflow-hidden bg-surface-container aspect-square">
+<img className="w-full h-full object-cover" data-alt="Reusable mess-free water coloring book showing vibrant colors appearing on canvas as a water pen touches the white textured paper sheet." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6OPg8rme5cSHYXvUk2YrM6tWikEXBcHXaEFzO7fT6NIhswdQPH3n2WvEkcTGKylua5E71AvVqA2M-fbcRGZy8pxfmjhDdkjQCzy4ekgNGcX_JCp6PtqpOppBrUbICxOM5duG8Hz22IrWYS_aZ3OzWpDYffVn6jaAWEeC6HlBfZP4nfYUbJAhEKKDtS-9-TRdo0TJuye0UD7Q4rLc8W1vaI1J42d1pZbPCBGuGFXrdD9Z3GTJYXuHZjg"/>
+<span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-tertiary-container text-on-tertiary font-label-sm text-label-sm font-bold border border-on-surface shadow-sm">SAVE 63%</span>
+<span className="absolute top-2.5 right-2.5 px-2 py-1 rounded-md bg-surface-container-lowest/90 font-label-sm text-label-sm text-on-surface border border-outline-variant">Ages 1–4</span>
+</div>
+<div>
+<div className="flex items-center gap-1 text-tertiary-container pt-1">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="font-label-sm text-label-sm text-on-surface font-bold">4.7</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">(112 reviews)</span>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface mt-0.5">Thoson AquaDoodle Book™</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Pure clean water reveals vivid colors that vanish as pages dry. 100% mess-free.</p>
+</div>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<div>
+<span className="font-headline-sm text-headline-sm text-primary font-bold">$25.00</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant line-through ml-1.5">$69.00</span>
+</div>
+<button className="px-3.5 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-xl font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1" onClick={() => {}}>
+<span className="material-symbols-outlined text-sm">add_shopping_cart</span>
+<span className="">Quick Add</span>
+</button>
+</div>
+</div>
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-md border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-sm">
+<div className="relative rounded-xl overflow-hidden bg-surface-container aspect-square">
+<img className="w-full h-full object-cover" data-alt="Magnetic translucent engineering cubes constructing a geometric tower with glowing shadows on a blonde birch playroom floor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZrgs5QFnjYjvrJe2X320dWSQ2Ok4yxdr6hGjdafyphiFiY1DiEFSkZ_Gs_sUNREQDbbN64aPurlzDPMUTUne9fz472HSexLYZJQotkhpONhZ5CzGSTlv5xo2ClcJk5tVV1YqoH5hwdZmE-iHMUpSbIfKs9tCuLqRdv_I_rhAvS8I0VOuEXSsoMo9F_QrYPIFXl_-xqdumrbsKfEKA5Z1XeClI-DCLfv8PRni2li8DD58ChI0qS4W_yg"/>
+<span className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-md bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold border border-on-surface shadow-sm">SAVE 36%</span>
+<span className="absolute top-2.5 right-2.5 px-2 py-1 rounded-md bg-surface-container-lowest/90 font-label-sm text-label-sm text-on-surface border border-outline-variant">Ages 3–10</span>
+</div>
+<div>
+<div className="flex items-center gap-1 text-tertiary-container pt-1">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="font-label-sm text-label-sm text-on-surface font-bold">4.9</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant">(215 reviews)</span>
+</div>
+<h3 className="font-headline-sm text-headline-sm text-on-surface mt-0.5">Thoson BuildBox™ Magnetic</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Reinforced neodymium magnet blocks that snap into bridge and vehicle structures.</p>
+</div>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center justify-between">
+<div>
+<span className="font-headline-sm text-headline-sm text-primary font-bold">$69.00</span>
+<span className="font-body-sm text-body-sm text-on-surface-variant line-through ml-1.5">$109.00</span>
+</div>
+<button className="px-3.5 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-xl font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1" onClick={() => {}}>
+<span className="material-symbols-outlined text-sm">add_shopping_cart</span>
+<span className="">Quick Add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section className="w-full px-gutter py-space-2xl bg-surface">
+<div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div className="text-center max-w-3xl mx-auto space-y-space-xs">
+<span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">The Screen-Free Difference</span>
+<h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Why Tactile Play Shapes Developing Minds</h2>
+<p className="font-body-lg text-body-lg text-on-surface-variant">
+          Tablets offer passive visual simulation. ToddsIQ builds three-dimensional neural wiring through resistance, weight, and tangible agency.
+        </p>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
+
+<div className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-on-surface shadow-[3px_3px_0px_#1c1c18] flex flex-col gap-space-md">
+<div className="w-12 h-12 rounded-xl bg-primary-fixed flex items-center justify-center border border-on-surface shadow-sm text-on-primary-fixed">
+<span className="material-symbols-outlined text-2xl">texture</span>
+</div>
+<div>
+<h3 className="font-title-md text-title-md text-on-surface">Mess-Free Friction</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Real paper resistance, tactile ink friction, and snap-fit physical components ground sensory attention without tablet glaze.
             </p>
-            <form className="newsletter-form" onSubmit={e => e.preventDefault()}>
-              <input className="newsletter-input" type="email" placeholder="Enter your email address" />
-              <button type="submit" className="btn btn-primary">Subscribe &rarr;</button>
-            </form>
-            <p style={{ fontSize: '.8rem', color: 'var(--text-muted)', marginTop: '1rem' }}>No spam, ever. Unsubscribe anytime.</p>
-          </div>
-        </div>
-      </section>
+</div>
+</div>
 
-      <SiteFooter />
+<div className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-on-surface shadow-[3px_3px_0px_#1c1c18] flex flex-col gap-space-md">
+<div className="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center border border-on-surface shadow-sm text-on-tertiary-fixed">
+<span className="material-symbols-outlined text-2xl">hardware</span>
+</div>
+<div>
+<h3 className="font-title-md text-title-md text-on-surface">Fine-Motor Precision</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Replaces the "blank page freeze" with rhythmic, guided stroke-by-stroke confidence that transitions straight to classroom handwriting.
+            </p>
+</div>
+</div>
+
+<div className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-on-surface shadow-[3px_3px_0px_#1c1c18] flex flex-col gap-space-md">
+<div className="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center border border-on-surface shadow-sm text-on-secondary-fixed">
+<span className="material-symbols-outlined text-2xl">bedtime</span>
+</div>
+<div>
+<h3 className="font-title-md text-title-md text-on-surface">Zero Blue Light</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Preserves melatonin production and ends post-screen dysregulation. Calms household evenings before bedtime stories.
+            </p>
+</div>
+</div>
+
+<div className="p-space-lg rounded-2xl bg-surface-container-lowest border-2 border-on-surface shadow-[3px_3px_0px_#1c1c18] flex flex-col gap-space-md">
+<div className="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center border border-on-surface shadow-sm text-on-primary">
+<span className="material-symbols-outlined text-2xl">accessibility_new</span>
+</div>
+<div>
+<h3 className="font-title-md text-title-md text-on-surface">Self-Directed Agency</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-2">
+              Engineered for independent 3-year-olds to operate from start to finish without hovering parents needing to configure passwords or apps.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section className="w-full px-gutter py-space-2xl bg-surface-container-low border-t-2 border-on-surface">
+<div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Curated Pathways</span>
+<h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">Shop by Creative Interest</h2>
+</div>
+<a className="font-label-md text-label-md text-on-surface hover:text-primary transition-colors flex items-center gap-1" data-path="shop-catalog" href="#">
+<span className="">View All 7 Categories</span>
+<span className="material-symbols-outlined text-base">east</span>
+</a>
+</div>
+
+<div className="grid grid-cols-1 md:grid-cols-12 gap-space-md">
+
+<a className="md:col-span-7 group relative bg-secondary-fixed/50 hover:bg-secondary-fixed rounded-3xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="stem-science" href="#">
+<div className="space-y-1 relative z-10">
+<span className="px-2.5 py-1 bg-surface-container-lowest rounded-full font-label-sm text-label-sm text-on-surface border border-outline-variant font-bold inline-block">🔬 STEM Core</span>
+<h3 className="font-headline-md text-headline-md text-on-surface pt-2">STEM &amp; Science</h3>
+<p className="font-body-md text-body-md text-on-surface-variant max-w-sm">Mechanical track circuits, gravity roller coaster kits, pocket microscopes &amp; engineering gear.</p>
+</div>
+<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
+<span className="">Explore STEM Kits</span>
+<span className="material-symbols-outlined text-base">arrow_forward</span>
+</div>
+<span className="material-symbols-outlined absolute -right-6 -bottom-6 text-9xl text-on-surface/10 select-none pointer-events-none group-hover:scale-110 transition-transform">biotech</span>
+</a>
+
+<a className="md:col-span-5 group relative bg-tertiary-fixed/40 hover:bg-tertiary-fixed/60 rounded-3xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="building-construction" href="#">
+<div className="space-y-1 relative z-10">
+<span className="px-2.5 py-1 bg-surface-container-lowest rounded-full font-label-sm text-label-sm text-on-surface border border-outline-variant font-bold inline-block">🧱 Engineering</span>
+<h3 className="font-headline-md text-headline-md text-on-surface pt-2">Building &amp; Construction</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Snap-fit magnetic geometry, structural trusses &amp; dynamic architecture.</p>
+</div>
+<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
+<span className="">Build Now</span>
+<span className="material-symbols-outlined text-base">arrow_forward</span>
+</div>
+<span className="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-on-surface/10 select-none pointer-events-none group-hover:scale-110 transition-transform">apartment</span>
+</a>
+
+<a className="md:col-span-4 group relative bg-surface-container-lowest hover:bg-surface-container rounded-3xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="reading-language" href="#">
+<div className="relative z-10">
+<span className="px-2.5 py-1 bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface border border-outline-variant font-bold inline-block">📖 Phonics</span>
+<h3 className="font-title-md text-title-md text-on-surface pt-2">Reading &amp; Language</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Tactile phonics cards, vocabulary ladders &amp; spelling blocks.</p>
+</div>
+<div className="relative z-10 pt-4 flex items-center gap-1 font-label-sm text-label-sm text-primary font-bold">
+<span className="">Discover Reading</span>
+<span className="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+
+<a className="md:col-span-4 group relative bg-surface-container-lowest hover:bg-surface-container rounded-3xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="math-logic" href="#">
+<div className="relative z-10">
+<span className="px-2.5 py-1 bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface border border-outline-variant font-bold inline-block">🔢 Spatial Logic</span>
+<h3 className="font-title-md text-title-md text-on-surface pt-2">Math &amp; Logic</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Wooden fraction tiles, tactile counting abaci &amp; pattern sequences.</p>
+</div>
+<div className="relative z-10 pt-4 flex items-center gap-1 font-label-sm text-label-sm text-primary font-bold">
+<span className="">Explore Logic</span>
+<span className="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+
+<a className="md:col-span-4 group relative bg-surface-container-lowest hover:bg-surface-container rounded-3xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="sensory-calm" href="#">
+<div className="relative z-10">
+<span className="px-2.5 py-1 bg-surface-container rounded-full font-label-sm text-label-sm text-on-surface border border-outline-variant font-bold inline-block">🫧 Calm Focus</span>
+<h3 className="font-title-md text-title-md text-on-surface pt-2">Sensory &amp; Calm</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant mt-1">Weighted fidget stone arrays, silent kinetic textures &amp; soft chime pads.</p>
+</div>
+<div className="relative z-10 pt-4 flex items-center gap-1 font-label-sm text-label-sm text-primary font-bold">
+<span className="">Calming Play</span>
+<span className="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</a>
+
+<a className="md:col-span-7 group relative bg-primary-fixed/40 hover:bg-primary-fixed/60 rounded-3xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="arts-crafts" href="#">
+<div className="space-y-1 relative z-10">
+<span className="px-2.5 py-1 bg-surface-container-lowest rounded-full font-label-sm text-label-sm text-on-surface border border-outline-variant font-bold inline-block">🎨 Physical Creation</span>
+<h3 className="font-headline-md text-headline-md text-on-surface pt-2">Arts &amp; Guided Drawing</h3>
+<p className="font-body-md text-body-md text-on-surface-variant max-w-md">Our signature drawing robot, water-reveal pads, stroke tracing sets, and ergonomic triangular sketch pencils.</p>
+</div>
+<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
+<span className="">Explore Creative Arts</span>
+<span className="material-symbols-outlined text-base">arrow_forward</span>
+</div>
+<span className="material-symbols-outlined absolute -right-6 -bottom-6 text-9xl text-on-surface/10 select-none pointer-events-none group-hover:scale-110 transition-transform">palette</span>
+</a>
+
+<a className="md:col-span-5 group relative bg-tertiary-fixed-dim/30 hover:bg-tertiary-fixed-dim/50 rounded-3xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="active-outdoor" href="#">
+<div className="space-y-1 relative z-10">
+<span className="px-2.5 py-1 bg-surface-container-lowest rounded-full font-label-sm text-label-sm text-on-surface border border-outline-variant font-bold inline-block">🏃 Kinetic Motion</span>
+<h3 className="font-headline-md text-headline-md text-on-surface pt-2">Active &amp; Kinetic</h3>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Acrobatic SpiderRacers, air rocket kinetic pumps &amp; backyard balance stepping stones.</p>
+</div>
+<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">
+<span className="">Active Motion</span>
+<span className="material-symbols-outlined text-base">arrow_forward</span>
+</div>
+<span className="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-on-surface/10 select-none pointer-events-none group-hover:scale-110 transition-transform">toys</span>
+</a>
+</div>
+</div>
+</section>
+
+<section className="w-full px-gutter py-space-2xl bg-surface" id="toy-quiz">
+<div className="max-w-4xl mx-auto rounded-3xl bg-surface-container-lowest border-2 border-on-surface shadow-[8px_8px_0px_#1c1c18] p-space-lg lg:p-space-2xl relative overflow-hidden">
+<div className="space-y-space-xs text-center max-w-2xl mx-auto">
+<span className="px-3.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold border border-on-surface inline-block">
+          Interactive Matchmaker
+        </span>
+<h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Find Your Child's Exact Match in 45 Seconds</h2>
+<p className="font-body-md text-body-md text-on-surface-variant">
+          Overwhelmed by 30+ educational options? Answer 2 quick questions to uncover the exact developmental match for your child's stage.
+        </p>
+</div>
+
+<div className="mt-space-xl space-y-space-lg" id="toy-quiz-container">
+
+<div className="space-y-space-sm">
+<label className="font-label-md text-label-md text-on-surface block font-bold">1. How old is your child?</label>
+<div className="grid grid-cols-2 sm:grid-cols-4 gap-space-sm" id="quiz-age-group">
+<button className="quiz-age-btn px-4 py-3 rounded-xl bg-surface-container border-2 border-on-surface font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-all text-center" onClick={() => {}} type="button">
+              1–2 Years
+            </button>
+<button className="quiz-age-btn active-quiz-chip px-4 py-3 rounded-xl bg-primary-fixed text-on-primary-fixed border-2 border-on-surface font-label-md text-label-md shadow-[3px_3px_0px_#1c1c18] transition-all text-center" onClick={() => {}} type="button">
+              3–4 Years
+            </button>
+<button className="quiz-age-btn px-4 py-3 rounded-xl bg-surface-container border-2 border-on-surface font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-all text-center" onClick={() => {}} type="button">
+              5–7 Years
+            </button>
+<button className="quiz-age-btn px-4 py-3 rounded-xl bg-surface-container border-2 border-on-surface font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-all text-center" onClick={() => {}} type="button">
+              8+ Years
+            </button>
+</div>
+</div>
+
+<div className="space-y-space-sm">
+<label className="font-label-md text-label-md text-on-surface block font-bold">2. What would you like to encourage most?</label>
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm" id="quiz-goal-group">
+<button className="quiz-goal-btn px-4 py-3 rounded-xl bg-surface-container border-2 border-on-surface font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-all text-left flex items-center gap-3" onClick={() => {}} type="button">
+<span className="material-symbols-outlined text-primary">draw</span>
+<span className="">Creative Drawing &amp; Fine Motor Control</span>
+</button>
+<button className="quiz-goal-btn px-4 py-3 rounded-xl bg-surface-container border-2 border-on-surface font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-all text-left flex items-center gap-3" onClick={() => {}} type="button">
+<span className="material-symbols-outlined text-tertiary">precision_manufacturing</span>
+<span className="">Spatial STEM &amp; Building Physics</span>
+</button>
+<button className="quiz-goal-btn active-quiz-chip px-4 py-3 rounded-xl bg-secondary-fixed text-on-secondary-fixed border-2 border-on-surface font-label-md text-label-md shadow-[3px_3px_0px_#1c1c18] transition-all text-left flex items-center gap-3" onClick={() => {}} type="button">
+<span className="material-symbols-outlined text-primary">self_improvement</span>
+<span className="">Deep Calm Focus (Zero Screen Meltdowns)</span>
+</button>
+<button className="quiz-goal-btn px-4 py-3 rounded-xl bg-surface-container border-2 border-on-surface font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-all text-left flex items-center gap-3" onClick={() => {}} type="button">
+<span className="material-symbols-outlined text-secondary">spellcheck</span>
+<span className="">Early Phonics, Words &amp; Math Numbers</span>
+</button>
+</div>
+</div>
+
+<div className="pt-space-sm flex flex-col items-center gap-space-xs">
+<button className="w-full sm:w-auto px-space-2xl py-3.5 bg-primary-container text-on-primary rounded-xl font-label-lg text-label-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2" onClick={() => {}} type="button">
+<span className="">Show My 3 Personalized Matches</span>
+<span className="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+<span className="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 pt-1">
+<span className="material-symbols-outlined text-sm text-primary">lock</span> Instant recommendations • No email required to view
+          </span>
+</div>
+
+<div className="hidden mt-space-md p-space-md rounded-2xl bg-secondary-container border-2 border-on-surface animate-fade-in" id="quiz-result-box">
+<div className="flex items-center justify-between">
+<div className="flex items-center gap-3">
+<span className="material-symbols-outlined text-3xl text-on-secondary-container">arrow_back_ios_new</span>
+<div>
+<p className="font-label-md text-label-md text-on-secondary-container font-bold">Top Match: ToddsIQ™ Bot + 150 Card Core Set</p>
+<p className="font-body-sm text-body-sm text-on-secondary-container">Perfect for 3–4 yrs: builds 25+ min calm independent focus without screens.</p>
+</div>
+</div>
+<a className="px-3 py-1.5 bg-surface-container-lowest text-on-surface rounded-lg font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18]" data-path="shop-catalog" href="#">View Bundle ($89)</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section className="w-full px-gutter py-space-2xl bg-surface-container-low border-y-2 border-on-surface">
+<div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
+<div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<div className="flex items-center gap-2 text-tertiary-container mb-1">
+<div className="flex">
+<span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-lg" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+</div>
+<span className="font-label-sm text-label-sm font-bold text-on-surface">4.92 / 5.0 Global Rating</span>
+</div>
+<h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight">Parent-Tested, Therapist-Approved</h2>
+</div>
+<a className="font-label-md text-label-md text-on-surface hover:text-primary transition-colors flex items-center gap-1" data-path="parent-reviews" href="#">
+<span className="">Read All 480+ Verified Stories</span>
+<span className="material-symbols-outlined text-base">arrow_forward</span>
+</a>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-md">
+<div className="flex items-center justify-between">
+<div className="flex text-tertiary-container">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+</div>
+<span className="px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm font-bold">Verified Buyer</span>
+</div>
+<p className="font-body-md text-body-md text-on-surface leading-relaxed">
+              “Saved our dinner times completely. My 4-year-old used to melt down asking for an iPad; now she feeds cards to her robot and proudly shows off sketchbooks filled with lions and boats.”
+            </p>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center gap-3">
+<div className="w-9 h-9 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold font-label-sm">ER</div>
+<div>
+<p className="font-label-md text-label-md text-on-surface">Elena R.</p>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Mom of 4yo &amp; 2yo • California</p>
+</div>
+</div>
+</div>
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-md">
+<div className="flex items-center justify-between">
+<div className="flex text-tertiary-container">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+</div>
+<span className="px-2 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold">Occupational Therapist</span>
+</div>
+<p className="font-body-md text-body-md text-on-surface leading-relaxed">
+              “As a pediatric O.T., the stroke-by-stroke pacing is unmatched. Children develop true pincer grasp and visual motor integration instead of passive glass tapping.”
+            </p>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center gap-3">
+<div className="w-9 h-9 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold font-label-sm">MT</div>
+<div>
+<p className="font-label-md text-label-md text-on-surface">Marcus T., MS, OTR/L</p>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Pediatric Clinical Specialist</p>
+</div>
+</div>
+</div>
+
+<div className="bg-surface-container-lowest rounded-2xl p-space-lg border-2 border-on-surface shadow-[4px_4px_0px_#1c1c18] flex flex-col justify-between">
+<div className="space-y-space-md">
+<div className="flex items-center justify-between">
+<div className="flex text-tertiary-container">
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+<span className="material-symbols-outlined text-sm" style={{ fontVariationSettings: '"FILL" 1' }}>star</span>
+</div>
+<span className="px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">Living Room Champion</span>
+</div>
+<p className="font-body-md text-body-md text-on-surface leading-relaxed">
+              “The MagTrack 3D system has been running through our living room chairs for three weeks straight. Worth every single penny for how engaged both our 6yo and 8yo remain.”
+            </p>
+</div>
+<div className="pt-space-md mt-space-md border-t border-surface-container flex items-center gap-3">
+<div className="w-9 h-9 rounded-full bg-tertiary-container text-on-tertiary flex items-center justify-center font-bold font-label-sm">SK</div>
+<div>
+<p className="font-label-md text-label-md text-on-surface">Sarah &amp; David K.</p>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Parents of 6yo &amp; 8yo • Illinois</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section className="w-full px-gutter py-space-2xl bg-surface">
+<div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
+<div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
+<div>
+<span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Keep Hands Creating</span>
+<h2 className="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-1">Essential Consumables &amp; Expansions</h2>
+</div>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Washable ink refills, extra track vehicles, and new card topic decks.</p>
+</div>
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+
+<div className="p-space-md rounded-2xl bg-surface-container-lowest border-2 border-on-surface shadow-[3px_3px_0px_#1c1c18] flex items-center justify-between">
+<div className="flex items-center gap-3">
+<div className="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center shrink-0 border border-outline-variant">
+<span className="material-symbols-outlined text-2xl text-primary">edit</span>
+</div>
+<div>
+<h4 className="font-label-md text-label-md text-on-surface">12-Color Marker Pack</h4>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Ultra-washable non-toxic ink</p>
+<span className="font-label-md text-label-md text-primary font-bold">$9.99</span>
+</div>
+</div>
+<button className="px-3 py-1.5 bg-surface hover:bg-surface-container text-on-surface rounded-lg font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" onClick={() => {}}>
+            + Add
+          </button>
+</div>
+
+<div className="p-space-md rounded-2xl bg-surface-container-lowest border-2 border-on-surface shadow-[3px_3px_0px_#1c1c18] flex items-center justify-between">
+<div className="flex items-center gap-3">
+<div className="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center shrink-0 border border-outline-variant">
+<span className="material-symbols-outlined text-2xl text-tertiary">toys</span>
+</div>
+<div>
+<h4 className="font-label-md text-label-md text-on-surface">MagTrack Turbo Racer Car</h4>
+<p className="font-body-sm text-body-sm text-on-surface-variant">High-torque USB climbing car</p>
+<span className="font-label-md text-label-md text-primary font-bold">$7.99</span>
+</div>
+</div>
+<button className="px-3 py-1.5 bg-surface hover:bg-surface-container text-on-surface rounded-lg font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" onClick={() => {}}>
+            + Add
+          </button>
+</div>
+
+<div className="p-space-md rounded-2xl bg-surface-container-lowest border-2 border-on-surface shadow-[3px_3px_0px_#1c1c18] flex items-center justify-between">
+<div className="flex items-center gap-3">
+<div className="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center shrink-0 border border-outline-variant">
+<span className="material-symbols-outlined text-2xl text-secondary">style</span>
+</div>
+<div>
+<h4 className="font-label-md text-label-md text-on-surface">150 Additional Cards</h4>
+<p className="font-body-sm text-body-sm text-on-surface-variant">Dinosaurs, vehicles &amp; space</p>
+<span className="font-label-md text-label-md text-primary font-bold">$19.00</span>
+</div>
+</div>
+<button className="px-3 py-1.5 bg-surface hover:bg-surface-container text-on-surface rounded-lg font-label-sm text-label-sm border border-on-surface shadow-[2px_2px_0px_#1c1c18] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" onClick={() => {}}>
+            + Add
+          </button>
+</div>
+</div>
+</div>
+</section>
+
+
+</div>
     </>
   );
 }

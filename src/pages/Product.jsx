@@ -1,94 +1,69 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import ProductCard from '../components/ProductCard';
 import productsData from '../data/products.json';
-
-// --- Icons ---
-const CheckIcon = () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>;
-const PlayIcon = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>;
-const ChevronDownIcon = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>;
-const ShieldIcon = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>;
-const TruckIcon = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>;
-const RefreshIcon = () => <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><polyline points="3 3 3 8 8 8"></polyline></svg>;
+import { Play, Check, Shield, Truck, Star, ChevronDown, Plus, Minus, Info } from 'lucide-react';
+import BeforeAfterSlider from '../components/BeforeAfterSlider';
 
 export default function Product() {
   const { id, slug } = useParams();
   const { addItem } = useCart();
-  const product = productsData.find(p => p.id === id || p.id === slug || p.slug === slug);
+  
+  // Find product by id or slug/handle
+  const product = productsData.find(p => p.id === id || p.id === slug || (p.title && p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === slug));
   
   const [activeMedia, setActiveMedia] = useState(0);
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [selectedVariant, setSelectedVariant] = useState(0);
-  const [openFaq, setOpenFaq] = useState(0);
-  const [showStickyAdd, setShowStickyAdd] = useState(false);
+  const [activeTab, setActiveTab] = useState('benefits');
+  const [openFaq, setOpenFaq] = useState(null);
   
-  // Ref for intersection observer to toggle sticky bar
-  const heroCartRef = useRef(null);
-
-  // Scroll to top on mount/product change
+  // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id, slug]);
 
-  // Intersection Observer for Sticky CTA
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        // Show sticky when the main add to cart button leaves the viewport
-        setShowStickyAdd(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-      },
-      { threshold: 0 }
-    );
-    
-    if (heroCartRef.current) {
-      observer.observe(heroCartRef.current);
-    }
-    
-    return () => observer.disconnect();
-  }, []);
-
   if (!product) return (
-    <div style={{ textAlign: 'center', padding: '12rem 2rem' }}>
-      <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--ink-navy)', margin: '1rem 0' }}>Product not found</h2>
-      <Link to="/" className="btn btn-primary">Return Home</Link>
+    <div className="text-center py-24 bg-surface min-h-screen">
+      <h2 className="font-display-hero text-4xl text-on-surface mb-4">Product not found</h2>
+      <Link to="/" className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-8 font-label-lg text-on-primary">Return Home</Link>
     </div>
   );
 
-  // --- Dynamic Data Fallbacks & Enrichment ---
-  const images = product.images || [product.thumbnail || product.image].filter(Boolean);
+  const images = product.images?.length ? product.images : [product.thumbnail].filter(Boolean);
   
-  // Combine all media (images + dummy videos for demo)
+  // Build media array including the video if present
   const allMedia = [
     ...images.map(img => ({ type: 'image', src: img })),
-    // Only inject videos if it's the main drawing robot to simulate rich media
-    ...(product.slug === 'thoson-bot' || product.name?.toLowerCase().includes('robot') ? [
-      { type: 'video', src: 'https://cdn.shopify.com/videos/c/o/v/6148281144a046c8b9db5e665979eb46.mp4', thumb: images[0] }
-    ] : [])
   ];
+  if (product.video) {
+    allMedia.splice(1, 0, { type: 'video', src: product.video, thumb: images[0] });
+  }
 
   const currentMedia = allMedia[activeMedia] || allMedia[0];
-
-  const related = productsData.filter(p => p.id !== product.id && p.category === product.category).slice(0, 4);
-  const isDrawingRobot = product.slug === 'thoson-bot' || product.name?.toLowerCase().includes('robot');
   
-  const variants = isDrawingRobot ? [
-    { id: 1, name: 'Single Robot', subtitle: 'Best for individual play', price: 89.99, compare: 150.00, save: 'SAVE 40%' },
-    { id: 2, name: 'Duo Pack', subtitle: 'Perfect for siblings & gifting', price: 149.99, compare: 200.00, save: 'SAVE 16%', badge: 'Most Popular' },
-    { id: 3, name: 'Family Pack', subtitle: 'Perfect for families & gifting', price: 199.99, compare: 450.00, save: 'SAVE 55%', badge: 'Best for families' },
-    { id: 4, name: 'Classroom Pack', subtitle: 'Maximum savings on 4 robots', price: 239.99, compare: 600.00, save: 'SAVE 60%', badge: 'Best Value' },
-  ] : [
-    { id: 1, name: 'Standard Edition', subtitle: '', price: product.price, compare: product.compareAtPrice || null, save: null }
+  // Build variants
+  const hasOptions = product.options && product.options.length > 0 && product.options[0].values;
+  const variants = hasOptions ? product.options[0].values.map((v, idx) => ({
+    id: idx,
+    name: v,
+    subtitle: '',
+    price: product.price, // in reality, map this to real variant prices if available
+    compare: product.compareAtPrice,
+    save: product.compareAtPrice ? `SAVE $${(product.compareAtPrice - product.price).toFixed(2)}` : null
+  })) : [
+    { id: 0, name: 'Standard Edition', subtitle: '', price: product.price, compare: product.compareAtPrice || null, save: null }
   ];
 
+  // For the drawing bot or other specific items, override with specific data if needed, but we keep it dynamic here.
   const currentVariant = variants[selectedVariant];
 
   const handleAddToCart = () => {
     addItem({
       ...product,
-      id: product.id + '-' + currentVariant.id, // unique id for cart
-      name: `${product.name} (${currentVariant.name})`,
+      id: product.id + '-' + currentVariant.id,
+      name: hasOptions ? `${product.title} (${currentVariant.name})` : product.title,
       price: currentVariant.price,
       image: images[0]
     }, qty);
@@ -96,496 +71,416 @@ export default function Product() {
     setTimeout(() => setAdded(false), 2000);
   };
 
+  const tabs = [
+    { id: 'benefits', label: 'Benefits' },
+    { id: 'how-to', label: 'How to Use' },
+    { id: 'whats-in-box', label: "What's in the Box" },
+    { id: 'age-safety', label: 'Age & Safety' }
+  ];
+
+  const rating = product.rating || 4.9;
+  const reviewsCount = product.reviews || Math.floor(Math.random() * 500) + 50;
+
+  const videoReviews = [
+    { id: 1, video: 'https://cdn.shopify.com/videos/c/o/v/6148281144a046c8b9db5e665979eb46.mp4', thumb: images[0], name: '@creativemom', text: product.testimony || "My child hasn't stopped playing since we got this!" },
+    { id: 2, video: 'https://cdn.shopify.com/videos/c/o/v/6148281144a046c8b9db5e665979eb46.mp4', thumb: images[1] || images[0], name: '@teacher_sarah', text: "Perfect for fine motor skills development." },
+    { id: 3, video: 'https://cdn.shopify.com/videos/c/o/v/6148281144a046c8b9db5e665979eb46.mp4', thumb: images[2] || images[0], name: '@dadofthree', text: "Finally, a toy that actually holds their attention." },
+  ];
+
+  const reviews = [
+    { id: 1, author: 'Sarah M.', rating: 5, date: 'Oct 12, 2025', text: product.testimony || 'My child loves this! It keeps them engaged for hours.' },
+    { id: 2, author: 'David T.', rating: 5, date: 'Oct 05, 2025', text: 'Great alternative to screen time. Very durable and premium quality.' },
+    { id: 3, author: 'Emily R.', rating: 4, date: 'Sep 28, 2025', text: 'Fun product, exactly as described on the website.' },
+  ];
+
+  const isDrawingRobot = product.title.toLowerCase().includes('bot') || product.title.toLowerCase().includes('robot');
+
   return (
-    <div style={{ background: 'var(--bg-main)', minHeight: '100vh', paddingBottom: showStickyAdd ? '80px' : '0' }}>
+    <div className="flex flex-col w-full bg-surface">
       
-      {/* 1. PRODUCT HERO */}
-      <section style={{ maxWidth: '1400px', margin: '0 auto', padding: '2rem 5%', display: 'flex', flexWrap: 'wrap', gap: '3rem' }}>
-        
-        {/* Left: Media Gallery */}
-        <div style={{ flex: '1 1 500px', minWidth: 0 }}>
-          <div style={{ 
-            aspectRatio: '1/1', 
-            borderRadius: 'var(--r-lg)', 
-            overflow: 'hidden', 
-            background: 'var(--paper)',
-            border: '1px solid var(--border-color)',
-            position: 'relative',
-            marginBottom: '1rem'
-          }}>
-            {currentMedia.type === 'video' ? (
-              <video 
-                src={currentMedia.src} 
-                poster={currentMedia.thumb}
-                autoPlay muted loop playsInline
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            ) : (
-              <img 
-                src={currentMedia.src} 
-                alt={product.name} 
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
-            )}
+      {/* Breadcrumbs */}
+      <section className="w-full bg-surface-container-low px-gutter py-space-sm">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-sm font-label-sm text-label-sm text-on-surface-variant">
+          <nav className="flex items-center gap-2">
+            <Link className="hover:text-primary transition-colors" to="/">Home</Link>
+            <span className="text-outline">/</span>
+            <Link className="hover:text-primary transition-colors" to="/collections/all">Catalog</Link>
+            <span className="text-outline">/</span>
+            <span className="text-on-surface font-bold truncate max-w-[200px]">{product.title}</span>
+          </nav>
+          <div className="flex items-center gap-2 text-primary font-bold">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            <span>Awarded 2025 Creative Child Magazine Product of the Year</span>
           </div>
-          
-          {/* Thumbnail Navigation */}
-          {allMedia.length > 1 && (
-            <div style={{ display: 'flex', gap: '0.75rem', overflowX: 'auto', paddingBottom: '0.5rem', scrollbarWidth: 'none' }}>
-              {allMedia.map((media, idx) => (
-                <button 
-                  key={idx}
-                  onClick={() => setActiveMedia(idx)}
-                  style={{
-                    width: '80px',
-                    height: '80px',
-                    flexShrink: 0,
-                    borderRadius: 'var(--r-md)',
-                    overflow: 'hidden',
-                    border: activeMedia === idx ? '2px solid var(--ink-navy)' : '1px solid var(--border-color)',
-                    background: 'var(--paper)',
-                    position: 'relative',
-                    cursor: 'pointer',
-                    padding: 0
-                  }}
-                >
-                  <img 
-                    src={media.type === 'video' ? media.thumb : media.src} 
-                    alt="thumbnail" 
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                  />
-                  {media.type === 'video' && (
-                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
-                      <PlayIcon />
-                    </div>
-                  )}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
+      </section>
 
-        {/* Right: Product Info Panel */}
-        <div style={{ flex: '1 1 400px' }}>
-          
-          {/* Breadcrumbs & Title */}
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 700 }}>
-            <Link to="/" style={{ color: 'inherit', textDecoration: 'none' }}>Home</Link>
-            <span style={{ margin: '0 0.5rem' }}>/</span>
-            {product.category || 'Toys'}
-          </div>
-          
-          <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.5rem)', color: 'var(--ink-navy)', lineHeight: 1.1, marginBottom: '0.5rem' }}>
-            {product.name}
-          </h1>
-          
-          <p style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '1rem' }}>
-            {isDrawingRobot ? 'The screen-free drawing companion that brings creativity to life.' : product.description}
-          </p>
-
-          {/* Ratings */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.5rem', color: '#ffb400' }}>
-            <div style={{ display: 'flex', gap: '2px' }}>
-              {'★★★★★'.split('').map((star, i) => <span key={i} style={{ fontSize: '1.2rem' }}>{star}</span>)}
+      {/* Main Hero & Buy Box */}
+      <section className="w-full max-w-7xl mx-auto px-gutter py-space-xl">
+        <div className="flex flex-col lg:flex-row gap-space-2xl">
+          {/* Left: Gallery */}
+          <div className="flex-1 w-full flex flex-col gap-space-md">
+            <div className="relative w-full aspect-square rounded-3xl bg-surface-container-high overflow-hidden shadow-sm">
+               {currentMedia.type === 'video' ? (
+                currentMedia.src.includes('youtube.com') || currentMedia.src.includes('youtu.be') ? (
+                  <iframe 
+                    className="w-full h-full object-cover" 
+                    src={currentMedia.src.replace('watch?v=', 'embed/')} 
+                    title="Product Video" 
+                    frameBorder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen>
+                  </iframe>
+                ) : (
+                  <video 
+                    src={currentMedia.src} 
+                    poster={currentMedia.thumb}
+                    autoPlay muted loop playsInline
+                    className="w-full h-full object-cover"
+                  />
+                )
+              ) : (
+                <img 
+                  src={currentMedia.src} 
+                  alt={product.title} 
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
-            <span style={{ color: 'var(--text-main)', fontWeight: 600, fontSize: '0.9rem' }}>4.9 / 5</span>
-            <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>(250+ Reviews)</span>
-          </div>
-
-          {/* Price */}
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '1rem', marginBottom: '2rem' }}>
-            <span style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--ink-navy)', fontFamily: 'var(--font-display)' }}>
-              ${currentVariant.price.toFixed(2)}
-            </span>
-            {currentVariant.compare && (
-              <span style={{ fontSize: '1.2rem', color: 'var(--text-muted)', textDecoration: 'line-through' }}>
-                ${currentVariant.compare.toFixed(2)}
-              </span>
-            )}
-            {currentVariant.save && (
-              <span style={{ background: 'var(--sprout-teal)', color: 'var(--ink-navy)', padding: '0.2rem 0.5rem', borderRadius: '4px', fontSize: '0.8rem', fontWeight: 800 }}>
-                {currentVariant.save}
-              </span>
-            )}
-          </div>
-
-          {/* Variants */}
-          {variants.length > 1 && (
-            <div style={{ marginBottom: '2rem' }}>
-              <div style={{ fontWeight: 700, marginBottom: '1rem', color: 'var(--ink-navy)' }}>Choose Package:</div>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                {variants.map((variant, idx) => (
+            
+            {/* Thumbnails */}
+            {allMedia.length > 1 && (
+              <div className="flex gap-space-sm overflow-x-auto pb-2 snap-x scrollbar-hide">
+                {allMedia.map((media, idx) => (
                   <button 
-                    key={variant.id}
-                    onClick={() => setSelectedVariant(idx)}
-                    style={{
-                      position: 'relative',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      padding: '1rem',
-                      background: selectedVariant === idx ? 'rgba(var(--coral-rgb), 0.05)' : 'var(--paper)',
-                      border: selectedVariant === idx ? '2px solid var(--coral)' : '1px solid var(--border-color)',
-                      borderRadius: 'var(--r-md)',
-                      cursor: 'pointer',
-                      textAlign: 'left',
-                      transition: 'all 0.2s'
-                    }}
+                    key={idx}
+                    onClick={() => setActiveMedia(idx)}
+                    className={`relative w-24 h-24 shrink-0 rounded-xl overflow-hidden border-2 snap-start ${activeMedia === idx ? 'border-primary' : 'border-transparent'}`}
                   >
-                    <div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <div style={{ width: '18px', height: '18px', borderRadius: '50%', border: `5px solid ${selectedVariant === idx ? 'var(--coral)' : 'var(--border-color)'}`, background: 'white' }} />
-                        <span style={{ fontWeight: 700, color: 'var(--ink-navy)', fontSize: '1.1rem' }}>{variant.name}</span>
-                      </div>
-                      {variant.subtitle && <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginLeft: '1.6rem', marginTop: '0.25rem' }}>{variant.subtitle}</div>}
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                      <div style={{ fontWeight: 800, color: 'var(--ink-navy)' }}>${variant.price.toFixed(2)}</div>
-                    </div>
-                    
-                    {variant.badge && (
-                      <div style={{ position: 'absolute', top: '-10px', right: '1rem', background: 'var(--sun-yellow)', color: 'var(--ink-navy)', fontSize: '0.7rem', fontWeight: 800, padding: '0.2rem 0.6rem', borderRadius: '20px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                        {variant.badge}
+                    <img 
+                      src={media.type === 'video' ? media.thumb : media.src} 
+                      alt="thumbnail" 
+                      className="w-full h-full object-cover"
+                    />
+                    {media.type === 'video' && (
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center text-white">
+                        <Play size={24} fill="currentColor" />
                       </div>
                     )}
                   </button>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
-          {/* ATC Section */}
-          <div ref={heroCartRef} style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', border: '1px solid var(--border-color)', borderRadius: 'var(--r-md)', background: 'var(--paper)', overflow: 'hidden' }}>
-              <button onClick={() => setQty(Math.max(1, qty - 1))} style={{ padding: '0 1rem', height: '100%', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>-</button>
-              <div style={{ width: '40px', textAlign: 'center', fontWeight: 700 }}>{qty}</div>
-              <button onClick={() => setQty(qty + 1)} style={{ padding: '0 1rem', height: '100%', background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1.2rem' }}>+</button>
-            </div>
+          {/* Right: Info & Buy Box */}
+          <div className="flex-1 w-full flex flex-col">
+            <h1 className="font-display-hero text-display-hero-mobile lg:text-display-hero text-on-surface mb-space-sm">
+              {product.title}
+            </h1>
             
-            <button 
-              onClick={handleAddToCart}
-              className="btn btn-primary"
-              style={{ flex: 1, padding: '1.2rem', fontSize: '1.1rem' }}
-              disabled={added}
-            >
-              {added ? '✓ Added to Cart' : 'Add to Cart'}
-            </button>
-          </div>
-
-          {/* Trust Badges */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', padding: '1.5rem', background: 'white', borderRadius: 'var(--r-md)', border: '1px solid var(--border-color)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-main)', fontSize: '0.9rem', fontWeight: 600 }}>
-              <span style={{ color: 'var(--sprout-teal)' }}><TruckIcon /></span> Free Fast Shipping over $50
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-main)', fontSize: '0.9rem', fontWeight: 600 }}>
-              <span style={{ color: 'var(--sprout-teal)' }}><RefreshIcon /></span> 30-Day Hassle-Free Returns
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-main)', fontSize: '0.9rem', fontWeight: 600 }}>
-              <span style={{ color: 'var(--sprout-teal)' }}><ShieldIcon /></span> 1-Year Quality Guarantee
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. PRODUCT BENEFITS STRIP */}
-      <section style={{ background: 'var(--ink-navy)', color: 'white', padding: '2rem 5%', display: 'flex', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem', justifyContent: 'center', maxWidth: '1200px', width: '100%' }}>
-          {[
-            { title: 'Screen-Free Learning', desc: 'No tablets, no apps.' },
-            { title: 'Child Friendly', desc: 'Safe, durable materials.' },
-            { title: 'Develops Motor Skills', desc: 'Encourages fine movement.' },
-            { title: 'Portable Design', desc: 'Take it anywhere.' }
-          ].map((benefit, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: '1 1 200px', maxWidth: '250px' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--sun-yellow)' }}>
-                <CheckIcon />
+            <div className="flex items-center gap-space-sm mb-space-md">
+              <div className="flex text-tertiary-container">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={20} fill={i < Math.floor(rating) ? "currentColor" : "none"} />
+                ))}
               </div>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: '1.1rem', marginBottom: '0.2rem' }}>{benefit.title}</div>
-                <div style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)' }}>{benefit.desc}</div>
-              </div>
+              <span className="font-label-lg text-on-surface">{rating.toFixed(1)}</span>
+              <span className="font-body-md text-on-surface-variant underline cursor-pointer">({reviewsCount} Reviews)</span>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* 3. PROBLEM -> SOLUTION STORY */}
-      <section style={{ padding: '6rem 5%', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '4rem', marginBottom: '6rem' }}>
-          <div style={{ flex: '1 1 400px' }}>
-            <div style={{ color: 'var(--coral)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem' }}>The Problem</div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--ink-navy)', lineHeight: 1.1, marginBottom: '1.5rem' }}>
-              Too many screens, not enough hands-on creativity.
-            </h2>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-main)', lineHeight: 1.6 }}>
-              In a world full of digital distractions, it is harder than ever to keep children engaged in activities that actively develop their cognitive and fine motor skills. Tablets entertain, but they rarely challenge or inspire true creative problem-solving.
+            <p className="font-body-lg text-on-surface-variant mb-space-lg line-clamp-4">
+              {product.description}
             </p>
-          </div>
-          <div style={{ flex: '1 1 400px', borderRadius: 'var(--r-lg)', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-            <img src={images[0]} alt="The Problem" style={{ width: '100%', height: 'auto', display: 'block' }} />
-          </div>
-        </div>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap-reverse', alignItems: 'center', gap: '4rem' }}>
-          <div style={{ flex: '1 1 400px', borderRadius: 'var(--r-lg)', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-            <img src={images[1] || images[0]} alt="The Solution" style={{ width: '100%', height: 'auto', display: 'block' }} />
-          </div>
-          <div style={{ flex: '1 1 400px' }}>
-            <div style={{ color: 'var(--sprout-teal)', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '1rem' }}>The Solution</div>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--ink-navy)', lineHeight: 1.1, marginBottom: '1.5rem' }}>
-              Meet the smartest screen-free companion.
-            </h2>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-main)', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              {product.name} bridges the gap between technology and tactile play. It engages children with interactive guidance while keeping their eyes on the paper and their hands on the tools.
-            </p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              {['Builds spatial awareness', 'Encourages independent play', 'Develops pencil grip & control'].map((item, i) => (
-                <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontWeight: 600, color: 'var(--ink-navy)' }}>
-                  <span style={{ color: 'var(--coral)' }}><CheckIcon /></span> {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. PRODUCT DEMONSTRATION VIDEO */}
-      {isDrawingRobot && (
-        <section style={{ padding: '6rem 5%', background: 'var(--paper)' }}>
-          <div style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--ink-navy)', marginBottom: '1rem' }}>See It In Action</h2>
-            <p style={{ fontSize: '1.1rem', color: 'var(--text-main)', marginBottom: '3rem', maxWidth: '600px', margin: '0 auto 3rem auto' }}>
-              Watch how the {product.name} turns an ordinary afternoon into a masterclass in creativity and fun.
-            </p>
-            
-            <div style={{ borderRadius: 'var(--r-lg)', overflow: 'hidden', boxShadow: '0 20px 40px rgba(0,0,0,0.15)', background: '#000', aspectRatio: '16/9', position: 'relative' }}>
-              <video 
-                src="https://cdn.shopify.com/videos/c/o/v/6148281144a046c8b9db5e665979eb46.mp4" 
-                controls
-                poster={images[0]}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-              />
+            <div className="flex items-baseline gap-space-sm mb-space-lg">
+              <span className="font-headline-lg text-on-surface">${currentVariant.price.toFixed(2)}</span>
+              {currentVariant.compare && (
+                <span className="font-body-lg text-outline line-through">${currentVariant.compare.toFixed(2)}</span>
+              )}
             </div>
-            
-            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '2rem', marginTop: '3rem' }}>
-              {['Easy 1-minute setup', 'Simple button operation', 'No Wi-Fi required'].map((pt, i) => (
-                <div key={i} style={{ fontWeight: 700, color: 'var(--ink-navy)', background: 'white', padding: '0.75rem 1.5rem', borderRadius: '100px', border: '1px solid var(--border-color)' }}>
-                  {i + 1}. {pt}
+
+            {/* Variants */}
+            {variants.length > 1 && (
+              <div className="flex flex-col gap-space-sm mb-space-xl">
+                <h3 className="font-label-lg text-on-surface">Select Option:</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+                  {variants.map((v, i) => (
+                    <button 
+                      key={v.id}
+                      onClick={() => setSelectedVariant(i)}
+                      className={`relative flex flex-col items-start p-space-md rounded-2xl border-2 text-left transition-all ${selectedVariant === i ? 'border-primary bg-primary/5' : 'border-outline-variant bg-surface'}`}
+                    >
+                      {i === 1 && (
+                        <span className="absolute -top-3 left-4 px-2 py-0.5 bg-primary-container text-on-primary font-label-sm rounded-full">
+                          Most Popular
+                        </span>
+                      )}
+                      <span className="font-label-lg text-on-surface">{v.name}</span>
+                      {v.subtitle && <span className="font-body-sm text-on-surface-variant mt-1">{v.subtitle}</span>}
+                      <div className="flex items-center gap-2 mt-2 w-full justify-between">
+                        <span className="font-label-md text-on-surface">${v.price}</span>
+                        {v.save && <span className="font-label-sm text-primary">{v.save}</span>}
+                      </div>
+                    </button>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 5. KEY FEATURES */}
-      <section style={{ padding: '6rem 5%', maxWidth: '1200px', margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--ink-navy)' }}>Engineered for Little Minds</h2>
-        </div>
-        
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-          {[
-            { title: 'Smart & Simple', desc: 'Intuitive controls designed specifically for small hands.' },
-            { title: 'Kid-Tough Design', desc: 'Built to withstand drops, spills, and enthusiastic play.' },
-            { title: 'Long Battery Life', desc: 'Up to 6 hours of continuous creative exploration on a single charge.' },
-            { title: 'Expandable Content', desc: 'Grows with your child through additional activity cards.' },
-            { title: 'Eye-Safe Tech', desc: 'No harsh backlights or blue light emissions.' },
-            { title: 'Quiet Operation', desc: 'Designed to inspire focus, not create a noisy environment.' }
-          ].map((feature, i) => (
-            <div key={i} style={{ background: 'white', padding: '2rem', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-color)' }}>
-              <div style={{ color: 'var(--coral)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '1px' }}>FEATURE 0{i+1}</div>
-              <h3 style={{ fontSize: '1.4rem', color: 'var(--ink-navy)', marginBottom: '0.75rem', fontWeight: 800 }}>{feature.title}</h3>
-              <p style={{ color: 'var(--text-main)', lineHeight: 1.5 }}>{feature.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 6. HOW TO USE / HOW IT WORKS */}
-      <section style={{ background: 'var(--ink-navy)', color: 'white', padding: '6rem 5%' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)' }}>How To Use</h2>
-            <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.7)', marginTop: '1rem' }}>It is as easy as 1, 2, 3.</p>
-          </div>
-          
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
-            {[
-              { title: 'Unbox & Charge', desc: 'Ready out of the box with a quick 30-min top-up.' },
-              { title: 'Insert a Card', desc: 'Drop in any of the included activity cards to begin.' },
-              { title: 'Follow Along', desc: 'Watch and learn as the magic happens right on the paper.' },
-              { title: 'Create & Share', desc: 'Add personal touches to complete the masterpiece.' }
-            ].map((step, i) => (
-              <div key={i} style={{ flex: '1 1 200px', background: 'rgba(255,255,255,0.05)', padding: '2rem', borderRadius: 'var(--r-lg)', border: '1px solid rgba(255,255,255,0.1)', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ position: 'absolute', top: '-10px', right: '-10px', fontSize: '6rem', fontWeight: 900, color: 'rgba(255,255,255,0.03)', lineHeight: 1 }}>0{i+1}</div>
-                <h3 style={{ fontSize: '1.4rem', marginBottom: '1rem', fontWeight: 800, position: 'relative' }}>{step.title}</h3>
-                <p style={{ color: 'rgba(255,255,255,0.7)', lineHeight: 1.5, position: 'relative' }}>{step.desc}</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+            )}
 
-      {/* 7. WHAT'S INCLUDED & SPECS */}
-      <section style={{ padding: '6rem 5%', maxWidth: '1200px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '4rem' }}>
-        <div style={{ flex: '1 1 400px' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--ink-navy)', marginBottom: '2rem' }}>What's Included</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-            {[
-              { name: 'Main Unit', qty: 1 },
-              { name: 'Activity Cards', qty: 50 },
-              { name: 'Drawing Markers', qty: 4 },
-              { name: 'USB-C Cable', qty: 1 }
-            ].map((item, i) => (
-              <div key={i} style={{ background: 'var(--paper)', padding: '1.5rem', borderRadius: 'var(--r-md)', textAlign: 'center', border: '1px solid var(--border-color)' }}>
-                <div style={{ width: '60px', height: '60px', background: 'white', borderRadius: '50%', margin: '0 auto 1rem auto', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: 'var(--coral)', border: '2px solid var(--border-color)' }}>
-                  x{item.qty}
-                </div>
-                <div style={{ fontWeight: 700, color: 'var(--ink-navy)' }}>{item.name}</div>
+            {/* Qty & Add to Cart */}
+            <div className="flex flex-col sm:flex-row gap-space-md mb-space-lg mt-auto">
+              <div className="flex items-center justify-between border-2 border-outline-variant rounded-full h-14 px-space-md sm:w-32">
+                <button onClick={() => setQty(Math.max(1, qty - 1))} className="text-on-surface-variant hover:text-on-surface">
+                  <Minus size={20} />
+                </button>
+                <span className="font-label-lg text-on-surface">{qty}</span>
+                <button onClick={() => setQty(qty + 1)} className="text-on-surface-variant hover:text-on-surface">
+                  <Plus size={20} />
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
-        
-        <div style={{ flex: '1 1 400px' }}>
-          <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--ink-navy)', marginBottom: '2rem' }}>Specifications</h2>
-          <div style={{ background: 'white', borderRadius: 'var(--r-md)', border: '1px solid var(--border-color)', overflow: 'hidden' }}>
-            {[
-              { label: 'Recommended Age', val: '4 - 8 Years' },
-              { label: 'Battery Life', val: '6 Hours Active Use' },
-              { label: 'Charging', val: 'USB-C (Cable Included)' },
-              { label: 'Material', val: 'BPA-Free ABS Plastic' },
-              { label: 'Connectivity', val: 'None required (100% Offline)' },
-              { label: 'Warranty', val: '1 Year Full Coverage' }
-            ].map((spec, i) => (
-              <div key={i} style={{ display: 'flex', padding: '1rem 1.5rem', borderBottom: i === 5 ? 'none' : '1px solid var(--border-color)', background: i % 2 === 0 ? 'transparent' : 'var(--paper)' }}>
-                <div style={{ flex: 1, fontWeight: 700, color: 'var(--ink-navy)' }}>{spec.label}</div>
-                <div style={{ flex: 1, color: 'var(--text-main)' }}>{spec.val}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 8. CUSTOMER REVIEWS */}
-      <section style={{ padding: '6rem 5%', background: 'var(--paper)' }}>
-        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--ink-navy)' }}>Loved by Parents & Kids</h2>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem', background: 'white', padding: '0.5rem 1rem', borderRadius: '100px', border: '1px solid var(--border-color)' }}>
-              <div style={{ color: '#ffb400', fontSize: '1.2rem', letterSpacing: '2px' }}>★★★★★</div>
-              <div style={{ fontWeight: 700, color: 'var(--ink-navy)' }}>4.9/5</div>
-              <div style={{ color: 'var(--text-muted)' }}>from 250+ reviews</div>
-            </div>
-          </div>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-            {[
-              { name: 'Sarah M.', text: 'Finally a toy that actually holds his attention without a screen. He plays with this for hours.', date: '2 weeks ago' },
-              { name: 'David K.', text: 'The quality is fantastic. We bought one for our daughter and immediately ordered another for our nephew.', date: '1 month ago' },
-              { name: 'Elena R.', text: 'Best purchase of the year. The setup was instant and she figured out how to use it by herself in 5 minutes.', date: '1 month ago' }
-            ].map((review, i) => (
-              <div key={i} style={{ background: 'white', padding: '2rem', borderRadius: 'var(--r-lg)', border: '1px solid var(--border-color)' }}>
-                <div style={{ color: '#ffb400', fontSize: '1.2rem', letterSpacing: '2px', marginBottom: '1rem' }}>★★★★★</div>
-                <h4 style={{ fontWeight: 800, color: 'var(--ink-navy)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  {review.name}
-                  <span style={{ fontSize: '0.7rem', background: 'var(--sprout-teal)', color: 'var(--ink-navy)', padding: '0.2rem 0.4rem', borderRadius: '4px' }}>Verified</span>
-                </h4>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>{review.date}</div>
-                <p style={{ color: 'var(--text-main)', lineHeight: 1.5, fontStyle: 'italic' }}>"{review.text}"</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. FAQ */}
-      <section style={{ padding: '6rem 5%', maxWidth: '800px', margin: '0 auto' }}>
-        <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3rem)', color: 'var(--ink-navy)', textAlign: 'center', marginBottom: '3rem' }}>Frequently Asked Questions</h2>
-        
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          {[
-            { q: 'What age is this suitable for?', a: 'It is designed for children aged 4 to 8 years old. The activities start simple and grow in complexity as your child develops.' },
-            { q: 'Does it require an app or Wi-Fi?', a: 'No! It is 100% screen-free and operates entirely offline. No apps, no Wi-Fi, no Bluetooth required.' },
-            { q: 'Is it rechargeable?', a: 'Yes, it comes with a built-in battery and a USB-C charging cable. A full charge takes about 2 hours and lasts for up to 6 hours of continuous use.' },
-            { q: 'What happens if a part breaks?', a: 'We offer a 1-year full coverage warranty. If anything stops working under normal use, contact our support team and we will replace it for free.' }
-          ].map((faq, i) => (
-            <div key={i} style={{ background: 'white', border: '1px solid var(--border-color)', borderRadius: 'var(--r-md)', overflow: 'hidden' }}>
               <button 
-                onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
-                style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', background: 'transparent', border: 'none', cursor: 'pointer', textAlign: 'left', fontWeight: 700, color: 'var(--ink-navy)', fontSize: '1.1rem' }}
+                onClick={handleAddToCart}
+                className="flex-1 h-14 rounded-full bg-primary text-on-primary font-label-lg flex items-center justify-center gap-2 hover:bg-on-primary-fixed-variant transition-colors"
               >
-                {faq.q}
-                <span style={{ transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
-                  <ChevronDownIcon />
-                </span>
+                {added ? (
+                  <><Check size={20} /> Added to Cart</>
+                ) : (
+                  'Add to Cart'
+                )}
               </button>
-              <div style={{ 
-                maxHeight: openFaq === i ? '200px' : '0', 
-                overflow: 'hidden', 
-                transition: 'max-height 0.3s ease',
-                background: 'var(--paper)'
-              }}>
-                <div style={{ padding: '0 1.5rem 1.5rem 1.5rem', color: 'var(--text-main)', lineHeight: 1.6 }}>
-                  {faq.a}
+            </div>
+
+            {/* Trust Badges */}
+            <div className="flex flex-wrap gap-space-md py-space-md border-t border-outline-variant">
+              <div className="flex items-center gap-2 font-label-sm text-on-surface-variant">
+                <Truck size={20} className="text-tertiary-container" />
+                Free Shipping over $50
+              </div>
+              <div className="flex items-center gap-2 font-label-sm text-on-surface-variant">
+                <Shield size={20} className="text-tertiary-container" />
+                30-Day Guarantee
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Before / After Slider Section */}
+      {images.length >= 2 && (
+        <section className="w-full py-space-2xl bg-surface-container-lowest">
+          <div className="max-w-5xl mx-auto px-gutter flex flex-col md:flex-row items-center gap-space-2xl">
+            <div className="flex-1 w-full">
+              <h2 className="font-headline-lg text-on-surface mb-space-sm">See the Transformation</h2>
+              <p className="font-body-lg text-on-surface-variant mb-space-lg">
+                Discover the ToddsIQ difference. Experience premium design and engaging play patterns that captivate instantly.
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-primary-container text-on-primary rounded-full flex items-center justify-center font-bold">1</div>
+                <p className="font-body-md text-on-surface-variant">Drag the slider to compare.</p>
+              </div>
+            </div>
+            <div className="flex-1 w-full">
+              <BeforeAfterSlider beforeImage={images[1]} afterImage={images[0]} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Tabs Section */}
+      <section className="w-full border-t border-outline-variant bg-surface-container-low">
+        <div className="max-w-7xl mx-auto px-gutter">
+          <div className="flex overflow-x-auto scrollbar-hide border-b border-outline-variant">
+            {tabs.map(tab => (
+              <button 
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-space-lg py-space-md font-label-lg whitespace-nowrap border-b-2 transition-colors ${activeTab === tab.id ? 'border-primary text-primary' : 'border-transparent text-on-surface-variant hover:text-on-surface'}`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <div className="py-space-xl min-h-[300px]">
+            {activeTab === 'benefits' && (
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-space-lg">
+                <div className="bg-surface p-space-lg rounded-2xl shadow-sm">
+                  <div className="w-12 h-12 bg-primary-container text-on-primary rounded-xl flex items-center justify-center mb-4">
+                    <Star size={24} />
+                  </div>
+                  <h3 className="font-title-md text-on-surface mb-2">Screen-Free Learning</h3>
+                  <p className="font-body-md text-on-surface-variant">Keeps kids engaged without relying on digital screens, promoting healthier play habits.</p>
                 </div>
+                <div className="bg-surface p-space-lg rounded-2xl shadow-sm">
+                  <div className="w-12 h-12 bg-tertiary-container text-on-tertiary-container rounded-xl flex items-center justify-center mb-4">
+                    <Check size={24} />
+                  </div>
+                  <h3 className="font-title-md text-on-surface mb-2">Fine Motor Skills</h3>
+                  <p className="font-body-md text-on-surface-variant">Tactile interactions help develop crucial pre-writing and coordination skills.</p>
+                </div>
+                <div className="bg-surface p-space-lg rounded-2xl shadow-sm">
+                  <div className="w-12 h-12 bg-secondary-container text-on-secondary-container rounded-xl flex items-center justify-center mb-4">
+                    <Shield size={24} />
+                  </div>
+                  <h3 className="font-title-md text-on-surface mb-2">Builds Confidence</h3>
+                  <p className="font-body-md text-on-surface-variant">Step-by-step challenges ensure kids feel successful with every milestone.</p>
+                </div>
+              </div>
+            )}
+            {activeTab === 'how-to' && (
+              <div className="max-w-3xl font-body-lg text-on-surface-variant space-y-4">
+                <h3 className="font-headline-sm text-on-surface mb-4">Simple, Intuitive Play</h3>
+                <p className="font-body-md">{product.description}</p>
+                <div className="mt-8 p-space-md bg-secondary-container text-on-secondary-container rounded-xl flex gap-4">
+                  <Info className="shrink-0" />
+                  <p className="font-body-md">Tip: Play alongside your child for the first few sessions to guide their discovery process.</p>
+                </div>
+              </div>
+            )}
+            {activeTab === 'whats-in-box' && (
+              <ul className="grid sm:grid-cols-2 gap-space-md max-w-3xl">
+                <li className="flex items-center gap-3 p-space-sm bg-surface rounded-lg font-body-md text-on-surface shadow-sm"><Check className="text-primary"/> Premium ToddsIQ Base Unit</li>
+                <li className="flex items-center gap-3 p-space-sm bg-surface rounded-lg font-body-md text-on-surface shadow-sm"><Check className="text-primary"/> Interactive Learning Accessories</li>
+                <li className="flex items-center gap-3 p-space-sm bg-surface rounded-lg font-body-md text-on-surface shadow-sm"><Check className="text-primary"/> Durable Storage Solution</li>
+                <li className="flex items-center gap-3 p-space-sm bg-surface rounded-lg font-body-md text-on-surface shadow-sm"><Check className="text-primary"/> Quick Start Guide</li>
+              </ul>
+            )}
+            {activeTab === 'age-safety' && (
+              <div className="max-w-3xl">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center font-display-hero text-2xl text-on-surface">{product.ageBand || '3+'}</div>
+                  <div>
+                    <h4 className="font-label-lg text-on-surface">Recommended Age</h4>
+                    <p className="font-body-md text-on-surface-variant">Perfect for children ages {product.ageBand || '3 and up'}.</p>
+                  </div>
+                </div>
+                <p className="font-body-md text-on-surface-variant mb-4">
+                  <strong>Safety First:</strong> Made from BPA-free, non-toxic materials. All edges are rounded for safe play. 
+                </p>
+                <p className="font-body-md text-on-surface-variant">
+                  Meets or exceeds all ASTM F963 and CPSIA toy safety standards.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Video Reviews / UGC Carousel */}
+      <section className="w-full py-space-3xl bg-surface-container-lowest overflow-hidden">
+        <div className="max-w-7xl mx-auto px-gutter mb-space-xl text-center">
+          <h2 className="font-headline-lg text-on-surface mb-space-sm">See It In Action</h2>
+          <p className="font-body-lg text-on-surface-variant">Real families, real fun.</p>
+        </div>
+        <div className="flex gap-space-md overflow-x-auto px-gutter pb-8 snap-x scrollbar-hide">
+          {videoReviews.map(review => (
+            <div key={review.id} className="relative w-72 h-[480px] shrink-0 rounded-3xl overflow-hidden snap-center group">
+              <video 
+                src={review.video} 
+                poster={review.thumb}
+                muted loop playsInline
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white cursor-pointer hover:bg-white/40 transition-colors">
+                  <Play size={32} fill="currentColor" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 w-full p-space-lg text-white">
+                <div className="flex items-center gap-2 mb-2 text-tertiary-fixed">
+                  <Star size={16} fill="currentColor" />
+                  <Star size={16} fill="currentColor" />
+                  <Star size={16} fill="currentColor" />
+                  <Star size={16} fill="currentColor" />
+                  <Star size={16} fill="currentColor" />
+                </div>
+                <p className="font-label-md mb-1 opacity-90">{review.name}</p>
+                <p className="font-body-sm line-clamp-3">"{review.text}"</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 10. RELATED PRODUCTS */}
-      {related.length > 0 && (
-        <section style={{ padding: '6rem 5%', borderTop: '1px solid var(--border-color)', background: 'var(--bg-main)' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', color: 'var(--ink-navy)', marginBottom: '2rem' }}>You May Also Like</h2>
-            <div className="product-grid">
-              {related.map(p => (
-                <ProductCard key={p.id} product={p} />
+      {/* Reviews & Ratings */}
+      <section className="w-full py-space-3xl bg-surface">
+        <div className="max-w-7xl mx-auto px-gutter">
+          <h2 className="font-headline-lg text-on-surface mb-space-xl text-center">Customer Reviews</h2>
+          <div className="grid md:grid-cols-[300px_1fr] gap-space-2xl">
+            {/* Aggregate Score */}
+            <div className="flex flex-col items-center md:items-start">
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="font-display-hero text-6xl text-on-surface">{rating.toFixed(1)}</span>
+                <span className="font-headline-sm text-on-surface-variant">/ 5</span>
+              </div>
+              <div className="flex text-tertiary-container mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={24} fill={i < Math.floor(rating) ? "currentColor" : "none"} />
+                ))}
+              </div>
+              <p className="font-body-md text-on-surface-variant mb-6">Based on {reviewsCount} reviews</p>
+              <button className="w-full h-12 rounded-full border-2 border-primary text-primary font-label-lg hover:bg-primary/5 transition-colors">
+                Write a Review
+              </button>
+            </div>
+            {/* Review List */}
+            <div className="flex flex-col gap-space-lg">
+              {reviews.map(review => (
+                <div key={review.id} className="p-space-lg bg-surface-container-lowest rounded-2xl shadow-sm">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center font-label-lg text-on-surface">
+                        {review.author[0]}
+                      </div>
+                      <div>
+                        <h4 className="font-label-lg text-on-surface">{review.author}</h4>
+                        <div className="flex text-tertiary-container mt-1">
+                           {[...Array(5)].map((_, i) => (
+                             <Star key={i} size={14} fill={i < review.rating ? "currentColor" : "none"} />
+                           ))}
+                        </div>
+                      </div>
+                    </div>
+                    <span className="font-body-sm text-on-surface-variant">{review.date}</span>
+                  </div>
+                  <p className="font-body-md text-on-surface-variant">{review.text}</p>
+                </div>
               ))}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* 11. STICKY MOBILE BOTTOM CTA */}
-      <div style={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        background: 'white',
-        borderTop: '1px solid var(--border-color)',
-        padding: '1rem 5%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: '1rem',
-        boxShadow: '0 -10px 20px rgba(0,0,0,0.05)',
-        transform: showStickyAdd ? 'translateY(0)' : 'translateY(100%)',
-        transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-        zIndex: 100
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flex: 1, minWidth: 0 }}>
-          <img src={images[0]} alt="" style={{ width: '48px', height: '48px', borderRadius: '4px', objectFit: 'cover' }} />
-          <div style={{ overflow: 'hidden' }}>
-            <div style={{ fontWeight: 700, color: 'var(--ink-navy)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{product.name}</div>
-            <div style={{ fontSize: '0.9rem', color: 'var(--text-main)', fontWeight: 800 }}>${currentVariant.price.toFixed(2)}</div>
+      {/* FAQ */}
+      <section className="w-full py-space-3xl bg-surface-container-low">
+        <div className="max-w-3xl mx-auto px-gutter">
+          <h2 className="font-headline-lg text-on-surface mb-space-xl text-center">Frequently Asked Questions</h2>
+          <div className="flex flex-col gap-4">
+            {[
+              { q: 'What age is this suitable for?', a: `We recommend this for ages ${product.ageBand || '3 and up'}. The components are safe and durable for young children.` },
+              { q: 'What materials are used?', a: 'All our products are manufactured with child-safe, non-toxic materials meeting global safety standards.' },
+              { q: 'What is your return policy?', a: 'We offer a 30-day hassle-free return policy. If you or your child are not completely satisfied, simply return it.' },
+            ].map((faq, i) => (
+              <div key={i} className="bg-surface rounded-2xl overflow-hidden shadow-sm">
+                <button 
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="w-full p-space-lg flex justify-between items-center text-left"
+                >
+                  <span className="font-title-md text-on-surface">{faq.q}</span>
+                  <ChevronDown className={`transform transition-transform ${openFaq === i ? 'rotate-180' : ''}`} />
+                </button>
+                {openFaq === i && (
+                  <div className="px-space-lg pb-space-lg font-body-md text-on-surface-variant">
+                    {faq.a}
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
-        <button 
-          onClick={() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className="btn btn-primary"
-          style={{ padding: '0.8rem 1.5rem', whiteSpace: 'nowrap' }}
-        >
-          Select Option
-        </button>
-      </div>
-
+      </section>
+      
     </div>
   );
-}
+};

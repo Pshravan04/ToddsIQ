@@ -10,8 +10,8 @@ const NAV = [
     mega: true,
     ages: [
       { label: 'Tiny Tots', sub: '0–18 months', emoji: '🍼', color: '#FF9F7F', bg: '#FFF4F2', href: '/collections/tiny-tots' },
-      { label: 'Toddlers', sub: '18 mo–3 yrs',  emoji: '🧸', color: '#6C8EF5', bg: '#EEF1FD', href: '/collections/toddlers' },
-      { label: 'Pre-K',    sub: '3–5 years',    emoji: '🎨', color: '#1F9D8A', bg: '#E8F8F5', href: '/collections/pre-k' },
+      { label: 'Toddlers', sub: '18 mo–3 yrs',  emoji: '🧸', color: '#6C8EF5', bg: '#EEF1FD', href: '/collections/toddler' },
+      { label: 'Pre-K',    sub: '3–5 years',    emoji: '🎨', color: '#1F9D8A', bg: '#E8F8F5', href: '/collections/preschool' },
       { label: 'Big Kids', sub: '6–12 years',   emoji: '🔭', color: '#FFB627', bg: '#FFF8E7', href: '/collections/big-kids' },
     ],
     interests: [
