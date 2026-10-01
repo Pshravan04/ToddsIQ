@@ -1,3 +1,4 @@
+import { FadeInUp, StaggerContainer, StaggerItem } from '../components/AnimatedSection';
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import productsData from '../data/products.json';
@@ -30,7 +31,7 @@ export default function Home() {
     <>
       <div className="flex flex-col w-full overflow-hidden">
 
-<section className="relative w-full min-h-[600px] lg:h-[700px] flex items-center overflow-hidden">
+<FadeInUp><section className="relative w-full min-h-[600px] lg:h-[700px] flex items-center overflow-hidden">
   {/* Background Image & Gradient Overlays */}
   <div className="absolute inset-0 z-0">
     <img 
@@ -99,9 +100,9 @@ export default function Home() {
       </div>
     </div>
   </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full bg-[#F4F1EA]-high border-y-2 border-ink py-space-sm overflow-hidden select-none">
+<FadeInUp><section className="w-full bg-[#F4F1EA]-high border-y-2 border-ink py-space-sm overflow-hidden select-none">
 <div className="flex whitespace-nowrap animate-[marquee_24s_linear_infinite] gap-space-xl items-center font-label-md text-label-md text-ink">
 <span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-coral text-base">phonelink_off</span> 100% SCREEN-FREE FOCUS</span>
 <span className="text-ink-variant">•</span>
@@ -121,9 +122,9 @@ export default function Home() {
 <span className="text-ink-variant">•</span>
 <span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-secondary text-base">verified</span> NON-TOXIC &amp; SAFETY TESTED</span>
 </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full px-gutter py-space-2xl bg-canvas">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
@@ -252,9 +253,9 @@ export default function Home() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-y-2 border-ink">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-y-2 border-ink">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
@@ -276,9 +277,9 @@ export default function Home() {
 ))}
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full px-gutter py-space-2xl bg-canvas">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
 <div className="text-center max-w-3xl mx-auto space-y-space-xs">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">The Screen-Free Difference</span>
@@ -338,9 +339,9 @@ export default function Home() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-t-2 border-ink">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-t-2 border-ink">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
@@ -444,9 +445,9 @@ export default function Home() {
 </a>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full px-gutter py-space-2xl bg-canvas" id="toy-quiz">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas" id="toy-quiz">
 <div className="max-w-4xl mx-auto rounded-3xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[8px_8px_0px_#1E2A38] p-space-lg lg:p-space-2xl relative overflow-hidden">
 <div className="space-y-space-xs text-center max-w-2xl mx-auto">
 <span className="px-3.5 py-1 rounded-full bg-coral text-canvas font-label-sm text-label-sm font-bold border border-ink inline-block">
@@ -535,9 +536,9 @@ export default function Home() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-y-2 border-ink">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-y-2 border-ink">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
@@ -636,9 +637,9 @@ export default function Home() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
-<section className="w-full px-gutter py-space-2xl bg-canvas">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
@@ -698,7 +699,7 @@ export default function Home() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
 
 </div>

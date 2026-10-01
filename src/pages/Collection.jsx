@@ -55,7 +55,6 @@ export default function Collection() {
           </nav>
           <h1 className="font-display text-5xl md:text-6xl text-ink leading-tight mb-4">{info.title}</h1>
           {info.sub && <p className="text-lg text-ink/70 max-w-2xl mx-auto">{info.sub}</p>}
-          <p className="text-sm font-bold text-coral mt-6">{products.length} products</p>
         </div>
       </div>
 
@@ -83,8 +82,10 @@ export default function Collection() {
              </div>
           </div>
           
-          <div className="flex items-center shrink-0 w-full md:w-auto border border-ink/10 rounded-full px-4 py-1.5 bg-canvas hover:border-ink/20 transition-colors">
-            <Filter size={16} className="text-ink/60 mr-2" />
+          <div className="flex items-center shrink-0 w-full md:w-auto gap-4">
+            <span className="text-sm font-bold text-ink/60 hidden md:block whitespace-nowrap">{products.length} products</span>
+            <div className="flex items-center border border-ink/10 rounded-full px-4 py-1.5 bg-canvas hover:border-ink/20 transition-colors">
+              <Filter size={16} className="text-ink/60 mr-2" />
             <select 
               value={sort} 
               onChange={e => setSort(e.target.value)}
@@ -92,6 +93,7 @@ export default function Collection() {
             >
               {SORTS.map(s => <option key={s}>{s}</option>)}
             </select>
+            </div>
           </div>
         </div>
       </div>

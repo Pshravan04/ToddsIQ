@@ -1,3 +1,4 @@
+import { FadeInUp } from '../components/AnimatedSection';
 import React, { useState, useEffect } from 'react';import { useParams } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import productsData from '../data/products.json';
@@ -56,7 +57,7 @@ export default function Product() {
 </div>
 </div>
 {/* HERO PRODUCT SECTION (GALLERY + STICKY BUY BOX) */}
-<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+<FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
 {/* LEFT COLUMN: INTERACTIVE GALLERY (7 cols) */}
 <div className="lg:col-span-7 flex flex-col gap-4">
@@ -64,7 +65,7 @@ export default function Product() {
 <div className="relative w-full aspect-square sm:aspect-[4/3] lg:aspect-square bg-white rounded-3xl p-6 sm:p-10 border-2 border-ink shadow-card flex items-center justify-center overflow-hidden">
 {/* Top Floating Feature Badges */}
 <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
-<span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-coral-container text-canvas border-2 border-ink font-bold text-xs shadow-[2px_2px_0px_#1E2A38]">
+<span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-coral text-canvas border-2 border-ink font-bold text-xs shadow-[2px_2px_0px_#1E2A38]">
 <span className="material-symbols-outlined text-sm">psychology</span>
                 Ages 3–8 • Pediatric OT Approved
               </span>
@@ -89,7 +90,7 @@ export default function Product() {
               ★ Zero screen glare • Pure muscle memory
             </div>
 {/* Save Badge Overlay */}
-<div className="absolute bottom-4 right-4 z-20 bg-coral-container text-canvas border-2 border-ink font-display text-sm font-bold px-3.5 py-1 rounded-xl shadow-[2px_2px_0px_#1E2A38] uppercase tracking-wider">
+<div className="absolute bottom-4 right-4 z-20 bg-coral text-canvas border-2 border-ink font-display text-sm font-bold px-3.5 py-1 rounded-xl shadow-[2px_2px_0px_#1E2A38] uppercase tracking-wider">
               Save 31% Today
             </div>
 </div>
@@ -173,7 +174,7 @@ export default function Product() {
 <div className="flex items-baseline gap-2.5">
 <span className="font-display text-3xl sm:text-4xl font-black text-coral" id="price-display">$109.00</span>
 <span className="text-lg text-ink-light line-through font-semibold" id="was-price-display">$169.00</span>
-<span className="bg-coral-container text-canvas border-2 border-ink font-bold text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wide">Save 31%</span>
+<span className="bg-coral text-canvas border-2 border-ink font-bold text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wide">Save 31%</span>
 </div>
 <p className="text-xs text-ink-muted mt-0.5">Taxes included • Free 2-3 Day Express Shipping</p>
 </div>
@@ -299,9 +300,9 @@ export default function Product() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 {/* 4-ACCENT BENEFIT TILES ("WHY THIS MATTERS") */}
-<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 <div className="text-center max-w-2xl mx-auto mb-8">
 <span className="text-teal font-display font-bold text-xs uppercase tracking-widest bg-teal/10 px-3 py-1 rounded-full">Developmental Benchmark</span>
 <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-ink mt-2">
@@ -362,9 +363,9 @@ export default function Product() {
 <span className="text-xs font-bold text-coral mt-4 inline-flex items-center gap-1">Pre-K to Grade 2 <span className="material-symbols-outlined text-xs">arrow_forward</span></span>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 {/* INTERACTIVE SLIDING PILL TABS SECTION */}
-<section className="w-full py-12 bg-white border-y border-ink/10" id="tabs-section">
+<FadeInUp><section className="w-full py-12 bg-white border-y border-ink/10" id="tabs-section">
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 {/* Tab Navigation Bar with Sliding Background Pill */}
 <div className="flex justify-center mb-10 overflow-x-auto pb-2 scrollbar-hide">
@@ -469,10 +470,10 @@ export default function Product() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
 {/* INTERACTIVE VIDEO-REVIEW CAROUSEL & TESTIMONIALS */}
-<section className="w-full py-16 bg-[#F4EFE6] border-y border-ink/10" id="reviews-section">
+<FadeInUp><section className="w-full py-16 bg-[#F4EFE6] border-y border-ink/10" id="reviews-section">
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 {/* Animated Count-Up Rating Header */}
 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white p-6 sm:p-10 rounded-3xl border-2 border-ink shadow-card mb-12">
@@ -570,7 +571,7 @@ export default function Product() {
 <div className="relative w-full h-36 rounded-2xl overflow-hidden mb-1 group cursor-pointer" >
 <img alt="Leo drawing video diary" className="w-full h-full object-cover group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida/AEtjO1UCzMoOim2ITsDpRd7SvoV4eIPLdZjKYyzVOb9xONKMLbnvTGFFPHsV0iyhN65FZ-2jLRuvlw7eSGONlrS6QOMJ8XHB4de0qLUZp1mSp2Ep4_gMEII_IRcApl99XbzGI0w4AfQUhtkqRSphrS5eGD1OPOULfr1Zfg95gpC7_4SW1FmsKkCkjoe-gGZo2hyXN6AT1-0lZSA52A5dn8j2ZYry9f58Xpt760GKVVLEQP9d8w-BNKXiw5FnNrk"/>
 <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-<div className="w-10 h-10 rounded-full bg-coral-container text-canvas border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex items-center justify-center">
+<div className="w-10 h-10 rounded-full bg-coral text-canvas border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex items-center justify-center">
 <span className="material-symbols-outlined text-xl">play_arrow</span>
 </div>
 </div>
@@ -656,9 +657,9 @@ export default function Product() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 {/* EXPLODED INVENTORY: WHAT'S IN THE BOX */}
-<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+<FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 <div className="text-center max-w-2xl mx-auto mb-12">
 <span className="font-hand text-2xl text-coral">Unboxing Transparency</span>
 <h2 className="font-display text-3xl font-extrabold text-ink mt-1">What's in Your Discovery Pack</h2>
@@ -706,9 +707,9 @@ export default function Product() {
 <p className="text-xs text-ink-muted mt-2">Occupational therapist exercises and progressive developmental benchmarks.</p>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 {/* TECHNICAL & PEDIATRIC SPECIFICATIONS TABLE */}
-<section className="w-full py-16 bg-white border-y border-ink/10">
+<FadeInUp><section className="w-full py-16 bg-white border-y border-ink/10">
 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
 <div className="text-center mb-10">
 <span className="text-teal font-display font-bold text-xs uppercase tracking-widest bg-teal/10 px-3 py-1 rounded-full">Engineering Rigor</span>
@@ -767,9 +768,9 @@ export default function Product() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 {/* EDITION COMPARISON MATRIX */}
-<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="compare-editions">
+<FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="compare-editions">
 <div className="text-center max-w-2xl mx-auto mb-12">
 <span className="font-hand text-2xl text-coral">Choose the Right Tier</span>
 <h2 className="font-display text-3xl font-extrabold text-ink mt-1">Edition Comparison Matrix</h2>
@@ -826,9 +827,9 @@ export default function Product() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 {/* CONSUMABLES & ATELIER CROSS-SELL STRIP */}
-<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-ink/10">
+<FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-ink/10">
 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
 <div>
 <span className="font-hand text-2xl text-coral">Keep Creating</span>
@@ -891,9 +892,9 @@ export default function Product() {
           </button>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 {/* FAQ ACCORDION */}
-<section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="faq-section">
+<FadeInUp><section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="faq-section">
 <div className="text-center mb-10">
 <span className="font-hand text-2xl text-coral">Common Questions</span>
 <h2 className="font-display text-3xl font-extrabold text-ink mt-1">Frequently Asked Questions</h2>
@@ -940,7 +941,7 @@ export default function Product() {
 </div>
 </div>
 </div>
-</section>
+</section></FadeInUp>
 
     </div>
   );
