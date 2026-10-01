@@ -1,15 +1,16 @@
-﻿import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const addItem = (product) => {
+  const addItem = (product, qtyToAdd = 1) => {
     setCartItems(prev => {
       const existing = prev.find(i => i.id === product.id);
-      if (existing) return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + 1 } : i);
-      return [...prev, { ...product, qty: 1 }];
+      if (existing) return prev.map(i => i.id === product.id ? { ...i, qty: i.qty + qtyToAdd } : i);
+      return [...prev, { ...product, qty: qtyToAdd }];
     });
   };
 
@@ -26,7 +27,7 @@ export function CartProvider({ children }) {
   const cartCount = cartItems.reduce((sum, i) => sum + i.qty, 0);
 
   return (
-    <CartContext.Provider value={{ cartItems, cartTotal, cartCount, addItem, removeItem, updateQty, clearCart }}>
+    <CartContext.Provider value={{ cartItems, cartTotal, cartCount, addItem, removeItem, updateQty, clearCart, isCartOpen, setIsCartOpen }}>
       {children}
     </CartContext.Provider>
   );

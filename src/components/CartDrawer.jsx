@@ -1,79 +1,141 @@
 import { useCart } from '../context/CartContext';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 export default function CartDrawer({ open, onClose }) {
-  const { cartItems, cartTotal, updateQty, removeItem } = useCart();
+  const { cartItems, cartTotal, updateQty, removeItem, setIsCartOpen } = useCart();
   const FREE_SHIPPING = 50;
   const progress = Math.min((cartTotal / FREE_SHIPPING) * 100, 100);
   const remaining = Math.max(FREE_SHIPPING - cartTotal, 0);
 
   return (
-    <>
-      <div className={`cart-overlay${open ? ' open' : ''}`} onClick={onClose} />
-      <aside className={`cart-drawer${open ? ' open' : ''}`} role="dialog" aria-modal="true" aria-label="Shopping cart">
-        <div className="cart-header">
-          <span className="cart-title">Your Bag 🛍️</span>
-          <button className="cart-close" onClick={onClose} aria-label="Close cart">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M18 6 6 18M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
-
-        <div className="shipping-progress">
-          <p className="shipping-label">
-            {remaining > 0
-              ? `Add $${remaining.toFixed(2)} more for FREE shipping! 🚚`
-              : '🎉 You unlocked free shipping!'}
-          </p>
-          <div className="shipping-track">
-            <div className="shipping-fill" style={{ width: `${progress}%` }} />
-          </div>
-        </div>
-
-        <div className="cart-items-list">
-          {cartItems.length === 0 ? (
-            <div className="cart-empty">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
-                <path d="M16 10a4 4 0 0 1-8 0"/>
-              </svg>
-              <p style={{color:'var(--text-muted)',marginTop:'1rem',fontSize:'.9375rem'}}>Your bag is empty</p>
-              <p style={{fontSize:'.85rem',color:'var(--text-muted)',opacity:.7,marginTop:'.25rem'}}>Add some toys to get started!</p>
+    <AnimatePresence>
+      {open && (
+        <>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-ink/40 backdrop-blur-sm z-[2000]"
+          />
+          <motion.aside 
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed top-0 right-0 h-full w-[95vw] max-w-[420px] bg-canvas z-[2001] shadow-2xl flex flex-col border-l-2 border-ink"
+            role="dialog" 
+            aria-modal="true" 
+            aria-label="Shopping cart"
+          >
+            <div className="flex items-center justify-between p-6 border-b-2 border-ink bg-canvas z-10">
+              <span className="font-display text-2xl font-bold text-ink">Your Bag 🛍️</span>
+              <button className="w-10 h-10 rounded-full hover:bg-[#EAE5D9] flex items-center justify-center transition-colors" onClick={onClose} aria-label="Close cart">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+              </button>
             </div>
-          ) : (
-            cartItems.map(item => (
-              <div key={item.id} className="cart-item">
-                <img className="cart-item-img" src={item.image} alt={item.name} />
-                <div>
-                  <p className="cart-item-name">{item.name}</p>
-                  <p className="cart-item-variant">{item.variant || ''}</p>
-                  <div className="cart-item-qty">
-                    <button className="qty-btn" onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
-                    <span style={{fontSize:'.875rem',fontWeight:600}}>{item.qty}</span>
-                    <button className="qty-btn" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
-                    <button onClick={() => removeItem(item.id)} style={{marginLeft:'auto',color:'var(--text-muted)',fontSize:'.75rem',background:'none',border:'none',cursor:'pointer'}}>Remove</button>
-                  </div>
-                </div>
-                <div className="cart-item-price">$${(item.price * item.qty).toFixed(2)}</div>
-              </div>
-            ))
-          )}
-        </div>
 
-        <div className="cart-foot">
-          <div className="cart-total-row">
-            <span className="cart-total-label">Subtotal</span>
-            <span className="cart-total-value">$${cartTotal.toFixed(2)}</span>
-          </div>
-          <p style={{fontSize:'.8rem',color:'var(--text-muted)',textAlign:'center'}}>Taxes and shipping calculated at checkout</p>
-          <button className="btn btn-primary btn-lg" style={{justifyContent:'center'}} disabled={cartItems.length === 0}>
-            Checkout →
-          </button>
-          <button className="btn btn-outline" style={{justifyContent:'center'}} onClick={onClose}>
-            Continue Shopping
-          </button>
-        </div>
-      </aside>
-    </>
+            <div className="p-4 bg-teal/10 border-b-2 border-teal flex flex-col gap-2">
+              <p className="text-sm font-bold text-teal text-center">
+                {remaining > 0
+                  ? `Add $${remaining.toFixed(2)} more for FREE shipping! 🚚`
+                  : '🎉 You unlocked free shipping!'}
+              </p>
+              <div className="h-2 bg-teal/20 rounded-full overflow-hidden">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progress}%` }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="h-full bg-teal rounded-full" 
+                />
+              </div>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+              {cartItems.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-ink/60 gap-4 mt-12">
+                  <span className="material-symbols-outlined text-6xl opacity-50">shopping_bag</span>
+                  <p className="font-display text-xl font-bold">Your bag is empty</p>
+                  <p className="text-sm">Add some toys to get started!</p>
+                  <button onClick={onClose} className="mt-4 px-6 py-3 rounded-full bg-[#EAE5D9] text-ink font-bold hover:bg-[#D5D0C4] transition-colors border-2 border-ink shadow-[2px_2px_0px_#1E2A38]">
+                    Start Shopping
+                  </button>
+                </div>
+              ) : (
+                cartItems.map((item, i) => (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 }}
+                    key={item.id} 
+                    className="flex gap-4 p-4 bg-white rounded-3xl border-2 border-ink shadow-[3px_3px_0px_#1E2A38]"
+                  >
+                    <div className="w-24 h-24 rounded-2xl bg-[#F4F1EA] overflow-hidden border-2 border-ink flex-shrink-0">
+                      <img className="w-full h-full object-cover" src={item.image} alt={item.name} />
+                    </div>
+                    <div className="flex flex-col flex-1">
+                      <div className="flex justify-between items-start gap-2">
+                        <p className="font-bold text-ink text-sm leading-tight">{item.name}</p>
+                        <button onClick={() => removeItem(item.id)} className="text-ink/50 hover:text-coral transition-colors" aria-label="Remove">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                        </button>
+                      </div>
+                      {item.variant && <p className="text-xs text-ink/60 mt-1">{item.variant}</p>}
+                      <div className="mt-auto flex items-center justify-between">
+                        <div className="flex items-center gap-3 bg-[#F4F1EA] border-2 border-ink rounded-full px-2 py-1">
+                          <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
+                          <span className="text-sm font-bold w-4 text-center">{item.qty}</span>
+                          <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                        </div>
+                        <div className="font-display font-bold text-lg text-ink">
+                          ${(item.price * item.qty).toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))
+              )}
+            </div>
+
+            <div className="p-6 border-t-2 border-ink bg-canvas">
+              <div className="flex justify-between items-center mb-4">
+                <span className="font-bold text-ink text-lg">Subtotal</span>
+                <span className="font-display font-bold text-2xl text-ink">${cartTotal.toFixed(2)}</span>
+              </div>
+              <p className="text-xs text-ink/60 text-center mb-4">Taxes and shipping calculated at checkout</p>
+              
+              <div className="flex flex-col gap-3">
+                {cartItems.length > 0 ? (
+                  <Link 
+                    to="/checkout" 
+                    onClick={() => setIsCartOpen(false)}
+                    className="w-full py-4 bg-coral text-canvas rounded-2xl font-display font-bold text-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2"
+                  >
+                    Checkout <span className="material-symbols-outlined text-xl">arrow_forward</span>
+                  </Link>
+                ) : (
+                  <button 
+                    disabled 
+                    className="w-full py-4 bg-ink/10 text-ink/40 rounded-2xl font-display font-bold text-lg border-2 border-ink/20 flex items-center justify-center"
+                  >
+                    Checkout
+                  </button>
+                )}
+                
+                <button 
+                  className="w-full py-4 bg-transparent text-ink rounded-2xl font-display font-bold border-2 border-transparent hover:border-ink transition-all" 
+                  onClick={onClose}
+                >
+                  Continue Shopping
+                </button>
+              </div>
+            </div>
+          </motion.aside>
+        </>
+      )}
+    </AnimatePresence>
   );
 }

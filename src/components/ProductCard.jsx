@@ -1,67 +1,67 @@
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-
-const StarIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-  </svg>
-);
+import { Star, Plus } from 'lucide-react';
 
 export default function ProductCard({ product }) {
-  const { addItem } = useCart();
+  const { addItem, setIsCartOpen } = useCart();
   const {
-    id, title, name, price, compareAtPrice, images, thumbnail, image, categories, category,
-    badge, rating = 4.8, reviewCount = 128, isNew
+    id, title, name, price, compareAtPrice, images, thumbnail, image,
+    badge, rating = 4.8, reviewCount = 128, isNew, ageBand, description
   } = product;
 
   // Fallbacks for updated products.json schema
   const displayTitle = title || name;
   const img = images?.[0] || thumbnail || image;
-  const displayCategory = categories?.[0] || category;
   const savings = compareAtPrice ? Math.round(((compareAtPrice - price) / compareAtPrice) * 100) : 0;
+  
+  const displayBadge = badge || (savings > 0 ? `SAVE ${savings}%` : isNew ? 'NEW' : null);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
     addItem({ id, name: displayTitle, price, image: img });
+    setIsCartOpen(true);
   };
 
   return (
-    <Link to={`/products/${id}`} className="product-card">
-      <div className="product-img-wrap">
-        <img src={img} alt={displayTitle} loading="lazy" />
-        {badge && <span className={`product-badge badge-${badge.toLowerCase().replace(' ','-')}`}>{badge}</span>}
-        {!badge && isNew && <span className="product-badge badge-new">NEW</span>}
-        {!badge && !isNew && compareAtPrice && <span className="product-badge badge-sale">SALE</span>}
-        <button className="product-quick-add" onClick={handleAddToCart} aria-label="Quick add to cart">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-            <path d="M12 5v14M5 12h14"/>
-          </svg>
-        </button>
-      </div>
-
-      <div className="product-body">
-        {displayCategory && <span className="product-cat">{displayCategory}</span>}
-        <h3 className="product-name">{displayTitle}</h3>
-        <div className="product-stars">
-          {Array.from({length: 5}).map((_, i) => (
-            <StarIcon key={i} style={{ opacity: i < Math.floor(rating) ? 1 : 0.3 }} />
-          ))}
-          <span className="review-count">({product.reviews || reviewCount})</span>
+    <Link to={`/products/${id}`} className="bg-white rounded-3xl p-4 border border-ink/10 shadow-card flex flex-col justify-between group hover:-translate-y-1 hover:shadow-lift transition-all duration-300 cursor-pointer">
+      <div className="space-y-4">
+        <div className="relative rounded-2xl overflow-hidden bg-canvas aspect-square">
+          <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src={img} alt={displayTitle} loading="lazy" />
+          
+          {displayBadge && (
+            <span className="absolute top-3 left-3 px-3 py-1.5 rounded-full bg-marigold text-ink border-2 border-ink text-xs font-bold tracking-wide uppercase shadow-[2px_2px_0px_#1E2A38]">
+              {displayBadge}
+            </span>
+          )}
+          
+          {ageBand && (
+            <span className="absolute top-3 right-3 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm text-ink text-xs font-bold shadow-sm">
+              Ages {ageBand}
+            </span>
+          )}
         </div>
-        <div className="product-price-row">
-          <span className="price-now">${Number(price).toFixed(2)}</span>
-          {compareAtPrice && <span className="price-was">${Number(compareAtPrice).toFixed(2)}</span>}
-          {savings > 0 && <span className="price-save">Save {savings}%</span>}
+        <div>
+          <div className="flex items-center gap-1.5 pt-1 mb-1">
+            <div className="flex text-marigold">
+               <Star size={14} fill="currentColor" />
+            </div>
+            <span className="text-xs font-bold text-ink">{Number(rating).toFixed(1)}</span>
+            <span className="text-xs text-ink/50">({product.reviews || reviewCount})</span>
+          </div>
+          <h3 className="font-display font-semibold text-xl text-ink leading-tight">{displayTitle}</h3>
+          {description && (
+             <p className="text-sm text-ink/70 line-clamp-2 mt-2 leading-relaxed">{description}</p>
+          )}
         </div>
       </div>
-
-      <div className="product-card-foot">
-        <button className="btn-atc" onClick={handleAddToCart}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
-          </svg>
-          Add to Bag
+      <div className="pt-5 mt-5 border-t border-ink/10 flex items-center justify-between">
+        <div className="flex items-baseline gap-2">
+          <span className="font-display text-2xl text-coral leading-none">${Number(price).toFixed(2)}</span>
+          {compareAtPrice && <span className="text-sm text-ink/40 line-through">${Number(compareAtPrice).toFixed(2)}</span>}
+        </div>
+        <button className="w-10 h-10 rounded-full bg-marigold text-ink border-2 border-ink shadow-[2px_2px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none flex items-center justify-center transition-all" onClick={handleAddToCart} title="Quick Add">
+          <Plus size={20} strokeWidth={3} />
         </button>
       </div>
     </Link>

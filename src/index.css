@@ -2,15 +2,35 @@
    ToddsIQ Design System — Full Rebuild v2
    ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    @apply bg-background text-on-background font-body-md;
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
   }
 }
+
+:root {
+  --canvas: #FBF8F2;
+  --ink: #1E2A38;
+  --coral: #FF6154;
+  --marigold: #FFB627;
+  --teal: #1F9D8A;
+  --periwinkle: #6C8EF5;
+
+  --shadow-sm: 0 1px 2px rgba(30,42,56,0.06), 0 1px 1px rgba(30,42,56,0.04);
+  --shadow-card: 0 8px 24px rgba(30,42,56,0.10), 0 2px 6px rgba(30,42,56,0.06);
+  --shadow-lift: 0 16px 36px rgba(30,42,56,0.16), 0 4px 10px rgba(30,42,56,0.08);
+}
+
+h1, h2, h3, .font-display { font-family: 'Baloo 2', sans-serif; }
+.font-hand { font-family: 'Caveat', cursive; }
 
 /* 0. Reset */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -106,18 +126,119 @@ header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);backd
 .nav-link{display:flex;align-items:center;gap:.25rem;padding:.5rem .875rem;font-size:.875rem;font-weight:500;color:var(--text-secondary);border-radius:var(--r-sm);transition:color var(--t-fast),background var(--t-fast);white-space:nowrap;}
 .nav-link:hover{color:var(--ink-navy);background:var(--bg-subtle);}
 .nav-link-sale{color:var(--marker-coral)!important;font-weight:700;}
-.mega-menu{position:absolute;top:calc(100% + 8px);left:0;background:white;border-radius:var(--r-lg);box-shadow:var(--shadow-xl);padding:2rem;display:grid;grid-template-columns:1fr 1fr;gap:2rem;min-width:660px;opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity var(--t-normal),transform var(--t-normal),visibility 0s var(--t-normal);z-index:200;border:1px solid rgba(30,42,56,.07);pointer-events:none;}
-.nav-item:hover .mega-menu{opacity:1;visibility:visible;transform:translateY(0);transition:opacity var(--t-normal),transform var(--t-normal);pointer-events:all;}
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  transform: scale(0.96) translateY(-10px);
+  transform-origin: top left;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px -12px rgba(30, 42, 56, 0.15), 0 18px 36px -18px rgba(30, 42, 56, 0.1);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  min-width: 700px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s 0.3s;
+  z-index: 200;
+  border: 1px solid rgba(30, 42, 56, 0.08);
+  pointer-events: none;
+}
+/* Invisible bridge to prevent accidental hover leave */
+.mega-menu::after {
+  content: '';
+  position: absolute;
+  top: -24px;
+  left: 0;
+  right: 0;
+  height: 24px;
+  background: transparent;
+}
+/* Upward pointing caret */
+.mega-menu::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 48px;
+  width: 14px;
+  height: 14px;
+  background: white;
+  transform: rotate(45deg);
+  border-left: 1px solid rgba(30, 42, 56, 0.08);
+  border-top: 1px solid rgba(30, 42, 56, 0.08);
+  border-radius: 3px 0 0 0;
+  z-index: -1;
+}
+.nav-item:hover .mega-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1) translateY(0);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.3, 0.64, 1);
+  pointer-events: all;
+  transition-delay: 0.05s;
+}
 .mega-col-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:1rem;}
 .mega-age-tiles{display:flex;flex-direction:column;gap:.625rem;}
 .mega-age-tile{display:flex;align-items:center;gap:1rem;padding:.875rem 1rem;border-radius:var(--r-md);transition:transform var(--t-bounce),background var(--t-fast);text-decoration:none;color:inherit;}
-.mega-age-tile:hover{transform:translateX(4px);background:var(--bg-subtle);}
-.mega-age-dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem;}
+.mega-age-tile:hover {
+  transform: translateX(6px);
+  background: rgba(30, 42, 56, 0.03);
+  box-shadow: 0 4px 12px rgba(30, 42, 56, 0.02);
+}
+.mega-age-tile:hover .mega-age-dot {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 8px 16px -4px rgba(30, 42, 56, 0.15);
+}
+.mega-age-dot {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  transition: transform 0.4s cubic-bezier(0.34, 1.3, 0.64, 1), box-shadow 0.3s ease;
+}
 .mega-age-text strong{display:block;font-size:.9375rem;font-weight:600;color:var(--ink-navy);}
 .mega-age-text span{font-size:.8125rem;color:var(--text-muted);}
 .mega-interest-list{display:grid;grid-template-columns:1fr 1fr;gap:.375rem;}
-.mega-interest-link{display:flex;align-items:center;gap:.625rem;padding:.625rem .75rem;border-radius:var(--r-sm);font-size:.875rem;font-weight:500;color:var(--text-secondary);transition:color var(--t-fast),background var(--t-fast);}
-.mega-interest-link:hover{color:var(--ink-navy);background:var(--bg-subtle);}
+.mega-interest-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: var(--r-md);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: transform var(--t-bounce), color var(--t-fast), background var(--t-fast);
+  text-decoration: none;
+}
+.mega-interest-link:hover {
+  color: var(--ink-navy);
+  background: rgba(30, 42, 56, 0.03);
+  transform: translateX(4px);
+}
+.mega-interest-link:hover .mega-interest-icon {
+  transform: scale(1.1);
+}
+.mega-interest-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  transition: transform var(--t-bounce);
+}
 .mega-interest-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;}
 .nav-actions{display:flex;align-items:center;gap:.25rem;margin-left:auto;}
 .nav-icon{position:relative;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:var(--r-sm);color:var(--text-secondary);transition:color var(--t-fast),background var(--t-fast);border:none;background:transparent;}

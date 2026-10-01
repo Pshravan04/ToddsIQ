@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import productsData from '../data/products.json';
+import { ChevronRight, Filter, Frown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const COLLECTION_MAP = {
   'all':          { title: 'All Toys', sub: 'Explore every toy in the ToddsIQ catalog.', category: null },
@@ -9,6 +11,9 @@ const COLLECTION_MAP = {
   'toddler':      { title: 'Toddler Play (1-3)', sub: 'Sensory exploration, first strokes, tactile discovery.', category: 'Toddler' },
   'preschool':    { title: 'Preschool & Pre-K (3-5)', sub: 'Guided drawing mentors, early phonics mastery, spatial logic.', category: 'Preschool' },
   'big-kids':     { title: 'Big Kids & Explorers (5+)', sub: 'Multi-level track physics, microscopes, and building sets.', category: 'Big Kids' },
+  'toddler-toys-ages-1-3': { title: 'Toddler Play (1-3)', sub: 'Sensory exploration, first strokes, tactile discovery.', category: 'Toddler' },
+  'preschool-toys-ages-3-5': { title: 'Preschool & Pre-K (3-5)', sub: 'Guided drawing mentors, early phonics mastery, spatial logic.', category: 'Preschool' },
+  'big-kids-ages-5': { title: 'Big Kids & Explorers (5+)', sub: 'Multi-level track physics, microscopes, and building sets.', category: 'Big Kids' },
 };
 
 const FILTERS = ['All', 'STEM & Learning', 'Arts & Crafts', 'Building', 'Reading', 'Sensory'];
@@ -24,6 +29,9 @@ export default function Collection() {
   let products = [...productsData];
   if (info.category) {
     products = products.filter(p => p.categories && p.categories.includes(info.category));
+  } else if (id && !COLLECTION_MAP[id]) {
+     // If user passed some arbitrary collection name in URL that isn't mapped, try to match by category anyway
+     products = products.filter(p => p.categories && p.categories.some(c => c.toLowerCase().includes(id.toLowerCase())));
   }
 
   // Sub-filter by Tag
@@ -36,45 +44,51 @@ export default function Collection() {
   if (sort === 'Price: High–Low') products.sort((a, b) => b.price - a.price);
 
   return (
-    <div className="w-full bg-surface min-h-screen">
+    <div className="w-full bg-canvas min-h-screen">
       {/* Banner */}
-      <div className="w-full bg-surface-container-low pt-24 pb-16 border-b border-outline-variant">
+      <div className="w-full bg-white pt-24 pb-16 border-b border-ink/10">
         <div className="max-w-7xl mx-auto px-gutter text-center">
-          <nav className="flex justify-center items-center gap-2 text-sm text-on-surface-variant font-label-md mb-6">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-            <span className="material-symbols-outlined text-[1rem]">chevron_right</span>
-            <span className="text-on-surface font-bold">{info.title}</span>
+          <nav className="flex justify-center items-center gap-2 text-xs font-bold tracking-widest text-ink/60 uppercase mb-6">
+            <Link to="/" className="hover:text-ink transition-colors">Home</Link>
+            <ChevronRight size={14} className="text-ink/30" />
+            <span className="text-ink">{info.title}</span>
           </nav>
-          <h1 className="font-display-hero text-4xl md:text-5xl text-on-surface font-black tracking-tight">{info.title}</h1>
-          {info.sub && <p className="font-body-lg text-on-surface-variant mt-4 max-w-2xl mx-auto">{info.sub}</p>}
-          <p className="font-label-md text-primary mt-6">{products.length} products</p>
+          <h1 className="font-display text-5xl md:text-6xl text-ink leading-tight mb-4">{info.title}</h1>
+          {info.sub && <p className="text-lg text-ink/70 max-w-2xl mx-auto">{info.sub}</p>}
+          <p className="text-sm font-bold text-coral mt-6">{products.length} products</p>
         </div>
       </div>
 
       {/* Filters Bar */}
-      <div className="w-full bg-surface border-b border-outline-variant sticky top-16 z-20 shadow-sm">
+      <div className="w-full bg-white border-b border-ink/10 sticky top-16 z-20 shadow-sm">
         <div className="max-w-7xl mx-auto px-gutter py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="flex overflow-x-auto w-full md:w-auto gap-2 pb-2 md:pb-0 scrollbar-hide">
-            {FILTERS.map(f => (
-              <button 
-                key={f} 
-                onClick={() => setActiveFilter(f)}
-                className={`shrink-0 px-4 py-2 rounded-full font-label-md border transition-all ${
-                  activeFilter === f 
-                  ? 'bg-on-surface text-surface border-on-surface' 
-                  : 'bg-surface text-on-surface-variant border-outline-variant hover:border-on-surface'
-                }`}
-              >
-                {f}
-              </button>
-            ))}
+          <div className="relative flex w-full md:w-auto">
+             <div className="flex overflow-x-auto w-full md:w-auto gap-2 pb-2 md:pb-0 scrollbar-hide">
+               {FILTERS.map(f => (
+                 <button 
+                   key={f} 
+                   onClick={() => setActiveFilter(f)}
+                   className={`relative z-10 shrink-0 px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
+                     activeFilter === f 
+                     ? 'text-canvas border-ink shadow-[2px_2px_0px_#1E2A38]' 
+                     : 'bg-[#F4F1EA] text-ink border-transparent hover:border-ink'
+                   }`}
+                 >
+                   {activeFilter === f && (
+                     <motion.div layoutId="filterPill" className="absolute inset-0 bg-coral rounded-full -z-10 border-2 border-ink" transition={{ type: 'spring', stiffness: 400, damping: 30 }} />
+                   )}
+                   {f}
+                 </button>
+               ))}
+             </div>
           </div>
-          <div className="flex items-center shrink-0 w-full md:w-auto">
-            <span className="material-symbols-outlined text-on-surface-variant mr-2">sort</span>
+          
+          <div className="flex items-center shrink-0 w-full md:w-auto border border-ink/10 rounded-full px-4 py-1.5 bg-canvas hover:border-ink/20 transition-colors">
+            <Filter size={16} className="text-ink/60 mr-2" />
             <select 
               value={sort} 
               onChange={e => setSort(e.target.value)}
-              className="bg-surface border border-outline-variant rounded-lg px-4 py-2 text-sm font-label-md text-on-surface outline-none focus:border-primary"
+              className="bg-transparent text-sm font-bold text-ink outline-none cursor-pointer appearance-none pr-4"
             >
               {SORTS.map(s => <option key={s}>{s}</option>)}
             </select>
@@ -83,18 +97,23 @@ export default function Collection() {
       </div>
 
       {/* Product Grid */}
-      <section className="max-w-7xl mx-auto px-gutter py-space-xl">
+      <section className="max-w-7xl mx-auto px-gutter py-16">
         {products.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map(p => <ProductCard key={p.id} product={p} />)}
-          </div>
+          <motion.div initial="hidden" animate="show" variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05 } } }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map(p => (
+              <motion.div key={p.id} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}>
+                 <ProductCard product={p} />
+              </motion.div>
+            ))}
+          </motion.div>
         ) : (
-          <div className="text-center py-20 bg-surface-container-lowest rounded-3xl border border-outline-variant">
-            <span className="material-symbols-outlined text-6xl text-on-surface-variant mb-4">search_off</span>
-            <p className="font-headline-md text-on-surface mb-2">No products found</p>
-            <p className="font-body-md text-on-surface-variant">
-              Try a different filter or <Link to="/collections/all" className="text-primary font-bold hover:underline">view all toys</Link>.
+          <div className="text-center py-24 bg-white rounded-3xl border border-ink/10 shadow-sm max-w-2xl mx-auto mt-10">
+            <Frown className="w-16 h-16 text-ink/20 mx-auto mb-4" />
+            <p className="font-display text-2xl text-ink mb-2">No products found</p>
+            <p className="text-ink/60 mb-6">
+              Try removing filters or exploring our full collection.
             </p>
+            <Link to="/collections/all" className="inline-flex h-12 items-center justify-center rounded-xl bg-coral/20 text-canvas border-2 border-ink shadow-[4px_4px_0px_#1E2A38] px-8 font-bold hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">Shop All Toys</Link>
           </div>
         )}
       </section>
