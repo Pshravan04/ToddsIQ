@@ -18,4 +18,4 @@ export default function BeforeAfterSlider({ beforeImage, afterImage }) {
       />
     </div>
   );
-}
+} 

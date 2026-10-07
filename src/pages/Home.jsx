@@ -9,10 +9,17 @@ export default function Home() {
   const [quizAge, setQuizAge] = useState('3-4');
   const [quizGoal, setQuizGoal] = useState('focus');
   const [showQuizResult, setShowQuizResult] = useState(false);
+  const [activeBestsellerTab, setActiveBestsellerTab] = useState('All Ages');
 
   const { addItem } = useCart();
   const featured = productsData.slice(0, 8);
-  const bestsellers = productsData.slice(0, 4);
+  const displayBestsellers = productsData.filter(product => {
+    if (activeBestsellerTab === 'All Ages') return true;
+    if (activeBestsellerTab === 'Ages 1–3') return product.ageBand === '1-3';
+    if (activeBestsellerTab === 'Ages 3–5') return product.ageBand === '3-5' || product.ageBand === '3-8';
+    if (activeBestsellerTab === 'Ages 5+') return product.ageBand === '5+' || product.ageBand === '3-8';
+    return true;
+  }).slice(0, 4);
 
   const carouselRef = useRef(null);
   const scrollCarousel = (direction) => {
@@ -31,19 +38,24 @@ export default function Home() {
     <>
       <div className="flex flex-col w-full overflow-hidden">
 
-<FadeInUp><section className="relative w-full min-h-[600px] lg:h-[700px] flex items-center overflow-hidden">
+<FadeInUp><section className="relative w-full flex items-center overflow-hidden py-8 lg:py-10">
   {/* Background Image & Gradient Overlays */}
-  <div className="absolute inset-0 z-0">
-    <img 
-      src="/hero-bg.png" 
-      alt="Child playing with ToddsIQ Drawing Bot" 
-      className="w-full h-full object-cover object-[70%_center] md:object-center"
-    />
+  <div className="absolute inset-0 z-0 bg-[#F4F1EA]">
+    <video 
+      autoPlay 
+      loop 
+      muted 
+      playsInline 
+      poster="/hero-bg.png"
+      className="w-full h-full object-cover object-[70%_center] md:object-center opacity-90"
+    >
+      <source src="https://cdn.shopify.com/videos/c/vp/50d3a54b41a54dc6abda9f55073142ed/50d3a54b41a54dc6abda9f55073142ed.HD-1080p-7.2Mbps-21272719.mp4" type="video/mp4" />
+    </video>
     <div className="absolute inset-0 bg-gradient-to-r from-surface/95 via-surface/80 to-transparent md:w-[70%] lg:w-[60%]"></div>
   </div>
 
-  <div className="max-w-7xl mx-auto w-full px-gutter relative z-10 py-12">
-    <div className="max-w-xl flex flex-col gap-6">
+  <div className="max-w-7xl mx-auto w-full px-gutter relative z-10 py-2">
+    <div className="max-w-xl flex flex-col gap-3 lg:gap-4">
       
       {/* Logo inside Hero */}
       <div className="mb-2">
@@ -54,35 +66,49 @@ export default function Home() {
 
       {/* Kicker Badge */}
       <div className="inline-flex items-center gap-2 self-start bg-transparent border border-[#d1d9e0] px-4 py-1.5 rounded-full text-[#0b3359] font-bold text-sm tracking-wide shadow-sm bg-white/30 backdrop-blur-sm">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dcb650" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-90"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
-        Award-Winning STEM Toys
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dcb650" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-90"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+        ⭐ Award-Winning Screen-Free STEM Toys
       </div>
 
       {/* Headline */}
-      <h1 className="font-display-hero text-5xl md:text-6xl lg:text-[4rem] text-[#0b3359] font-black tracking-tight leading-[1.1]">
-        Spark brilliant minds <br /> with <span className="text-[#f58f29] relative inline-block z-10">zero screens.<svg className="absolute -bottom-1 left-0 w-full h-3 text-[#fcd5a0] -z-10" viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M0,15 C50,0 150,0 200,15" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round"/></svg></span>
+      <h1 className="font-display-hero text-3xl md:text-4xl lg:text-5xl text-[#0b3359] font-black tracking-tight leading-tight">
+        Spark Brilliant Minds With <span className="text-[#f58f29] relative inline-block z-10">100% Screen-Free<svg className="absolute -bottom-1 left-0 w-full h-3 text-[#fcd5a0] -z-10" viewBox="0 0 200 20" preserveAspectRatio="none"><path d="M0,15 C50,0 150,0 200,15" fill="none" stroke="currentColor" strokeWidth="8" strokeLinecap="round"/></svg></span> Play.
       </h1>
 
       {/* Description */}
-      <p className="font-body-lg text-lg text-[#0b3359]/80 max-w-md leading-relaxed">
-        ToddsIQ™ crafts physical creative companions and tactile engineering kits that turn restless hours into deep, joyful focus. Built for little hands, loved by 28,000+ families.
+      <p className="font-body-lg text-sm md:text-base text-[#0b3359]/80 max-w-lg leading-snug">
+        Help your child develop focus, fine motor skills, and creative confidence. ToddsIQ™ physical drawing robots and tactile building kits turn screen time into hours of independent, joyful learning.
       </p>
 
+      {/* Key Benefit Bullets */}
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 mt-2 font-body-md text-[#0b3359]/90 font-semibold text-sm">
+        <div className="flex items-center gap-1.5">
+          <span className="material-symbols-outlined text-[#10B981] text-[18px]">check_circle</span> 
+          100% Screen-Free
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="material-symbols-outlined text-[#10B981] text-[18px]">check_circle</span> 
+          STEM & Montessori
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="material-symbols-outlined text-[#10B981] text-[18px]">check_circle</span> 
+          150+ Activities
+        </div>
+      </div>
+
       {/* Buttons */}
-      <div className="flex flex-wrap items-center gap-4 pt-2">
-        <a className="px-6 py-3.5 bg-coral text-canvas rounded-xl border-2 border-ink font-label-lg shadow-[4px_4px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center gap-2" href="#catalog">
-          <span>Shop the Catalog</span>
+      <div className="flex flex-wrap items-center gap-3 pt-1">
+        <Link className="px-5 py-2.5 bg-coral text-canvas rounded-xl border-2 border-ink font-label-lg text-sm shadow-[3px_3px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center gap-2" to="/collections/best-sellers">
+          <span>SHOP BESTSELLERS — FROM $49</span>
           <span className="material-symbols-outlined text-base">arrow_forward</span>
-        </a>
-        <a className="px-6 py-3.5 bg-transparent text-[#0b3359] rounded-full border border-[#0b3359] font-label-lg shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all flex items-center gap-2" href="#quiz">
-          <span className="material-symbols-outlined text-[#0b3359]">psychology</span>
-          <span>Take the 45s Toy Quiz</span>
-        </a>
+        </Link>
+        <Link className="px-5 py-2.5 bg-transparent text-[#0b3359] rounded-xl border-2 border-[#0b3359] font-label-lg text-sm font-bold shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all flex items-center gap-2" to="/collections">
+          <span>🧩</span>
+          <span>Take the 30s Toy Quiz</span>
+        </Link>
       </div>
 
       {/* Social Proof */}
-      <div className="flex items-center gap-4 pt-4">
+      <div className="flex items-center gap-3 pt-1">
         <div className="flex -space-x-3">
           <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=1" alt="Parent" />
           <img className="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://i.pravatar.cc/100?img=5" alt="Parent" />
@@ -102,34 +128,37 @@ export default function Home() {
   </div>
 </section></FadeInUp>
 
-<FadeInUp><section className="w-full bg-[#F4F1EA]-high border-y-2 border-ink py-space-sm overflow-hidden select-none">
-<div className="flex whitespace-nowrap animate-[marquee_24s_linear_infinite] gap-space-xl items-center font-label-md text-label-md text-ink">
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-coral text-base">phonelink_off</span> 100% SCREEN-FREE FOCUS</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-tertiary text-base">pan_tool</span> TACTILE FINE-MOTOR SKILLS</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-secondary text-base">verified</span> NON-TOXIC &amp; SAFETY TESTED</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-coral-container text-base">favorite</span> LOVED BY 28,000+ PARENTS</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-tertiary-container text-base">spa</span> MONTESSORI-ALIGNED PLAY</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-coral text-base">do_not_disturb_on</span> ZERO ALGORITHMIC DOPAMINE</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-coral text-base">phonelink_off</span> 100% SCREEN-FREE FOCUS</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-tertiary text-base">pan_tool</span> TACTILE FINE-MOTOR SKILLS</span>
-<span className="text-ink-variant">•</span>
-<span className="inline-flex items-center gap-2"><span className="material-symbols-outlined text-secondary text-base">verified</span> NON-TOXIC &amp; SAFETY TESTED</span>
-</div>
+<FadeInUp><section className="w-full bg-[#F4F1EA]-high border-y-2 border-ink py-space-xl">
+  <div className="max-w-7xl mx-auto px-gutter grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div className="flex flex-col items-center text-center gap-2">
+      <span className="text-3xl">👁️</span>
+      <h3 className="font-display font-bold text-ink">100% Screen-Free</h3>
+      <p className="font-body-sm text-sm text-ink-variant">Zero digital eye strain or addictive algorithms</p>
+    </div>
+    <div className="flex flex-col items-center text-center gap-2">
+      <span className="text-3xl">🧠</span>
+      <h3 className="font-display font-bold text-ink">STEM &amp; Montessori</h3>
+      <p className="font-body-sm text-sm text-ink-variant">Builds pincer grasp &amp; spatial reasoning</p>
+    </div>
+    <div className="flex flex-col items-center text-center gap-2">
+      <span className="text-3xl">🛡️</span>
+      <h3 className="font-display font-bold text-ink">Child-Safe &amp; Non-Toxic</h3>
+      <p className="font-body-sm text-sm text-ink-variant">BPA-free, lab-tested, ultra-durable materials</p>
+    </div>
+    <div className="flex flex-col items-center text-center gap-2">
+      <span className="text-3xl">📦</span>
+      <h3 className="font-display font-bold text-ink">30-Day Risk-Free Trial</h3>
+      <p className="font-body-sm text-sm text-ink-variant">Love it or return it for a 100% full refund</p>
+    </div>
+  </div>
 </section></FadeInUp>
 
-<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
+<FadeInUp><section id="catalog" className="w-full px-gutter py-space-2xl bg-canvas">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">Tailored Developmental Stages</span>
-<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Shop by Age &amp; Milestone</h2>
+<span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">TAILORED DEVELOPMENTAL STAGES</span>
+<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Find the Perfect Match for Your Child's Age</h2>
 </div>
 <p className="font-body-md text-body-md text-ink-variant max-w-md">
           Every kit is precision-calibrated for growing neural connections, pincer-grasp coordination, and open-ended experimentation.
@@ -169,14 +198,14 @@ export default function Home() {
 </div>
 </div>
 </div>
-<Link className="mt-space-lg w-full py-2.5 bg-[#F4F1EA] hover:bg-[#F4F1EA]-high text-ink text-center font-label-md text-label-md rounded-xl border border-ink transition-colors flex items-center justify-center gap-1" to="/collections/toddler">
-<span className="">Browse Ages 1–3</span>
+<Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/toddler">
+<span className="">Shop Ages 1–3</span>
 <span className="material-symbols-outlined text-sm">arrow_forward</span>
 </Link>
 </div>
 
 <div className="group bg-[#F4F1EA]-lowest rounded-3xl p-space-lg border-2 border-ink shadow-[6px_6px_0px_#ff6154] hover:-translate-y-1 hover:shadow-[8px_8px_0px_#ff6154] transition-all flex flex-col justify-between relative">
-<div className="absolute -top-3 right-6 bg-coral/20 text-canvas font-label-sm text-label-sm uppercase tracking-wider px-3 py-0.5 rounded-full border border-ink">
+<div className="absolute -top-3 right-6 bg-coral text-canvas font-label-sm text-label-sm uppercase tracking-wider px-3 py-0.5 rounded-full border border-ink">
             Most Popular Stage
           </div>
 <div className="space-y-space-md">
@@ -209,8 +238,8 @@ export default function Home() {
 </div>
 </div>
 </div>
-<Link className="mt-space-lg w-full py-2.5 bg-coral/20 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] hover:bg-coral transition-colors flex items-center justify-center gap-1" to="/collections/preschool">
-<span className="">Browse Ages 3–5</span>
+<Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/preschool">
+<span className="">Shop Ages 3–5</span>
 <span className="material-symbols-outlined text-sm">arrow_forward</span>
 </Link>
 </div>
@@ -246,8 +275,8 @@ export default function Home() {
 </div>
 </div>
 </div>
-<Link className="mt-space-lg w-full py-2.5 bg-[#F4F1EA] hover:bg-[#F4F1EA]-high text-ink text-center font-label-md text-label-md rounded-xl border border-ink transition-colors flex items-center justify-center gap-1" to="/collections/big-kids">
-<span className="">Browse Ages 5+</span>
+<Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/big-kids">
+<span className="">Shop Ages 5+</span>
 <span className="material-symbols-outlined text-sm">arrow_forward</span>
 </Link>
 </div>
@@ -259,20 +288,29 @@ export default function Home() {
 <div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-tertiary font-bold">Tested in 28,000+ Homes</span>
-<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Award-Winning Bestsellers</h2>
+<span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">PARENT-FAVORITES</span>
+<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Award-Winning Bestsellers Built for Little Hands</h2>
 </div>
 
 <div className="flex items-center gap-2 flex-wrap">
-<button className="px-4 py-1.5 rounded-full bg-[#F4F1EA]-lowest font-label-sm text-label-sm text-ink border-2 border-ink shadow-[2px_2px_0px_#1E2A38] font-bold">All Ages</button>
-<button className="px-4 py-1.5 rounded-full bg-canvas hover:bg-[#F4F1EA] font-label-sm text-label-sm text-ink-variant border border-outline transition-colors">Ages 1–3</button>
-<button className="px-4 py-1.5 rounded-full bg-canvas hover:bg-[#F4F1EA] font-label-sm text-label-sm text-ink-variant border border-outline transition-colors">Ages 3–5</button>
-<button className="px-4 py-1.5 rounded-full bg-canvas hover:bg-[#F4F1EA] font-label-sm text-label-sm text-ink-variant border border-outline transition-colors">Ages 5+</button>
+{['All Ages', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'].map(tab => (
+  <button 
+    key={tab}
+    onClick={() => setActiveBestsellerTab(tab)}
+    className={`px-4 py-1.5 rounded-full font-label-sm text-label-sm transition-colors ${
+      activeBestsellerTab === tab 
+        ? 'bg-white text-ink border-2 border-ink shadow-[2px_2px_0px_#1E2A38] font-bold' 
+        : 'bg-canvas hover:bg-white text-ink-variant border border-outline'
+    }`}
+  >
+    {tab}
+  </button>
+))}
 </div>
 </div>
 
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-lg pt-space-sm">
-{bestsellers.map(product => (
+{displayBestsellers.map(product => (
   <ProductCard key={product.id} product={product} />
 ))}
 </div>
@@ -348,15 +386,15 @@ export default function Home() {
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">Curated Pathways</span>
 <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Shop by Creative Interest</h2>
 </div>
-<a className="font-label-md text-label-md text-ink hover:text-coral transition-colors flex items-center gap-1" data-path="shop-catalog" href="#">
+<Link className="font-label-md text-label-md text-ink hover:text-coral transition-colors flex items-center gap-1" data-path="shop-catalog" to="/collections">
 <span className="">View All 7 Categories</span>
 <span className="material-symbols-outlined text-base">east</span>
-</a>
+</Link>
 </div>
 
 <div className="grid grid-cols-1 md:grid-cols-12 gap-space-md">
 
-<a className="md:col-span-7 group relative bg-secondary-fixed/50 hover:bg-secondary-fixed rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="stem-science" href="#">
+<Link className="md:col-span-7 group relative bg-secondary-fixed/50 hover:bg-secondary-fixed rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="stem-science" to="/collections">
 <div className="space-y-1 relative z-10">
 <span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🔬 STEM Core</span>
 <h3 className="font-headline-md text-headline-md text-ink pt-2">STEM &amp; Science</h3>
@@ -367,9 +405,9 @@ export default function Home() {
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </div>
 <span className="material-symbols-outlined absolute -right-6 -bottom-6 text-9xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">biotech</span>
-</a>
+</Link>
 
-<a className="md:col-span-5 group relative bg-tertiary-fixed/40 hover:bg-tertiary-fixed/60 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="building-construction" href="#">
+<Link className="md:col-span-5 group relative bg-tertiary-fixed/40 hover:bg-tertiary-fixed/60 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="building-construction" to="/collections">
 <div className="space-y-1 relative z-10">
 <span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🧱 Engineering</span>
 <h3 className="font-headline-md text-headline-md text-ink pt-2">Building &amp; Construction</h3>
@@ -380,9 +418,9 @@ export default function Home() {
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </div>
 <span className="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">apartment</span>
-</a>
+</Link>
 
-<a className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="reading-language" href="#">
+<Link className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="reading-language" to="/collections">
 <div className="relative z-10">
 <span className="px-2.5 py-1 bg-[#F4F1EA] rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">📖 Phonics</span>
 <h3 className="font-title-md text-title-md text-ink pt-2">Reading &amp; Language</h3>
@@ -392,9 +430,9 @@ export default function Home() {
 <span className="">Discover Reading</span>
 <span className="material-symbols-outlined text-sm">arrow_forward</span>
 </div>
-</a>
+</Link>
 
-<a className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="math-logic" href="#">
+<Link className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="math-logic" to="/collections">
 <div className="relative z-10">
 <span className="px-2.5 py-1 bg-[#F4F1EA] rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🔢 Spatial Logic</span>
 <h3 className="font-title-md text-title-md text-ink pt-2">Math &amp; Logic</h3>
@@ -404,9 +442,9 @@ export default function Home() {
 <span className="">Explore Logic</span>
 <span className="material-symbols-outlined text-sm">arrow_forward</span>
 </div>
-</a>
+</Link>
 
-<a className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="sensory-calm" href="#">
+<Link className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="sensory-calm" to="/collections">
 <div className="relative z-10">
 <span className="px-2.5 py-1 bg-[#F4F1EA] rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🫧 Calm Focus</span>
 <h3 className="font-title-md text-title-md text-ink pt-2">Sensory &amp; Calm</h3>
@@ -416,9 +454,9 @@ export default function Home() {
 <span className="">Calming Play</span>
 <span className="material-symbols-outlined text-sm">arrow_forward</span>
 </div>
-</a>
+</Link>
 
-<a className="md:col-span-7 group relative bg-coral/40 hover:bg-coral/60 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="arts-crafts" href="#">
+<Link className="md:col-span-7 group relative bg-coral/40 hover:bg-coral/60 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="arts-crafts" to="/collections">
 <div className="space-y-1 relative z-10">
 <span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🎨 Physical Creation</span>
 <h3 className="font-headline-md text-headline-md text-ink pt-2">Arts &amp; Guided Drawing</h3>
@@ -429,9 +467,9 @@ export default function Home() {
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </div>
 <span className="material-symbols-outlined absolute -right-6 -bottom-6 text-9xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">palette</span>
-</a>
+</Link>
 
-<a className="md:col-span-5 group relative bg-tertiary-fixed-dim/30 hover:bg-tertiary-fixed-dim/50 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="active-outdoor" href="#">
+<Link className="md:col-span-5 group relative bg-tertiary-fixed-dim/30 hover:bg-tertiary-fixed-dim/50 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="active-outdoor" to="/collections">
 <div className="space-y-1 relative z-10">
 <span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🏃 Kinetic Motion</span>
 <h3 className="font-headline-md text-headline-md text-ink pt-2">Active &amp; Kinetic</h3>
@@ -442,7 +480,7 @@ export default function Home() {
 <span className="material-symbols-outlined text-base">arrow_forward</span>
 </div>
 <span className="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">toys</span>
-</a>
+</Link>
 </div>
 </div>
 </section></FadeInUp>
@@ -554,10 +592,10 @@ export default function Home() {
 </div>
 <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight">Parent-Tested, Therapist-Approved</h2>
 </div>
-<a className="font-label-md text-label-md text-ink hover:text-coral transition-colors flex items-center gap-1" data-path="parent-reviews" href="#">
+<Link className="font-label-md text-label-md text-ink hover:text-coral transition-colors flex items-center gap-1" data-path="parent-reviews" to="/collections">
 <span className="">Read All 480+ Verified Stories</span>
 <span className="material-symbols-outlined text-base">arrow_forward</span>
-</a>
+</Link>
 </div>
 <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
 
@@ -637,6 +675,50 @@ export default function Home() {
 </div>
 </div>
 </div>
+</section></FadeInUp>
+
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
+  <div className="max-w-7xl mx-auto flex flex-col gap-space-xl text-center">
+    <div>
+      <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">SEE IT IN ACTION</span>
+      <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Real Parents, Real Playtime</h2>
+    </div>
+    
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+      <div className="flex flex-col gap-3">
+        <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
+          <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/1_b0744e83-37b5-4b51-91a5-3a05470d0505_720x.jpg?v=1725595982">
+             <source src="https://cdn.shopify.com/videos/c/vp/50d3a54b41a54dc6abda9f55073142ed/50d3a54b41a54dc6abda9f55073142ed.HD-1080p-7.2Mbps-21272719.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p className="font-label-md text-ink font-bold">The Drawing Robot teaches stroke precision.</p>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
+          <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/7_70d4c82b-09db-484d-b352-7e997a44f3bd_720x.jpg?v=1725595982">
+            <source src="https://cdn.shopify.com/videos/c/vp/b3152ef32cf54e38ba5b10fb03a4bc03/b3152ef32cf54e38ba5b10fb03a4bc03.HD-1080p-7.2Mbps-20894541.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p className="font-label-md text-ink font-bold">The MagTrack keeps 5yos busy for hours.</p>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
+          <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/3_e5d167eb-079d-4c3e-86d1-4cb50beaf736_720x.jpg?v=1725595982">
+            <source src="https://cdn.shopify.com/videos/c/vp/50d3a54b41a54dc6abda9f55073142ed/50d3a54b41a54dc6abda9f55073142ed.HD-1080p-7.2Mbps-21272719.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <p className="font-label-md text-ink font-bold">Tactile buttons build finger strength.</p>
+      </div>
+    </div>
+    <div className="mt-4">
+       <Link className="inline-flex px-8 py-3.5 bg-transparent text-[#0b3359] rounded-xl border-2 border-[#0b3359] font-label-lg font-bold shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all items-center justify-center gap-2" to="/collections">
+         <span>View All Videos</span>
+         <span className="material-symbols-outlined text-base">play_circle</span>
+       </Link>
+    </div>
+  </div>
 </section></FadeInUp>
 
 <FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">

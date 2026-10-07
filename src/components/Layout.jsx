@@ -24,19 +24,16 @@ const NAV = [
       { label: 'Sensory Play',   emoji: '🌈', color: '#66BB6A' },
     ],
   },
-  { label: 'New Arrivals', href: '/collections/new' },
+  { label: 'About Us',     href: '/about' },
   { label: 'Best Sellers', href: '/collections/best-sellers' },
-  { label: 'Gift Sets',    href: '/collections/gifts' },
+  { label: 'Contact Us',   href: '/contact' },
   { label: '🔥 Sale',      href: '/collections/sale', sale: true },
 ];
 
 const CHIPS = [
-  '🚀 Free shipping on orders over $50',
-  '🎁 Gift wrapping available',
-  '⭐ 10,000+ happy families',
-  '🔒 30-day hassle-free returns',
-  '🌱 Eco-friendly packaging',
-  '✨ Expert-curated toys',
+  '⚡ FREE Express Shipping Over $50',
+  '🛡️ 30-Day Risk-Free Guarantee',
+  '⭐ 4.9/5 Rating (28,000+ Happy Families)',
 ];
 
 export default function Layout({ children }) {
@@ -88,6 +85,12 @@ export default function Layout({ children }) {
             </ul>
 
             <div className="nav-actions">
+              <Link to="/track" className="hidden lg:block font-label-sm text-xs font-bold uppercase tracking-widest text-ink hover:text-coral transition-colors mr-2">Track Your Order</Link>
+              <div className="hidden md:flex items-center gap-1.5 mr-2 cursor-pointer hover:bg-black/5 px-2 py-1.5 rounded-lg transition-colors">
+                <img src="https://flagcdn.com/w20/us.png" alt="US" className="w-[18px] h-auto rounded-[2px] shadow-sm" />
+                <span className="text-xs font-bold text-ink">USD</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
               <button className="nav-icon md:hidden mr-1" onClick={() => setMobileMenuOpen(true)} aria-label="Menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M4 6h16M4 12h16M4 18h16"/>
@@ -265,7 +268,7 @@ function NavItem({ item }) {
                         transition={{ delay: 0.04 * i }}
                         key={a.label}
                       >
-                        <Link to={a.href} className="group flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F4F1EA] transition-all">
+                        <Link to={a.href} onClick={() => setIsHovered(false)} className="group flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F4F1EA] transition-all">
                           <div className="w-14 h-14 rounded-full flex items-center justify-center text-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-sm border border-ink/5" style={{ background: a.bg }}>
                             {a.emoji}
                           </div>
@@ -288,12 +291,12 @@ function NavItem({ item }) {
                         transition={{ delay: 0.04 * i }}
                         key={int.label}
                       >
-                        <a href="#" className="group flex items-center gap-3 p-3 rounded-2xl hover:bg-[#F4F1EA] transition-all">
+                        <Link to="/collections" onClick={() => setIsHovered(false)} className="group flex items-center gap-3 p-3 rounded-2xl hover:bg-[#F4F1EA] transition-all">
                           <span className="w-12 h-12 rounded-[16px] flex items-center justify-center text-xl transition-transform duration-300 group-hover:scale-110 shadow-sm border border-ink/5" style={{ background: int.color + '20' }}>
                             {int.emoji}
                           </span>
                           <span className="text-[14.5px] font-semibold text-ink/80 group-hover:text-ink transition-colors">{int.label}</span>
-                        </a>
+                        </Link>
                       </motion.div>
                     ))}
                   </div>
