@@ -8,6 +8,7 @@ import Checkout from './pages/Checkout';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import { CartProvider } from './context/CartContext';
+import { CurrencyProvider } from './context/CurrencyContext';
 
 function ScrollToHash() {
   const { pathname, hash } = useLocation();
@@ -31,7 +32,8 @@ function ScrollToHash() {
 
 function App() {
   return (
-    <CartProvider>
+    <CurrencyProvider>
+      <CartProvider>
       <BrowserRouter>
         <ScrollToHash />
         <Routes>
@@ -46,6 +48,7 @@ function App() {
         </Routes>
       </BrowserRouter>
     </CartProvider>
+    </CurrencyProvider>
   );
 }
 

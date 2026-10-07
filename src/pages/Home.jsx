@@ -3,6 +3,11 @@ import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import productsData from '../data/products.json';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
+
+import demoVideo1 from '../assets/videos/00af685865a04247bcf22a272a7fb5d8.SD-480p-1.5Mbps-77121162.mp4';
+import demoVideo2 from '../assets/videos/0f6e2b56b6cd45c49aae89589def1942.SD-480p-1.5Mbps-77121299.mp4';
+import demoVideo3 from '../assets/videos/5ec74577602944d7a30cf5142d27ee55.SD-480p-1.5Mbps-77121182.mp4';
 import ProductCard from '../components/ProductCard';
 
 export default function Home() {
@@ -12,6 +17,7 @@ export default function Home() {
   const [activeBestsellerTab, setActiveBestsellerTab] = useState('All Ages');
 
   const { addItem } = useCart();
+  const { formatPrice } = useCurrency();
   const featured = productsData.slice(0, 8);
   const displayBestsellers = productsData.filter(product => {
     if (activeBestsellerTab === 'All Ages') return true;
@@ -98,7 +104,7 @@ export default function Home() {
       {/* Buttons */}
       <div className="flex flex-wrap items-center gap-3 pt-1">
         <Link className="px-5 py-2.5 bg-coral text-canvas rounded-xl border-2 border-ink font-label-lg text-sm shadow-[3px_3px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center gap-2" to="/collections/best-sellers">
-          <span>SHOP BESTSELLERS — FROM $49</span>
+          <span>SHOP BESTSELLERS — FROM {formatPrice(49)}</span>
           <span className="material-symbols-outlined text-base">arrow_forward</span>
         </Link>
         <Link className="px-5 py-2.5 bg-transparent text-[#0b3359] rounded-xl border-2 border-[#0b3359] font-label-lg text-sm font-bold shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all flex items-center gap-2" to="/collections">
@@ -188,13 +194,13 @@ export default function Home() {
 
 <div className="space-y-1.5 pt-2 border-t border-surface-container">
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">NestWood Full Pack</span><span className="font-bold text-coral">$49</span>
+<span className="">NestWood Full Pack</span><span className="font-bold text-coral">{formatPrice(49)}</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">AquaDoodle Book</span><span className="font-bold text-coral">$25</span>
+<span className="">AquaDoodle Book</span><span className="font-bold text-coral">{formatPrice(25)}</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">SquishBlocks Tactile Set</span><span className="font-bold text-coral">$49</span>
+<span className="">SquishBlocks Tactile Set</span><span className="font-bold text-coral">{formatPrice(49)}</span>
 </div>
 </div>
 </div>
@@ -228,13 +234,13 @@ export default function Home() {
 </div>
 <div className="space-y-1.5 pt-2 border-t border-surface-container">
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">ToddsIQ Bot Full Pack</span><span className="font-bold text-coral">$89</span>
+<span className="">ToddsIQ Bot Full Pack</span><span className="font-bold text-coral">{formatPrice(89)}</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">TurboMonster Track</span><span className="font-bold text-coral">$39</span>
+<span className="">TurboMonster Track</span><span className="font-bold text-coral">{formatPrice(39)}</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">Count Crew Number Blocks</span><span className="font-bold text-coral">$49</span>
+<span className="">Count Crew Number Blocks</span><span className="font-bold text-coral">{formatPrice(49)}</span>
 </div>
 </div>
 </div>
@@ -265,13 +271,13 @@ export default function Home() {
 </div>
 <div className="space-y-1.5 pt-2 border-t border-surface-container">
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">MagTrack 3D Master Set</span><span className="font-bold text-coral">$69</span>
+<span className="">MagTrack 3D Master Set</span><span className="font-bold text-coral">{formatPrice(69)}</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">SpiderRacer Duo Set</span><span className="font-bold text-coral">$39</span>
+<span className="">SpiderRacer Duo Set</span><span className="font-bold text-coral">{formatPrice(39)}</span>
 </div>
 <div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">Spell &amp; Play Master Lab</span><span className="font-bold text-coral">$49</span>
+<span className="">Spell &amp; Play Master Lab</span><span className="font-bold text-coral">{formatPrice(49)}</span>
 </div>
 </div>
 </div>
@@ -569,7 +575,7 @@ export default function Home() {
       </p>
     </div>
   </div>
-  <Link to="/product/toddsiq-robot" className="px-5 py-2.5 bg-[#F4F1EA]-lowest text-ink rounded-xl font-label-md text-label-md border-2 border-ink shadow-[3px_3px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center whitespace-nowrap">View Bundle ($89)</Link>
+  <Link to="/product/toddsiq-robot" className="px-5 py-2.5 bg-[#F4F1EA]-lowest text-ink rounded-xl font-label-md text-label-md border-2 border-ink shadow-[3px_3px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center whitespace-nowrap">View Bundle ({formatPrice(89)})</Link>
 </div>
 </div>
 </div>
@@ -688,7 +694,7 @@ export default function Home() {
       <div className="flex flex-col gap-3">
         <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
           <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/1_b0744e83-37b5-4b51-91a5-3a05470d0505_720x.jpg?v=1725595982">
-             <source src="https://cdn.shopify.com/videos/c/vp/50d3a54b41a54dc6abda9f55073142ed/50d3a54b41a54dc6abda9f55073142ed.HD-1080p-7.2Mbps-21272719.mp4" type="video/mp4" />
+             <source src={demoVideo1} type="video/mp4" />
           </video>
         </div>
         <p className="font-label-md text-ink font-bold">The Drawing Robot teaches stroke precision.</p>
@@ -697,7 +703,7 @@ export default function Home() {
       <div className="flex flex-col gap-3">
         <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
           <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/7_70d4c82b-09db-484d-b352-7e997a44f3bd_720x.jpg?v=1725595982">
-            <source src="https://cdn.shopify.com/videos/c/vp/b3152ef32cf54e38ba5b10fb03a4bc03/b3152ef32cf54e38ba5b10fb03a4bc03.HD-1080p-7.2Mbps-20894541.mp4" type="video/mp4" />
+            <source src={demoVideo2} type="video/mp4" />
           </video>
         </div>
         <p className="font-label-md text-ink font-bold">The MagTrack keeps 5yos busy for hours.</p>
@@ -706,7 +712,7 @@ export default function Home() {
       <div className="flex flex-col gap-3">
         <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
           <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/3_e5d167eb-079d-4c3e-86d1-4cb50beaf736_720x.jpg?v=1725595982">
-            <source src="https://cdn.shopify.com/videos/c/vp/50d3a54b41a54dc6abda9f55073142ed/50d3a54b41a54dc6abda9f55073142ed.HD-1080p-7.2Mbps-21272719.mp4" type="video/mp4" />
+            <source src={demoVideo3} type="video/mp4" />
           </video>
         </div>
         <p className="font-label-md text-ink font-bold">Tactile buttons build finger strength.</p>
@@ -722,63 +728,63 @@ export default function Home() {
 </section></FadeInUp>
 
 <FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
-<div className="max-w-7xl mx-auto flex flex-col gap-space-lg">
-<div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
-<div>
+<div className="max-w-7xl mx-auto flex flex-col gap-10">
+<div className="text-center max-w-2xl mx-auto">
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">Keep Hands Creating</span>
-<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Essential Consumables &amp; Expansions</h2>
-</div>
-<p className="font-body-sm text-body-sm text-ink-variant">Washable ink refills, extra track vehicles, and new card topic decks.</p>
-</div>
-<div className="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
-
-<div className="p-space-md rounded-2xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[3px_3px_0px_#1E2A38] flex items-center justify-between">
-<div className="flex items-center gap-3">
-<div className="w-14 h-14 rounded-xl bg-[#F4F1EA] flex items-center justify-center shrink-0 border border-outline-variant">
-<span className="material-symbols-outlined text-2xl text-coral">edit</span>
-</div>
-<div>
-<h4 className="font-label-md text-label-md text-ink">12-Color Marker Pack</h4>
-<p className="font-body-sm text-body-sm text-ink-variant">Ultra-washable non-toxic ink</p>
-<span className="font-label-md text-label-md text-coral font-bold">$9.99</span>
-</div>
-</div>
-<button className="px-3 py-1.5 bg-canvas hover:bg-[#F4F1EA] text-ink rounded-lg font-label-sm text-label-sm border border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" onClick={() => {}}>
-            + Add
-          </button>
+<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1 mb-3">Essential Consumables &amp; Expansions</h2>
+<p className="font-body-lg text-body-lg text-ink-variant">Washable ink refills, extra track vehicles, and new card topic decks.</p>
 </div>
 
-<div className="p-space-md rounded-2xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[3px_3px_0px_#1E2A38] flex items-center justify-between">
-<div className="flex items-center gap-3">
-<div className="w-14 h-14 rounded-xl bg-[#F4F1EA] flex items-center justify-center shrink-0 border border-outline-variant">
-<span className="material-symbols-outlined text-2xl text-tertiary">toys</span>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+<div className="p-6 rounded-3xl bg-white border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col hover:-translate-y-1 transition-all group">
+<div className="w-16 h-16 rounded-2xl bg-[#F4F1EA] flex items-center justify-center mb-5 border border-ink/10 group-hover:scale-105 transition-transform">
+<span className="material-symbols-outlined text-3xl text-coral">edit</span>
 </div>
-<div>
-<h4 className="font-label-md text-label-md text-ink">MagTrack Turbo Racer Car</h4>
-<p className="font-body-sm text-body-sm text-ink-variant">High-torque USB climbing car</p>
-<span className="font-label-md text-label-md text-coral font-bold">$7.99</span>
+<div className="flex-1">
+<h4 className="font-display font-bold text-lg text-ink leading-tight">12-Color Marker Pack</h4>
+<p className="font-body-sm text-body-sm text-ink-variant mt-2 leading-relaxed">Ultra-washable non-toxic ink for endless creative sessions.</p>
 </div>
+<div className="flex items-center justify-between mt-6 pt-5 border-t border-ink/10">
+<span className="font-display font-bold text-xl text-coral">{formatPrice(9.99)}</span>
+<button className="px-5 py-2.5 bg-[#F4F1EA] hover:bg-[#eae4d8] text-ink rounded-xl font-label-md font-bold border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1.5" onClick={() => {}}>
+  <span className="material-symbols-outlined text-sm">add</span> Add
+</button>
 </div>
-<button className="px-3 py-1.5 bg-canvas hover:bg-[#F4F1EA] text-ink rounded-lg font-label-sm text-label-sm border border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" onClick={() => {}}>
-            + Add
-          </button>
 </div>
 
-<div className="p-space-md rounded-2xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[3px_3px_0px_#1E2A38] flex items-center justify-between">
-<div className="flex items-center gap-3">
-<div className="w-14 h-14 rounded-xl bg-[#F4F1EA] flex items-center justify-center shrink-0 border border-outline-variant">
-<span className="material-symbols-outlined text-2xl text-secondary">style</span>
+<div className="p-6 rounded-3xl bg-white border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col hover:-translate-y-1 transition-all group">
+<div className="w-16 h-16 rounded-2xl bg-[#F4F1EA] flex items-center justify-center mb-5 border border-ink/10 group-hover:scale-105 transition-transform">
+<span className="material-symbols-outlined text-3xl text-tertiary">toys</span>
 </div>
-<div>
-<h4 className="font-label-md text-label-md text-ink">150 Additional Cards</h4>
-<p className="font-body-sm text-body-sm text-ink-variant">Dinosaurs, vehicles &amp; space</p>
-<span className="font-label-md text-label-md text-coral font-bold">$19.00</span>
+<div className="flex-1">
+<h4 className="font-display font-bold text-lg text-ink leading-tight">MagTrack Turbo Racer</h4>
+<p className="font-body-sm text-body-sm text-ink-variant mt-2 leading-relaxed">High-torque USB climbing car to add more action to the track.</p>
+</div>
+<div className="flex items-center justify-between mt-6 pt-5 border-t border-ink/10">
+<span className="font-display font-bold text-xl text-coral">{formatPrice(7.99)}</span>
+<button className="px-5 py-2.5 bg-[#F4F1EA] hover:bg-[#eae4d8] text-ink rounded-xl font-label-md font-bold border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1.5" onClick={() => {}}>
+  <span className="material-symbols-outlined text-sm">add</span> Add
+</button>
 </div>
 </div>
-<button className="px-3 py-1.5 bg-canvas hover:bg-[#F4F1EA] text-ink rounded-lg font-label-sm text-label-sm border border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" onClick={() => {}}>
-            + Add
-          </button>
+
+<div className="p-6 rounded-3xl bg-white border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col hover:-translate-y-1 transition-all group">
+<div className="w-16 h-16 rounded-2xl bg-[#F4F1EA] flex items-center justify-center mb-5 border border-ink/10 group-hover:scale-105 transition-transform">
+<span className="material-symbols-outlined text-3xl text-secondary">style</span>
 </div>
+<div className="flex-1">
+<h4 className="font-display font-bold text-lg text-ink leading-tight">150 Additional Cards</h4>
+<p className="font-body-sm text-body-sm text-ink-variant mt-2 leading-relaxed">Expand the vocabulary with dinosaurs, vehicles &amp; space.</p>
+</div>
+<div className="flex items-center justify-between mt-6 pt-5 border-t border-ink/10">
+<span className="font-display font-bold text-xl text-coral">{formatPrice(19.00)}</span>
+<button className="px-5 py-2.5 bg-[#F4F1EA] hover:bg-[#eae4d8] text-ink rounded-xl font-label-md font-bold border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1.5" onClick={() => {}}>
+  <span className="material-symbols-outlined text-sm">add</span> Add
+</button>
+</div>
+</div>
+
 </div>
 </div>
 </section></FadeInUp>

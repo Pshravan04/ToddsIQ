@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export default function Checkout() {
   const { cartItems, cartTotal, clearCart } = useCart();
+  const { formatPrice, currency } = useCurrency();
   const navigate = useNavigate();
   const [isProcessing, setIsProcessing] = useState(false);
   
@@ -187,7 +189,7 @@ export default function Checkout() {
                       {item.variant && <p className="text-xs text-ink/60">{item.variant}</p>}
                     </div>
                     <div className="font-bold text-ink">
-                      ${(item.price * item.qty).toFixed(2)}
+                      {formatPrice(item.price * item.qty)}
                     </div>
                   </div>
                 ))}
@@ -196,15 +198,15 @@ export default function Checkout() {
               <div className="border-t-2 border-ink/10 pt-4 space-y-3 mb-6">
                 <div className="flex justify-between text-sm">
                   <span className="text-ink/70 font-semibold">Subtotal</span>
-                  <span className="font-bold text-ink">${cartTotal.toFixed(2)}</span>
+                  <span className="font-bold text-ink">{formatPrice(cartTotal)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-ink/70 font-semibold">Shipping</span>
-                  <span className="font-bold text-ink">{SHIPPING === 0 ? 'FREE' : `$${SHIPPING.toFixed(2)}`}</span>
+                  <span className="font-bold text-ink">{SHIPPING === 0 ? 'FREE' : formatPrice(SHIPPING)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-ink/70 font-semibold">Estimated Taxes</span>
-                  <span className="font-bold text-ink">${tax.toFixed(2)}</span>
+                  <span className="font-bold text-ink">{formatPrice(tax)}</span>
                 </div>
               </div>
 
@@ -212,8 +214,8 @@ export default function Checkout() {
                 <div className="flex justify-between items-end">
                   <span className="text-lg font-bold text-ink">Total</span>
                   <div className="text-right">
-                    <span className="text-xs text-ink/50 block">USD</span>
-                    <span className="font-display text-3xl font-extrabold text-ink">${total.toFixed(2)}</span>
+                    <span className="text-xs text-ink/50 block">{currency}</span>
+                    <span className="font-display text-3xl font-extrabold text-ink">{formatPrice(total)}</span>
                   </div>
                 </div>
               </div>

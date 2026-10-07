@@ -1,9 +1,11 @@
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 export default function CartDrawer({ open, onClose }) {
   const { cartItems, cartTotal, updateQty, removeItem, setIsCartOpen } = useCart();
+  const { formatPrice } = useCurrency();
   const FREE_SHIPPING = 50;
   const progress = Math.min((cartTotal / FREE_SHIPPING) * 100, 100);
   const remaining = Math.max(FREE_SHIPPING - cartTotal, 0);
@@ -41,7 +43,7 @@ export default function CartDrawer({ open, onClose }) {
             <div className="p-4 bg-teal/10 border-b-2 border-teal flex flex-col gap-2">
               <p className="text-sm font-bold text-teal text-center">
                 {remaining > 0
-                  ? `Add $${remaining.toFixed(2)} more for FREE shipping! 🚚`
+                  ? `Add ${formatPrice(remaining)} more for FREE shipping! 🚚`
                   : '🎉 You unlocked free shipping!'}
               </p>
               <div className="h-2 bg-teal/20 rounded-full overflow-hidden">
@@ -91,7 +93,7 @@ export default function CartDrawer({ open, onClose }) {
                           <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
                         </div>
                         <div className="font-display font-bold text-lg text-ink">
-                          ${(item.price * item.qty).toFixed(2)}
+                          {formatPrice(item.price * item.qty)}
                         </div>
                       </div>
                     </div>
@@ -103,7 +105,7 @@ export default function CartDrawer({ open, onClose }) {
             <div className="p-6 border-t-2 border-ink bg-canvas">
               <div className="flex justify-between items-center mb-4">
                 <span className="font-bold text-ink text-lg">Subtotal</span>
-                <span className="font-display font-bold text-2xl text-ink">${cartTotal.toFixed(2)}</span>
+                <span className="font-display font-bold text-2xl text-ink">{formatPrice(cartTotal)}</span>
               </div>
               <p className="text-xs text-ink/60 text-center mb-4">Taxes and shipping calculated at checkout</p>
               

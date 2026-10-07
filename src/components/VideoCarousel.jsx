@@ -1,42 +1,43 @@
 import React, { useRef, useState } from 'react';
 import { VolumeX, Volume2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCurrency } from '../context/CurrencyContext';
 
-// Placeholder vertical videos (royalty-free from Pexels) to simulate the TikTok/Reels style
+import video1 from '../assets/videos/00af685865a04247bcf22a272a7fb5d8.SD-480p-1.5Mbps-77121162.mp4';
+import video2 from '../assets/videos/0f6e2b56b6cd45c49aae89589def1942.SD-480p-1.5Mbps-77121299.mp4';
+import video3 from '../assets/videos/5ec74577602944d7a30cf5142d27ee55.SD-480p-1.5Mbps-77121182.mp4';
+import video4 from '../assets/videos/70f39499660b477f95767a852cb05b59.SD-480p-0.9Mbps-86101065.mp4';
+import video5 from '../assets/videos/965ecd72df7f40398c9010940d27d44e.SD-480p-0.9Mbps-86099266.mp4';
+import video6 from '../assets/videos/983b7b91eca542dfa27a2789e86b9faa.SD-480p-1.5Mbps-77121026.mp4';// Placeholder vertical videos (royalty-free from Pexels) to simulate the TikTok/Reels style
 const VIDEOS = [
   {
     id: 1,
-    url: 'https://videos.pexels.com/video-files/5001550/5001550-hd_1080_1920_25fps.mp4',
+    url: video1,
     text: 'GUARANTEED to leave your speechless... 😲😲',
   },
   {
     id: 2,
-    url: 'https://videos.pexels.com/video-files/5001614/5001614-hd_1080_1920_25fps.mp4',
+    url: video2,
     text: "Every child's dream gift... 😍🎁",
   },
   {
     id: 3,
-    url: 'https://videos.pexels.com/video-files/5001548/5001548-hd_1080_1920_25fps.mp4',
+    url: video3,
     text: 'The perfect gift for kids 😍',
   },
   {
     id: 4,
-    url: 'https://videos.pexels.com/video-files/4996942/4996942-hd_1080_1920_25fps.mp4',
+    url: video4,
     text: 'Great for tattoo tracing haha',
   },
   {
     id: 5,
-    url: 'https://videos.pexels.com/video-files/5001545/5001545-hd_1080_1920_25fps.mp4',
+    url: video5,
     text: 'Children will not believe their eyes... 😲😲',
   },
   {
     id: 6,
-    url: 'https://videos.pexels.com/video-files/4996940/4996940-hd_1080_1920_25fps.mp4',
+    url: video6,
     text: "GUARANTEED to blow your children's minds... 🤯🤯",
-  },
-  {
-    id: 7,
-    url: 'https://videos.pexels.com/video-files/5001552/5001552-hd_1080_1920_25fps.mp4',
-    text: 'GUARANTEED to amaze children... 😲😲',
   }
 ];
 
@@ -86,6 +87,7 @@ export default function VideoCarousel() {
 }
 
 function VideoCard({ video }) {
+  const { formatPrice } = useCurrency();
   const [isMuted, setIsMuted] = useState(true);
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null);
@@ -162,8 +164,8 @@ function VideoCard({ video }) {
         <div className="flex flex-col flex-1 min-w-0">
           <p className="font-bold text-xs text-ink truncate">ToddsIQ™ Drawing Robot - Interactive</p>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <span className="font-bold text-ink text-sm">$89.99</span>
-            <span className="text-ink-variant text-xs line-through">$150.00</span>
+            <span className="font-bold text-ink text-sm">{formatPrice(89.99)}</span>
+            <span className="text-ink-variant text-xs line-through">{formatPrice(150.00)}</span>
           </div>
         </div>
       </div>

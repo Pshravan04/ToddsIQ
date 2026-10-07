@@ -2,11 +2,13 @@ import { FadeInUp } from '../components/AnimatedSection';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import productsData from '../data/products.json';
 
 export default function Product() {
   const { id, slug } = useParams();
   const { addItem, setIsCartOpen } = useCart();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   
   const routeParam = slug || id;
@@ -81,7 +83,7 @@ export default function Product() {
             </div>
             <div>
                <h4 className="font-display font-bold text-ink text-sm lg:text-base line-clamp-1">{product.title}</h4>
-               <p className="text-coral font-bold text-sm">$${Number(finalPrice).toFixed(2)}</p>
+               <p className="text-coral font-bold text-sm">{formatPrice(finalPrice)}</p>
             </div>
          </div>
          <div className="flex items-center gap-3">
@@ -163,8 +165,8 @@ export default function Product() {
                 {/* Price */}
                 <div className="bg-canvas p-4 rounded-2xl border border-ink/10 flex flex-col gap-2">
                   <div className="flex items-baseline gap-2.5">
-                    <span className="font-display text-3xl sm:text-4xl font-black text-coral">$${Number(finalPrice).toFixed(2)}</span>
-                    {finalCompare && <span className="text-lg text-ink-light line-through font-semibold">$${Number(finalCompare).toFixed(2)}</span>}
+                    <span className="font-display text-3xl sm:text-4xl font-black text-coral">{formatPrice(finalPrice)}</span>
+                    {finalCompare && <span className="text-lg text-ink-light line-through font-semibold">{formatPrice(finalCompare)}</span>}
                     {savings > 0 && <span className="bg-marigold text-ink border-2 border-ink font-bold text-xs px-2.5 py-0.5 rounded-full uppercase tracking-wide">Save {savings}%</span>}
                   </div>
                 </div>
@@ -704,16 +706,16 @@ export default function Product() {
 <div className="font-display font-bold text-xs uppercase tracking-wider text-ink-muted">Core Features</div>
 <div className="text-center">
 <h5 className="font-display font-bold text-base text-ink">Starter Pack</h5>
-<p className="font-display text-xl font-bold text-coral mt-0.5">$89.00</p>
+<p className="font-display text-xl font-bold text-coral mt-0.5">{formatPrice(89)}</p>
 </div>
 <div className="text-center p-3 rounded-2xl bg-coral/10 border-2 border-coral relative">
 <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-marigold text-ink text-[10px] font-display font-black px-2 py-0.5 rounded-full border border-ink/10">MOST POPULAR</span>
 <h5 className="font-display font-bold text-base text-ink">Deluxe Atelier</h5>
-<p className="font-display text-xl font-bold text-coral mt-0.5">$109.00</p>
+<p className="font-display text-xl font-bold text-coral mt-0.5">{formatPrice(109)}</p>
 </div>
 <div className="text-center">
 <h5 className="font-display font-bold text-base text-ink">Classroom Duo</h5>
-<p className="font-display text-xl font-bold text-coral mt-0.5">$169.00</p>
+<p className="font-display text-xl font-bold text-coral mt-0.5">{formatPrice(169)}</p>
 </div>
 </div>
 <div className="divide-y divide-ink/10 text-xs sm:text-sm text-ink">
@@ -771,13 +773,13 @@ export default function Product() {
 </div>
 <div className="flex justify-between items-baseline">
 <span className="font-display font-bold text-xs text-coral uppercase">Studio Refill</span>
-<span className="font-display font-bold text-base text-coral">$9.99</span>
+<span className="font-display font-bold text-base text-coral">{formatPrice(9.99)}</span>
 </div>
 <h4 className="font-display font-bold text-base text-ink mt-1">12-Color Triangular Marker Set</h4>
 <p className="text-xs text-ink-muted mt-1 leading-relaxed">Ultra-washable natural dye formula with ergonomic triangular barrels fitting the bot collar.</p>
 </div>
 <button className="mt-4 w-full py-2.5 px-4 bg-canvas hover:bg-[#eae4d8] text-ink font-display font-bold text-xs rounded-xl border border-ink shadow-pop-sm flex items-center justify-center gap-1.5 transition-all"  type="button">
-<span className="material-symbols-outlined text-base">add</span> Quick Add ($9.99)
+<span className="material-symbols-outlined text-base">add</span> Quick Add ({formatPrice(9.99)})
           </button>
 </div>
 {/* Item 2: Space / Architecture Cards */}
@@ -788,13 +790,13 @@ export default function Product() {
 </div>
 <div className="flex justify-between items-baseline">
 <span className="font-display font-bold text-xs text-marigold uppercase">Deck Expansion</span>
-<span className="font-display font-bold text-base text-coral">$19.00</span>
+<span className="font-display font-bold text-base text-coral">{formatPrice(19)}</span>
 </div>
 <h4 className="font-display font-bold text-base text-ink mt-1">150 Space &amp; Architecture Cards</h4>
 <p className="text-xs text-ink-muted mt-1 leading-relaxed">Solar system planets, rockets, ancient pyramids, and world monuments for advanced learners.</p>
 </div>
 <button className="mt-4 w-full py-2.5 px-4 bg-canvas hover:bg-[#eae4d8] text-ink font-display font-bold text-xs rounded-xl border border-ink shadow-pop-sm flex items-center justify-center gap-1.5 transition-all"  type="button">
-<span className="material-symbols-outlined text-base">add</span> Quick Add ($19.00)
+<span className="material-symbols-outlined text-base">add</span> Quick Add ({formatPrice(19)})
           </button>
 </div>
 {/* Item 3: MagTrack Flexible Train */}
@@ -805,13 +807,13 @@ export default function Product() {
 </div>
 <div className="flex justify-between items-baseline">
 <span className="font-display font-bold text-xs text-periwinkle uppercase">STEM Companion</span>
-<span className="font-display font-bold text-base text-coral">$69.00</span>
+<span className="font-display font-bold text-base text-coral">{formatPrice(69)}</span>
 </div>
 <h4 className="font-display font-bold text-base text-ink mt-1">MagTrack™ 3D Flexible Train Track</h4>
 <p className="text-xs text-ink-muted mt-1 leading-relaxed">Modular magnetic track system that connects directly with your toddler's hand-drawn roadmaps.</p>
 </div>
 <button className="mt-4 w-full py-2.5 px-4 bg-canvas hover:bg-[#eae4d8] text-ink font-display font-bold text-xs rounded-xl border border-ink shadow-pop-sm flex items-center justify-center gap-1.5 transition-all"  type="button">
-<span className="material-symbols-outlined text-base">add</span> Quick Add ($69.00)
+<span className="material-symbols-outlined text-base">add</span> Quick Add ({formatPrice(69)})
           </button>
 </div>
 </div>

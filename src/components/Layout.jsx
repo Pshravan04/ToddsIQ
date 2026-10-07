@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
 
@@ -30,16 +31,19 @@ const NAV = [
   { label: '🔥 Sale',      href: '/collections/sale', sale: true },
 ];
 
-const CHIPS = [
-  '⚡ FREE Express Shipping Over $50',
-  '🛡️ 30-Day Risk-Free Guarantee',
-  '⭐ 4.9/5 Rating (28,000+ Happy Families)',
-];
+
 
 export default function Layout({ children }) {
   const { cartCount, cartTotal, isCartOpen, setIsCartOpen } = useCart();
+  const { currency, currencyDetails, changeCurrency, availableCurrencies, formatPrice } = useCurrency();
+  const CHIPS = [
+    `⚡ FREE Express Shipping Over ${formatPrice(50)}`,
+    '🛡️ 30-Day Risk-Free Guarantee',
+    '⭐ 4.9/5 Rating (28,000+ Happy Families)',
+  ];
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
 
@@ -50,7 +54,7 @@ export default function Layout({ children }) {
   }, []);
 
   useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') { setIsCartOpen(false); setSearchOpen(false); setMobileMenuOpen(false); } };
+    const onKey = (e) => { if (e.key === 'Escape') { setIsCartOpen(false); setSearchOpen(false); setMobileMenuOpen(false); setCurrencyDropdownOpen(false); } };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
@@ -86,11 +90,48 @@ export default function Layout({ children }) {
 
             <div className="nav-actions">
               <Link to="/track" className="hidden lg:block font-label-sm text-xs font-bold uppercase tracking-widest text-ink hover:text-coral transition-colors mr-2">Track Your Order</Link>
-              <div className="hidden md:flex items-center gap-1.5 mr-2 cursor-pointer hover:bg-black/5 px-2 py-1.5 rounded-lg transition-colors">
-                <img src="https://flagcdn.com/w20/us.png" alt="US" className="w-[18px] h-auto rounded-[2px] shadow-sm" />
-                <span className="text-xs font-bold text-ink">USD</span>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m6 9 6 6 6-6"/></svg>
+              
+              {/* Currency Dropdown */}
+              <div className="relative hidden md:block mr-2 z-50">
+                <div 
+                  className="flex items-center gap-1.5 cursor-pointer hover:bg-black/5 px-2 py-1.5 rounded-lg transition-colors"
+                  onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
+                >
+                  <img src={`https://flagcdn.com/w20/${currencyDetails.flag}.png`} alt={currencyDetails.code} className="w-[18px] h-auto rounded-[2px] shadow-sm" />
+                  <span className="text-xs font-bold text-ink">{currencyDetails.code}</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m6 9 6 6 6-6"/></svg>
+                </div>
+
+                <AnimatePresence>
+                  {currencyDropdownOpen && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setCurrencyDropdownOpen(false)}></div>
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute top-full right-0 mt-1 w-32 bg-white rounded-xl shadow-[0_10px_25px_rgba(0,0,0,0.1)] border border-ink/10 py-2 z-50"
+                      >
+                        {availableCurrencies.map(c => (
+                          <div 
+                            key={c.code}
+                            className={`flex items-center gap-2 px-4 py-2 text-sm cursor-pointer hover:bg-[#F4F1EA] transition-colors ${c.code === currency ? 'bg-[#F4F1EA] font-bold' : 'font-medium'}`}
+                            onClick={() => {
+                              changeCurrency(c.code);
+                              setCurrencyDropdownOpen(false);
+                            }}
+                          >
+                            <img src={`https://flagcdn.com/w20/${c.flag}.png`} alt={c.code} className="w-[18px] h-auto rounded-[2px] shadow-sm" />
+                            <span className="text-ink">{c.code}</span>
+                          </div>
+                        ))}
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </div>
+
               <button className="nav-icon md:hidden mr-1" onClick={() => setMobileMenuOpen(true)} aria-label="Menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M4 6h16M4 12h16M4 18h16"/>

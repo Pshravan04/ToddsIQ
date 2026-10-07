@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useCurrency } from '../context/CurrencyContext';
 import { Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function ProductCard({ product }) {
   const { addItem, setIsCartOpen } = useCart();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   
   const {
@@ -93,8 +95,8 @@ export default function ProductCard({ product }) {
         </div>
         <div className="pt-4 mt-4 border-t border-ink/10 flex items-center justify-between gap-3">
           <div className="flex flex-wrap items-baseline gap-1.5 flex-col shrink-0">
-            <span className="font-display text-xl font-bold text-coral leading-none">${Number(price).toFixed(2)}</span>
-            {compareAtPrice && <span className="text-xs text-ink-muted line-through font-semibold">${Number(compareAtPrice).toFixed(2)}</span>}
+            <span className="font-display text-xl font-bold text-coral leading-none">{formatPrice(price)}</span>
+            {compareAtPrice && <span className="text-xs text-ink-muted line-through font-semibold">{formatPrice(compareAtPrice)}</span>}
           </div>
           <button 
             onClick={handleCTA}
