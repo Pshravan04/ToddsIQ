@@ -189,7 +189,6 @@ export default function Home() {
 <span className="px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold border border-ink">
                 Ages 1–3
               </span>
-<span className="font-body-sm text-body-sm text-ink-variant">8 Curated Kits</span>
 </div>
 <div className="h-44 rounded-2xl bg-[#F4F1EA]-low overflow-hidden relative border border-outline-variant">
 <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A toddler sitting at a low blonde wood Montessori sensory table grasping pastel wooden nesting blocks and soft textured silicone stacking toys under clean diffused daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdncwwO8LdzpCjcM_8f54wBrSVuoAmdBlSyj7qvd2FTVra_sFR5AqaEr8WaAM5enVg7iyLnYRGQZ1NksEuqSOk2qf_DYkm3VAZY1Yz5jTaqCfm3YF46u1w0clbaCiZem6LA-cUqGgnPTbi-q_kKOblCaUq8EZGpL2zDbjfH3h9_tcKbKJqF1KkpZABJ9W4cQEH8ym-cAV4D_wbVRvcUTIOkN8ATeaDYBPgPmsoRme8KLqhdlho1AS5CA"/>
@@ -202,18 +201,6 @@ export default function Home() {
 <h3 className="font-headline-sm text-headline-sm text-ink">Toddler Play</h3>
 <p className="font-body-sm text-body-sm text-ink-variant mt-1">Sensory exploration, first strokes, tactile discovery, grasp &amp; soft nesting geometry.</p>
 </div>
-
-<div className="space-y-1.5 pt-2 border-t border-surface-container">
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">NestWood Full Pack</span><span className="font-bold text-coral">{formatPrice(49)}</span>
-</div>
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">AquaDoodle Book</span><span className="font-bold text-coral">{formatPrice(25)}</span>
-</div>
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">SquishBlocks Tactile Set</span><span className="font-bold text-coral">{formatPrice(49)}</span>
-</div>
-</div>
 </div>
 <Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/toddler">
 <span className="">Shop Ages 1–3</span>
@@ -222,15 +209,11 @@ export default function Home() {
 </div>
 
 <div className="group bg-[#F4F1EA]-lowest rounded-3xl p-space-lg border-2 border-ink shadow-[6px_6px_0px_#ff6154] hover:-translate-y-1 hover:shadow-[8px_8px_0px_#ff6154] transition-all flex flex-col justify-between relative">
-<div className="absolute -top-3 right-6 bg-coral text-canvas font-label-sm text-label-sm uppercase tracking-wider px-3 py-0.5 rounded-full border border-ink">
-            Most Popular Stage
-          </div>
 <div className="space-y-space-md">
 <div className="flex justify-between items-center">
 <span className="px-3 py-1 rounded-full bg-coral text-canvas font-label-sm text-label-sm font-bold border border-ink">
                 Ages 3–5
               </span>
-<span className="font-body-sm text-body-sm text-ink-variant">14 Curated Kits</span>
 </div>
 <div className="h-44 rounded-2xl bg-[#F4F1EA]-low overflow-hidden relative border border-outline-variant">
 <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="A focused 4-year-old child and smiling mother collaborating with a pastel pink smart drawing machine on a sunlit wooden craft table, tracing lines with washable pens beside illustrated word flashcards." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgSoyDMhkUpIS3bFZZWFyz5m9QcC7QYTnNcI184BzgckUZctEFnqyDbwK0nn5u97TX_xrjDbBhoJg0d_CbmNQWmhW10cQrsjYTLEzOonX2RZgLFIiSsvXIHNK8hev9D3Bu3wQYQlbRTvOJ1nOW66FtmaGydIVx0qPtlY-u0u93TJe2QP_5olPfUjI1w9W-SLMYwsul5-DkmhVGwvsbQqRnFmq7xrapCpczxa-icY-U_JC5SnowUlh_dw"/>
@@ -242,18 +225,6 @@ export default function Home() {
 <div>
 <h3 className="font-headline-sm text-headline-sm text-ink">Preschool &amp; Pre-K</h3>
 <p className="font-body-sm text-body-sm text-ink-variant mt-1">Guided drawing mentors, early phonics mastery, spatial logic, and snap track engineering.</p>
-</div>
-<div className="space-y-1.5 pt-2 border-t border-surface-container">
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">ToddsIQ Bot Full Pack</span><span className="font-bold text-coral">{formatPrice(89)}</span>
-</div>
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">TurboMonster Track</span><span className="font-bold text-coral">{formatPrice(39)}</span>
-</div>
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">Count Crew Number Blocks</span><span className="font-bold text-coral">{formatPrice(49)}</span>
-</div>
-</div>
 </div>
 <Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/preschool">
 <span className="">Shop Ages 3–5</span>
@@ -267,7 +238,6 @@ export default function Home() {
 <span className="px-3 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold border border-ink">
                 Ages 5+
               </span>
-<span className="font-body-sm text-body-sm text-ink-variant">11 Curated Kits</span>
 </div>
 <div className="h-44 rounded-2xl bg-[#F4F1EA]-low overflow-hidden relative border border-outline-variant">
 <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" data-alt="An older child building an intricate three-dimensional kinetic magnetic track system with climbing cars and suspension loops across a hardwood room floor in warm natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWDLjOZUb6gQTYJmMKEFbQmMYVa2fjTz5qF7LEC_h4kuwdOzozt-eoe2Q6qx5NFNvc6_eQZN5cpa44kMOGVP4CRlAJztommG6sA5FzAC4EzcCyCWvXW4-uzhlOxAiVZC8oUsBjfb80iln4WqF-aR9Dh2XAj3QrbA60i5En8VI-88QW2PARaPyq5mJhNWjca1KPmVXVHPW4YOc7HBq1Rf8afKgcJ8V756tshNvl5dGez4ooS9wMZlGhoA"/>
@@ -279,18 +249,6 @@ export default function Home() {
 <div>
 <h3 className="font-headline-sm text-headline-sm text-ink">Big Kids &amp; Explorers</h3>
 <p className="font-body-sm text-body-sm text-ink-variant mt-1">Multi-level track physics, handheld optical microscopes, and advanced mechanical building sets.</p>
-</div>
-<div className="space-y-1.5 pt-2 border-t border-surface-container">
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">MagTrack 3D Master Set</span><span className="font-bold text-coral">{formatPrice(69)}</span>
-</div>
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">SpiderRacer Duo Set</span><span className="font-bold text-coral">{formatPrice(39)}</span>
-</div>
-<div className="flex justify-between font-body-sm text-body-sm text-ink">
-<span className="">Spell &amp; Play Master Lab</span><span className="font-bold text-coral">{formatPrice(49)}</span>
-</div>
-</div>
 </div>
 <Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/big-kids">
 <span className="">Shop Ages 5+</span>
@@ -334,173 +292,7 @@ export default function Home() {
 </div>
 </section></FadeInUp>
 
-<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
-<div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
-<div className="text-center max-w-3xl mx-auto space-y-space-xs">
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">The Screen-Free Difference</span>
-<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight">Why Tactile Play Shapes Developing Minds</h2>
-<p className="font-body-lg text-body-lg text-ink-variant">
-          Tablets offer passive visual simulation. ToddsIQ builds three-dimensional neural wiring through resistance, weight, and tangible agency.
-        </p>
-</div>
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md">
 
-<div className="p-space-lg rounded-2xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[3px_3px_0px_#1E2A38] flex flex-col gap-space-md">
-<div className="w-12 h-12 rounded-xl bg-coral flex items-center justify-center border border-ink shadow-sm text-canvas">
-<span className="material-symbols-outlined text-2xl">texture</span>
-</div>
-<div>
-<h3 className="font-title-md text-title-md text-ink">Mess-Free Friction</h3>
-<p className="font-body-sm text-body-sm text-ink-variant mt-2">
-              Real paper resistance, tactile ink friction, and snap-fit physical components ground sensory attention without tablet glaze.
-            </p>
-</div>
-</div>
-
-<div className="p-space-lg rounded-2xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[3px_3px_0px_#1E2A38] flex flex-col gap-space-md">
-<div className="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center border border-ink shadow-sm text-on-tertiary-fixed">
-<span className="material-symbols-outlined text-2xl">hardware</span>
-</div>
-<div>
-<h3 className="font-title-md text-title-md text-ink">Fine-Motor Precision</h3>
-<p className="font-body-sm text-body-sm text-ink-variant mt-2">
-              Replaces the "blank page freeze" with rhythmic, guided stroke-by-stroke confidence that transitions straight to classroom handwriting.
-            </p>
-</div>
-</div>
-
-<div className="p-space-lg rounded-2xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[3px_3px_0px_#1E2A38] flex flex-col gap-space-md">
-<div className="w-12 h-12 rounded-xl bg-secondary-fixed flex items-center justify-center border border-ink shadow-sm text-on-secondary-fixed">
-<span className="material-symbols-outlined text-2xl">bedtime</span>
-</div>
-<div>
-<h3 className="font-title-md text-title-md text-ink">Zero Blue Light</h3>
-<p className="font-body-sm text-body-sm text-ink-variant mt-2">
-              Preserves melatonin production and ends post-screen dysregulation. Calms household evenings before bedtime stories.
-            </p>
-</div>
-</div>
-
-<div className="p-space-lg rounded-2xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[3px_3px_0px_#1E2A38] flex flex-col gap-space-md">
-<div className="w-12 h-12 rounded-xl bg-coral/20 flex items-center justify-center border border-ink shadow-sm text-canvas">
-<span className="material-symbols-outlined text-2xl">accessibility_new</span>
-</div>
-<div>
-<h3 className="font-title-md text-title-md text-ink">Self-Directed Agency</h3>
-<p className="font-body-sm text-body-sm text-ink-variant mt-2">
-              Engineered for independent 3-year-olds to operate from start to finish without hovering parents needing to configure passwords or apps.
-            </p>
-</div>
-</div>
-</div>
-</div>
-</section></FadeInUp>
-
-<FadeInUp><section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-t-2 border-ink">
-<div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
-<div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
-<div>
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">Curated Pathways</span>
-<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Shop by Creative Interest</h2>
-</div>
-<Link className="font-label-md text-label-md text-ink hover:text-coral transition-colors flex items-center gap-1" data-path="shop-catalog" to="/collections">
-<span className="">View All 7 Categories</span>
-<span className="material-symbols-outlined text-base">east</span>
-</Link>
-</div>
-
-<div className="grid grid-cols-1 md:grid-cols-12 gap-space-md">
-
-<Link className="md:col-span-7 group relative bg-secondary-fixed/50 hover:bg-secondary-fixed rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="stem-science" to="/collections">
-<div className="space-y-1 relative z-10">
-<span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🔬 STEM Core</span>
-<h3 className="font-headline-md text-headline-md text-ink pt-2">STEM &amp; Science</h3>
-<p className="font-body-md text-body-md text-ink-variant max-w-sm">Mechanical track circuits, gravity roller coaster kits, pocket microscopes &amp; engineering gear.</p>
-</div>
-<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-ink group-hover:text-coral transition-colors">
-<span className="">Explore STEM Kits</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
-</div>
-<span className="material-symbols-outlined absolute -right-6 -bottom-6 text-9xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">biotech</span>
-</Link>
-
-<Link className="md:col-span-5 group relative bg-tertiary-fixed/40 hover:bg-tertiary-fixed/60 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[260px]" data-path="building-construction" to="/collections">
-<div className="space-y-1 relative z-10">
-<span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🧱 Engineering</span>
-<h3 className="font-headline-md text-headline-md text-ink pt-2">Building &amp; Construction</h3>
-<p className="font-body-sm text-body-sm text-ink-variant">Snap-fit magnetic geometry, structural trusses &amp; dynamic architecture.</p>
-</div>
-<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-ink group-hover:text-coral transition-colors">
-<span className="">Build Now</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
-</div>
-<span className="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">apartment</span>
-</Link>
-
-<Link className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="reading-language" to="/collections">
-<div className="relative z-10">
-<span className="px-2.5 py-1 bg-[#F4F1EA] rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">📖 Phonics</span>
-<h3 className="font-title-md text-title-md text-ink pt-2">Reading &amp; Language</h3>
-<p className="font-body-sm text-body-sm text-ink-variant mt-1">Tactile phonics cards, vocabulary ladders &amp; spelling blocks.</p>
-</div>
-<div className="relative z-10 pt-4 flex items-center gap-1 font-label-sm text-label-sm text-coral font-bold">
-<span className="">Discover Reading</span>
-<span className="material-symbols-outlined text-sm">arrow_forward</span>
-</div>
-</Link>
-
-<Link className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="math-logic" to="/collections">
-<div className="relative z-10">
-<span className="px-2.5 py-1 bg-[#F4F1EA] rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🔢 Spatial Logic</span>
-<h3 className="font-title-md text-title-md text-ink pt-2">Math &amp; Logic</h3>
-<p className="font-body-sm text-body-sm text-ink-variant mt-1">Wooden fraction tiles, tactile counting abaci &amp; pattern sequences.</p>
-</div>
-<div className="relative z-10 pt-4 flex items-center gap-1 font-label-sm text-label-sm text-coral font-bold">
-<span className="">Explore Logic</span>
-<span className="material-symbols-outlined text-sm">arrow_forward</span>
-</div>
-</Link>
-
-<Link className="md:col-span-4 group relative bg-[#F4F1EA]-lowest hover:bg-[#F4F1EA] rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[220px]" data-path="sensory-calm" to="/collections">
-<div className="relative z-10">
-<span className="px-2.5 py-1 bg-[#F4F1EA] rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🫧 Calm Focus</span>
-<h3 className="font-title-md text-title-md text-ink pt-2">Sensory &amp; Calm</h3>
-<p className="font-body-sm text-body-sm text-ink-variant mt-1">Weighted fidget stone arrays, silent kinetic textures &amp; soft chime pads.</p>
-</div>
-<div className="relative z-10 pt-4 flex items-center gap-1 font-label-sm text-label-sm text-coral font-bold">
-<span className="">Calming Play</span>
-<span className="material-symbols-outlined text-sm">arrow_forward</span>
-</div>
-</Link>
-
-<Link className="md:col-span-7 group relative bg-coral/40 hover:bg-coral/60 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="arts-crafts" to="/collections">
-<div className="space-y-1 relative z-10">
-<span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🎨 Physical Creation</span>
-<h3 className="font-headline-md text-headline-md text-ink pt-2">Arts &amp; Guided Drawing</h3>
-<p className="font-body-md text-body-md text-ink-variant max-w-md">Our signature drawing robot, water-reveal pads, stroke tracing sets, and ergonomic triangular sketch pencils.</p>
-</div>
-<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-ink group-hover:text-coral transition-colors">
-<span className="">Explore Creative Arts</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
-</div>
-<span className="material-symbols-outlined absolute -right-6 -bottom-6 text-9xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">palette</span>
-</Link>
-
-<Link className="md:col-span-5 group relative bg-tertiary-fixed-dim/30 hover:bg-tertiary-fixed-dim/50 rounded-3xl p-space-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] transition-all flex flex-col justify-between overflow-hidden min-h-[240px]" data-path="active-outdoor" to="/collections">
-<div className="space-y-1 relative z-10">
-<span className="px-2.5 py-1 bg-[#F4F1EA]-lowest rounded-full font-label-sm text-label-sm text-ink border border-outline-variant font-bold inline-block">🏃 Kinetic Motion</span>
-<h3 className="font-headline-md text-headline-md text-ink pt-2">Active &amp; Kinetic</h3>
-<p className="font-body-sm text-body-sm text-ink-variant">Acrobatic SpiderRacers, air rocket kinetic pumps &amp; backyard balance stepping stones.</p>
-</div>
-<div className="relative z-10 pt-space-md flex items-center gap-1 font-label-md text-label-md text-ink group-hover:text-coral transition-colors">
-<span className="">Active Motion</span>
-<span className="material-symbols-outlined text-base">arrow_forward</span>
-</div>
-<span className="material-symbols-outlined absolute -right-4 -bottom-4 text-8xl text-ink/10 select-none pointer-events-none group-hover:scale-110 transition-transform">toys</span>
-</Link>
-</div>
-</div>
-</section></FadeInUp>
 
 <FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas" id="toy-quiz">
 <div className="max-w-4xl mx-auto rounded-3xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[8px_8px_0px_#1E2A38] p-space-lg lg:p-space-2xl relative overflow-hidden">
@@ -694,111 +486,7 @@ export default function Home() {
 </div>
 </section></FadeInUp>
 
-<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
-  <div className="max-w-7xl mx-auto flex flex-col gap-space-xl text-center">
-    <div>
-      <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">SEE IT IN ACTION</span>
-      <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Real Parents, Real Playtime</h2>
-    </div>
-    
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md">
-      <div className="flex flex-col gap-3">
-        <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
-          <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/1_b0744e83-37b5-4b51-91a5-3a05470d0505_720x.jpg?v=1725595982">
-             <source src={demoVideo1} type="video/mp4" />
-          </video>
-        </div>
-        <p className="font-label-md text-ink font-bold">The Drawing Robot teaches stroke precision.</p>
-      </div>
 
-      <div className="flex flex-col gap-3">
-        <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
-          <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/7_70d4c82b-09db-484d-b352-7e997a44f3bd_720x.jpg?v=1725595982">
-            <source src={demoVideo2} type="video/mp4" />
-          </video>
-        </div>
-        <p className="font-label-md text-ink font-bold">The MagTrack keeps 5yos busy for hours.</p>
-      </div>
-
-      <div className="flex flex-col gap-3">
-        <div className="relative rounded-2xl overflow-hidden aspect-[4/5] bg-[#F4F1EA]-low border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
-          <video className="absolute inset-0 w-full h-full object-cover" autoPlay loop muted playsInline poster="https://thoson.com/cdn/shop/files/3_e5d167eb-079d-4c3e-86d1-4cb50beaf736_720x.jpg?v=1725595982">
-            <source src={demoVideo3} type="video/mp4" />
-          </video>
-        </div>
-        <p className="font-label-md text-ink font-bold">Tactile buttons build finger strength.</p>
-      </div>
-    </div>
-    <div className="mt-4">
-       <Link className="inline-flex px-8 py-3.5 bg-transparent text-[#0b3359] rounded-xl border-2 border-[#0b3359] font-label-lg font-bold shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all items-center justify-center gap-2" to="/collections">
-         <span>View All Products</span>
-         <span className="material-symbols-outlined text-base">play_circle</span>
-       </Link>
-    </div>
-  </div>
-</section></FadeInUp>
-
-<FadeInUp><section className="w-full px-gutter py-space-2xl bg-canvas">
-<div className="max-w-7xl mx-auto flex flex-col gap-10">
-<div className="text-center max-w-2xl mx-auto">
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">Keep Hands Creating</span>
-<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1 mb-3">Essential Consumables &amp; Expansions</h2>
-<p className="font-body-lg text-body-lg text-ink-variant">Washable ink refills, extra track vehicles, and new card topic decks.</p>
-</div>
-
-<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-<div className="p-6 rounded-3xl bg-white border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col hover:-translate-y-1 transition-all group">
-<div className="w-16 h-16 rounded-2xl bg-[#F4F1EA] flex items-center justify-center mb-5 border border-ink/10 group-hover:scale-105 transition-transform">
-<span className="material-symbols-outlined text-3xl text-coral">edit</span>
-</div>
-<div className="flex-1">
-<h4 className="font-display font-bold text-lg text-ink leading-tight">12-Color Marker Pack</h4>
-<p className="font-body-sm text-body-sm text-ink-variant mt-2 leading-relaxed">Ultra-washable non-toxic ink for endless creative sessions.</p>
-</div>
-<div className="flex items-center justify-between mt-6 pt-5 border-t border-ink/10">
-<span className="font-display font-bold text-xl text-coral">{formatPrice(9.99)}</span>
-<button className="px-5 py-2.5 bg-[#F4F1EA] hover:bg-[#eae4d8] text-ink rounded-xl font-label-md font-bold border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1.5" onClick={() => {}}>
-  <span className="material-symbols-outlined text-sm">add</span> Add
-</button>
-</div>
-</div>
-
-<div className="p-6 rounded-3xl bg-white border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col hover:-translate-y-1 transition-all group">
-<div className="w-16 h-16 rounded-2xl bg-[#F4F1EA] flex items-center justify-center mb-5 border border-ink/10 group-hover:scale-105 transition-transform">
-<span className="material-symbols-outlined text-3xl text-tertiary">toys</span>
-</div>
-<div className="flex-1">
-<h4 className="font-display font-bold text-lg text-ink leading-tight">MagTrack Turbo Racer</h4>
-<p className="font-body-sm text-body-sm text-ink-variant mt-2 leading-relaxed">High-torque USB climbing car to add more action to the track.</p>
-</div>
-<div className="flex items-center justify-between mt-6 pt-5 border-t border-ink/10">
-<span className="font-display font-bold text-xl text-coral">{formatPrice(7.99)}</span>
-<button className="px-5 py-2.5 bg-[#F4F1EA] hover:bg-[#eae4d8] text-ink rounded-xl font-label-md font-bold border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1.5" onClick={() => {}}>
-  <span className="material-symbols-outlined text-sm">add</span> Add
-</button>
-</div>
-</div>
-
-<div className="p-6 rounded-3xl bg-white border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col hover:-translate-y-1 transition-all group">
-<div className="w-16 h-16 rounded-2xl bg-[#F4F1EA] flex items-center justify-center mb-5 border border-ink/10 group-hover:scale-105 transition-transform">
-<span className="material-symbols-outlined text-3xl text-secondary">style</span>
-</div>
-<div className="flex-1">
-<h4 className="font-display font-bold text-lg text-ink leading-tight">150 Additional Cards</h4>
-<p className="font-body-sm text-body-sm text-ink-variant mt-2 leading-relaxed">Expand the vocabulary with dinosaurs, vehicles &amp; space.</p>
-</div>
-<div className="flex items-center justify-between mt-6 pt-5 border-t border-ink/10">
-<span className="font-display font-bold text-xl text-coral">{formatPrice(19.00)}</span>
-<button className="px-5 py-2.5 bg-[#F4F1EA] hover:bg-[#eae4d8] text-ink rounded-xl font-label-md font-bold border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1.5" onClick={() => {}}>
-  <span className="material-symbols-outlined text-sm">add</span> Add
-</button>
-</div>
-</div>
-
-</div>
-</div>
-</section></FadeInUp>
 
 
 </div>
