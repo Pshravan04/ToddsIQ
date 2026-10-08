@@ -12,6 +12,7 @@ export async function createCart() {
     query: CREATE_CART_MUTATION,
     variables: { input: {} }
   });
+  if (!data || !data.cartCreate) throw new Error("Invalid response: cartCreate is missing");
   return data.cartCreate.cart;
 }
 
@@ -20,6 +21,7 @@ export async function getCart(cartId) {
     query: GET_CART_QUERY,
     variables: { cartId }
   });
+  if (!data || !data.cart) throw new Error("Invalid response: cart is missing");
   return data.cart;
 }
 
@@ -28,6 +30,7 @@ export async function addCartLines(cartId, lines) {
     query: ADD_LINES_MUTATION,
     variables: { cartId, lines }
   });
+  if (!data || !data.cartLinesAdd) throw new Error("Invalid response: cartLinesAdd is missing");
   return data.cartLinesAdd.cart;
 }
 
@@ -36,6 +39,7 @@ export async function updateCartLines(cartId, lines) {
     query: UPDATE_LINES_MUTATION,
     variables: { cartId, lines }
   });
+  if (!data || !data.cartLinesUpdate) throw new Error("Invalid response: cartLinesUpdate is missing");
   return data.cartLinesUpdate.cart;
 }
 
@@ -44,5 +48,6 @@ export async function removeCartLines(cartId, lineIds) {
     query: REMOVE_LINES_MUTATION,
     variables: { cartId, lineIds }
   });
+  if (!data || !data.cartLinesRemove) throw new Error("Invalid response: cartLinesRemove is missing");
   return data.cartLinesRemove.cart;
 }

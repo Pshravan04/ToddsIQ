@@ -9,7 +9,7 @@ console.log('Using Token Length:', token ? token.length : 0);
 
 async function shopifyFetch({ query, variables }) {
   if (!domain || !token) throw new Error('Shopify credentials are not set.');
-  const response = await fetch(`https://${domain}/api/2024-01/graphql.json`, {
+  const response = await fetch(`https://${domain}/api/2026-07/graphql.json`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

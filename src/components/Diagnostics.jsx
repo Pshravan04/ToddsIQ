@@ -48,6 +48,7 @@ export default function Diagnostics() {
       pointerEvents: 'none'
     }}>
       <div>Shopify API: <span style={{ color: status === 'CONNECTED' ? '#4ade80' : status === 'FAILED' ? '#f87171' : '#facc15' }}>{status}</span></div>
+      <div>API Version: 2026-07</div>
       <div>Products: {productsCount}</div>
       <div>Collections: {collectionsCount}</div>
       <div>Cart: <span style={{ color: cartId ? '#4ade80' : '#facc15' }}>{cartId ? 'READY' : 'FAILED'}</span></div>

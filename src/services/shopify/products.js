@@ -77,6 +77,7 @@ export async function getProducts(first = 250, query = '') {
       query: GET_PRODUCTS_QUERY,
       variables: { first, query }
     });
+    if (!data || !data.products) throw new Error("Invalid response: products is missing");
     return data.products.edges.map(edge => normalizeProduct(edge.node));
   } catch (error) {
     console.error("Error fetching products:", error);
