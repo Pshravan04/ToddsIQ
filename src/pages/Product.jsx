@@ -4,6 +4,9 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 import productsData from '../data/products.json';
+import drawingRobotImg from '../assets/drawing_companion_robot.jpg';
+import creativeRobotImg from '../assets/creative_potential_robot.jpg';
+import heroToysBannerImg from '../assets/hero_toys_banner.jpg';
 
 export default function Product() {
   const { id, slug } = useParams();
@@ -22,10 +25,11 @@ export default function Product() {
   const [activeImage, setActiveImage] = useState(displayImages[0]);
 
   const hasVariants = product.options && product.options.length > 0 && product.options[0].values && product.options[0].values.length > 0;
-  const [selectedVariant, setSelectedVariant] = useState(0);
+  const [selectedVariants, setSelectedVariants] = useState({});
 
-  const finalPrice = product.price;
-  const finalCompare = product.compareAtPrice;
+  const mainVariantIdx = selectedVariants[0] || 0;
+  const finalPrice = (product.options && product.options[0].prices) ? product.options[0].prices[mainVariantIdx] : product.price;
+  const finalCompare = (product.options && product.options[0].compareAtPrices) ? product.options[0].compareAtPrices[mainVariantIdx] : product.compareAtPrice;
   const savings = finalCompare ? Math.round(((finalCompare - finalPrice) / finalCompare) * 100) : 0;
 
   const ctaRef = useRef(null);
@@ -35,7 +39,7 @@ export default function Product() {
     window.scrollTo(0, 0);
     setActiveImage(displayImages[0]);
     setQty(1);
-    setSelectedVariant(0);
+    setSelectedVariants({});
   }, [routeParam, product.id]);
 
   useEffect(() => {
@@ -52,10 +56,15 @@ export default function Product() {
   }, [product.id]);
 
   const handleAddToCart = () => {
-    const variantName = hasVariants ? ' - ' + product.options[0].values[selectedVariant] : '';
+    let variantName = '';
+    let variantId = product.id;
+    if (hasVariants) {
+      variantName = ' - ' + product.options.map((opt, i) => opt.values[selectedVariants[i] || 0]).join(' / ');
+      variantId = `${product.id}-${product.options.map((opt, i) => selectedVariants[i] || 0).join('-')}`;
+    }
     addItem({
       ...product,
-      id: hasVariants ? `${product.id}-${selectedVariant}` : product.id,
+      id: variantId,
       name: product.title + variantName,
       price: finalPrice,
       image: activeImage
@@ -157,7 +166,7 @@ export default function Product() {
                   <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-ink leading-tight">
                     {product.title}
                   </h1>
-                  <p className="text-sm text-ink-muted mt-3 leading-relaxed">
+                  <p className="text-sm text-ink-muted mt-3 leading-relaxed whitespace-pre-line">
                     {product.description || "The gentle cognitive tutor that turns playtime into achievable, milestone-driven progression."}
                   </p>
                 </div>
@@ -173,15 +182,63 @@ export default function Product() {
 
                 {/* Variants if any */}
                 {hasVariants && (
-                  <div className="flex flex-col gap-3">
-                    <span className="font-display text-sm font-bold text-ink">{product.options[0].name}:</span>
-                    <div className="flex flex-wrap gap-2">
-                      {product.options[0].values.map((v, i) => (
-                        <button key={i} onClick={() => setSelectedVariant(i)} className={`px-4 py-2 rounded-xl border-2 font-bold text-sm transition-all ${selectedVariant === i ? 'bg-coral/10 border-coral text-coral shadow-sm' : 'bg-white border-ink/10 text-ink hover:border-ink/30'}`}>
-                          {v}
-                        </button>
-                      ))}
-                    </div>
+                  <div className="flex flex-col gap-5">
+                    {product.options.map((opt, optIndex) => (
+                      <div key={optIndex} className="flex flex-col gap-3">
+                        <div className="flex items-center justify-between">
+                          <span className="font-display text-sm font-bold text-ink">{opt.name}:</span>
+                          {opt.name.includes("STEM Set") && <span className="text-xs font-bold text-coral uppercase tracking-wide bg-coral/10 px-2 py-0.5 rounded-md">Flash sale ends 14:45</span>}
+                        </div>
+                        
+                        {opt.subtitles ? (
+                          <div className="flex flex-col gap-2.5">
+                            {opt.values.map((v, i) => {
+                               const isSelected = (selectedVariants[optIndex] || 0) === i;
+                               const price = opt.prices ? opt.prices[i] : null;
+                               const compPrice = opt.compareAtPrices ? opt.compareAtPrices[i] : null;
+                               return (
+                                 <button key={i} onClick={() => {
+                                   setSelectedVariants({...selectedVariants, [optIndex]: i});
+                                   if (optIndex === 0 && displayImages[i]) {
+                                     setActiveImage(displayImages[i]);
+                                   }
+                                 }} className={`flex flex-col text-left p-4 rounded-2xl border-2 transition-all relative overflow-hidden ${isSelected ? 'bg-coral/5 border-coral shadow-[2px_2px_0px_#1E2A38]' : 'bg-white border-ink/10 hover:border-ink/30 hover:shadow-sm'}`}>
+                                   {opt.badges && opt.badges[i] && (
+                                     <div className="absolute top-0 right-0 bg-marigold text-ink text-[10px] font-bold px-3 py-1 rounded-bl-xl border-b-2 border-l-2 border-ink">{opt.badges[i]}</div>
+                                   )}
+                                   <div className="flex items-start justify-between gap-4 w-full">
+                                     <div className="flex flex-col gap-1">
+                                       <span className="font-display font-bold text-base text-ink flex items-center gap-1.5">{opt.icons && opt.icons[i]} {v}</span>
+                                       <span className="text-xs text-ink-muted pr-12">{opt.subtitles[i]}</span>
+                                     </div>
+                                     <div className="flex flex-col items-end text-right min-w-[70px]">
+                                       {price && <span className={`font-display font-bold text-lg ${isSelected ? 'text-coral' : 'text-ink'}`}>${price.toFixed(2)}</span>}
+                                       {compPrice && <span className="text-xs text-ink-light line-through font-semibold">${compPrice.toFixed(2)}</span>}
+                                     </div>
+                                   </div>
+                                 </button>
+                               )
+                            })}
+                          </div>
+                        ) : (
+                          <div className="flex flex-wrap gap-2">
+                            {opt.values.map((v, i) => {
+                              const isSelected = (selectedVariants[optIndex] || 0) === i;
+                              return (
+                                <button key={i} onClick={() => {
+                                   setSelectedVariants({...selectedVariants, [optIndex]: i});
+                                   if (optIndex === 0 && displayImages[i]) {
+                                     setActiveImage(displayImages[i]);
+                                   }
+                                 }} className={`px-4 py-2 rounded-xl border-2 font-bold text-sm transition-all ${isSelected ? 'bg-coral/10 border-coral text-coral shadow-sm' : 'bg-white border-ink/10 text-ink hover:border-ink/30'}`}>
+                                  {v}
+                                </button>
+                              )
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 )}
 
@@ -327,13 +384,14 @@ export default function Product() {
 {/* Tab 1: Overview Panel */}
 <div className={`tab-panel grid grid-cols-1 lg:grid-cols-12 gap-8 items-center ${activeTab === 'overview' ? '' : 'hidden'}`} id="tab-overview">
 <div className="lg:col-span-6 flex flex-col gap-4">
-<span className="font-hand text-2xl text-coral">Step-by-step unhurried learning</span>
+<span className="font-hand text-2xl text-coral">Discover the Magic</span>
 <h3 className="font-display text-3xl font-extrabold text-ink leading-tight">
-              A Patient Companion That Teaches Drawing Stroke by Stroke
-            </h3>
-<p className="text-sm text-ink-muted leading-relaxed">
-              When young children are handed blank paper, cognitive overwhelm is natural. ToddsIQ deconstructs real-world objects into fundamental shapes—circles, arcs, triangles, and dashes. The robot draws one line, verbally explains its trajectory, and then pauses patiently for your child to copy it right next to them.
-            </p>
+  {product.title}
+</h3>
+<p className="text-sm text-ink-muted leading-relaxed whitespace-pre-line">
+  {product.description}
+</p>
+{product.title.includes('Bot') && (
 <div className="grid grid-cols-2 gap-4 mt-2">
 <div className="p-4 rounded-2xl bg-canvas border border-ink/10">
 <span className="font-display text-2xl font-bold text-teal">0.2s</span>
@@ -344,12 +402,14 @@ export default function Product() {
 <p className="text-xs text-ink-muted mt-1">Whisper stepper motors engineered for sensory calm</p>
 </div>
 </div>
+)}
 </div>
 <div className="lg:col-span-6 rounded-3xl overflow-hidden border-2 border-ink shadow-card">
-<img alt="Mother and toddler interacting with drawing bot" className="w-full h-80 lg:h-96 object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UCzMoOim2ITsDpRd7SvoV4eIPLdZjKYyzVOb9xONKMLbnvTGFFPHsV0iyhN65FZ-2jLRuvlw7eSGONlrS6QOMJ8XHB4de0qLUZp1mSp2Ep4_gMEII_IRcApl99XbzGI0w4AfQUhtkqRSphrS5eGD1OPOULfr1Zfg95gpC7_4SW1FmsKkCkjoe-gGZo2hyXN6AT1-0lZSA52A5dn8j2ZYry9f58Xpt760GKVVLEQP9d8w-BNKXiw5FnNrk"/>
+<img alt="Mother and toddler interacting with drawing bot" className="w-full h-80 lg:h-96 object-cover" src={displayImages[1 % displayImages.length]}/>
 </div>
 </div>
 {/* Tab 2: What's Included Panel */}
+{product.title.includes('Bot') ? (
 <div className={`tab-panel grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 ${activeTab === 'included' ? '' : 'hidden'}`} id="tab-included">
 <div className="p-5 rounded-3xl bg-canvas border-2 border-ink/10 flex flex-col items-center text-center">
 <span className="material-symbols-outlined text-4xl text-coral mb-2">smart_toy</span>
@@ -377,7 +437,17 @@ export default function Product() {
 <p className="text-xs text-ink-muted mt-1">30 Occupational therapist developmental milestone guides.</p>
 </div>
 </div>
+) : (
+<div className={`tab-panel ${activeTab === 'included' ? '' : 'hidden'}`} id="tab-included">
+<div className="p-12 rounded-3xl bg-canvas border-2 border-ink flex flex-col items-center text-center">
+<span className="material-symbols-outlined text-5xl text-marigold mb-4">inventory_2</span>
+<h4 className="font-display font-bold text-2xl text-ink">Everything you need to get started</h4>
+<p className="text-base text-ink-muted mt-2 max-w-md mx-auto">Includes the {product.title} and all standard accessories required for immediate play right out of the box.</p>
+</div>
+</div>
+)}
 {/* Tab 3: How to Use Panel */}
+{product.title.includes('Bot') ? (
 <div className={`tab-panel grid grid-cols-1 md:grid-cols-3 gap-6 ${activeTab === 'how-to-use' ? '' : 'hidden'}`} id="tab-how">
 <div className="p-6 rounded-3xl bg-canvas border-2 border-ink/10">
 <span className="w-8 h-8 rounded-full bg-coral-fixed text-canvas-fixed border-2 border-ink font-display font-bold flex items-center justify-center text-sm mb-3">1</span>
@@ -395,7 +465,27 @@ export default function Product() {
 <p className="text-xs text-ink-muted mt-2">When ready, child taps the oversized tactile dome button to proceed to the next progressive geometric stroke.</p>
 </div>
 </div>
+) : (
+<div className={`tab-panel grid grid-cols-1 md:grid-cols-3 gap-6 ${activeTab === 'how-to-use' ? '' : 'hidden'}`} id="tab-how">
+<div className="p-6 rounded-3xl bg-canvas border-2 border-ink/10">
+<span className="w-8 h-8 rounded-full bg-coral-fixed text-canvas-fixed border-2 border-ink font-display font-bold flex items-center justify-center text-sm mb-3">1</span>
+<h4 className="font-display font-bold text-lg text-ink">Unbox & Discover</h4>
+<p className="text-xs text-ink-muted mt-2">Let your child independently open and explore the pieces. This unstructured time builds curiosity and ownership.</p>
+</div>
+<div className="p-6 rounded-3xl bg-canvas border-2 border-ink/10">
+<span className="w-8 h-8 rounded-full bg-marigold text-ink font-display font-bold flex items-center justify-center text-sm mb-3">2</span>
+<h4 className="font-display font-bold text-lg text-ink">Engage & Play</h4>
+<p className="text-xs text-ink-muted mt-2">Introduce the core concept—whether building, reading, or sorting—and watch them take the lead in their learning journey.</p>
+</div>
+<div className="p-6 rounded-3xl bg-canvas border-2 border-ink/10">
+<span className="w-8 h-8 rounded-full bg-coral-fixed text-canvas-fixed border-2 border-ink font-display font-bold flex items-center justify-center text-sm mb-3">3</span>
+<h4 className="font-display font-bold text-lg text-ink">Grow & Challenge</h4>
+<p className="text-xs text-ink-muted mt-2">As they master the basics, gently introduce more advanced configurations or challenges to continue their cognitive development.</p>
+</div>
+</div>
+)}
 {/* Tab 4: Clinical Benefits Panel */}
+{product.title.includes('Bot') ? (
 <div className={`tab-panel bg-canvas p-8 rounded-3xl border-2 border-ink ${activeTab === 'clinical' ? '' : 'hidden'}`} id="tab-benefits">
 <div className="max-w-3xl mx-auto flex flex-col gap-4">
 <span className="text-teal font-display font-bold text-sm uppercase tracking-wider">Occupational Therapy Assessment</span>
@@ -405,6 +495,18 @@ export default function Product() {
             </p>
 </div>
 </div>
+) : (
+<div className={`tab-panel bg-canvas p-12 rounded-3xl border-2 border-ink ${activeTab === 'clinical' ? '' : 'hidden'}`} id="tab-benefits">
+<div className="max-w-3xl mx-auto flex flex-col items-center text-center gap-4">
+<span className="material-symbols-outlined text-5xl text-periwinkle mb-2">psychology</span>
+<span className="text-teal font-display font-bold text-sm uppercase tracking-wider">Developmental Milestones</span>
+<h3 className="font-display text-3xl font-extrabold text-ink">Cognitive & Motor Skill Growth</h3>
+<p className="text-base text-ink-muted leading-relaxed max-w-2xl">
+              Every ToddsIQ product is designed to support core developmental milestones. The {product.title} encourages independent exploration, builds confidence, and fosters fine motor and cognitive skills without the need for screens.
+            </p>
+</div>
+</div>
+)}
 {/* Tab 5: Age & Safety Panel */}
 <div className={`tab-panel bg-[#1F9D8A]/10 border-2 border-teal p-8 rounded-3xl ${activeTab === 'safety' ? '' : 'hidden'}`} id="tab-safety">
 <div className="max-w-3xl mx-auto flex flex-col gap-4">
@@ -419,6 +521,7 @@ export default function Product() {
 </section></FadeInUp>
 
 {/* INTERACTIVE VIDEO-REVIEW CAROUSEL & TESTIMONIALS */}
+{product.title.includes('Bot') && (
 <FadeInUp><section className="w-full py-16 bg-[#F4EFE6] border-y border-ink/10" id="reviews-section">
 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 {/* Animated Count-Up Rating Header */}
@@ -515,7 +618,7 @@ export default function Product() {
 <div className="min-w-[300px] sm:min-w-[360px] max-w-[360px] bg-white rounded-3xl p-6 border-2 border-ink shadow-card flex flex-col justify-between shrink-0 snap-start">
 <div className="flex flex-col gap-3">
 <div className="relative w-full h-36 rounded-2xl overflow-hidden mb-1 group cursor-pointer" >
-<img alt="Leo drawing video diary" className="w-full h-full object-cover group-hover:scale-105 transition-transform" src="https://lh3.googleusercontent.com/aida/AEtjO1UCzMoOim2ITsDpRd7SvoV4eIPLdZjKYyzVOb9xONKMLbnvTGFFPHsV0iyhN65FZ-2jLRuvlw7eSGONlrS6QOMJ8XHB4de0qLUZp1mSp2Ep4_gMEII_IRcApl99XbzGI0w4AfQUhtkqRSphrS5eGD1OPOULfr1Zfg95gpC7_4SW1FmsKkCkjoe-gGZo2hyXN6AT1-0lZSA52A5dn8j2ZYry9f58Xpt760GKVVLEQP9d8w-BNKXiw5FnNrk"/>
+<img alt="Leo drawing video diary" className="w-full h-full object-cover group-hover:scale-105 transition-transform" src={displayImages[2 % displayImages.length]}/>
 <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
 <div className="w-10 h-10 rounded-full bg-coral text-canvas border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex items-center justify-center">
 <span className="material-symbols-outlined text-xl">play_arrow</span>
@@ -576,7 +679,7 @@ export default function Product() {
 <div className="min-w-[300px] sm:min-w-[360px] max-w-[360px] bg-white rounded-3xl p-6 border-2 border-ink shadow-card flex flex-col justify-between shrink-0 snap-start">
 <div className="flex flex-col gap-3">
 <div className="relative w-full h-36 rounded-2xl overflow-hidden mb-1">
-<img alt="Sibling collaboration session" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UUMa2KaTDiVRRqy0TN6Lb8QvQFDY0zUZYjsk0rCPRrzxz1-QtlboDxuw-0jdCObpDcFStZkcy5EXWuuv6DzNxCeHh8eXPRH8TkLB3KmHakyL8vuzBpHz4V1cCMK8aXDmQx-l5LqXW54mLQK3D8jsc2S0IAt9Olr97w3VI4wZWPZfFzGYOYryIjZpD2OCZF4361R1f-walVi5vrPJ440MWNXUpiTUgzmbxBE2s9DJpwMKlwW7wBl1euNZo"/>
+<img alt="Sibling collaboration session" className="w-full h-full object-cover" src={displayImages[3 % displayImages.length]}/>
 </div>
 <div className="flex justify-between items-center">
 <div className="flex text-marigold text-sm">
@@ -604,7 +707,10 @@ export default function Product() {
 </div>
 </div>
 </section></FadeInUp>
+)}
 {/* EXPLODED INVENTORY: WHAT'S IN THE BOX */}
+{product.title.includes('Bot') && (
+<>
 <FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 <div className="text-center max-w-2xl mx-auto mb-12">
 <span className="font-hand text-2xl text-coral">Unboxing Transparency</span>
@@ -715,14 +821,18 @@ export default function Product() {
 </div>
 </div>
 </section></FadeInUp>
+</>
+)}
 {/* EDITION COMPARISON MATRIX */}
+{product.title.includes('Bot') && (
 <FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16" id="compare-editions">
 <div className="text-center max-w-2xl mx-auto mb-12">
 <span className="font-hand text-2xl text-coral">Choose the Right Tier</span>
 <h2 className="font-display text-3xl font-extrabold text-ink mt-1">Edition Comparison Matrix</h2>
 </div>
-<div className="overflow-x-auto pb-4">
-<div className="min-w-[680px] bg-white rounded-3xl p-6 sm:p-8 border-2 border-ink shadow-lift">
+<div className="bg-white rounded-3xl border-2 border-ink shadow-lift overflow-hidden mb-4">
+<div className="overflow-x-auto w-full pb-4 scrollbar-hide">
+<div className="min-w-[680px] p-6 sm:p-8">
 <div className="grid grid-cols-4 gap-4 pb-4 border-b-2 border-ink/10 items-end">
 <div className="font-display font-bold text-xs uppercase tracking-wider text-ink-muted">Core Features</div>
 <div className="text-center">
@@ -773,7 +883,9 @@ export default function Product() {
 </div>
 </div>
 </div>
+</div>
 </section></FadeInUp>
+)}
 {/* CONSUMABLES & ATELIER CROSS-SELL STRIP */}
 <FadeInUp><section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-ink/10">
 <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">

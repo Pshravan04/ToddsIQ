@@ -41,8 +41,8 @@
   {
     "id": "toddsiq-best-sellers-1",
     "title": "ToddsIQ™ Bot - Full Pack",
-    "price": 89,
-    "compareAtPrice": 129,
+    "price": 89.99,
+    "compareAtPrice": 150.00,
     "ageBand": "3-8",
     "categories": [
       "Best Sellers",
@@ -50,26 +50,31 @@
     ],
     "rating": 4.8999999999999995,
     "reviews": 863,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1d67404e-bcf6-477f-89f0-cc61486c88f4.png?v=1743026935",
+    "thumbnail": "/images/bot-single.png",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1d67404e-bcf6-477f-89f0-cc61486c88f4.png?v=1743026935",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-bot-full-pack-02.png?v=1789966331",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/6.webp?v=1776276014",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/2d17ed1b-c25b-41c8-b612-436fc15f69bc.png?v=1776276014",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-bot-full-pack-01.png?v=1789972674"
+      "/images/bot-single.png",
+      "/images/bot-duo.png",
+      "/images/bot-family.png",
+      "/images/bot-classroom.png"
     ],
     "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
+        "name": "Choose Your Perfect STEM Set",
+        "values": ["Single Robot", "Duo Pack", "Family Pack", "Classroom Pack"],
+        "prices": [89.99, 149.99, 199.99, 239.99],
+        "compareAtPrices": [150.00, 300.00, 450.00, 600.00],
+        "icons": ["🤖", "⭐", "🎉", "🏫"],
+        "subtitles": ["✨ Best for Individual Play", "👨👧 Perfect for siblings & gifting", "👨👩👧👦 Perfect for families & gifting", "💎 Maximum savings on 4 robots"],
+        "badges": ["", "SAVE 50%", "SAVE 56%", "SAVE 60%"]
+      },
+      {
         "name": "Color",
-        "values": [
-          "Blue",
-          "Pink"
-        ]
+        "values": ["IQ Blue 💙 (Pro)"]
       }
     ],
-    "description": "A little robot that turns \"I can't draw\" into \"look what I made.\" ToddsIQ Bot guides kids step by step with a clear, real voice while it draws alongside them — a screen-free kit that blends drawing, early robotics and hands-on STEM play. Kids pick a card, load it, and follow along as the Bot brings each drawing to life, building fine motor control and creative confidence with every picture. No apps, no tablets — just making things. The Full Pack includes the ToddsIQ Bot, 100 drawing cards and its washable marker set. Recommended for ages 3 and up."
+    "description": "Your Child’s Creative Companion! ✨\n\n🧠 Designed to Spark Young Minds\n✨ 100% screen-free fun\n🎁 Perfect gift for kids aged 3+\n💖 Loved by Parents. Adored by Kids\n🌍 Trusted by families around the world\n\nFREE SHIPPING + EASY 30-DAY RETURNS"
   },
   {
     "id": "toddsiq-best-sellers-2",

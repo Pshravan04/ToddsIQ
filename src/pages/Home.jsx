@@ -552,10 +552,10 @@ export default function Home() {
 <button 
   onClick={() => setShowQuizResult(true)}
   type="button"
-  className="w-full sm:w-auto px-space-2xl py-3.5 bg-coral/20 text-canvas rounded-xl font-label-lg text-label-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2"
+  className="w-full sm:w-auto px-space-2xl py-3.5 bg-coral text-canvas-fixed rounded-xl font-label-lg text-label-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2"
 >
   <span>Show My 3 Personalized Matches</span>
-  <span className="material-symbols-outlined text-base">arrow_forward</span>
+  <span className="material-symbols-outlined text-base" style={{fontVariationSettings: '"FILL" 1'}}>arrow_forward</span>
 </button>
 <span className="font-body-sm text-body-sm text-ink-variant flex items-center gap-1 pt-1">
   <span className="material-symbols-outlined text-sm text-coral">lock</span> Instant recommendations • No email required to view
@@ -720,7 +720,7 @@ export default function Home() {
     </div>
     <div className="mt-4">
        <Link className="inline-flex px-8 py-3.5 bg-transparent text-[#0b3359] rounded-xl border-2 border-[#0b3359] font-label-lg font-bold shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all items-center justify-center gap-2" to="/collections">
-         <span>View All Videos</span>
+         <span>View All Products</span>
          <span className="material-symbols-outlined text-base">play_circle</span>
        </Link>
     </div>
