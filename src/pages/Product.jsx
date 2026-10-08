@@ -48,7 +48,18 @@ export default function Product() {
   }
 
   if (!product) {
-    return <div className="min-h-screen flex items-center justify-center"><p className="text-xl">Product not found.</p></div>;
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center p-4">
+        <span className="material-symbols-outlined text-6xl text-ink-muted mb-4">inventory_2</span>
+        <h2 className="text-3xl font-display font-extrabold text-ink mb-2">Product Not Found</h2>
+        <p className="text-ink-muted mb-8 max-w-sm text-center">
+          The product you are looking for may have been removed or the link is incorrect.
+        </p>
+        <Link to="/" className="px-8 py-3 rounded-full bg-coral text-white font-bold hover:bg-coral-fixed transition-colors shadow-sm">
+          Back to Products
+        </Link>
+      </div>
+    );
   }
 
   const displayImages = product.images?.length > 0 ? product.images : (product.thumbnail ? [product.thumbnail] : ['https://via.placeholder.com/600']);
@@ -177,7 +188,7 @@ export default function Product() {
                   <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-ink leading-tight">
                     {product.title}
                   </h1>
-                  <div className="text-sm text-ink-muted mt-3 leading-relaxed whitespace-pre-line" dangerouslySetInnerHTML={{ __html: product.description || "The gentle cognitive tutor that turns playtime into achievable, milestone-driven progression." }} />
+                  <div className="text-sm text-ink-muted mt-3 leading-relaxed whitespace-pre-line" dangerouslySetInnerHTML={{ __html: product.descriptionHtml || product.description || "The gentle cognitive tutor that turns playtime into achievable, milestone-driven progression." }} />
                 </div>
 
                 {/* Price */}

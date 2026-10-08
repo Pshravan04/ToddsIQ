@@ -9,20 +9,24 @@ export function normalizeProduct(shopifyProduct) {
   // like badges, icons, subtitles, etc., until they are moved to Shopify Metafields
   const localProduct = localProducts.find(p => p.title === shopifyProduct.title) || {};
 
-  const variants = shopifyProduct.variants.edges.map(({ node: v }) => ({
+  // Safely extract variants
+  const variantsArray = shopifyProduct.variants?.edges 
+    ? shopifyProduct.variants.edges.map(e => e.node)
+    : (shopifyProduct.variants?.nodes || []);
+
+  const variants = variantsArray.map(v => ({
     id: v.id,
     title: v.title,
-    price: parseFloat(v.price.amount),
+    price: v.price ? parseFloat(v.price.amount) : 0,
     compareAtPrice: v.compareAtPrice ? parseFloat(v.compareAtPrice.amount) : null,
-    availableForSale: v.availableForSale,
-    sku: v.sku,
-    selectedOptions: v.selectedOptions,
-    image: v.image?.url
+    availableForSale: !!v.availableForSale,
+    sku: v.sku || '',
+    selectedOptions: v.selectedOptions || [],
+    image: v.image?.url || null
   }));
 
   // Map options back to existing UI format
-  // If localProduct has rich options (with subtitles, icons, prices arrays), merge them.
-  const options = shopifyProduct.options.map(opt => {
+  const options = (shopifyProduct.options || []).map(opt => {
     const localOpt = localProduct.options?.find(lo => lo.name === opt.name);
     if (localOpt) {
       return {
@@ -30,36 +34,46 @@ export function normalizeProduct(shopifyProduct) {
         subtitles: localOpt.subtitles,
         badges: localOpt.badges,
         icons: localOpt.icons,
-        // Calculate prices and compareAtPrices arrays for rich bundle displays
-        prices: opt.values.map(val => {
+        prices: (opt.values || []).map(val => {
           const matchingVariant = variants.find(v => v.selectedOptions.find(so => so.name === opt.name && so.value === val));
           return matchingVariant ? matchingVariant.price : null;
         }),
-        compareAtPrices: opt.values.map(val => {
+        compareAtPrices: (opt.values || []).map(val => {
           const matchingVariant = variants.find(v => v.selectedOptions.find(so => so.name === opt.name && so.value === val));
           return matchingVariant ? matchingVariant.compareAtPrice : null;
         })
       };
     }
-    return { name: opt.name, values: opt.values };
+    return { name: opt.name, values: opt.values || [] };
   });
 
-  const price = parseFloat(shopifyProduct.priceRange.minVariantPrice.amount);
+  const price = shopifyProduct.priceRange?.minVariantPrice?.amount 
+    ? parseFloat(shopifyProduct.priceRange.minVariantPrice.amount) 
+    : 0;
+    
   const compareAtPrice = shopifyProduct.compareAtPriceRange?.minVariantPrice?.amount
     ? parseFloat(shopifyProduct.compareAtPriceRange.minVariantPrice.amount)
     : null;
+
+  // Safely extract images
+  const imagesArray = shopifyProduct.images?.edges
+    ? shopifyProduct.images.edges.map(e => e.node)
+    : (shopifyProduct.images?.nodes || []);
+    
+  const imageUrls = imagesArray.map(img => img.url).filter(Boolean);
 
   return {
     // Keep local ID mapping temporarily or use handle so routing works seamlessly
     id: localProduct.id || shopifyProduct.handle, 
     handle: shopifyProduct.handle,
     shopifyId: shopifyProduct.id,
-    title: shopifyProduct.title,
-    description: shopifyProduct.descriptionHtml || shopifyProduct.description,
+    title: shopifyProduct.title || 'Unknown Product',
+    description: shopifyProduct.description || (shopifyProduct.descriptionHtml ? shopifyProduct.descriptionHtml.replace(/<[^>]+>/g, '') : ''),
+    descriptionHtml: shopifyProduct.descriptionHtml || shopifyProduct.description || '',
     price: price,
     compareAtPrice: compareAtPrice,
-    thumbnail: shopifyProduct.images.edges[0]?.node?.url || localProduct.thumbnail || '',
-    images: shopifyProduct.images.edges.map(e => e.node.url),
+    thumbnail: imageUrls[0] || localProduct.thumbnail || '',
+    images: imageUrls,
     options: options,
     variants: variants,
     categories: shopifyProduct.tags || localProduct.categories || [],
