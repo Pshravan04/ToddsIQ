@@ -1,32 +1,32 @@
+import { createStorefrontApiClient } from '@shopify/storefront-api-client';
+
 const domain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
 const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
-const apiVersion = '2024-01'; // Can be updated if needed
+
+// Ensure we have a valid domain format for the client
+// The client expects something like 'https://toddsiq.myshopify.com'
+const storeDomain = domain ? (domain.startsWith('http') ? domain : `https://${domain}`) : '';
+
+let client = null;
+
+if (storeDomain && storefrontAccessToken) {
+  client = createStorefrontApiClient({
+    storeDomain,
+    apiVersion: '2024-04',
+    publicAccessToken: storefrontAccessToken,
+  });
+}
 
 export async function shopifyFetch({ query, variables }) {
-  if (!domain || !storefrontAccessToken) {
+  if (!client) {
     throw new Error('Shopify credentials are not set.');
   }
 
-  const endpoint = `https://${domain}/api/${apiVersion}/graphql.json`;
-
-  const response = await fetch(endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
-    },
-    body: JSON.stringify({ query, variables }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Shopify API error: ${response.statusText}`);
+  try {
+    const response = await client.request(query, { variables });
+    return response.data;
+  } catch (error) {
+    console.error('Shopify API error:', error);
+    throw error;
   }
-
-  const json = await response.json();
-
-  if (json.errors) {
-    throw new Error(json.errors[0].message);
-  }
-
-  return json.data;
 }

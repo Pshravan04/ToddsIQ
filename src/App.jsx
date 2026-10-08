@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Layout from './components/Layout';
+import Diagnostics from './components/Diagnostics';
 import Home from './pages/Home';
 import Collection from './pages/Collection';
 import Product from './pages/Product';
@@ -35,6 +36,7 @@ function App() {
     <CurrencyProvider>
       <CartProvider>
       <BrowserRouter>
+        <Diagnostics />
         <ScrollToHash />
         <Routes>
           <Route path="/" element={<Layout><Home /></Layout>} />
