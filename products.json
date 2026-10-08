@@ -1,0 +1,66 @@
+{
+  "data": {
+    "products": {
+      "edges": [
+        {
+          "node": {
+            "handle": "drawing-robot",
+            "title": "ToddsIQ™ Drawing Robot – Interactive Drawing Toy for Kids Ages 3+",
+            "options": [
+              {
+                "name": "Color",
+                "values": [
+                  "IQ Blue 💙 (Pro)",
+                  "IQ White 🤍 (Pro)",
+                  "IQ Pink 💗 (Lite)"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "node": {
+            "handle": "3dmagictracktrainset",
+            "title": "ToddsIQ™ 3D Stem Magic Track Train Set",
+            "options": [
+              {
+                "name": "Choose Your Set Size 🚂",
+                "values": [
+                  "✨ 51 PCS",
+                  "💎 81 PCS",
+                  "🏆 123 PCS"
+                ]
+              },
+              {
+                "name": "Bundle & Save",
+                "values": [
+                  "🎁 Single Pack",
+                  "🧩 Duo Pack (40% + Extra 5% OFF)"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "node": {
+            "handle": "engineering-kit",
+            "title": "Engineering Kit",
+            "options": [
+              {
+                "name": "Title",
+                "values": [
+                  "Default Title"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "extensions": {
+    "cost": {
+      "requestedQueryCost": 34
+    }
+  }
+}

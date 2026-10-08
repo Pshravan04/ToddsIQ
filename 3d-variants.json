@@ -1,0 +1,129 @@
+{
+  "data": {
+    "product": {
+      "variants": {
+        "edges": [
+          {
+            "node": {
+              "title": "✨ 51 PCS / 🎁 Single Pack",
+              "selectedOptions": [
+                {
+                  "name": "Choose Your Set Size 🚂",
+                  "value": "✨ 51 PCS"
+                },
+                {
+                  "name": "Bundle & Save",
+                  "value": "🎁 Single Pack"
+                }
+              ],
+              "price": {
+                "amount": "39.99",
+                "currencyCode": "USD"
+              }
+            }
+          },
+          {
+            "node": {
+              "title": "✨ 51 PCS / 🧩 Duo Pack (40% + Extra 5% OFF)",
+              "selectedOptions": [
+                {
+                  "name": "Choose Your Set Size 🚂",
+                  "value": "✨ 51 PCS"
+                },
+                {
+                  "name": "Bundle & Save",
+                  "value": "🧩 Duo Pack (40% + Extra 5% OFF)"
+                }
+              ],
+              "price": {
+                "amount": "69.99",
+                "currencyCode": "USD"
+              }
+            }
+          },
+          {
+            "node": {
+              "title": "💎 81 PCS / 🎁 Single Pack",
+              "selectedOptions": [
+                {
+                  "name": "Choose Your Set Size 🚂",
+                  "value": "💎 81 PCS"
+                },
+                {
+                  "name": "Bundle & Save",
+                  "value": "🎁 Single Pack"
+                }
+              ],
+              "price": {
+                "amount": "59.99",
+                "currencyCode": "USD"
+              }
+            }
+          },
+          {
+            "node": {
+              "title": "💎 81 PCS / 🧩 Duo Pack (40% + Extra 5% OFF)",
+              "selectedOptions": [
+                {
+                  "name": "Choose Your Set Size 🚂",
+                  "value": "💎 81 PCS"
+                },
+                {
+                  "name": "Bundle & Save",
+                  "value": "🧩 Duo Pack (40% + Extra 5% OFF)"
+                }
+              ],
+              "price": {
+                "amount": "99.99",
+                "currencyCode": "USD"
+              }
+            }
+          },
+          {
+            "node": {
+              "title": "🏆 123 PCS / 🎁 Single Pack",
+              "selectedOptions": [
+                {
+                  "name": "Choose Your Set Size 🚂",
+                  "value": "🏆 123 PCS"
+                },
+                {
+                  "name": "Bundle & Save",
+                  "value": "🎁 Single Pack"
+                }
+              ],
+              "price": {
+                "amount": "79.99",
+                "currencyCode": "USD"
+              }
+            }
+          },
+          {
+            "node": {
+              "title": "🏆 123 PCS / 🧩 Duo Pack (40% + Extra 5% OFF)",
+              "selectedOptions": [
+                {
+                  "name": "Choose Your Set Size 🚂",
+                  "value": "🏆 123 PCS"
+                },
+                {
+                  "name": "Bundle & Save",
+                  "value": "🧩 Duo Pack (40% + Extra 5% OFF)"
+                }
+              ],
+              "price": {
+                "amount": "139.99",
+                "currencyCode": "USD"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "extensions": {
+    "cost": {
+      "requestedQueryCost": 46
+    }
+  }
+}
