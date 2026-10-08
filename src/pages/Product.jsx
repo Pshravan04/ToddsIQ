@@ -99,12 +99,7 @@ export default function Product() {
   const finalCompare = selectedVariant?.compareAtPrice ?? product.compareAtPrice;
   const savings = finalCompare && finalCompare > finalPrice ? Math.round(((finalCompare - finalPrice) / finalCompare) * 100) : 0;
   
-  // Update image if variant has its own image
-  useEffect(() => {
-    if (selectedVariant?.image) {
-      setActiveImage(selectedVariant.image);
-    }
-  }, [selectedVariant]);
+  // Update image if variant has its own image in the selection handler instead
 
   const handleAddToCart = async () => {
     const variantId = selectedVariant?.id || product.id;
@@ -246,7 +241,9 @@ export default function Product() {
                                return (
                                  <button key={i} onClick={() => {
                                    setSelectedOptions({...selectedOptions, [opt.name]: v});
-                                   if (optIndex === 0 && displayImages[i] && !hypotheticalVariant?.image) {
+                                   if (hypotheticalVariant?.image) {
+                                     setActiveImage(hypotheticalVariant.image);
+                                   } else if (optIndex === 0 && displayImages[i]) {
                                      setActiveImage(displayImages[i]);
                                    }
                                  }} className={`flex flex-col text-left p-4 rounded-2xl border-2 transition-all relative overflow-hidden ${isSelected ? 'bg-coral/5 border-coral shadow-[2px_2px_0px_#1E2A38]' : 'bg-white border-ink/10 hover:border-ink/30 hover:shadow-sm'}`}>
@@ -271,10 +268,19 @@ export default function Product() {
                           <div className="flex flex-wrap gap-2">
                             {opt.values.map((v, i) => {
                               const isSelected = selectedOptions[opt.name] === v;
+                              
+                              const hypotheticalVariant = product.variants?.find(variant => 
+                                variant.selectedOptions.every(so => 
+                                  so.name === opt.name ? so.value === v : so.value === selectedOptions[so.name]
+                                )
+                              );
+                              
                               return (
                                 <button key={i} onClick={() => {
                                    setSelectedOptions({...selectedOptions, [opt.name]: v});
-                                   if (optIndex === 0 && displayImages[i]) {
+                                   if (hypotheticalVariant?.image) {
+                                     setActiveImage(hypotheticalVariant.image);
+                                   } else if (optIndex === 0 && displayImages[i]) {
                                      setActiveImage(displayImages[i]);
                                    }
                                  }} className={`px-4 py-2 rounded-xl border-2 font-bold text-sm transition-all ${isSelected ? 'bg-coral/10 border-coral text-coral shadow-sm' : 'bg-white border-ink/10 text-ink hover:border-ink/30'}`}>
