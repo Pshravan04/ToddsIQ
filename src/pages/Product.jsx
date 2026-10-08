@@ -43,6 +43,19 @@ export default function Product() {
     setSelectedVariants({});
   }, [routeParam]);
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowSticky(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
+      { threshold: 0 }
+    );
+    if (ctaRef.current) {
+      observer.observe(ctaRef.current);
+    }
+    return () => observer.disconnect();
+  }, [product?.id]);
+
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center"><p className="text-xl">Loading product...</p></div>;
   }
@@ -70,18 +83,7 @@ export default function Product() {
   const finalCompare = (product.options && product.options[0]?.compareAtPrices) ? product.options[0].compareAtPrices[mainVariantIdx] : product.compareAtPrice;
   const savings = finalCompare ? Math.round(((finalCompare - finalPrice) / finalCompare) * 100) : 0;
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowSticky(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-      },
-      { threshold: 0 }
-    );
-    if (ctaRef.current) {
-      observer.observe(ctaRef.current);
-    }
-    return () => observer.disconnect();
-  }, [product.id]);
+
 
   const handleAddToCart = async () => {
     let variantId = product.id;
