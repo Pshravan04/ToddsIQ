@@ -1,17 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import products from '../data/products.json';
+import { getProducts } from '../services/shopify/products';
 
 export default function SearchOverlay({ open, onClose }) {
   const [query, setQuery] = useState('');
+  const [products, setProducts] = useState([]);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (open) { setQuery(''); setTimeout(() => inputRef.current?.focus(), 100); }
-  }, [open]);
+    if (open) { 
+      setQuery(''); 
+      setTimeout(() => inputRef.current?.focus(), 100); 
+      if (products.length === 0) {
+        getProducts().then(setProducts).catch(console.error);
+      }
+    }
+  }, [open, products.length]);
 
   const results = query.trim().length > 1
-    ? products.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || (p.category || '').toLowerCase().includes(query.toLowerCase())).slice(0, 6)
+    ? products.filter(p => (p.title || '').toLowerCase().includes(query.toLowerCase())).slice(0, 6)
     : [];
 
   const TRENDING = ['Drawing Robot', 'STEM Kit', 'Building Blocks', 'Puzzle Sets'];
@@ -40,11 +47,11 @@ export default function SearchOverlay({ open, onClose }) {
           <>
             <p style={{fontSize:'.75rem',fontWeight:700,textTransform:'uppercase',letterSpacing:'.08em',color:'var(--text-muted)',marginBottom:'.75rem'}}>Results</p>
             {results.map(p => (
-              <Link key={p.id} to={`/products/${p.id}`} onClick={onClose} style={{display:'flex',alignItems:'center',gap:'1rem',padding:'.75rem',borderRadius:'var(--r-md)',transition:'background var(--t-fast)'}}>
-                <img src={p.images?.[0] || p.image} alt={p.name} style={{width:48,height:48,objectFit:'cover',borderRadius:'var(--r-sm)',background:'var(--bg-subtle)'}}/>
+              <Link key={p.id} to={`/products/${p.handle}`} onClick={onClose} style={{display:'flex',alignItems:'center',gap:'1rem',padding:'.75rem',borderRadius:'var(--r-md)',transition:'background var(--t-fast)'}}>
+                <img src={p.thumbnail} alt={p.title} style={{width:48,height:48,objectFit:'cover',borderRadius:'var(--r-sm)',background:'var(--bg-subtle)'}}/>
                 <div>
-                  <p style={{fontWeight:600,color:'var(--ink-navy)',fontSize:'.9375rem'}}>{p.name}</p>
-                  <p style={{fontSize:'.8rem',color:'var(--text-muted)'}}>$${p.price}</p>
+                  <p style={{fontWeight:600,color:'var(--ink-navy)',fontSize:'.9375rem'}}>{p.title}</p>
+                  <p style={{fontSize:'.8rem',color:'var(--text-muted)'}}>${p.price}</p>
                 </div>
               </Link>
             ))}
