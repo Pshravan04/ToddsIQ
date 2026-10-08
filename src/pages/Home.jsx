@@ -1,7 +1,7 @@
 import { FadeInUp, StaggerContainer, StaggerItem } from '../components/AnimatedSection';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import productsData from '../data/products.json';
+import { getProducts } from '../services/shopify/products';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 
@@ -15,6 +15,17 @@ export default function Home() {
   const [quizGoal, setQuizGoal] = useState('focus');
   const [showQuizResult, setShowQuizResult] = useState(false);
   const [activeBestsellerTab, setActiveBestsellerTab] = useState('All Ages');
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProducts() {
+      const data = await getProducts(20);
+      setProductsData(data);
+      setLoading(false);
+    }
+    loadProducts();
+  }, []);
 
   const { addItem } = useCart();
   const { formatPrice } = useCurrency();
@@ -552,7 +563,7 @@ export default function Home() {
 <button 
   onClick={() => setShowQuizResult(true)}
   type="button"
-  className="w-full sm:w-auto px-space-2xl py-3.5 bg-coral text-canvas-fixed rounded-xl font-label-lg text-label-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2"
+  className="w-full sm:w-auto px-space-2xl py-3.5 bg-coral text-canvas-fixed rounded-xl font-label-lg text-label-lg transition-all flex items-center justify-center gap-2 hover:bg-coral-fixed"
 >
   <span>Show My 3 Personalized Matches</span>
   <span className="material-symbols-outlined text-base" style={{fontVariationSettings: '"FILL" 1'}}>arrow_forward</span>

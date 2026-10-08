@@ -30,8 +30,7 @@ export default function ProductCard({ product }) {
     if (hasVariants) {
       navigate(`/products/${routeParam}`);
     } else {
-      addItem({ id, name: displayTitle, price, image: img });
-      setIsCartOpen(true);
+      addItem(product);
     }
   };
 

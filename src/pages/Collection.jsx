@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
-import productsData from '../data/products.json';
+import { getProducts } from '../services/shopify/products';
 import { ChevronRight, Filter, Frown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -24,6 +24,17 @@ export default function Collection() {
   const info = COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null };
   const [activeFilter, setActiveFilter] = useState('All');
   const [sort, setSort] = useState('Featured');
+  const [productsData, setProductsData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadProducts() {
+      const data = await getProducts(50);
+      setProductsData(data);
+      setLoading(false);
+    }
+    loadProducts();
+  }, []);
 
   // Filter by Collection
   let products = [...productsData];

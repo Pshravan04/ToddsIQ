@@ -3,44 +3,61 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
-import productsData from '../data/products.json';
+import { getProductByHandle } from '../services/shopify/products';
 import drawingRobotImg from '../assets/drawing_companion_robot.jpg';
 import creativeRobotImg from '../assets/creative_potential_robot.jpg';
 import heroToysBannerImg from '../assets/hero_toys_banner.jpg';
 
 export default function Product() {
   const { id, slug } = useParams();
-  const { addItem, setIsCartOpen } = useCart();
+  const { addItem, setIsCartOpen, checkoutUrl } = useCart();
   const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   
   const routeParam = slug || id;
-  const product = productsData.find(p => p.id === routeParam || (p.title && p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-') === routeParam)) || productsData[0];
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
-  
-  const displayImages = product.images?.length > 0 ? product.images : (product.thumbnail ? [product.thumbnail] : ['https://via.placeholder.com/600']);
-  const [activeImage, setActiveImage] = useState(displayImages[0]);
-
-  const hasVariants = product.options && product.options.length > 0 && product.options[0].values && product.options[0].values.length > 0;
+  const [activeImage, setActiveImage] = useState('');
   const [selectedVariants, setSelectedVariants] = useState({});
-
-  const mainVariantIdx = selectedVariants[0] || 0;
-  const finalPrice = (product.options && product.options[0].prices) ? product.options[0].prices[mainVariantIdx] : product.price;
-  const finalCompare = (product.options && product.options[0].compareAtPrices) ? product.options[0].compareAtPrices[mainVariantIdx] : product.compareAtPrice;
-  const savings = finalCompare ? Math.round(((finalCompare - finalPrice) / finalCompare) * 100) : 0;
-
-  const ctaRef = useRef(null);
   const [showSticky, setShowSticky] = useState(false);
+  const ctaRef = useRef(null);
 
   useEffect(() => {
+    async function fetchProduct() {
+      setLoading(true);
+      const data = await getProductByHandle(routeParam);
+      setProduct(data);
+      if (data) {
+        const displayImages = data.images?.length > 0 ? data.images : (data.thumbnail ? [data.thumbnail] : ['https://via.placeholder.com/600']);
+        setActiveImage(displayImages[0]);
+      }
+      setLoading(false);
+    }
+    fetchProduct();
     window.scrollTo(0, 0);
-    setActiveImage(displayImages[0]);
     setQty(1);
     setSelectedVariants({});
-  }, [routeParam, product.id]);
+  }, [routeParam]);
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center"><p className="text-xl">Loading product...</p></div>;
+  }
+
+  if (!product) {
+    return <div className="min-h-screen flex items-center justify-center"><p className="text-xl">Product not found.</p></div>;
+  }
+
+  const displayImages = product.images?.length > 0 ? product.images : (product.thumbnail ? [product.thumbnail] : ['https://via.placeholder.com/600']);
+  const hasVariants = product.options && product.options.length > 0 && product.options[0].values && product.options[0].values.length > 0;
+  
+  const mainVariantIdx = selectedVariants[0] || 0;
+  const finalPrice = (product.options && product.options[0]?.prices) ? product.options[0].prices[mainVariantIdx] : product.price;
+  const finalCompare = (product.options && product.options[0]?.compareAtPrices) ? product.options[0].compareAtPrices[mainVariantIdx] : product.compareAtPrice;
+  const savings = finalCompare ? Math.round(((finalCompare - finalPrice) / finalCompare) * 100) : 0;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -55,30 +72,24 @@ export default function Product() {
     return () => observer.disconnect();
   }, [product.id]);
 
-  const handleAddToCart = () => {
-    let variantName = '';
+  const handleAddToCart = async () => {
     let variantId = product.id;
-    if (hasVariants) {
-      variantName = ' - ' + product.options.map((opt, i) => opt.values[selectedVariants[i] || 0]).join(' / ');
-      variantId = `${product.id}-${product.options.map((opt, i) => selectedVariants[i] || 0).join('-')}`;
+    if (hasVariants && product.variants && product.variants.length > mainVariantIdx) {
+      variantId = product.variants[mainVariantIdx].id;
     }
-    addItem({
-      ...product,
-      id: variantId,
-      name: product.title + variantName,
-      price: finalPrice,
-      image: activeImage
-    }, qty);
+    
+    await addItem(product, qty, variantId);
     setAdded(true);
-    setIsCartOpen(true);
     setTimeout(() => setAdded(false), 2000);
   };
   
-  const handleBuyNow = () => {
-     handleAddToCart();
-     setTimeout(() => {
-       navigate('/checkout');
-     }, 300);
+  const handleBuyNow = async () => {
+     await handleAddToCart();
+     if (checkoutUrl) {
+       window.location.href = checkoutUrl;
+     } else {
+       setIsCartOpen(true);
+     }
   };
 
   return (
@@ -166,9 +177,7 @@ export default function Product() {
                   <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-ink leading-tight">
                     {product.title}
                   </h1>
-                  <p className="text-sm text-ink-muted mt-3 leading-relaxed whitespace-pre-line">
-                    {product.description || "The gentle cognitive tutor that turns playtime into achievable, milestone-driven progression."}
-                  </p>
+                  <div className="text-sm text-ink-muted mt-3 leading-relaxed whitespace-pre-line" dangerouslySetInnerHTML={{ __html: product.description || "The gentle cognitive tutor that turns playtime into achievable, milestone-driven progression." }} />
                 </div>
 
                 {/* Price */}
@@ -360,7 +369,7 @@ export default function Product() {
     >
       <option value="overview">Overview</option>
       <option value="included">What's Included</option>
-      <option value="how-to-use">How to Use</option>
+      <option value="steps">Steps</option>
       <option value="clinical">Clinical Benefits</option>
       <option value="safety">Age &amp; Safety</option>
     </select>
@@ -375,7 +384,7 @@ export default function Product() {
       {/* Sliding Indicator Pill */}
       <button onClick={() => setActiveTab('overview')} className={`tab-btn relative z-10 px-5 py-2.5 rounded-full font-display text-xs sm:text-sm font-bold transition-colors ${activeTab === 'overview' ? 'bg-coral-fixed text-canvas-fixed border-2 border-ink shadow-[2px_2px_0px_#1E2A38]' : 'bg-[#F4F1EA] text-ink border-2 border-transparent hover:border-ink'}`}>Overview</button>
       <button onClick={() => setActiveTab('included')} className={`tab-btn relative z-10 px-5 py-2.5 rounded-full font-display text-xs sm:text-sm font-bold transition-colors ${activeTab === 'included' ? 'bg-coral-fixed text-canvas-fixed border-2 border-ink shadow-[2px_2px_0px_#1E2A38]' : 'bg-[#F4F1EA] text-ink border-2 border-transparent hover:border-ink'}`}>What's Included</button>
-      <button onClick={() => setActiveTab('how-to-use')} className={`tab-btn relative z-10 px-5 py-2.5 rounded-full font-display text-xs sm:text-sm font-bold transition-colors ${activeTab === 'how-to-use' ? 'bg-coral-fixed text-canvas-fixed border-2 border-ink shadow-[2px_2px_0px_#1E2A38]' : 'bg-[#F4F1EA] text-ink border-2 border-transparent hover:border-ink'}`}>How to Use</button>
+      <button onClick={() => setActiveTab('steps')} className={`tab-btn relative z-10 px-5 py-2.5 rounded-full font-display text-xs sm:text-sm font-bold transition-colors ${activeTab === 'steps' ? 'bg-coral-fixed text-canvas-fixed border-2 border-ink shadow-[2px_2px_0px_#1E2A38]' : 'bg-[#F4F1EA] text-ink border-2 border-transparent hover:border-ink'}`}>Steps</button>
       <button onClick={() => setActiveTab('clinical')} className={`tab-btn relative z-10 px-5 py-2.5 rounded-full font-display text-xs sm:text-sm font-bold transition-colors ${activeTab === 'clinical' ? 'bg-coral-fixed text-canvas-fixed border-2 border-ink shadow-[2px_2px_0px_#1E2A38]' : 'bg-[#F4F1EA] text-ink border-2 border-transparent hover:border-ink'}`}>Clinical Benefits</button>
       <button onClick={() => setActiveTab('safety')} className={`tab-btn relative z-10 px-5 py-2.5 rounded-full font-display text-xs sm:text-sm font-bold transition-colors ${activeTab === 'safety' ? 'bg-coral-fixed text-canvas-fixed border-2 border-ink shadow-[2px_2px_0px_#1E2A38]' : 'bg-[#F4F1EA] text-ink border-2 border-transparent hover:border-ink'}`}>Age &amp; Safety</button>
     </div>
@@ -446,9 +455,9 @@ export default function Product() {
 </div>
 </div>
 )}
-{/* Tab 3: How to Use Panel */}
-{product.title.includes('Bot') ? (
-<div className={`tab-panel grid grid-cols-1 md:grid-cols-3 gap-6 ${activeTab === 'how-to-use' ? '' : 'hidden'}`} id="tab-how">
+{/* Tab 3: Steps Panel */}
+{((product?.title || '') + (product?.name || '')).includes('Bot') ? (
+<div className={`tab-panel grid grid-cols-1 md:grid-cols-3 gap-6 ${activeTab === 'steps' ? '' : 'hidden'}`} id="tab-how">
 <div className="p-6 rounded-3xl bg-canvas border-2 border-ink/10">
 <span className="w-8 h-8 rounded-full bg-coral-fixed text-canvas-fixed border-2 border-ink font-display font-bold flex items-center justify-center text-sm mb-3">1</span>
 <h4 className="font-display font-bold text-lg text-ink">Insert Hardbound Card</h4>
@@ -466,7 +475,7 @@ export default function Product() {
 </div>
 </div>
 ) : (
-<div className={`tab-panel grid grid-cols-1 md:grid-cols-3 gap-6 ${activeTab === 'how-to-use' ? '' : 'hidden'}`} id="tab-how">
+<div className={`tab-panel grid grid-cols-1 md:grid-cols-3 gap-6 ${activeTab === 'steps' ? '' : 'hidden'}`} id="tab-how">
 <div className="p-6 rounded-3xl bg-canvas border-2 border-ink/10">
 <span className="w-8 h-8 rounded-full bg-coral-fixed text-canvas-fixed border-2 border-ink font-display font-bold flex items-center justify-center text-sm mb-3">1</span>
 <h4 className="font-display font-bold text-lg text-ink">Unbox & Discover</h4>

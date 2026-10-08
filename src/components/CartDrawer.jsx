@@ -1,10 +1,9 @@
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
 
 export default function CartDrawer({ open, onClose }) {
-  const { cartItems, cartTotal, updateQty, removeItem, setIsCartOpen } = useCart();
+  const { cartItems, cartTotal, updateQty, removeItem, setIsCartOpen, checkoutUrl, loading } = useCart();
   const { formatPrice } = useCurrency();
   const FREE_SHIPPING = 50;
   const progress = Math.min((cartTotal / FREE_SHIPPING) * 100, 100);
@@ -56,7 +55,7 @@ export default function CartDrawer({ open, onClose }) {
               </div>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+            <div className={`flex-1 overflow-y-auto p-6 flex flex-col gap-6 ${loading ? 'opacity-50 pointer-events-none' : ''}`}>
               {cartItems.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-ink/60 gap-4 mt-12">
                   <span className="material-symbols-outlined text-6xl opacity-50">shopping_bag</span>
@@ -76,16 +75,16 @@ export default function CartDrawer({ open, onClose }) {
                     className="flex gap-4 p-4 bg-white rounded-3xl border-2 border-ink shadow-[3px_3px_0px_#1E2A38]"
                   >
                     <div className="w-24 h-24 rounded-2xl bg-[#F4F1EA] overflow-hidden border-2 border-ink flex-shrink-0">
-                      <img className="w-full h-full object-cover" src={item.image} alt={item.name} />
+                      <img className="w-full h-full object-cover" src={item.thumbnail || item.image} alt={item.title || item.name} />
                     </div>
                     <div className="flex flex-col flex-1">
                       <div className="flex justify-between items-start gap-2">
-                        <p className="font-bold text-ink text-sm leading-tight">{item.name}</p>
+                        <p className="font-bold text-ink text-sm leading-tight">{item.title || item.name}</p>
                         <button onClick={() => removeItem(item.id)} className="text-ink/50 hover:text-coral transition-colors" aria-label="Remove">
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
                         </button>
                       </div>
-                      {item.variant && <p className="text-xs text-ink/60 mt-1">{item.variant}</p>}
+                      {item.variantTitle && item.variantTitle !== 'Default Title' && <p className="text-xs text-ink/60 mt-1">{item.variantTitle}</p>}
                       <div className="mt-auto flex items-center justify-between">
                         <div className="flex items-center gap-3 bg-[#F4F1EA] border-2 border-ink rounded-full px-2 py-1">
                           <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
@@ -110,14 +109,13 @@ export default function CartDrawer({ open, onClose }) {
               <p className="text-xs text-ink/60 text-center mb-4">Taxes and shipping calculated at checkout</p>
               
               <div className="flex flex-col gap-3">
-                {cartItems.length > 0 ? (
-                  <Link 
-                    to="/checkout" 
-                    onClick={() => setIsCartOpen(false)}
-                    className="w-full py-4 bg-coral text-canvas rounded-2xl font-display font-bold text-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2"
+                {cartItems.length > 0 && checkoutUrl ? (
+                  <a 
+                    href={checkoutUrl}
+                    className={`w-full py-4 bg-coral text-canvas rounded-2xl font-display font-bold text-lg border-2 border-ink shadow-[4px_4px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-[2px_2px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2 ${loading ? 'opacity-50 pointer-events-none' : ''}`}
                   >
-                    Checkout <span className="material-symbols-outlined text-xl">arrow_forward</span>
-                  </Link>
+                    {loading ? 'Updating...' : 'Checkout'} <span className="material-symbols-outlined text-xl">arrow_forward</span>
+                  </a>
                 ) : (
                   <button 
                     disabled 
