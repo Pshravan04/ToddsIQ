@@ -172,11 +172,35 @@ export const ADD_LINES_MUTATION = `
       cart {
         id
         checkoutUrl
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
         lines(first: 100) {
           edges {
             node {
               id
               quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  image {
+                    url
+                    altText
+                  }
+                  product {
+                    title
+                    handle
+                  }
+                }
+              }
             }
           }
         }
@@ -190,6 +214,39 @@ export const UPDATE_LINES_MUTATION = `
     cartLinesUpdate(cartId: $cartId, lines: $lines) {
       cart {
         id
+        checkoutUrl
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+        lines(first: 100) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  image {
+                    url
+                    altText
+                  }
+                  product {
+                    title
+                    handle
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -200,6 +257,39 @@ export const REMOVE_LINES_MUTATION = `
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
         id
+        checkoutUrl
+        cost {
+          totalAmount {
+            amount
+            currencyCode
+          }
+        }
+        lines(first: 100) {
+          edges {
+            node {
+              id
+              quantity
+              merchandise {
+                ... on ProductVariant {
+                  id
+                  title
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  image {
+                    url
+                    altText
+                  }
+                  product {
+                    title
+                    handle
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

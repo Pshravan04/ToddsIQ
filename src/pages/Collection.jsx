@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../services/shopify/products';
+import { getCollectionByHandle } from '../services/shopify/collections';
 import { ChevronRight, Filter, Frown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -21,27 +22,47 @@ const SORTS = ['Featured', 'Price: Low–High', 'Price: High–Low', 'Newest'];
 
 export default function Collection() {
   const { id } = useParams();
-  const info = COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null };
+  
+  const [info, setInfo] = useState(COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null });
   const [activeFilter, setActiveFilter] = useState('All');
   const [sort, setSort] = useState('Featured');
   const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadProducts() {
-      const data = await getProducts(50);
-      setProductsData(data);
+    async function loadData() {
+      setLoading(true);
+      if (id && id !== 'all') {
+        const collection = await getCollectionByHandle(id, 50);
+        if (collection) {
+          setInfo({
+            title: collection.title || info.title,
+            sub: collection.description || info.sub,
+            category: null 
+          });
+          setProductsData(collection.products || []);
+        } else {
+          // fallback if collection handle not found exactly, but might match old logic
+          const data = await getProducts(50);
+          setProductsData(data);
+        }
+      } else {
+        const data = await getProducts(50);
+        setProductsData(data);
+      }
       setLoading(false);
     }
-    loadProducts();
-  }, []);
+    loadData();
+    window.scrollTo(0, 0);
+  }, [id]);
 
-  // Filter by Collection
+  // Filter by Collection (Legacy fallback if we used all products)
   let products = [...productsData];
-  if (info.category) {
+  if (info.category && (id === 'all' || !id)) {
+    // Only apply legacy local filtering if we fetched all products
     products = products.filter(p => p.categories && p.categories.includes(info.category));
-  } else if (id && !COLLECTION_MAP[id]) {
-     // If user passed some arbitrary collection name in URL that isn't mapped, try to match by category anyway
+  } else if (id && !COLLECTION_MAP[id] && productsData.length > 0 && productsData[0]?.id && id !== 'all' && productsData.length > 20) {
+     // If we failed to fetch a real collection and fell back to all products
      products = products.filter(p => p.categories && p.categories.some(c => c.toLowerCase().includes(id.toLowerCase())));
   }
 

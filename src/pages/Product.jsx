@@ -22,7 +22,9 @@ export default function Product() {
   const [added, setAdded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [activeImage, setActiveImage] = useState('');
-  const [selectedVariants, setSelectedVariants] = useState({});
+  
+  // Track selected options as { [optionName]: optionValue }
+  const [selectedOptions, setSelectedOptions] = useState({});
   const [showSticky, setShowSticky] = useState(false);
   const ctaRef = useRef(null);
 
@@ -34,13 +36,23 @@ export default function Product() {
       if (data) {
         const displayImages = data.images?.length > 0 ? data.images : (data.thumbnail ? [data.thumbnail] : ['https://via.placeholder.com/600']);
         setActiveImage(displayImages[0]);
+        
+        // Initialize selected options with the first available variant's options, or just the first variant
+        const defaultVariant = data.variants?.find(v => v.availableForSale) || data.variants?.[0];
+        if (defaultVariant && defaultVariant.selectedOptions) {
+          const initialOptions = {};
+          defaultVariant.selectedOptions.forEach(opt => {
+             initialOptions[opt.name] = opt.value;
+          });
+          setSelectedOptions(initialOptions);
+        }
       }
       setLoading(false);
     }
     fetchProduct();
     window.scrollTo(0, 0);
     setQty(1);
-    setSelectedVariants({});
+    setSelectedOptions({});
   }, [routeParam]);
 
   useEffect(() => {
@@ -78,19 +90,24 @@ export default function Product() {
   const displayImages = product.images?.length > 0 ? product.images : (product.thumbnail ? [product.thumbnail] : ['https://via.placeholder.com/600']);
   const hasVariants = product.options && product.options.length > 0 && product.options[0].values && product.options[0].values.length > 0;
   
-  const mainVariantIdx = selectedVariants[0] || 0;
-  const finalPrice = (product.options && product.options[0]?.prices) ? product.options[0].prices[mainVariantIdx] : product.price;
-  const finalCompare = (product.options && product.options[0]?.compareAtPrices) ? product.options[0].compareAtPrices[mainVariantIdx] : product.compareAtPrice;
-  const savings = finalCompare ? Math.round(((finalCompare - finalPrice) / finalCompare) * 100) : 0;
+  // Find the actual Shopify variant that matches current selected options
+  const selectedVariant = product.variants?.find(v => {
+    return v.selectedOptions.every(so => selectedOptions[so.name] === so.value);
+  }) || product.variants?.[0];
 
-
+  const finalPrice = selectedVariant?.price ?? product.price;
+  const finalCompare = selectedVariant?.compareAtPrice ?? product.compareAtPrice;
+  const savings = finalCompare && finalCompare > finalPrice ? Math.round(((finalCompare - finalPrice) / finalCompare) * 100) : 0;
+  
+  // Update image if variant has its own image
+  useEffect(() => {
+    if (selectedVariant?.image) {
+      setActiveImage(selectedVariant.image);
+    }
+  }, [selectedVariant]);
 
   const handleAddToCart = async () => {
-    let variantId = product.id;
-    if (hasVariants && product.variants && product.variants.length > mainVariantIdx) {
-      variantId = product.variants[mainVariantIdx].id;
-    }
-    
+    const variantId = selectedVariant?.id || product.id;
     await addItem(product, qty, variantId);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
@@ -215,13 +232,21 @@ export default function Product() {
                         {opt.subtitles ? (
                           <div className="flex flex-col gap-2.5">
                             {opt.values.map((v, i) => {
-                               const isSelected = (selectedVariants[optIndex] || 0) === i;
-                               const price = opt.prices ? opt.prices[i] : null;
-                               const compPrice = opt.compareAtPrices ? opt.compareAtPrices[i] : null;
+                               const isSelected = selectedOptions[opt.name] === v;
+                               
+                               const hypotheticalVariant = product.variants?.find(variant => 
+                                 variant.selectedOptions.every(so => 
+                                   so.name === opt.name ? so.value === v : so.value === selectedOptions[so.name]
+                                 )
+                               );
+                               
+                               const price = hypotheticalVariant?.price ?? (opt.prices ? opt.prices[i] : null);
+                               const compPrice = hypotheticalVariant?.compareAtPrice ?? (opt.compareAtPrices ? opt.compareAtPrices[i] : null);
+                               
                                return (
                                  <button key={i} onClick={() => {
-                                   setSelectedVariants({...selectedVariants, [optIndex]: i});
-                                   if (optIndex === 0 && displayImages[i]) {
+                                   setSelectedOptions({...selectedOptions, [opt.name]: v});
+                                   if (optIndex === 0 && displayImages[i] && !hypotheticalVariant?.image) {
                                      setActiveImage(displayImages[i]);
                                    }
                                  }} className={`flex flex-col text-left p-4 rounded-2xl border-2 transition-all relative overflow-hidden ${isSelected ? 'bg-coral/5 border-coral shadow-[2px_2px_0px_#1E2A38]' : 'bg-white border-ink/10 hover:border-ink/30 hover:shadow-sm'}`}>
@@ -234,8 +259,8 @@ export default function Product() {
                                        <span className="text-xs text-ink-muted pr-12">{opt.subtitles[i]}</span>
                                      </div>
                                      <div className="flex flex-col items-end text-right min-w-[70px]">
-                                       {price && <span className={`font-display font-bold text-lg ${isSelected ? 'text-coral' : 'text-ink'}`}>${price.toFixed(2)}</span>}
-                                       {compPrice && <span className="text-xs text-ink-light line-through font-semibold">${compPrice.toFixed(2)}</span>}
+                                       {price != null && <span className={`font-display font-bold text-lg ${isSelected ? 'text-coral' : 'text-ink'}`}>${price.toFixed(2)}</span>}
+                                       {compPrice != null && <span className="text-xs text-ink-light line-through font-semibold">${compPrice.toFixed(2)}</span>}
                                      </div>
                                    </div>
                                  </button>
@@ -245,10 +270,10 @@ export default function Product() {
                         ) : (
                           <div className="flex flex-wrap gap-2">
                             {opt.values.map((v, i) => {
-                              const isSelected = (selectedVariants[optIndex] || 0) === i;
+                              const isSelected = selectedOptions[opt.name] === v;
                               return (
                                 <button key={i} onClick={() => {
-                                   setSelectedVariants({...selectedVariants, [optIndex]: i});
+                                   setSelectedOptions({...selectedOptions, [opt.name]: v});
                                    if (optIndex === 0 && displayImages[i]) {
                                      setActiveImage(displayImages[i]);
                                    }
