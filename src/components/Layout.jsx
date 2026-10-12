@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 import CartDrawer from './CartDrawer';
 import SearchOverlay from './SearchOverlay';
+import Logo from './Logo';
 
 const NAV = [
   {
@@ -82,7 +83,9 @@ export default function Layout({ children }) {
       <header style={{ boxShadow: scrolled ? 'var(--shadow-md)' : 'var(--shadow-xs)' }}>
         <div className="container">
           <nav className="nav-container">
-            <Link to="/" className="logo">Todds<span>IQ</span>™</Link>
+            <Link to="/" className="logo flex items-center">
+              <Logo className="h-7 md:h-8 w-auto" />
+            </Link>
 
             <ul className="nav-links">
               {NAV.map((item) => (<NavItem key={item.label} item={item} />))}
@@ -163,7 +166,9 @@ export default function Layout({ children }) {
       <footer className="bg-[#F4F1EA] border-t-2 border-ink pt-space-2xl pb-space-lg mt-space-xl">
         <div className="container mx-auto px-gutter grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-xl text-ink">
           <div className="space-y-4">
-            <Link to="/" className="font-headline-md text-headline-md font-bold text-ink">Todds<span className="text-coral">IQ</span>™</Link>
+            <Link to="/" className="inline-block">
+              <Logo className="h-7 w-auto" />
+            </Link>
             <p className="font-body-sm text-body-sm text-ink-variant max-w-xs">
               Parent-tested, therapist-approved screen-free toys that grow with your child's developmental milestones.
             </p>
