@@ -381,7 +381,7 @@ export default function Home() {
 </div>
 </section></FadeInUp>
 
-<FadeInUp><section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-t-2 border-ink">
+<FadeInUp><section className="w-full px-gutter py-space-2xl bg-[#F4F1EA]-low border-y-2 border-ink">
 <div className="max-w-7xl mx-auto flex flex-col gap-space-xl">
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
