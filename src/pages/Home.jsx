@@ -323,7 +323,7 @@ export default function Home() {
 <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-md">
 <div>
 <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold">PARENT-FAVORITES</span>
-<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Award-Winning Bestsellers Built for Little Hands</h2>
+<h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Award-Winning Bestsellers</h2>
 </div>
 
 <div className="flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide py-1">
