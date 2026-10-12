@@ -91,8 +91,6 @@ export default function Layout({ children }) {
             </ul>
 
             <div className="nav-actions">
-              <Link to="/track" className="hidden lg:block font-label-sm text-xs font-bold uppercase tracking-widest text-ink hover:text-coral transition-colors mr-2">Track Your Order</Link>
-              
               {/* Currency Dropdown */}
               <div className="relative hidden md:block mr-2 z-50">
                 <div 
@@ -142,11 +140,6 @@ export default function Layout({ children }) {
               <button className="nav-icon" onClick={() => setSearchOpen(true)} aria-label="Search">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                </svg>
-              </button>
-              <button className="nav-icon" aria-label="Account">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
                 </svg>
               </button>
               <button className="nav-icon" onClick={() => setIsCartOpen(true)} aria-label="Cart">
