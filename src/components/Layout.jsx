@@ -51,20 +51,20 @@ export default function Layout({ children }) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  const doubled = [...CHIPS, ...CHIPS];
+  const marqueeItems = [...CHIPS, ...CHIPS, ...CHIPS, ...CHIPS];
 
   return (
     <>
       {/* Announcement Bar */}
-      <div className="announcement-bar">
+      <div className="announcement-bar" role="region" aria-label="Announcements">
         <div className="announcement-track">
-          {doubled.map((chip, i) => (
+          {marqueeItems.map((chip, i) => (
             <span key={i} className="announcement-chip">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                 <circle cx="7" cy="7" r="6" fill="currentColor" opacity=".2"/>
                 <circle cx="7" cy="7" r="2.5" fill="currentColor"/>
               </svg>
-              {chip}
+              <span>{chip}</span>
             </span>
           ))}
         </div>

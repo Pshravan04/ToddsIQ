@@ -109,12 +109,15 @@ p{max-width:68ch;color:var(--text-secondary);}
 .btn-sm{padding:.5rem 1rem;font-size:.8125rem;}
 
 /* 5. Announcement Bar */
-.announcement-bar{background:var(--ink-navy);color:#fff;font-size:.8125rem;font-weight:500;overflow:hidden;line-height:1;}
-.announcement-track{display:flex;width:max-content;animation:marquee 32s linear infinite;}
-.announcement-track:hover{animation-play-state:paused;}
-.announcement-chip{display:inline-flex;align-items:center;gap:.625rem;padding:.75rem 3rem;white-space:nowrap;border-right:1px solid rgba(255,255,255,.1);}
-.announcement-chip svg{color:var(--crayon-marigold);}
-@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.announcement-bar{background:var(--ink-navy);color:#fff;font-size:.8125rem;font-weight:500;overflow:hidden;line-height:1;position:relative;width:100%;user-select:none;-webkit-user-select:none;touch-action:pan-y;}
+.announcement-track{display:flex;width:max-content;flex-wrap:nowrap;will-change:transform;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);animation:marquee 20s linear infinite;}
+@media(min-width:768px){.announcement-track{animation-duration:32s;}}
+@media(hover:hover) and (pointer:fine){.announcement-track:hover{animation-play-state:paused;}}
+.announcement-chip{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.75rem;font-size:.75rem;white-space:nowrap;border-right:1px solid rgba(255,255,255,.12);flex-shrink:0;pointer-events:none;}
+@media(min-width:768px){.announcement-chip{gap:.625rem;padding:.75rem 3rem;font-size:.8125rem;}}
+.announcement-chip svg{color:var(--crayon-marigold);flex-shrink:0;}
+@keyframes marquee{0%{transform:translate3d(0,0,0);}100%{transform:translate3d(-50%,0,0);}}
+@-webkit-keyframes marquee{0%{-webkit-transform:translate3d(0,0,0);}100%{-webkit-transform:translate3d(-50%,0,0);}}
 
 /* 6. Header */
 header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(30,42,56,.08);box-shadow:var(--shadow-xs);}
@@ -271,9 +274,10 @@ header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);borde
 
 /* 8. Trust Marquee */
 .marquee-section{background:var(--ink-navy);padding:.875rem 0;overflow:hidden;}
-.marquee-track{display:flex;width:max-content;animation:marquee 30s linear infinite;}
-.marquee-track:hover{animation-play-state:paused;}
-.marquee-chip{display:inline-flex;align-items:center;gap:.625rem;padding:0 2.5rem;font-size:.8rem;font-weight:500;color:rgba(255,255,255,.8);white-space:nowrap;border-right:1px solid rgba(255,255,255,.1);}
+.marquee-track{display:flex;width:max-content;will-change:transform;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);animation:marquee 24s linear infinite;}
+@media(hover:hover) and (pointer:fine){.marquee-track:hover{animation-play-state:paused;}}
+.marquee-chip{display:inline-flex;align-items:center;gap:.5rem;padding:0 1.5rem;font-size:.75rem;font-weight:500;color:rgba(255,255,255,.8);white-space:nowrap;border-right:1px solid rgba(255,255,255,.1);pointer-events:none;}
+@media(min-width:768px){.marquee-chip{gap:.625rem;padding:0 2.5rem;font-size:.8rem;}}
 .marquee-chip svg{color:var(--crayon-marigold);}
 
 /* 9. Section Headers */
@@ -519,7 +523,7 @@ header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);borde
 @media(max-width:480px){.product-grid{grid-template-columns:repeat(2,1fr);gap:.75rem;}.hero-actions{flex-direction:column;align-items:stretch;}.newsletter-form{flex-direction:column;}.bento-grid{grid-template-columns:1fr;}}
 
 /* 27. Reduced Motion */
-@media(prefers-reduced-motion:reduce){*,::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}}
+@media(prefers-reduced-motion:reduce){*:not(.announcement-track):not(.marquee-track),::before,::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;}}
 
 /* 28. Utils */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0;}
