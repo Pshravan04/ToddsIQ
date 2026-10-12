@@ -16,6 +16,14 @@ const NAV = [
       { label: 'Ages 3–5', sub: 'Drawing robots & phonics',          emoji: '🎨', color: '#1F9D8A', bg: '#E8F8F5', href: '/collections/preschool' },
       { label: 'Ages 5+',  sub: 'Advanced STEM & kinetic physics',    emoji: '🔭', color: '#FFB627', bg: '#FFF8E7', href: '/collections/big-kids' },
     ],
+    categories: [
+      { label: 'All',             sub: 'Browse full collection',  emoji: '✨', color: '#FF6154', bg: '#FFF0EE', href: '/collections/all' },
+      { label: 'STEM & Learning', sub: 'Logic, science & math',   emoji: '🔬', color: '#6C8EF5', bg: '#EEF1FD', href: '/collections/all?filter=STEM%20%26%20Learning' },
+      { label: 'Arts & Crafts',   sub: 'Drawing, paint & create', emoji: '🎨', color: '#F06292', bg: '#FCE4EC', href: '/collections/all?filter=Arts%20%26%20Crafts' },
+      { label: 'Building',        sub: 'Tracks, blocks & logic',  emoji: '🧱', color: '#FFB627', bg: '#FFF8E7', href: '/collections/all?filter=Building' },
+      { label: 'Reading',         sub: 'Phonics, cards & books',  emoji: '📚', color: '#1F9D8A', bg: '#E8F8F5', href: '/collections/all?filter=Reading' },
+      { label: 'Sensory',         sub: 'Tactile, sounds & lights',emoji: '🌈', color: '#9C27B0', bg: '#F3E5F5', href: '/collections/all?filter=Sensory' },
+    ],
   },
   { label: 'About Us',     href: '/about' },
   { label: 'Best Sellers', href: '/collections/best-sellers' },
@@ -236,15 +244,35 @@ export default function Layout({ children }) {
                   <div key={item.label}>
                     {item.mega ? (
                       <div className="mb-4">
-                        <span className="px-4 py-2 text-sm font-bold text-ink-variant uppercase tracking-wider block">{item.label}</span>
-                        <div className="flex flex-col gap-1 pl-4 mt-2 border-l-2 border-surface-container ml-4">
+                        <span className="px-4 py-1.5 text-xs font-bold text-ink-variant uppercase tracking-wider block">Shop by Age</span>
+                        <div className="flex flex-col gap-1 pl-4 mt-1 border-l-2 border-surface-container ml-4">
                           {item.ages.map(a => (
-                            <Link key={a.label} to={a.href} onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-3 rounded-xl hover:bg-[#F4F1EA] text-ink font-label-md flex items-center gap-3">
+                            <Link key={a.label} to={a.href} onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 rounded-xl hover:bg-[#F4F1EA] text-ink font-label-md flex items-center gap-3">
                               <span className="w-8 h-8 rounded-full flex items-center justify-center text-sm" style={{background: a.bg}}>{a.emoji}</span>
-                              {a.label}
+                              <div>
+                                <strong className="block text-sm font-bold text-ink">{a.label}</strong>
+                                <span className="block text-xs text-ink/60">{a.sub}</span>
+                              </div>
                             </Link>
                           ))}
                         </div>
+
+                        {item.categories && (
+                          <>
+                            <span className="px-4 py-1.5 text-xs font-bold text-ink-variant uppercase tracking-wider block mt-4">Shop by Category</span>
+                            <div className="flex flex-col gap-1 pl-4 mt-1 border-l-2 border-surface-container ml-4">
+                              {item.categories.map(c => (
+                                <Link key={c.label} to={c.href} onClick={() => setMobileMenuOpen(false)} className="py-2 px-3 rounded-xl hover:bg-[#F4F1EA] text-ink font-label-md flex items-center gap-3">
+                                  <span className="w-7 h-7 rounded-lg flex items-center justify-center text-sm shadow-xs border border-ink/5" style={{background: c.bg}}>{c.emoji}</span>
+                                  <div>
+                                    <strong className="block text-sm font-semibold text-ink">{c.label}</strong>
+                                    <span className="block text-[11px] text-ink/50">{c.sub}</span>
+                                  </div>
+                                </Link>
+                              ))}
+                            </div>
+                          </>
+                        )}
                       </div>
                     ) : (
                       <Link to={item.href || '#'} onClick={() => setMobileMenuOpen(false)} className={`px-4 py-3 rounded-xl hover:bg-[#F4F1EA] font-label-lg text-label-lg block ${item.sale ? 'text-coral font-bold' : 'text-ink'}`}>
@@ -292,36 +320,86 @@ function NavItem({ item }) {
                 animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
                 exit={{ opacity: 0, y: 8, scale: 0.98, filter: 'blur(2px)' }}
                 transition={{ type: "spring", stiffness: 350, damping: 25, mass: 0.8 }}
-                className="absolute top-[calc(100%+10px)] left-0 bg-white/98 backdrop-blur-2xl rounded-2xl shadow-[0_20px_40px_-8px_rgba(30,42,56,0.18),0_0_0_1px_rgba(30,42,56,0.06)] p-3 flex flex-col gap-1 w-[320px] z-[200] origin-top border border-ink/10"
+                className="absolute top-[calc(100%+10px)] left-0 bg-white/98 backdrop-blur-2xl rounded-2xl shadow-[0_20px_40px_-8px_rgba(30,42,56,0.18),0_0_0_1px_rgba(30,42,56,0.06)] p-5 grid grid-cols-2 gap-5 w-[600px] z-[200] origin-top border border-ink/10"
               >
                 <div className="absolute -top-6 left-0 right-0 h-6 bg-transparent" />
-                <div className="px-3 py-1.5 border-b border-ink/5 mb-1">
-                  <p className="text-[11px] font-bold uppercase tracking-wider text-ink/40">Shop by Age</p>
-                </div>
-                <div className="flex flex-col gap-1">
-                  {item.ages.map((a, i) => (
-                    <motion.div 
-                      initial={{ opacity: 0, x: -8 }} 
-                      animate={{ opacity: 1, x: 0 }} 
-                      transition={{ delay: 0.03 * i }}
-                      key={a.label}
-                    >
-                      <Link 
-                        to={a.href} 
-                        onClick={() => setIsHovered(false)} 
-                        className="group flex items-center gap-3.5 p-2.5 rounded-xl hover:bg-[#F4F1EA] transition-all"
+
+                {/* Left Column: Shop by Age */}
+                <div className="flex flex-col gap-1 pr-3 border-r border-ink/5">
+                  <div className="px-2 py-1 border-b border-ink/5 mb-1 flex items-center justify-between">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-ink/40">Shop by Age</p>
+                    <span className="text-[10px] font-semibold text-coral bg-coral/10 px-1.5 py-0.5 rounded">3 Stages</span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    {item.ages.map((a, i) => (
+                      <motion.div 
+                        initial={{ opacity: 0, x: -8 }} 
+                        animate={{ opacity: 1, x: 0 }} 
+                        transition={{ delay: 0.02 * i }}
+                        key={a.label}
                       >
-                        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl transition-transform duration-300 group-hover:scale-110 shadow-sm border border-ink/5 flex-shrink-0" style={{ background: a.bg }}>
-                          {a.emoji}
-                        </div>
-                        <div>
-                          <strong className="block text-[15px] font-bold text-ink group-hover:text-coral transition-colors">{a.label}</strong>
-                          <span className="text-[12px] text-ink/60 line-clamp-1">{a.sub}</span>
-                        </div>
-                      </Link>
-                    </motion.div>
-                  ))}
+                        <Link 
+                          to={a.href} 
+                          onClick={() => setIsHovered(false)} 
+                          className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-[#F4F1EA] transition-all"
+                        >
+                          <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg transition-transform duration-200 group-hover:scale-110 shadow-xs border border-ink/5 flex-shrink-0" style={{ background: a.bg }}>
+                            {a.emoji}
+                          </div>
+                          <div>
+                            <strong className="block text-[14px] font-bold text-ink group-hover:text-coral transition-colors">{a.label}</strong>
+                            <span className="text-[11.5px] text-ink/60 line-clamp-1">{a.sub}</span>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-3 border-t border-ink/5">
+                    <Link
+                      to="/collections/best-sellers"
+                      onClick={() => setIsHovered(false)}
+                      className="flex items-center justify-between px-3 py-2 rounded-xl bg-[#F4F1EA] hover:bg-coral/10 text-ink group transition-colors"
+                    >
+                      <span className="text-xs font-bold group-hover:text-coral transition-colors">🔥 View Best Sellers</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-ink/40 group-hover:text-coral group-hover:translate-x-0.5 transition-all"><path d="m9 18 6-6-6-6"/></svg>
+                    </Link>
+                  </div>
                 </div>
+
+                {/* Right Column: Shop by Category */}
+                <div className="flex flex-col gap-1 pl-1">
+                  <div className="px-2 py-1 border-b border-ink/5 mb-1 flex items-center justify-between">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-ink/40">Shop by Category</p>
+                    <span className="text-[10px] font-semibold text-ink/40">Filter by Type</span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    {item.categories?.map((c, i) => (
+                      <motion.div 
+                        initial={{ opacity: 0, x: 8 }} 
+                        animate={{ opacity: 1, x: 0 }} 
+                        transition={{ delay: 0.02 * i }}
+                        key={c.label}
+                      >
+                        <Link 
+                          to={c.href} 
+                          onClick={() => setIsHovered(false)} 
+                          className="group flex items-center gap-2.5 px-2.5 py-1.5 rounded-xl hover:bg-[#F4F1EA] transition-all"
+                        >
+                          <span className="w-7 h-7 rounded-lg flex items-center justify-center text-sm transition-transform duration-200 group-hover:scale-110 shadow-xs border border-ink/5 flex-shrink-0" style={{ background: c.bg }}>
+                            {c.emoji}
+                          </span>
+                          <div className="flex-1 min-w-0">
+                            <span className="block text-[13.5px] font-semibold text-ink group-hover:text-coral transition-colors">
+                              {c.label}
+                            </span>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
               </motion.div>
             )}
           </AnimatePresence>

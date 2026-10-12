@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { getProducts } from '../services/shopify/products';
 import { getCollectionByHandle } from '../services/shopify/collections';
@@ -22,12 +22,28 @@ const SORTS = ['Featured', 'Price: Low–High', 'Price: High–Low', 'Newest'];
 
 export default function Collection() {
   const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filterParam = searchParams.get('filter');
   
   const [info, setInfo] = useState(COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null });
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeFilter, setActiveFilter] = useState(() => {
+    if (filterParam && FILTERS.some(f => f.toLowerCase() === filterParam.toLowerCase())) {
+      return FILTERS.find(f => f.toLowerCase() === filterParam.toLowerCase());
+    }
+    return 'All';
+  });
   const [sort, setSort] = useState('Featured');
   const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const f = searchParams.get('filter');
+    if (f && FILTERS.some(item => item.toLowerCase() === f.toLowerCase())) {
+      setActiveFilter(FILTERS.find(item => item.toLowerCase() === f.toLowerCase()));
+    } else if (!f) {
+      setActiveFilter('All');
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     async function loadData() {
@@ -56,6 +72,17 @@ export default function Collection() {
     window.scrollTo(0, 0);
   }, [id]);
 
+  const handleFilterClick = (f) => {
+    setActiveFilter(f);
+    const newParams = new URLSearchParams(searchParams);
+    if (f === 'All') {
+      newParams.delete('filter');
+    } else {
+      newParams.set('filter', f);
+    }
+    setSearchParams(newParams, { replace: true });
+  };
+
   // Filter by Collection (Legacy fallback if we used all products)
   let products = [...productsData];
   if (info.category && (id === 'all' || !id)) {
@@ -68,7 +95,20 @@ export default function Collection() {
 
   // Sub-filter by Tag
   if (activeFilter !== 'All') {
-    products = products.filter(p => p.categories && p.categories.map(c => c.toUpperCase()).includes(activeFilter.toUpperCase()));
+    products = products.filter(p => {
+      if (!p.categories || !Array.isArray(p.categories)) return false;
+      const upperFilter = activeFilter.toUpperCase();
+      return p.categories.some(cat => {
+        const upperCat = (cat || '').toUpperCase();
+        if (upperCat === upperFilter) return true;
+        if (upperFilter === 'STEM & LEARNING' && (upperCat.includes('STEM') || upperCat.includes('LEARN') || upperCat.includes('SCIENCE'))) return true;
+        if (upperFilter === 'ARTS & CRAFTS' && (upperCat.includes('ART') || upperCat.includes('CRAFT'))) return true;
+        if (upperFilter === 'BUILDING' && (upperCat.includes('BUILD') || upperCat.includes('BLOCK') || upperCat.includes('TRACK'))) return true;
+        if (upperFilter === 'READING' && (upperCat.includes('READ') || upperCat.includes('BOOK') || upperCat.includes('PHONIC'))) return true;
+        if (upperFilter === 'SENSORY' && (upperCat.includes('SENSORY') || upperCat.includes('TACTILE'))) return true;
+        return false;
+      });
+    });
   }
 
   // Sort
@@ -98,7 +138,7 @@ export default function Collection() {
                {FILTERS.map(f => (
                  <button 
                    key={f} 
-                   onClick={() => setActiveFilter(f)}
+                   onClick={() => handleFilterClick(f)}
                    className={`relative z-10 shrink-0 px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all ${
                      activeFilter === f 
                      ? 'text-canvas border-ink shadow-[2px_2px_0px_#1E2A38]' 
