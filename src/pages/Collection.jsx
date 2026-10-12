@@ -20,6 +20,30 @@ const COLLECTION_MAP = {
 const FILTERS = ['All', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'];
 const SORTS = ['Featured', 'Price: Low–High', 'Price: High–Low', 'Newest'];
 
+const CURATED_AGE_PRIORITY = {
+  '1-3': [
+    'toddsiq-nestwood-full-pack',
+    'toddsiq-pippo',
+    'toddsiq-chime',
+    'toddsiq-squishblocks',
+    'toddsiq-aquadoodle-book'
+  ],
+  '3-5': [
+    'drawing-robot',
+    '3dmagictracktrainset',
+    'toddsiq-magtrack',
+    'toddsiq-quarry',
+    'toddsiq-lingo'
+  ],
+  '5+': [
+    'toddsiq-spark',
+    'toddsiq-microscope-explorer',
+    'toddsiq-clash',
+    'toddsiq-snaptalk-duo',
+    'toddsiq-fracsnap'
+  ]
+};
+
 export default function Collection() {
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -36,6 +60,9 @@ export default function Collection() {
       );
       if (match) return match;
     }
+    if (id === 'toddler' || id === 'toddler-toys-ages-1-3') return 'Ages 1–3';
+    if (id === 'preschool' || id === 'preschool-toys-ages-3-5') return 'Ages 3–5';
+    if (id === 'big-kids' || id === 'big-kids-ages-5') return 'Ages 5+';
     return 'All';
   });
   const [sort, setSort] = useState('Featured');
@@ -51,26 +78,39 @@ export default function Collection() {
         (item.includes('3-5') && f.includes('3-5')) ||
         (item.includes('5+') && f.includes('5+'))
       );
-      if (match) setActiveFilter(match);
+      if (match) {
+        setActiveFilter(match);
+        return;
+      }
+    }
+    if (id === 'toddler' || id === 'toddler-toys-ages-1-3') {
+      setActiveFilter('Ages 1–3');
+    } else if (id === 'preschool' || id === 'preschool-toys-ages-3-5') {
+      setActiveFilter('Ages 3–5');
+    } else if (id === 'big-kids' || id === 'big-kids-ages-5') {
+      setActiveFilter('Ages 5+');
     } else {
       setActiveFilter('All');
     }
-  }, [searchParams]);
+  }, [id, searchParams]);
 
   useEffect(() => {
     async function loadData() {
       setLoading(true);
+      const currentMeta = COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null };
+      setInfo(currentMeta);
+
       if (id && id !== 'all') {
         const collection = await getCollectionByHandle(id, 50);
         if (collection) {
           setInfo({
-            title: collection.title || info.title,
-            sub: collection.description || info.sub,
+            title: collection.title || currentMeta.title,
+            sub: collection.description || currentMeta.sub,
             category: null 
           });
           setProductsData(collection.products || []);
         } else {
-          // fallback if collection handle not found exactly, but might match old logic
+          // fallback if collection handle not found in Shopify
           const data = await getProducts(50);
           setProductsData(data);
         }
@@ -107,24 +147,45 @@ export default function Collection() {
 
   // Sub-filter by Age Category
   if (activeFilter !== 'All') {
+    const ageKey = (activeFilter.includes('1-3') || activeFilter.includes('1–3')) ? '1-3'
+                 : (activeFilter.includes('3-5') || activeFilter.includes('3–5')) ? '3-5'
+                 : '5+';
+
     products = products.filter(p => {
       const age = p.ageBand || '';
       const tags = (p.categories || []).map(c => (c || '').toLowerCase());
       
-      if (activeFilter.includes('1-3') || activeFilter.includes('1–3')) {
+      if (ageKey === '1-3') {
         return age === '1-3' || tags.some(t => t.includes('1-3') || t.includes('toddler'));
       }
-      if (activeFilter.includes('3-5') || activeFilter.includes('3–5')) {
+      if (ageKey === '3-5') {
         return age === '3-5' || tags.some(t => t.includes('3-5') || t.includes('preschool'));
       }
-      if (activeFilter.includes('5+')) {
+      if (ageKey === '5+') {
         return age === '5+' || tags.some(t => t.includes('5+') || t.includes('big kid') || t.includes('big-kid'));
       }
       return true;
     });
+
+    // Prioritize curated bestsellers for this age when sort is 'Featured'
+    if (sort === 'Featured') {
+      const priorityList = CURATED_AGE_PRIORITY[ageKey] || [];
+      products.sort((a, b) => {
+        const handleA = (a.handle || a.id || a.slug || '').toLowerCase().replace(/^toddsiq-/, '');
+        const handleB = (b.handle || b.id || b.slug || '').toLowerCase().replace(/^toddsiq-/, '');
+        const idxA = priorityList.findIndex(k => k.toLowerCase().replace(/^toddsiq-/, '') === handleA);
+        const idxB = priorityList.findIndex(k => k.toLowerCase().replace(/^toddsiq-/, '') === handleB);
+        const rankA = idxA !== -1 ? idxA : 999;
+        const rankB = idxB !== -1 ? idxB : 999;
+        return rankA - rankB;
+      });
+    }
+
+    // Limit to exactly 5 products per user requirement
+    products = products.slice(0, 5);
   }
 
-  // Sort
+  // Sort by Price if requested
   if (sort === 'Price: Low–High') products.sort((a, b) => a.price - b.price);
   if (sort === 'Price: High–Low') products.sort((a, b) => b.price - a.price);
 
