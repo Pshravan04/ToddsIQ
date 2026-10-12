@@ -16,6 +16,61 @@ export default function Home() {
   const [activeBestsellerTab, setActiveBestsellerTab] = useState('All Ages');
   const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [openHomeFaq, setOpenHomeFaq] = useState(0);
+
+  const FAQ_ITEMS = [
+    {
+      question: 'What age group is ToddsIQ™ suitable for?',
+      answer: 'ToddsIQ™ is designed for children aged 3 and up, making it the perfect creative companion for young artists.'
+    },
+    {
+      question: 'Is ToddsIQ™ screen-free?',
+      answer: 'Yes, ToddsIQ™ is 100% screen-free, allowing your child to focus on their creativity and imagination without distractions from electronic devices.'
+    },
+    {
+      question: 'How does ToddsIQ™ help my child improve their drawing skills?',
+      answer: 'ToddsIQ™ uses smart technology to guide your child step-by-step through each drawing, helping them build artistic skills and confidence while encouraging creativity and imagination.'
+    },
+    {
+      question: 'What comes in the ToddsIQ™ bundle?',
+      answer: 'The ToddsIQ™ bundle includes the ToddsIQ™ Drawing Robot and a full set of guided drawing cards to help your child draw with ease, sparking their creativity every day.'
+    },
+    {
+      question: 'Is ToddsIQ™ rechargeable?',
+      answer: 'Yes! ToddsIQ™ is rechargeable and portable, making it convenient for use at home or on the go. Simply charge it and let the creativity flow!'
+    },
+    {
+      question: 'What if my child doesn’t like ToddsIQ™?',
+      answer: 'We are confident your child will love ToddsIQ™. However, if for any reason they’re not happy with their purchase, we offer 30-days money-back guarantee, no questions asked!'
+    },
+    {
+      question: 'What’s included in the ToddsIQ™ Drawing Robot bundle?',
+      answer: (
+        <div className="flex flex-col gap-2.5">
+          <p>The <strong className="text-ink font-bold">ToddsIQ™ Drawing Robot</strong> bundle includes the following:</p>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-ink/90 bg-[#F4F1EA]/60 p-3 rounded-xl border border-ink/10 text-xs sm:text-sm">
+            <li className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-coral text-base shrink-0">check_circle</span>
+              <span><strong>1 ToddsIQ™ Drawing Robot</strong></span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-coral text-base shrink-0">check_circle</span>
+              <span><strong>150 Drawing Cards</strong> to inspire endless creativity</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-coral text-base shrink-0">check_circle</span>
+              <span><strong>2 Markers</strong> for drawing</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-coral text-base shrink-0">check_circle</span>
+              <span><strong>1 Charging Cable</strong> for easy recharging</span>
+            </li>
+          </ul>
+          <p className="text-xs sm:text-sm text-ink-muted">Everything you need to start creating and having fun is included in the bundle!</p>
+        </div>
+      )
+    }
+  ];
 
   useEffect(() => {
     async function loadProducts() {
@@ -601,6 +656,98 @@ export default function Home() {
       </div>
 
       <VideoCarousel />
+    </div>
+  </section>
+</FadeInUp>
+
+{/* Frequently Asked Questions Section (Right after video section) */}
+<FadeInUp>
+  <section className="w-full px-gutter py-space-2xl bg-[#F8F5EE] border-t-2 border-ink" id="faq-section">
+    <div className="max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        
+        {/* Left Column: Heading, Subtitle & Support Guarantee Card */}
+        <div className="lg:col-span-5 flex flex-col gap-6 lg:sticky lg:top-24">
+          <div>
+            <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold flex items-center gap-1.5 mb-2">
+              <span className="material-symbols-outlined text-base">help</span>
+              Got Questions?
+            </span>
+            <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight font-display font-black">
+              Frequently asked questions
+            </h2>
+            <p className="font-body-md text-body-md text-ink-variant mt-3 leading-relaxed">
+              It’s fun, safe, and creatively empowering. Follow these simple tips to make the most out of your ToddsIQ™ Drawing Robot experience.
+            </p>
+          </div>
+
+          {/* Guarantee & Action Box */}
+          <div className="p-5 sm:p-6 bg-white rounded-2xl border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-marigold/30 border-2 border-ink flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-ink text-2xl">verified_user</span>
+              </div>
+              <div>
+                <h4 className="font-display font-bold text-ink text-sm sm:text-base">30-Day Money-Back Guarantee</h4>
+                <p className="text-xs text-ink-muted">100% risk-free. No questions asked return policy.</p>
+              </div>
+            </div>
+
+            <div className="border-t border-ink/10 pt-4 flex flex-col sm:flex-row gap-2.5">
+              <Link
+                to="/products/drawing-robot"
+                className="flex-1 text-center px-4 py-2.5 rounded-xl bg-coral hover:bg-coral/90 text-white font-display font-bold text-xs sm:text-sm border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-y-0.5 transition-all"
+              >
+                Get Drawing Robot
+              </Link>
+              <Link
+                to="/contact"
+                className="flex-1 text-center px-4 py-2.5 rounded-xl bg-canvas hover:bg-[#F4F1EA] text-ink font-display font-bold text-xs sm:text-sm border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-y-0.5 transition-all"
+              >
+                Contact Support
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Accordion Questions */}
+        <div className="lg:col-span-7 flex flex-col gap-3.5">
+          {FAQ_ITEMS.map((item, idx) => {
+            const isOpen = openHomeFaq === idx;
+            return (
+              <div
+                key={idx}
+                className={`bg-white rounded-2xl border-2 border-ink shadow-[3px_3px_0px_#1E2A38] transition-all overflow-hidden ${
+                  isOpen ? 'ring-2 ring-coral/20' : ''
+                }`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenHomeFaq(prev => prev === idx ? null : idx)}
+                  className="w-full p-4 sm:p-5 flex items-center justify-between text-left font-display font-bold text-sm sm:text-base text-ink gap-3.5 select-none cursor-pointer hover:bg-black/[0.02] transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="w-6 h-6 rounded-full bg-coral/10 text-coral font-black text-xs flex items-center justify-center shrink-0 border border-coral/30">
+                      Q
+                    </span>
+                    <span>{item.question}</span>
+                  </div>
+                  <div className={`w-7 h-7 rounded-full border border-ink/20 flex items-center justify-center shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 bg-coral text-white border-coral' : 'bg-[#F4F1EA] text-ink'}`}>
+                    <span className="material-symbols-outlined text-base">expand_more</span>
+                  </div>
+                </button>
+
+                {isOpen && (
+                  <div className="px-4 pb-4 sm:px-5 sm:pb-5 pt-1 text-xs sm:text-sm text-ink/80 leading-relaxed border-t border-ink/10 bg-[#FBF9F5]">
+                    {item.answer}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
     </div>
   </section>
 </FadeInUp>
