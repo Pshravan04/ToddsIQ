@@ -148,16 +148,58 @@ export default function Collection() {
   const handleFilterClick = (f) => {
     setActiveFilter(f);
     const newParams = new URLSearchParams(searchParams);
-    if (f === currentMeta.defaultFilter) {
-      newParams.delete('filter');
-    } else {
-      newParams.set('filter', f.toLowerCase().replace(/[^\w+]/g, '-'));
+    if (f === 'All') {
+      newParams.set('filter', 'all');
+    } else if (f.includes('1-3') || f.includes('1–3')) {
+      newParams.set('filter', 'Ages 1–3');
+    } else if (f.includes('3-5') || f.includes('3–5')) {
+      newParams.set('filter', 'Ages 3–5');
+    } else if (f.includes('5+')) {
+      newParams.set('filter', 'Ages 5+');
     }
     setSearchParams(newParams, { replace: true });
   };
 
-  const pageTitle = customMeta?.title || currentMeta.title;
-  const pageSub = customMeta?.sub || currentMeta.sub;
+  const getPageMeta = () => {
+    if (activeFilter.includes('1-3') || activeFilter.includes('1–3')) {
+      return {
+        title: 'Toddler Play (Ages 1–3)',
+        sub: 'Sensory exploration, first strokes, and tactile discovery.'
+      };
+    }
+    if (activeFilter.includes('3-5') || activeFilter.includes('3–5')) {
+      return {
+        title: 'Preschool & Pre-K (Ages 3–5)',
+        sub: 'Guided drawing mentors, early phonics mastery, and spatial logic.'
+      };
+    }
+    if (activeFilter.includes('5+')) {
+      return {
+        title: 'Big Kids & Explorers (Ages 5+)',
+        sub: 'Multi-level track physics, microscopes, and building sets.'
+      };
+    }
+
+    // When activeFilter === 'All'
+    if (id === 'best-sellers') {
+      return {
+        title: 'Best Sellers',
+        sub: 'The toys parents (and kids) love most.'
+      };
+    }
+    if (id === 'sale') {
+      return {
+        title: 'Flash Sale',
+        sub: 'Exclusive savings on parent-favorite screen-free toys.'
+      };
+    }
+    return {
+      title: customMeta?.title || 'All Toys',
+      sub: customMeta?.sub || 'Explore every toy in the ToddsIQ catalog.'
+    };
+  };
+
+  const { title: pageTitle, sub: pageSub } = getPageMeta();
 
   let products = [...productsData];
 
