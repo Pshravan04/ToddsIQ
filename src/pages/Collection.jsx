@@ -7,14 +7,51 @@ import { ChevronRight, Filter, Frown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const COLLECTION_MAP = {
-  'all':          { title: 'All Toys', sub: 'Explore every toy in the ToddsIQ catalog.', category: null },
-  'best-sellers': { title: 'Best Sellers', sub: 'The toys parents (and kids) love most.', category: 'Best Sellers' },
-  'toddler':      { title: 'Toddler Play (1-3)', sub: 'Sensory exploration, first strokes, tactile discovery.', category: 'Toddler' },
-  'preschool':    { title: 'Preschool & Pre-K (3-5)', sub: 'Guided drawing mentors, early phonics mastery, spatial logic.', category: 'Preschool' },
-  'big-kids':     { title: 'Big Kids & Explorers (5+)', sub: 'Multi-level track physics, microscopes, and building sets.', category: 'Big Kids' },
-  'toddler-toys-ages-1-3': { title: 'Toddler Play (1-3)', sub: 'Sensory exploration, first strokes, tactile discovery.', category: 'Toddler' },
-  'preschool-toys-ages-3-5': { title: 'Preschool & Pre-K (3-5)', sub: 'Guided drawing mentors, early phonics mastery, spatial logic.', category: 'Preschool' },
-  'big-kids-ages-5': { title: 'Big Kids & Explorers (5+)', sub: 'Multi-level track physics, microscopes, and building sets.', category: 'Big Kids' },
+  'all': { 
+    title: 'All Toys', 
+    sub: 'Explore every toy in the ToddsIQ catalog.', 
+    defaultFilter: 'All' 
+  },
+  'best-sellers': { 
+    title: 'Best Sellers', 
+    sub: 'The toys parents (and kids) love most.', 
+    defaultFilter: 'All' 
+  },
+  'toddler': { 
+    title: 'Toddler Play (Ages 1–3)', 
+    sub: 'Sensory exploration, first strokes, and tactile discovery.', 
+    defaultFilter: 'Ages 1–3' 
+  },
+  'preschool': { 
+    title: 'Preschool & Pre-K (Ages 3–5)', 
+    sub: 'Guided drawing mentors, early phonics mastery, and spatial logic.', 
+    defaultFilter: 'Ages 3–5' 
+  },
+  'big-kids': { 
+    title: 'Big Kids & Explorers (Ages 5+)', 
+    sub: 'Multi-level track physics, microscopes, and building sets.', 
+    defaultFilter: 'Ages 5+' 
+  },
+  'toddler-toys-ages-1-3': { 
+    title: 'Toddler Play (Ages 1–3)', 
+    sub: 'Sensory exploration, first strokes, and tactile discovery.', 
+    defaultFilter: 'Ages 1–3' 
+  },
+  'preschool-toys-ages-3-5': { 
+    title: 'Preschool & Pre-K (Ages 3–5)', 
+    sub: 'Guided drawing mentors, early phonics mastery, and spatial logic.', 
+    defaultFilter: 'Ages 3–5' 
+  },
+  'big-kids-ages-5': { 
+    title: 'Big Kids & Explorers (Ages 5+)', 
+    sub: 'Multi-level track physics, microscopes, and building sets.', 
+    defaultFilter: 'Ages 5+' 
+  },
+  'sale': { 
+    title: 'Flash Sale', 
+    sub: 'Exclusive savings on parent-favorite screen-free toys.', 
+    defaultFilter: 'All' 
+  },
 };
 
 const FILTERS = ['All', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'];
@@ -49,75 +86,59 @@ export default function Collection() {
   const [searchParams, setSearchParams] = useSearchParams();
   const filterParam = searchParams.get('filter');
   
-  const [info, setInfo] = useState(COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null });
-  const [activeFilter, setActiveFilter] = useState(() => {
-    if (filterParam) {
+  const currentMeta = COLLECTION_MAP[id] || { 
+    title: (id || 'All Toys').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), 
+    sub: 'Explore our curated screen-free educational toys.', 
+    defaultFilter: 'All' 
+  };
+
+  const [customMeta, setCustomMeta] = useState(null);
+
+  const resolveFilter = (param, collectionId) => {
+    if (param) {
       const match = FILTERS.find(f => 
-        f.toLowerCase() === filterParam.toLowerCase() ||
-        (f.includes('1-3') && filterParam.includes('1-3')) ||
-        (f.includes('3-5') && filterParam.includes('3-5')) ||
-        (f.includes('5+') && filterParam.includes('5+'))
+        f.toLowerCase() === param.toLowerCase() ||
+        (f.includes('1-3') && param.includes('1-3')) ||
+        (f.includes('3-5') && param.includes('3-5')) ||
+        (f.includes('5+') && param.includes('5+'))
       );
       if (match) return match;
+      if (param.toLowerCase() === 'all') return 'All';
     }
-    if (id === 'toddler' || id === 'toddler-toys-ages-1-3') return 'Ages 1–3';
-    if (id === 'preschool' || id === 'preschool-toys-ages-3-5') return 'Ages 3–5';
-    if (id === 'big-kids' || id === 'big-kids-ages-5') return 'Ages 5+';
-    return 'All';
-  });
+    const col = COLLECTION_MAP[collectionId];
+    return col?.defaultFilter || 'All';
+  };
+
+  const [activeFilter, setActiveFilter] = useState(() => resolveFilter(filterParam, id));
   const [sort, setSort] = useState('Featured');
   const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // Sync activeFilter when id or searchParams change
   useEffect(() => {
-    const f = searchParams.get('filter');
-    if (f) {
-      const match = FILTERS.find(item => 
-        item.toLowerCase() === f.toLowerCase() ||
-        (item.includes('1-3') && f.includes('1-3')) ||
-        (item.includes('3-5') && f.includes('3-5')) ||
-        (item.includes('5+') && f.includes('5+'))
-      );
-      if (match) {
-        setActiveFilter(match);
-        return;
-      }
-    }
-    if (id === 'toddler' || id === 'toddler-toys-ages-1-3') {
-      setActiveFilter('Ages 1–3');
-    } else if (id === 'preschool' || id === 'preschool-toys-ages-3-5') {
-      setActiveFilter('Ages 3–5');
-    } else if (id === 'big-kids' || id === 'big-kids-ages-5') {
-      setActiveFilter('Ages 5+');
-    } else {
-      setActiveFilter('All');
-    }
+    setActiveFilter(resolveFilter(searchParams.get('filter'), id));
   }, [id, searchParams]);
 
   useEffect(() => {
     async function loadData() {
       setLoading(true);
-      const currentMeta = COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null };
-      setInfo(currentMeta);
+      setCustomMeta(null);
 
       if (id && id !== 'all') {
         const collection = await getCollectionByHandle(id, 50);
-        if (collection) {
-          setInfo({
-            title: collection.title || currentMeta.title,
-            sub: collection.description || currentMeta.sub,
-            category: null 
+        if (collection && collection.products?.length > 0) {
+          setCustomMeta({
+            title: collection.title,
+            sub: collection.description
           });
-          setProductsData(collection.products || []);
-        } else {
-          // fallback if collection handle not found in Shopify
-          const data = await getProducts(50);
-          setProductsData(data);
+          setProductsData(collection.products);
+          setLoading(false);
+          return;
         }
-      } else {
-        const data = await getProducts(50);
-        setProductsData(data);
       }
+
+      const data = await getProducts(50);
+      setProductsData(data);
       setLoading(false);
     }
     loadData();
@@ -127,23 +148,18 @@ export default function Collection() {
   const handleFilterClick = (f) => {
     setActiveFilter(f);
     const newParams = new URLSearchParams(searchParams);
-    if (f === 'All') {
+    if (f === currentMeta.defaultFilter) {
       newParams.delete('filter');
     } else {
-      newParams.set('filter', f);
+      newParams.set('filter', f.toLowerCase().replace(/[^\w+]/g, '-'));
     }
     setSearchParams(newParams, { replace: true });
   };
 
-  // Filter by Collection (Legacy fallback if we used all products)
+  const pageTitle = customMeta?.title || currentMeta.title;
+  const pageSub = customMeta?.sub || currentMeta.sub;
+
   let products = [...productsData];
-  if (info.category && (id === 'all' || !id)) {
-    // Only apply legacy local filtering if we fetched all products
-    products = products.filter(p => p.categories && p.categories.includes(info.category));
-  } else if (id && !COLLECTION_MAP[id] && productsData.length > 0 && productsData[0]?.id && id !== 'all' && productsData.length > 20) {
-     // If we failed to fetch a real collection and fell back to all products
-     products = products.filter(p => p.categories && p.categories.some(c => c.toLowerCase().includes(id.toLowerCase())));
-  }
 
   // Sub-filter by Age Category
   if (activeFilter !== 'All') {
@@ -197,10 +213,10 @@ export default function Collection() {
           <nav className="flex justify-center items-center gap-2 text-xs font-bold tracking-widest text-ink/60 uppercase mb-6">
             <Link to="/" className="hover:text-ink transition-colors">Home</Link>
             <ChevronRight size={14} className="text-ink/30" />
-            <span className="text-ink">{info.title}</span>
+            <span className="text-ink">{pageTitle}</span>
           </nav>
-          <h1 className="font-display text-5xl md:text-6xl text-ink leading-tight mb-4">{info.title}</h1>
-          {info.sub && <p className="text-lg text-ink/70 max-w-2xl mx-auto">{info.sub}</p>}
+          <h1 className="font-display text-5xl md:text-6xl text-ink leading-tight mb-4">{pageTitle}</h1>
+          {pageSub && <p className="text-lg text-ink/70 max-w-2xl mx-auto">{pageSub}</p>}
         </div>
       </div>
 

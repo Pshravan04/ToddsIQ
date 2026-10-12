@@ -328,7 +328,11 @@ function NavItem({ item }) {
     >
       {item.mega ? (
         <>
-          <button className={`nav-link${item.sale ? ' nav-link-sale' : ''} ${isHovered ? 'bg-[#F4F1EA]-high text-ink rounded-full' : ''}`}>
+          <button 
+            type="button"
+            onClick={() => setIsHovered(prev => !prev)}
+            className={`nav-link${item.sale ? ' nav-link-sale' : ''} ${isHovered ? 'bg-[#F4F1EA]-high text-ink rounded-full' : ''}`}
+          >
             {item.label}
             <motion.svg 
               animate={{ rotate: isHovered ? 180 : 0 }} 
