@@ -1,6 +1,7 @@
 import { FadeInUp, StaggerContainer, StaggerItem } from '../components/AnimatedSection';
 import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { getProducts } from '../services/shopify/products';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
@@ -379,21 +380,33 @@ export default function Home() {
 <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Award-Winning Bestsellers</h2>
 </div>
 
-<div className="flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide py-1">
-{['All Ages', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'].map(tab => {
+<div className="flex items-center gap-2.5 flex-nowrap overflow-x-auto scrollbar-hide py-2 px-1">
+{[
+  { id: 'All Ages', label: 'All Ages', emoji: '🌟' },
+  { id: 'Ages 1–3', label: 'Ages 1–3', emoji: '🧸' },
+  { id: 'Ages 3–5', label: 'Ages 3–5', emoji: '🎨' },
+  { id: 'Ages 5+',  label: 'Ages 5+',  emoji: '🔭' }
+].map(tab => {
+  const isActive = activeBestsellerTab === tab.id;
   return (
     <button 
-      key={tab}
-      onClick={() => setActiveBestsellerTab(tab)}
-      className={`px-4 py-1.5 rounded-full font-label-sm text-label-sm transition-all flex items-center gap-1.5 ${
-        activeBestsellerTab === tab 
-          ? 'bg-white text-ink border-2 border-ink shadow-[2px_2px_0px_#1E2A38] font-bold' 
-          : 'bg-canvas hover:bg-white text-ink-variant border border-outline hover:border-ink/40'
+      key={tab.id}
+      onClick={() => setActiveBestsellerTab(tab.id)}
+      type="button"
+      className={`group relative shrink-0 px-4 py-2 rounded-full font-label-md text-sm transition-all duration-200 flex items-center gap-2 border-2 select-none cursor-pointer ${
+        isActive 
+          ? 'bg-coral text-canvas border-ink shadow-[3px_3px_0px_#1E2A38] font-black -translate-y-0.5' 
+          : 'bg-[#F4F1EA] hover:bg-white text-ink border-ink/30 hover:border-ink hover:shadow-[3px_3px_0px_#1E2A38] hover:-translate-y-0.5 font-bold active:translate-y-0 active:shadow-none'
       }`}
     >
-      <span>{tab}</span>
-      <span className={`text-[11px] px-1.5 py-0.5 rounded-full font-semibold ${
-        activeBestsellerTab === tab ? 'bg-marigold text-ink' : 'bg-black/5 text-ink-variant'
+      <span className={`text-base transition-transform duration-200 ${isActive ? 'scale-110' : 'group-hover:scale-125'}`}>
+        {tab.emoji}
+      </span>
+      <span className="tracking-tight">{tab.label}</span>
+      <span className={`text-[11px] px-2 py-0.5 rounded-full font-black transition-all ${
+        isActive 
+          ? 'bg-white text-coral border border-coral/30 shadow-xs' 
+          : 'bg-white text-ink border border-ink/20 group-hover:border-ink group-hover:bg-marigold'
       }`}>
         5
       </span>
@@ -403,11 +416,17 @@ export default function Home() {
 </div>
 </div>
 
-<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-space-sm">
+<motion.div 
+  key={activeBestsellerTab}
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.22, ease: 'easeOut' }}
+  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-space-sm"
+>
 {displayBestsellers.map(product => (
   <ProductCard key={product.id} product={product} />
 ))}
-</div>
+</motion.div>
 
 {/* Action buttons: Explore Collection */}
 <div className="flex items-center justify-center pt-6">
