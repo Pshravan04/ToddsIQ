@@ -5,9 +5,7 @@ import { getProducts } from '../services/shopify/products';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 
-import demoVideo1 from '../assets/videos/00af685865a04247bcf22a272a7fb5d8.SD-480p-1.5Mbps-77121162.mp4';
-import demoVideo2 from '../assets/videos/0f6e2b56b6cd45c49aae89589def1942.SD-480p-1.5Mbps-77121299.mp4';
-import demoVideo3 from '../assets/videos/5ec74577602944d7a30cf5142d27ee55.SD-480p-1.5Mbps-77121182.mp4';
+import VideoCarousel from '../components/VideoCarousel';
 import ProductCard from '../components/ProductCard';
 
 export default function Home() {
@@ -564,9 +562,29 @@ export default function Home() {
 </div>
 </section></FadeInUp>
 
+{/* Video Slider Showcase */}
+<FadeInUp>
+  <section className="w-full px-gutter py-space-2xl bg-canvas border-t-2 border-ink" id="video-slider">
+    <div className="max-w-7xl mx-auto flex flex-col gap-6">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span className="font-label-sm text-label-sm uppercase tracking-wider text-coral font-bold flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-coral animate-ping"></span>
+            Real Screen-Free Joy
+          </span>
+          <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">
+            See ToddsIQ™ in Action
+          </h2>
+        </div>
+        <p className="font-body-md text-body-md text-ink-variant max-w-md">
+          Zero screens, 100% engagement. Watch how our tactile learning robots and building sets spark hours of joyful independent play.
+        </p>
+      </div>
 
-
-
+      <VideoCarousel />
+    </div>
+  </section>
+</FadeInUp>
 
 </div>
     </>
