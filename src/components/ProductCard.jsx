@@ -81,7 +81,7 @@ export default function ProductCard({ product }) {
               <span className="text-xs font-bold text-ink">{Number(rating).toFixed(1)}</span>
               <span className="text-xs text-ink/50">({product.reviews || reviewCount})</span>
             </div>
-            <h3 className="font-display font-semibold text-lg text-ink leading-tight">{displayTitle}</h3>
+            <h3 className="font-display font-semibold text-base sm:text-lg text-ink leading-tight line-clamp-2 min-h-[2.75rem]">{displayTitle}</h3>
             {hasVariants && (
               <p className="text-xs font-bold text-ink/60 mt-1.5 uppercase tracking-wide">
                 + {options[0].values.length} {options[0].name.toLowerCase()}s
@@ -92,14 +92,14 @@ export default function ProductCard({ product }) {
             )}
           </div>
         </div>
-        <div className="pt-4 mt-4 border-t border-ink/10 flex items-center justify-between gap-3">
-          <div className="flex flex-wrap items-baseline gap-1.5 flex-col shrink-0">
-            <span className="font-display text-xl font-bold text-coral leading-none">{formatPrice(price)}</span>
-            {compareAtPrice && <span className="text-xs text-ink-muted line-through font-semibold">{formatPrice(compareAtPrice)}</span>}
+        <div className="pt-4 mt-4 border-t border-ink/10 flex items-center justify-between gap-2 sm:gap-3">
+          <div className="flex flex-wrap items-baseline gap-1 flex-col shrink-0">
+            <span className="font-display text-lg sm:text-xl font-bold text-coral leading-none">{formatPrice(price)}</span>
+            {compareAtPrice && <span className="text-[11px] sm:text-xs text-ink-muted line-through font-semibold">{formatPrice(compareAtPrice)}</span>}
           </div>
           <button 
             onClick={handleCTA}
-            className="px-4 py-2.5 bg-coral text-canvas font-label-md text-sm font-bold rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#1E2A38] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all text-center uppercase tracking-wide whitespace-nowrap"
+            className="px-3 sm:px-4 py-2 sm:py-2.5 bg-coral text-canvas font-label-md text-xs sm:text-sm font-bold rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#1E2A38] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all text-center uppercase tracking-wide whitespace-nowrap shrink-0"
           >
             Buy Now
           </button>

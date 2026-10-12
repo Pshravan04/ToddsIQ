@@ -204,6 +204,104 @@
     "testimony": "Verified Parent Review: My kids love this MagTrack™! Definitely a screen-free winner. - Sarah M."
   },
   {
+    "id": "toddsiq-nestwood-full-pack",
+    "handle": "toddsiq-nestwood-full-pack",
+    "slug": "toddsiq-nestwood-full-pack",
+    "title": "ToddsIQ™ NestWood - Full Pack™",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Building",
+      "Sensory"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.9,
+    "reviews": 142,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/S0f68304fd4a940898ccef91d20b71b9aw.jpg?v=1770342496",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H6883932feffb401ebdecd29256a261b4T.jpg_720x720q50.jpg?v=1770342496",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H68cc0a1795ba465f9282af28a49c1d46X.jpg_150x150_a241bbe2-5941-48a2-a62c-6cb938c246b9.jpg?v=1770342496"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 51593911959889,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "NESTWOOD",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Forty-two wooden Tetris-style blocks, one deceptively simple challenge: make them fit. NestWood turns spatial reasoning into hands-on play kids come back to again and again. Start with easy fits and work up through progressive challenges — rotating, flipping and planning until every piece clicks int...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this NestWood - Full Pack™! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-spark",
+    "handle": "toddsiq-spark",
+    "slug": "toddsiq-spark",
+    "title": "ToddsIQ™ Spark™ - Circuit Building Experiments Lab",
+    "price": 99,
+    "compareAtPrice": 169,
+    "ageBand": "5+",
+    "categories": [
+      "Best Sellers",
+      "STEM & Learning",
+      "Big Kids"
+    ],
+    "badge": "SAVE 41%",
+    "rating": 5,
+    "reviews": 168,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260306_170829_172d8ce4-7fd0-4f87-bb86-3832cc7866e9.jpg?v=1772816992",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260306_170829_172d8ce4-7fd0-4f87-bb86-3832cc7866e9.jpg?v=1772816992",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-08.png?v=1789972824",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-06.jpg?v=1789972824",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-07.jpg?v=1789972824",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-05.png?v=1789972824",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-04.png?v=1789972803",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-03.png?v=1789972803",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-02.png?v=1789972803",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-01.png?v=1789972803"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 53221981389137,
+        "title": "Default Title",
+        "price": 99,
+        "compareAtPrice": 169,
+        "availableForSale": true,
+        "sku": "SPARK",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Their first circuit, their first \"it works!\" Spark is an electronic logic board where kids snap in function modules to solve real puzzles with real electricity. With 5 function modules and 500+ puzzle combinations, challenges scale from first connections at age 5 to genuine logic problems at age 10 ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Spark™ - Circuit Building Experiments Lab! Definitely a screen-free winner. - Sarah M."
+  },
+  {
     "id": "toddsiq-quarry",
     "handle": "toddsiq-quarry",
     "slug": "toddsiq-quarry",
@@ -251,53 +349,6 @@
     "description": "A working quarry, not another parked truck. Kids build the route, load rocks at the loading station, run the conveyor, and send the motorized dump truck hauling its load around the track they designed a complete construction site that actually works, powered by their hands instead of a screen. The m...",
     "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "testimony": "Verified Parent Review: My kids love this Quarry™! Definitely a screen-free winner. - Sarah M."
-  },
-  {
-    "id": "toddsiq-nestwood-full-pack",
-    "handle": "toddsiq-nestwood-full-pack",
-    "slug": "toddsiq-nestwood-full-pack",
-    "title": "ToddsIQ™ NestWood - Full Pack™",
-    "price": 49,
-    "compareAtPrice": 79,
-    "ageBand": "1-3",
-    "categories": [
-      "Best Sellers",
-      "Toddler",
-      "Building",
-      "Sensory"
-    ],
-    "badge": "SAVE 38%",
-    "rating": 4.9,
-    "reviews": 142,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/S0f68304fd4a940898ccef91d20b71b9aw.jpg?v=1770342496",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H6883932feffb401ebdecd29256a261b4T.jpg_720x720q50.jpg?v=1770342496",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H68cc0a1795ba465f9282af28a49c1d46X.jpg_150x150_a241bbe2-5941-48a2-a62c-6cb938c246b9.jpg?v=1770342496"
-    ],
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "variants": [
-      {
-        "id": 51593911959889,
-        "title": "Default Title",
-        "price": 49,
-        "compareAtPrice": 69,
-        "availableForSale": true,
-        "sku": "NESTWOOD",
-        "selectedOptions": []
-      }
-    ],
-    "description": "Forty-two wooden Tetris-style blocks, one deceptively simple challenge: make them fit. NestWood turns spatial reasoning into hands-on play kids come back to again and again. Start with easy fits and work up through progressive challenges — rotating, flipping and planning until every piece clicks int...",
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My kids love this NestWood - Full Pack™! Definitely a screen-free winner. - Sarah M."
   },
   {
     "id": "toddsiq-pippo",
@@ -1272,57 +1323,6 @@
     "description": "Your child presses a lever and the car pops up and sticks to the helicopter. They turn a crank and another one climbs the slope. They rotate a handle and the turntable spins the next car toward the bridge. Nothing on this track moves on its own. That is the whole idea. Most car toys have a button th...",
     "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
     "testimony": "Verified Parent Review: My kids love this Relay™ - Marble Coaster Track Run! Definitely a screen-free winner. - Sarah M."
-  },
-  {
-    "id": "toddsiq-spark",
-    "handle": "toddsiq-spark",
-    "slug": "toddsiq-spark",
-    "title": "ToddsIQ™ Spark™ - Circuit Building Experiments Lab",
-    "price": 99,
-    "compareAtPrice": 169,
-    "ageBand": "5+",
-    "categories": [
-      "Best Sellers",
-      "STEM & Learning",
-      "Big Kids"
-    ],
-    "badge": "SAVE 41%",
-    "rating": 5,
-    "reviews": 168,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260306_170829_172d8ce4-7fd0-4f87-bb86-3832cc7866e9.jpg?v=1772816992",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260306_170829_172d8ce4-7fd0-4f87-bb86-3832cc7866e9.jpg?v=1772816992",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-08.png?v=1789972824",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-06.jpg?v=1789972824",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-07.jpg?v=1789972824",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-05.png?v=1789972824",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-04.png?v=1789972803",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-03.png?v=1789972803",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-02.png?v=1789972803",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-01.png?v=1789972803"
-    ],
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "variants": [
-      {
-        "id": 53221981389137,
-        "title": "Default Title",
-        "price": 99,
-        "compareAtPrice": 169,
-        "availableForSale": true,
-        "sku": "SPARK",
-        "selectedOptions": []
-      }
-    ],
-    "description": "Their first circuit, their first \"it works!\" Spark is an electronic logic board where kids snap in function modules to solve real puzzles with real electricity. With 5 function modules and 500+ puzzle combinations, challenges scale from first connections at age 5 to genuine logic problems at age 10 ...",
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My kids love this Spark™ - Circuit Building Experiments Lab! Definitely a screen-free winner. - Sarah M."
   },
   {
     "id": "toddsiq-microscope-explorer",
