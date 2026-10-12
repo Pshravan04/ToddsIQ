@@ -844,11 +844,12 @@ export default function Product() {
           </div>
         </section>
       </FadeInUp>
+
       {/* ========================================================================= */}
       {/* 3. FREQUENTLY ASKED QUESTIONS (FAQ) */}
       {/* ========================================================================= */}
       <FadeInUp>
-        <section className="w-full py-14 sm:py-20 bg-[#F4EFE6]" id="faq-section">
+        <section className="w-full py-14 sm:py-20 bg-white" id="faq-section">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Header */}
