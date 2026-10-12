@@ -321,72 +321,7 @@ export default function Contact() {
         </section>
       </FadeInUp>
 
-      {/* 4 & 5. ORDER SUPPORT & FAQ */}
-      <FadeInUp>
-        <section className="w-full px-gutter py-space-xl bg-canvas border-b-2 border-ink">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-space-xl">
-            
-            <div className="flex flex-col sm:flex-row items-center gap-space-md p-space-lg rounded-3xl bg-[#F4F1EA]-lowest border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
-              <div className="w-24 h-24 shrink-0 rounded-2xl border-2 border-ink shadow-[2px_2px_0px_#1E2A38] overflow-hidden bg-white">
-                <img src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546" alt="ToddsIQ Box" className="w-full h-full object-cover mix-blend-multiply" />
-              </div>
-              <div className="flex-1 text-center sm:text-left">
-                <h3 className="font-headline-sm text-ink font-bold mb-1">Need Help With an Order?</h3>
-                <p className="font-body-sm text-ink-variant mb-4">
-                  Have an order question? Keep your order number nearby so we can help you faster.
-                </p>
-                <Link to="/contact" className="inline-flex px-4 py-2 bg-white text-ink rounded-xl border-2 border-ink font-label-md text-sm font-bold shadow-[2px_2px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all items-center gap-1">
-                  TRACK YOUR ORDER <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                </Link>
-              </div>
-            </div>
 
-            <div className="flex flex-col items-center justify-center text-center p-space-lg rounded-3xl bg-secondary-fixed/30 border-2 border-ink shadow-[4px_4px_0px_#1E2A38]">
-              <div className="w-12 h-12 bg-white rounded-full border-2 border-ink flex items-center justify-center text-ink mb-3 shadow-sm">
-                <span className="material-symbols-outlined text-xl">help</span>
-              </div>
-              <h3 className="font-headline-sm text-ink font-bold mb-1">Looking for a quick answer?</h3>
-              <p className="font-body-sm text-ink-variant mb-4 max-w-sm">
-                You may find what you're looking for in our frequently asked questions.
-              </p>
-              <Link to="/contact" className="inline-flex px-4 py-2 bg-white text-ink rounded-xl border-2 border-ink font-label-md text-sm font-bold shadow-[2px_2px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all items-center gap-1">
-                VIEW FAQs <span className="material-symbols-outlined text-sm">arrow_forward</span>
-              </Link>
-            </div>
-
-          </div>
-        </section>
-      </FadeInUp>
-
-      {/* 6. FINAL CTA */}
-      <FadeInUp>
-        <section className="w-full px-gutter py-space-2xl bg-canvas">
-          <div className="max-w-5xl mx-auto rounded-3xl bg-[#0b3359] border-2 border-ink shadow-[8px_8px_0px_#1E2A38] p-space-lg lg:p-space-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-space-xl">
-            <div className="w-full md:w-3/5 space-y-space-sm text-left relative z-10">
-              <h2 className="font-headline-lg text-4xl text-canvas tracking-tight">Ready to Find Their Next Favorite?</h2>
-              <p className="font-body-md text-canvas/80 max-w-sm">
-                Explore hands-on products designed to turn curiosity into creativity.
-              </p>
-              <div className="flex flex-wrap items-center gap-3 pt-2">
-                <Link className="px-6 py-3 bg-coral text-canvas rounded-xl border-2 border-ink font-label-lg text-sm shadow-[3px_3px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center gap-2" to="/collections/best-sellers">
-                  SHOP NOW
-                </Link>
-                <Link className="px-6 py-3 bg-white text-ink rounded-xl border-2 border-ink font-label-lg text-sm font-bold shadow-[3px_3px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" to="/collections/best-sellers">
-                  BEST SELLERS
-                </Link>
-              </div>
-            </div>
-            <div className="w-full md:w-2/5 hidden md:block relative z-10">
-              <div className="rounded-2xl border-2 border-ink shadow-[4px_4px_0px_#1E2A38] overflow-hidden bg-[#F4F1EA] aspect-square w-full rotate-3 max-w-sm mx-auto">
-                <img src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546" alt="ToddsIQ Products" className="w-full h-full object-cover mix-blend-multiply" />
-              </div>
-            </div>
-            
-            {/* Decorative shapes inside CTA */}
-            <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[150%] bg-white/5 rotate-12 z-0 pointer-events-none"></div>
-          </div>
-        </section>
-      </FadeInUp>
 
     </div>
   );
