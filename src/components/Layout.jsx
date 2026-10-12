@@ -45,7 +45,19 @@ export default function Layout({ children }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [currencyDropdownOpen, setCurrencyDropdownOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
   const navigate = useNavigate();
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    if (!newsletterEmail || !newsletterEmail.includes('@')) return;
+    setNewsletterSubmitted(true);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -162,54 +174,285 @@ export default function Layout({ children }) {
 
       <main>{children}</main>
 
-      <footer className="bg-[#F4F1EA] border-t-2 border-ink pt-space-2xl pb-space-lg mt-space-xl">
-        <div className="container mx-auto px-gutter grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-xl text-ink">
-          <div className="space-y-4">
-            <Link to="/" className="inline-block">
-              <Logo className="h-7 w-auto" />
-            </Link>
-            <p className="font-body-sm text-body-sm text-ink-variant max-w-xs">
-              Parent-tested, therapist-approved screen-free toys that grow with your child's developmental milestones.
-            </p>
-          </div>
-          
-          <div className="space-y-4">
-            <h3 className="font-label-lg text-label-lg font-bold">Shop</h3>
-            <ul className="space-y-2 font-body-sm text-body-sm text-ink-variant">
-              <li><Link to="/collections/toddler" className="hover:text-coral transition-colors">Ages 1–3</Link></li>
-              <li><Link to="/collections/preschool" className="hover:text-coral transition-colors">Ages 3–5</Link></li>
-              <li><Link to="/collections/big-kids" className="hover:text-coral transition-colors">Ages 5+</Link></li>
-              <li><Link to="/collections/best-sellers" className="hover:text-coral transition-colors">Best Sellers</Link></li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="font-label-lg text-label-lg font-bold">Support</h3>
-            <ul className="space-y-2 font-body-sm text-body-sm text-ink-variant">
-              <li><Link to="/faq" className="hover:text-coral transition-colors">FAQ & Help Center</Link></li>
-              <li><Link to="/shipping" className="hover:text-coral transition-colors">Shipping & Returns</Link></li>
-              <li><Link to="/contact" className="hover:text-coral transition-colors">Contact Us</Link></li>
-              <li><Link to="/track" className="hover:text-coral transition-colors">Track Order</Link></li>
-            </ul>
-          </div>
-
-          <div className="space-y-4">
-            <h3 className="font-label-lg text-label-lg font-bold">Stay in the Loop</h3>
-            <p className="font-body-sm text-body-sm text-ink-variant">Get 10% off your first order plus free developmental play guides.</p>
-            <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder="Email address" className="w-full px-3 py-2 rounded-xl border-2 border-ink bg-canvas font-body-sm text-body-sm focus:outline-none focus:border-primary transition-colors" />
-              <button className="px-4 py-2 bg-coral text-canvas rounded-xl font-label-md text-label-md border-2 border-ink shadow-[2px_2px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 active:translate-x-1 active:translate-y-1 active:shadow-none transition-all">
-                Join
-              </button>
-            </form>
+      <footer className="bg-[#F8F6F0] border-t-2 border-ink text-ink mt-0">
+        {/* Value Props / Trust Pillars Strip */}
+        <div className="border-b border-ink/10 bg-white/60">
+          <div className="container mx-auto px-gutter py-6">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+              {[
+                {
+                  icon: (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-coral">
+                      <rect width="16" height="13" x="1" y="6" rx="2"/><polygon points="17 8 20 8 23 11 23 16 17 16 17 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                    </svg>
+                  ),
+                  title: 'Free Express Shipping',
+                  desc: 'On all orders over $50'
+                },
+                {
+                  icon: (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-teal">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/>
+                    </svg>
+                  ),
+                  title: '30-Day Guarantee',
+                  desc: 'Love it or 100% money back'
+                },
+                {
+                  icon: (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-periwinkle">
+                      <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                  ),
+                  title: 'Therapist Approved',
+                  desc: 'Real milestone development'
+                },
+                {
+                  icon: (
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-marigold">
+                      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                  ),
+                  title: 'Dedicated Support',
+                  desc: 'Fast help from caring parents'
+                },
+              ].map((pill, idx) => (
+                <div key={idx} className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/80 transition-colors group">
+                  <div className="w-10 h-10 rounded-xl bg-canvas flex items-center justify-center shrink-0 border border-ink/10 shadow-xs group-hover:scale-105 transition-transform">
+                    {pill.icon}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-ink uppercase tracking-wider">{pill.title}</h4>
+                    <p className="text-[12px] text-ink/65 leading-tight">{pill.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        
-        <div className="container mx-auto px-gutter mt-space-xl pt-space-md border-t-2 border-ink flex flex-col md:flex-row items-center justify-between gap-4 font-body-xs text-body-xs text-ink-variant">
-          <p>© {new Date().getFullYear()} ToddsIQ. All rights reserved.</p>
-          <div className="flex gap-4">
-            <Link to="/privacy" className="hover:text-coral transition-colors">Privacy Policy</Link>
-            <Link to="/terms" className="hover:text-coral transition-colors">Terms of Service</Link>
+
+        {/* Main Footer Content */}
+        <div className="container mx-auto px-gutter pt-12 pb-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
+            {/* Col 1: Brand & Mission & Socials (4 cols) */}
+            <div className="lg:col-span-4 space-y-5">
+              <Link to="/" className="inline-block group">
+                <Logo className="h-8 w-auto transition-transform group-hover:scale-[1.02]" />
+              </Link>
+              
+              <p className="text-sm text-ink/75 leading-relaxed max-w-sm">
+                Parent-tested, therapist-approved screen-free toys designed to cultivate creativity, spatial logic, and lifelong milestone confidence.
+              </p>
+
+              {/* Verified rating chip */}
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-ink/10 shadow-xs">
+                <div className="flex text-[#FFB627]">
+                  {'★★★★★'.split('').map((s, i) => (
+                    <span key={i} className="text-sm leading-none">{s}</span>
+                  ))}
+                </div>
+                <span className="text-xs font-bold text-ink">4.9/5 from 28,000+ Families</span>
+              </div>
+
+              {/* Social icons */}
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-ink/40 mb-2">Connect With Us</p>
+                <div className="flex items-center gap-2">
+                  {[
+                    {
+                      name: 'Instagram',
+                      url: 'https://instagram.com',
+                      icon: (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                        </svg>
+                      )
+                    },
+                    {
+                      name: 'TikTok',
+                      url: 'https://tiktok.com',
+                      icon: (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743 2.895 2.895 0 0 1 3.12-4.484V9.458a6.34 6.34 0 0 0-4.07 1.488 6.342 6.342 0 1 0 9.596 5.4v-7.14a8.196 8.196 0 0 0 4.77 1.506V7.27a4.84 4.84 0 0 1-1-.584z"/>
+                        </svg>
+                      )
+                    },
+                    {
+                      name: 'YouTube',
+                      url: 'https://youtube.com',
+                      icon: (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                      )
+                    },
+                    {
+                      name: 'Pinterest',
+                      url: 'https://pinterest.com',
+                      icon: (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 0a12 12 0 0 0-4.37 23.18c-.06-.98-.12-2.48.02-3.55.13-1 .85-6.23.85-6.23s-.22-.44-.22-1.09c0-1.02.59-1.78 1.33-1.78.63 0 .93.47.93 1.04 0 .63-.4 1.58-.61 2.45-.17.74.37 1.34 1.1 1.34 1.32 0 2.34-1.39 2.34-3.4 0-1.78-1.28-3.02-3.1-3.02-2.11 0-3.35 1.58-3.35 3.22 0 .64.25 1.32.55 1.69.06.08.07.14.05.22-.05.23-.18.73-.2.83-.03.14-.11.17-.25.1-1.02-.48-1.66-1.98-1.66-3.18 0-2.59 1.88-4.97 5.43-4.97 2.85 0 5.07 2.03 5.07 4.75 0 2.83-1.78 5.11-4.26 5.11-.83 0-1.62-.43-1.88-.94l-.51 1.96c-.19.71-.69 1.6-1.03 2.15A12 12 0 1 0 12 0z"/>
+                        </svg>
+                      )
+                    },
+                    {
+                      name: 'Facebook',
+                      url: 'https://facebook.com',
+                      icon: (
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                      )
+                    },
+                  ].map(social => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.name}
+                      className="w-9 h-9 rounded-xl bg-white border border-ink/10 flex items-center justify-center text-ink/70 hover:text-coral hover:border-coral hover:shadow-sm hover:-translate-y-0.5 active:translate-y-0 transition-all"
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Col 2: Explore Toys (2 cols) */}
+            <div className="lg:col-span-2 space-y-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-ink/40">Shop Toys</h3>
+              <ul className="space-y-2.5">
+                {[
+                  { label: 'Ages 1–3 (Toddler)', to: '/collections/toddler' },
+                  { label: 'Ages 3–5 (Preschool)', to: '/collections/preschool' },
+                  { label: 'Ages 5+ (Big Kids)', to: '/collections/big-kids' },
+                  { label: 'Best Sellers', to: '/collections/best-sellers' },
+                  { label: 'STEM & Learning', to: '/collections/all?filter=STEM%20%26%20Learning' },
+                  { label: 'Arts & Crafts', to: '/collections/all?filter=Arts%20%26%20Crafts' },
+                  { label: 'Building Sets', to: '/collections/all?filter=Building' },
+                ].map(link => (
+                  <li key={link.label}>
+                    <Link
+                      to={link.to}
+                      className="group flex items-center gap-1.5 text-sm font-medium text-ink/75 hover:text-coral hover:translate-x-1 transition-all duration-200"
+                    >
+                      <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-coral text-xs">→</span>
+                      <span>{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 3: Support (2 cols) */}
+            <div className="lg:col-span-2 space-y-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-ink/40">Parent Support</h3>
+              <ul className="space-y-2.5">
+                {[
+                  { label: 'Track Your Order', to: '/track' },
+                  { label: 'FAQ & Help Center', to: '/faq' },
+                  { label: 'Shipping & Delivery', to: '/shipping' },
+                  { label: '30-Day Returns', to: '/shipping' },
+                  { label: 'Contact Us', to: '/contact' },
+                  { label: 'About ToddsIQ', to: '/about' },
+                ].map(link => (
+                  <li key={link.label}>
+                    <Link
+                      to={link.to}
+                      className="group flex items-center gap-1.5 text-sm font-medium text-ink/75 hover:text-coral hover:translate-x-1 transition-all duration-200"
+                    >
+                      <span className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-coral text-xs">→</span>
+                      <span>{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Col 4: Interactive Newsletter & VIP Club (4 cols) */}
+            <div className="lg:col-span-4 space-y-4 bg-white/80 p-6 rounded-2xl border border-ink/10 shadow-sm">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">🎁</span>
+                <h3 className="font-display text-xl font-bold text-ink">Join the Play Club</h3>
+              </div>
+              <p className="text-xs text-ink/70 leading-relaxed">
+                Get <strong className="text-coral font-bold">10% OFF</strong> your first order, plus free developmental milestone activity guides sent weekly.
+              </p>
+
+              {newsletterSubmitted ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="p-4 rounded-xl bg-[#E8F8F5] border border-teal/30 text-ink"
+                >
+                  <div className="flex items-center gap-2 text-sm font-bold text-teal">
+                    <span>🎉 Welcome to the club!</span>
+                  </div>
+                  <p className="text-xs text-ink/80 mt-1">
+                    Use code <strong className="font-mono bg-white px-2 py-0.5 rounded border border-ink/10 text-coral">WELCOME10</strong> at checkout for 10% off.
+                  </p>
+                </motion.div>
+              ) : (
+                <form className="space-y-2" onSubmit={handleNewsletterSubmit}>
+                  <div className="relative flex items-center">
+                    <input
+                      type="email"
+                      value={newsletterEmail}
+                      onChange={(e) => setNewsletterEmail(e.target.value)}
+                      placeholder="Enter parent email..."
+                      required
+                      className="w-full pl-3.5 pr-20 py-2.5 rounded-xl border-2 border-ink bg-white font-body-sm text-sm text-ink placeholder:text-ink/40 focus:outline-none focus:border-coral transition-colors"
+                    />
+                    <button
+                      type="submit"
+                      className="absolute right-1 px-4 py-1.5 bg-coral text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-[#e0315f] active:scale-95 transition-all shadow-xs"
+                    >
+                      Join
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-ink/50 flex items-center gap-1">
+                    <span>🔒</span> Zero spam. Unsubscribe anytime with 1 click.
+                  </p>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar: Copyright, Payment Badges & Back to Top */}
+        <div className="border-t border-ink/10 bg-white/40">
+          <div className="container mx-auto px-gutter py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-ink/60">
+            <div className="flex items-center gap-3 text-center md:text-left">
+              <span>© {new Date().getFullYear()} ToddsIQ™. All rights reserved.</span>
+              <span className="hidden sm:inline text-ink/20">•</span>
+              <span className="hidden sm:inline">Screen-Free Play</span>
+            </div>
+
+            {/* Payment Icons */}
+            <div className="flex items-center gap-2 flex-wrap justify-center">
+              <span className="text-[11px] uppercase tracking-wider text-ink/40 mr-1 hidden lg:inline">Secure Checkout:</span>
+              {['VISA', 'MC', 'AMEX', 'APPLE PAY', 'G PAY', 'PAYPAL'].map((pay) => (
+                <span key={pay} className="px-2 py-0.5 rounded bg-white border border-ink/10 text-[10px] font-mono font-bold tracking-tight text-ink/70 shadow-xs">
+                  {pay}
+                </span>
+              ))}
+            </div>
+
+            {/* Legal Links & Back to Top */}
+            <div className="flex items-center gap-4">
+              <Link to="/privacy" className="hover:text-coral transition-colors">Privacy</Link>
+              <Link to="/terms" className="hover:text-coral transition-colors">Terms</Link>
+              <button
+                onClick={scrollToTop}
+                className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white border border-ink/10 hover:border-coral hover:text-coral text-ink font-semibold transition-all group ml-1"
+                aria-label="Back to top"
+              >
+                <span>Top</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:-translate-y-0.5 transition-transform"><path d="m18 15-6-6-6 6"/></svg>
+              </button>
+            </div>
           </div>
         </div>
       </footer>
