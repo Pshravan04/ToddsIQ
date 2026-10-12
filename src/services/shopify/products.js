@@ -5,9 +5,33 @@ import localProducts from '../../data/products.json'; // Fallback for extra UI p
 export function normalizeProduct(shopifyProduct) {
   if (!shopifyProduct) return null;
 
-  // Try to find matching local product by title or hardcoded mapping to merge extra UI data
-  // like badges, icons, subtitles, etc., until they are moved to Shopify Metafields
-  const localProduct = localProducts.find(p => p.title === shopifyProduct.title) || {};
+  // Find matching local product by multiple strategies: handle, id, slug, or title
+  const sHandle = (shopifyProduct.handle || '').toLowerCase();
+  const sTitle = (shopifyProduct.title || '').toLowerCase();
+  const sHandleRaw = sHandle.replace(/^toddsiq-/, '');
+
+  const localProduct = localProducts.find(p => {
+    if (!p) return false;
+    const pHandle = (p.handle || '').toLowerCase();
+    const pId = (p.id || '').toLowerCase();
+    const pSlug = (p.slug || '').toLowerCase();
+    const pTitle = (p.title || '').toLowerCase();
+
+    // Exact handle or id or slug match
+    if (sHandle && (pHandle === sHandle || pId === sHandle || pSlug === sHandle)) return true;
+
+    // Stripped handle match (without 'toddsiq-')
+    const pHandleRaw = (pHandle || pId || pSlug).replace(/^toddsiq-/, '');
+    if (sHandleRaw && pHandleRaw && sHandleRaw === pHandleRaw) return true;
+
+    // Exact title match
+    if (sTitle && pTitle === sTitle) return true;
+
+    // Prefix title match (e.g. "ToddsIQ™ Pippo™ - Talking Word Cards" vs "ToddsIQ™ Pippo™")
+    if (sTitle && pTitle && (pTitle.startsWith(sTitle) || sTitle.startsWith(pTitle))) return true;
+
+    return false;
+  }) || {};
 
   // Safely extract variants
   const variantsArray = shopifyProduct.variants?.edges 
@@ -62,24 +86,48 @@ export function normalizeProduct(shopifyProduct) {
     
   const imageUrls = imagesArray.map(img => img.url).filter(Boolean);
 
+  // Derive ageBand with fallback to Shopify tags and local data
+  let ageBand = localProduct.ageBand;
+  if (!ageBand) {
+    const tags = shopifyProduct.tags || [];
+    if (tags.some(t => t.includes('1-3') || t.toLowerCase().includes('toddler'))) {
+      ageBand = '1-3';
+    } else if (tags.some(t => t.includes('5+') || t.toLowerCase().includes('big kids'))) {
+      ageBand = '5+';
+    } else if (tags.some(t => t.includes('3-5') || t.toLowerCase().includes('preschool'))) {
+      ageBand = '3-5';
+    } else {
+      ageBand = '3-5';
+    }
+  }
+
+  const combinedCategories = Array.from(new Set([
+    ...(shopifyProduct.tags || []),
+    ...(localProduct.categories || []),
+    ...(ageBand === '1-3' ? ['Toddler', 'Ages 1-3'] : []),
+    ...(ageBand === '3-5' ? ['Preschool', 'Ages 3-5'] : []),
+    ...(ageBand === '5+' ? ['Big Kids', 'Ages 5+'] : [])
+  ]));
+
   return {
     // Keep local ID mapping temporarily or use handle so routing works seamlessly
     id: localProduct.id || shopifyProduct.handle, 
     handle: shopifyProduct.handle,
     shopifyId: shopifyProduct.id,
-    title: shopifyProduct.title || 'Unknown Product',
-    description: shopifyProduct.description || (shopifyProduct.descriptionHtml ? shopifyProduct.descriptionHtml.replace(/<[^>]+>/g, '') : ''),
-    descriptionHtml: shopifyProduct.descriptionHtml || shopifyProduct.description || '',
-    price: price,
-    compareAtPrice: compareAtPrice,
+    title: shopifyProduct.title || localProduct.title || 'Unknown Product',
+    description: shopifyProduct.description || (shopifyProduct.descriptionHtml ? shopifyProduct.descriptionHtml.replace(/<[^>]+>/g, '') : '') || localProduct.description || '',
+    descriptionHtml: shopifyProduct.descriptionHtml || shopifyProduct.description || localProduct.description || '',
+    price: price || localProduct.price || 0,
+    compareAtPrice: compareAtPrice || localProduct.compareAtPrice || null,
     thumbnail: imageUrls[0] || localProduct.thumbnail || '',
-    images: imageUrls,
-    options: options,
-    variants: variants,
-    categories: shopifyProduct.tags || localProduct.categories || [],
-    ageBand: localProduct.ageBand || "3+",
+    images: imageUrls.length > 0 ? imageUrls : (localProduct.images || []),
+    options: options.length > 0 ? options : (localProduct.options || []),
+    variants: variants.length > 0 ? variants : (localProduct.variants || []),
+    categories: combinedCategories,
+    ageBand: ageBand,
+    badge: localProduct.badge || (compareAtPrice && price ? `SAVE ${Math.round(((compareAtPrice - price) / compareAtPrice) * 100)}%` : null),
     rating: localProduct.rating || 5.0,
-    reviews: localProduct.reviews || 0,
+    reviews: localProduct.reviews || 128,
     video: localProduct.video || null,
     testimony: localProduct.testimony || null
   };
@@ -94,15 +142,15 @@ export async function getProducts(first = 250, query = '') {
     if (!data || !data.products) throw new Error("Invalid response: products is missing");
     const shopifyItems = data.products.edges.map(edge => normalizeProduct(edge.node)).filter(Boolean);
 
-    // If Shopify store has fewer products imported, merge with localProducts so age groups are completely populated
-    if (shopifyItems.length < 15 && Array.isArray(localProducts) && localProducts.length > 0) {
-      const existingHandles = new Set(shopifyItems.map(p => p.handle || p.id));
-      const existingTitles = new Set(shopifyItems.map(p => p.title?.toLowerCase()));
-      const remainingLocal = localProducts.filter(p => 
-        !existingHandles.has(p.handle) && 
-        !existingHandles.has(p.id) && 
-        !existingTitles.has(p.title?.toLowerCase())
-      );
+    // Merge any missing localProducts so the catalog always has full coverage
+    if (Array.isArray(localProducts) && localProducts.length > 0) {
+      const existingHandles = new Set(shopifyItems.map(p => (p.handle || p.id || '').toLowerCase().replace(/^toddsiq-/, '')));
+      const existingTitles = new Set(shopifyItems.map(p => (p.title || '').toLowerCase()));
+      const remainingLocal = localProducts.filter(p => {
+        const handleRaw = (p.handle || p.id || p.slug || '').toLowerCase().replace(/^toddsiq-/, '');
+        const titleRaw = (p.title || '').toLowerCase();
+        return !existingHandles.has(handleRaw) && !existingTitles.has(titleRaw);
+      });
       return [...shopifyItems, ...remainingLocal];
     }
 

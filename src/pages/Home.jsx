@@ -31,22 +31,68 @@ export default function Home() {
   const { formatPrice } = useCurrency();
   const featured = productsData.slice(0, 8);
 
+  const CURATED_BESTSELLERS = {
+    'All Ages': [
+      'drawing-robot',
+      '3dmagictracktrainset',
+      'toddsiq-magtrack',
+      'toddsiq-nestwood-full-pack',
+      'toddsiq-spark'
+    ],
+    'Ages 1–3': [
+      'toddsiq-nestwood-full-pack',
+      'toddsiq-pippo',
+      'toddsiq-chime',
+      'toddsiq-squishblocks',
+      'toddsiq-aquadoodle-book'
+    ],
+    'Ages 3–5': [
+      'drawing-robot',
+      '3dmagictracktrainset',
+      'toddsiq-magtrack',
+      'toddsiq-quarry',
+      'toddsiq-lingo'
+    ],
+    'Ages 5+': [
+      'toddsiq-spark',
+      'toddsiq-microscope-explorer',
+      'toddsiq-clash',
+      'toddsiq-snaptalk-duo',
+      'toddsiq-fracsnap'
+    ]
+  };
+
   const filteredBestsellers = productsData.filter(product => {
     if (activeBestsellerTab === 'All Ages') return true;
+
+    const age = product.ageBand || '';
+    const tags = product.categories || [];
+
     if (activeBestsellerTab.includes('1-3') || activeBestsellerTab.includes('1–3')) {
-      return product.ageBand === '1-3';
+      return age === '1-3' || tags.some(t => t.includes('1-3') || t.toLowerCase().includes('toddler'));
     }
     if (activeBestsellerTab.includes('3-5') || activeBestsellerTab.includes('3–5')) {
-      return product.ageBand === '3-5';
+      return age === '3-5' || tags.some(t => t.includes('3-5') || t.toLowerCase().includes('preschool'));
     }
     if (activeBestsellerTab.includes('5+')) {
-      return product.ageBand === '5+';
+      return age === '5+' || tags.some(t => t.includes('5+') || t.toLowerCase().includes('big kids'));
     }
     return true;
   });
 
+  const tabCurated = CURATED_BESTSELLERS[activeBestsellerTab] || CURATED_BESTSELLERS['All Ages'];
+  const sortedBestsellers = [...filteredBestsellers].sort((a, b) => {
+    const handleA = (a.handle || a.id || a.slug || '').toLowerCase().replace(/^toddsiq-/, '');
+    const handleB = (b.handle || b.id || b.slug || '').toLowerCase().replace(/^toddsiq-/, '');
+    const idxA = tabCurated.findIndex(k => k.toLowerCase().replace(/^toddsiq-/, '') === handleA);
+    const idxB = tabCurated.findIndex(k => k.toLowerCase().replace(/^toddsiq-/, '') === handleB);
+    const rankA = idxA !== -1 ? idxA : 999;
+    const rankB = idxB !== -1 ? idxB : 999;
+    return rankA - rankB;
+  });
+
   // Exactly 5 products per age group
-  const displayBestsellers = filteredBestsellers.slice(0, 5);
+  const displayBestsellers = sortedBestsellers.slice(0, 5);
 
   const getCollectionLink = (tab) => {
     if (tab.includes('1-3') || tab.includes('1–3')) return { path: '/collections/toddler', label: 'Explore All Ages 1–3 Toys' };
@@ -280,7 +326,7 @@ export default function Home() {
 <h2 className="font-headline-lg text-headline-lg text-ink tracking-tight mt-1">Award-Winning Bestsellers Built for Little Hands</h2>
 </div>
 
-<div className="flex items-center gap-2 flex-wrap">
+<div className="flex items-center gap-2 flex-nowrap overflow-x-auto scrollbar-hide py-1">
 {['All Ages', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'].map(tab => {
   return (
     <button 
