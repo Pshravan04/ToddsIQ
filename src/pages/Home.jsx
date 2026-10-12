@@ -11,8 +11,8 @@ import demoVideo3 from '../assets/videos/5ec74577602944d7a30cf5142d27ee55.SD-480
 import ProductCard from '../components/ProductCard';
 
 export default function Home() {
-  const [quizAge, setQuizAge] = useState('3-4');
-  const [quizGoal, setQuizGoal] = useState('focus');
+  const [quizAge, setQuizAge] = useState('3-5');
+  const [quizGoal, setQuizGoal] = useState('creative');
   const [showQuizResult, setShowQuizResult] = useState(false);
   const [activeBestsellerTab, setActiveBestsellerTab] = useState('All Ages');
   const [productsData, setProductsData] = useState([]);
@@ -93,6 +93,61 @@ export default function Home() {
 
   // Exactly 5 products per age group
   const displayBestsellers = sortedBestsellers.slice(0, 5);
+
+  const CURATED_QUIZ_MATCHES = {
+    '1-3': {
+      creative: ['toddsiq-aquadoodle-book', 'toddsiq-nestwood-full-pack', 'toddsiq-squishblocks'],
+      stem: ['toddsiq-count-crew-full-pack', 'toddsiq-blocks-full-pack', 'toddsiq-nestwood-full-pack'],
+      focus: ['toddsiq-nestwood-full-pack', 'toddsiq-chime', 'toddsiq-squishblocks'],
+      phonics: ['toddsiq-pippo', 'toddsiq-count-crew-full-pack', 'toddsiq-chime']
+    },
+    '3-5': {
+      creative: ['drawing-robot', 'toddsiq-magic-gel', 'toddsiq-sandlab'],
+      stem: ['3dmagictracktrainset', 'toddsiq-magtrack', 'toddsiq-buildbox'],
+      focus: ['toddsiq-quarry', 'drawing-robot', 'toddsiq-shapecrew'],
+      phonics: ['toddsiq-lingo', 'toddsiq-wordplay', 'drawing-robot']
+    },
+    '5+': {
+      creative: ['toddsiq-pixelforge', 'toddsiq-fracsnap', 'toddsiq-microscope-explorer'],
+      stem: ['toddsiq-spark', 'toddsiq-microscope-explorer', 'toddsiq-clash'],
+      focus: ['toddsiq-microscope-explorer', 'toddsiq-clash', 'toddsiq-spark'],
+      phonics: ['toddsiq-fracsnap', 'toddsiq-spell-play-full-pack', 'toddsiq-readladder']
+    }
+  };
+
+  const GOAL_LABELS = {
+    creative: 'Creative Drawing & Fine Motor Control',
+    stem: 'Spatial STEM & Building Physics',
+    focus: 'Deep Calm Focus (Zero Screen Meltdowns)',
+    phonics: 'Early Phonics, Words & Math Numbers'
+  };
+
+  const getQuizMatches = () => {
+    const curatedKeys = CURATED_QUIZ_MATCHES[quizAge]?.[quizGoal] || CURATED_QUIZ_MATCHES['3-5'].creative;
+    const matches = curatedKeys.map(targetKey => {
+      const cleanKey = targetKey.replace(/^toddsiq-/, '');
+      return productsData.find(p => {
+        const handle = (p.handle || p.id || p.slug || '').toLowerCase().replace(/^toddsiq-/, '');
+        return handle === cleanKey;
+      });
+    }).filter(Boolean);
+
+    if (matches.length < 3) {
+      const remaining = productsData.filter(p => {
+        const pAge = p.ageBand || '';
+        const tags = (p.categories || []).map(c => (c || '').toLowerCase());
+        const ageMatch = quizAge === '1-3' ? (pAge === '1-3' || tags.some(t => t.includes('1-3') || t.includes('toddler')))
+                       : quizAge === '3-5' ? (pAge === '3-5' || tags.some(t => t.includes('3-5') || t.includes('preschool')))
+                       : (pAge === '5+' || tags.some(t => t.includes('5+') || t.includes('big kid')));
+        return ageMatch && !matches.some(m => m.id === p.id);
+      });
+      matches.push(...remaining.slice(0, 3 - matches.length));
+    }
+
+    return matches.slice(0, 3);
+  };
+
+  const quizMatches = getQuizMatches();
 
   const getCollectionLink = (tab) => {
     if (tab.includes('1-3') || tab.includes('1–3')) return { path: '/collections/toddler', label: 'Explore All Ages 1–3 Toys' };
@@ -387,18 +442,21 @@ export default function Home() {
 
 <div className="space-y-space-sm">
 <label className="font-label-md text-label-md text-ink block font-bold">1. How old is your child?</label>
-<div className="grid grid-cols-2 sm:grid-cols-4 gap-space-sm" id="quiz-age-group">
+<div className="grid grid-cols-1 sm:grid-cols-3 gap-space-sm" id="quiz-age-group">
   {[
-    { id: '1-2', label: '1–2 Years' },
-    { id: '3-4', label: '3–4 Years' },
-    { id: '5-7', label: '5–7 Years' },
-    { id: '8+', label: '8+ Years' }
+    { id: '1-3', label: 'Ages 1–3' },
+    { id: '3-5', label: 'Ages 3–5' },
+    { id: '5+', label: 'Ages 5+' }
   ].map(age => (
     <button 
       key={age.id}
       onClick={() => { setQuizAge(age.id); setShowQuizResult(false); }}
       type="button"
-      className={`quiz-age-btn px-4 py-3 rounded-xl border-2 font-label-md text-label-md text-center transition-all ${quizAge === age.id ? 'active-quiz-chip bg-coral text-canvas border-ink shadow-[3px_3px_0px_#1E2A38]' : 'bg-[#F4F1EA] border-ink text-ink hover:bg-[#F4F1EA]-high'}`}
+      className={`quiz-age-btn px-4 py-3 rounded-xl border-2 font-label-md text-label-md text-center transition-all ${
+        quizAge === age.id 
+          ? 'active-quiz-chip bg-coral text-canvas border-ink shadow-[3px_3px_0px_#1E2A38] font-bold' 
+          : 'bg-[#F4F1EA] border-ink text-ink hover:bg-[#F4F1EA]-high'
+      }`}
     >
       {age.label}
     </button>
@@ -419,10 +477,14 @@ export default function Home() {
       key={goal.id}
       onClick={() => { setQuizGoal(goal.id); setShowQuizResult(false); }}
       type="button"
-      className={`quiz-goal-btn px-4 py-3 rounded-xl border-2 font-label-md text-label-md text-left flex items-center gap-3 transition-all ${quizGoal === goal.id ? 'active-quiz-chip bg-secondary-fixed text-on-secondary-fixed border-ink shadow-[3px_3px_0px_#1E2A38]' : 'bg-[#F4F1EA] border-ink text-ink hover:bg-[#F4F1EA]-high'}`}
+      className={`quiz-goal-btn px-4 py-3 rounded-xl border-2 font-label-md text-label-md text-left flex items-center gap-3 transition-all ${
+        quizGoal === goal.id 
+          ? 'active-quiz-chip bg-secondary-fixed text-on-secondary-fixed border-ink shadow-[3px_3px_0px_#1E2A38] font-bold' 
+          : 'bg-[#F4F1EA] border-ink text-ink hover:bg-[#F4F1EA]-high'
+      }`}
     >
       <span className={`material-symbols-outlined ${goal.iconColor}`}>{goal.icon}</span>
-      <span>{goal.label}</span>
+      <span className="font-semibold text-sm sm:text-base">{goal.label}</span>
     </button>
   ))}
 </div>
@@ -430,9 +492,14 @@ export default function Home() {
 
 <div className="pt-space-sm flex flex-col items-center gap-space-xs">
 <button 
-  onClick={() => setShowQuizResult(true)}
+  onClick={() => {
+    setShowQuizResult(true);
+    setTimeout(() => {
+      document.getElementById('quiz-result-box')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }}
   type="button"
-  className="w-full sm:w-auto px-space-2xl py-3.5 bg-coral text-canvas-fixed rounded-xl font-label-lg text-label-lg transition-all flex items-center justify-center gap-2 hover:bg-coral-fixed"
+  className="w-full sm:w-auto px-8 py-3.5 bg-coral text-canvas-fixed rounded-xl font-label-lg text-label-lg transition-all flex items-center justify-center gap-2 hover:bg-coral-fixed shadow-[3px_3px_0px_#1E2A38] border-2 border-ink hover:-translate-y-0.5 active:translate-y-0"
 >
   <span>Show My 3 Personalized Matches</span>
   <span className="material-symbols-outlined text-base" style={{fontVariationSettings: '"FILL" 1'}}>arrow_forward</span>
@@ -442,22 +509,57 @@ export default function Home() {
 </span>
 </div>
 
-<div className={`mt-space-md p-space-md rounded-2xl bg-secondary-container border-2 border-ink transition-all duration-500 ${showQuizResult ? 'opacity-100 block' : 'opacity-0 hidden'}`} id="quiz-result-box">
-<div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-  <div className="flex items-center gap-3">
-    <span className="material-symbols-outlined text-3xl text-on-secondary-container">auto_awesome</span>
-    <div>
-      <p className="font-label-md text-label-md text-on-secondary-container font-bold">
-        Top Match: {quizGoal === 'stem' ? 'ToddsIQ™ Build-a-Bot Kit' : quizGoal === 'phonics' ? 'ToddsIQ™ Phonics Starter' : 'ToddsIQ™ Bot + 150 Card Core Set'}
-      </p>
-      <p className="font-body-sm text-body-sm text-on-secondary-container">
-        Perfect for {quizAge} yrs: {quizGoal === 'focus' ? 'builds 25+ min calm independent focus without screens.' : 'fosters hands-on learning and reduces screen time.'}
-      </p>
+{showQuizResult && (
+  <div id="quiz-result-box" className="mt-8 pt-6 border-t-2 border-ink space-y-6">
+    <div className="bg-white p-5 rounded-2xl border-2 border-ink shadow-[4px_4px_0px_#1E2A38] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex items-center gap-3.5">
+        <div className="w-12 h-12 rounded-xl bg-coral/10 border border-coral/30 flex items-center justify-center shrink-0 text-coral">
+          <span className="material-symbols-outlined text-2xl">auto_awesome</span>
+        </div>
+        <div>
+          <span className="text-xs uppercase tracking-wider font-bold text-coral">Personalized Developmental Match</span>
+          <h3 className="font-display font-bold text-xl text-ink">
+            Top 3 Matches for Ages {quizAge === '5+' ? '5+' : quizAge}
+          </h3>
+          <p className="text-xs sm:text-sm text-ink-variant mt-0.5">
+            Tailored specifically for <strong>{GOAL_LABELS[quizGoal]}</strong> with screen-free confidence.
+          </p>
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={() => setShowQuizResult(false)}
+        className="px-4 py-2 bg-canvas hover:bg-white text-ink font-bold text-xs rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-all whitespace-nowrap shrink-0"
+      >
+        Change Preferences
+      </button>
+    </div>
+
+    {/* 3 Matches Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {quizMatches.map((product, idx) => (
+        <div key={product.id} className="flex flex-col h-full">
+          <div className="mb-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-marigold text-ink text-xs font-bold border border-ink shadow-sm w-fit">
+            <span>{idx === 0 ? '🏆 Match #1: Best Overall' : idx === 1 ? '⭐ Match #2: Skill Builder' : '💡 Match #3: Most Engaging'}</span>
+          </div>
+          <div className="flex-1">
+            <ProductCard product={product} />
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div className="flex justify-center pt-2">
+      <Link
+        to={getCollectionLink(`Ages ${quizAge}`).path}
+        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#0b3359] hover:bg-[#0b3359]/90 text-white font-bold text-sm border border-ink shadow-[2px_2px_0px_#1E2A38] hover:-translate-y-0.5 active:translate-y-0 transition-all"
+      >
+        <span>Explore All Ages {quizAge === '5+' ? '5+' : quizAge} Toys</span>
+        <span className="material-symbols-outlined text-sm">arrow_forward</span>
+      </Link>
     </div>
   </div>
-  <Link to="/product/toddsiq-robot" className="px-5 py-2.5 bg-[#F4F1EA]-lowest text-ink rounded-xl font-label-md text-label-md border-2 border-ink shadow-[3px_3px_0px_#1E2A38] hover:translate-x-0.5 hover:translate-y-0.5 transition-all text-center whitespace-nowrap">View Bundle ({formatPrice(89)})</Link>
-</div>
-</div>
+)}
 </div>
 </div>
 </section></FadeInUp>
