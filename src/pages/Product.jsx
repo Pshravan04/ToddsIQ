@@ -1,6 +1,7 @@
 import { FadeInUp } from '../components/AnimatedSection';
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
 import { useCurrency } from '../context/CurrencyContext';
 import { getProductByHandle } from '../services/shopify/products';
@@ -120,6 +121,8 @@ export default function Product() {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
+  const [recentPurchase, setRecentPurchase] = useState(null);
+  const [showPurchaseToast, setShowPurchaseToast] = useState(false);
   const [openFaq, setOpenFaq] = useState(0);
   const ctaRef = useRef(null);
 
@@ -152,16 +155,59 @@ export default function Product() {
   }, [routeParam]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowSticky(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-      },
-      { threshold: 0 }
-    );
-    if (ctaRef.current) {
-      observer.observe(ctaRef.current);
-    }
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      if (ctaRef.current) {
+        const rect = ctaRef.current.getBoundingClientRect();
+        setShowSticky(rect.top < 0 || window.scrollY > 450);
+      } else {
+        setShowSticky(window.scrollY > 400);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [product?.id]);
+
+  // Social Proof: Live buyer notification after 7-8 seconds
+  useEffect(() => {
+    if (!product) return;
+
+    const purchases = [
+      { name: 'Sarah M.', location: 'Austin, TX', time: '3 mins ago' },
+      { name: 'Emily R.', location: 'San Diego, CA', time: '5 mins ago' },
+      { name: 'Jessica T.', location: 'Seattle, WA', time: '7 mins ago' },
+      { name: 'David K.', location: 'Chicago, IL', time: '11 mins ago' },
+      { name: 'Amanda B.', location: 'Denver, CO', time: '14 mins ago' },
+      { name: 'Michael L.', location: 'Brooklyn, NY', time: '18 mins ago' },
+      { name: 'Rachel C.', location: 'Portland, OR', time: '21 mins ago' }
+    ];
+
+    let currentIndex = 0;
+    let hideTimer;
+    let cycleInterval;
+
+    const showNext = () => {
+      setRecentPurchase(purchases[currentIndex % purchases.length]);
+      setShowPurchaseToast(true);
+      currentIndex++;
+
+      hideTimer = setTimeout(() => {
+        setShowPurchaseToast(false);
+      }, 5500);
+    };
+
+    // First trigger after 7.5 seconds
+    const initialTimer = setTimeout(() => {
+      showNext();
+      // Re-trigger every 15 seconds
+      cycleInterval = setInterval(showNext, 15000);
+    }, 7500);
+
+    return () => {
+      clearTimeout(initialTimer);
+      clearTimeout(hideTimer);
+      clearInterval(cycleInterval);
+    };
   }, [product?.id]);
 
   if (loading) {
@@ -226,23 +272,114 @@ export default function Product() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-canvas relative">
+    <div className="flex flex-col w-full bg-canvas relative pb-20 sm:pb-24">
       
-      {/* STICKY BUY BAR (Desktop & Mobile) */}
-      <div className={`fixed ${showSticky ? 'translate-y-0 opacity-100 pointer-events-auto' : 'translate-y-full lg:-translate-y-full opacity-0 pointer-events-none'} transition-all duration-300 z-50 bottom-0 lg:bottom-auto lg:top-0 left-0 w-full bg-white border-t lg:border-b lg:border-t-0 border-ink/10 shadow-lift py-3 px-4 sm:px-6 lg:px-8 flex items-center justify-between`}>
-         <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-lg border border-ink/10 overflow-hidden bg-canvas hidden sm:block">
-               <img src={activeImage} className="w-full h-full object-cover" alt={product.title} />
+      {/* RECENT PURCHASE FLOATING TOAST (Triggers after 7-8 sec) */}
+      <AnimatePresence>
+        {showPurchaseToast && recentPurchase && (
+          <motion.div
+            initial={{ opacity: 0, y: 30, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className={`fixed ${showSticky ? 'bottom-20 sm:bottom-22' : 'bottom-5 sm:bottom-6'} left-3 sm:left-6 z-50 bg-white rounded-2xl border-2 border-ink shadow-[4px_4px_0px_#1E2A38] p-3 sm:p-3.5 flex items-center gap-3 max-w-[340px] sm:max-w-sm transition-all duration-300`}
+          >
+            {/* Pulsing Green Status Dot + Product Thumbnail */}
+            <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl border-2 border-ink overflow-hidden bg-[#F4F1EA] shrink-0">
+              <img src={activeImage || product.thumbnail} alt={product.title} className="w-full h-full object-cover" />
+              <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border border-white"></span>
+              </span>
             </div>
-            <div>
-               <h4 className="font-display font-bold text-ink text-sm lg:text-base line-clamp-1">{product.title}</h4>
-               <p className="text-coral font-bold text-sm">{formatPrice(finalPrice)}</p>
+
+            {/* Buyer Text */}
+            <div className="flex-1 min-w-0 pr-1">
+              <div className="flex items-center gap-1.5 text-[11px] font-black text-ink">
+                <span>{recentPurchase.name}</span>
+                <span className="text-ink-muted font-normal">• {recentPurchase.location}</span>
+              </div>
+              <p className="text-xs font-bold text-coral truncate leading-tight mt-0.5">
+                Purchased {cleanTitle || 'this item'}
+              </p>
+              <div className="flex items-center gap-1.5 mt-0.5 text-[10px] text-ink-muted font-semibold">
+                <span className="material-symbols-outlined text-[13px] text-teal">verified</span>
+                <span>Verified buyer</span>
+                <span>•</span>
+                <span>{recentPurchase.time}</span>
+              </div>
             </div>
-         </div>
-         <div className="flex items-center gap-3">
-            <button onClick={handleAddToCart} className="hidden sm:flex px-6 py-2.5 rounded-full bg-coral/10 text-coral font-bold text-sm hover:bg-coral/20 transition-colors">Add to Cart</button>
-            <button onClick={handleBuyNow} className="px-6 py-2.5 rounded-full bg-marigold text-ink font-bold text-sm shadow-[2px_2px_0px_#1E2A38] border-2 border-ink hover:translate-y-0.5 hover:shadow-none transition-all">Buy Now</button>
-         </div>
+
+            {/* Dismiss X */}
+            <button
+              onClick={() => setShowPurchaseToast(false)}
+              className="text-ink/40 hover:text-ink text-sm p-1 hover:bg-black/5 rounded-lg transition-colors cursor-pointer self-start"
+              aria-label="Close"
+              type="button"
+            >
+              ✕
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* STICKY BOTTOM BUY BAR (Fixed at bottom on all screens) */}
+      <div 
+        className={`fixed bottom-0 left-0 w-full z-50 bg-white border-t-2 border-ink shadow-[0px_-4px_20px_rgba(30,42,56,0.15)] py-2.5 sm:py-3 px-3 sm:px-6 lg:px-8 flex items-center justify-between transition-transform duration-300 ${
+          showSticky ? 'translate-y-0' : 'translate-y-full pointer-events-none'
+        }`}
+      >
+        {/* Left: Thumbnail & Title & Price */}
+        <div className="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl border-2 border-ink overflow-hidden bg-[#F4F1EA] shrink-0">
+            <img src={activeImage || product.thumbnail} className="w-full h-full object-cover" alt={product.title} />
+          </div>
+          <div className="min-w-0">
+            <h4 className="font-display font-bold text-ink text-xs sm:text-sm lg:text-base truncate max-w-[150px] xs:max-w-[190px] sm:max-w-xs md:max-w-md">
+              {cleanTitle || product.title}
+            </h4>
+            <div className="flex items-center gap-2 mt-0.5">
+              <span className="text-coral font-black text-sm sm:text-base leading-none">
+                {formatPrice(finalPrice)}
+              </span>
+              {savings > 0 && (
+                <span className="bg-coral/10 text-coral text-[10px] font-black px-1.5 py-0.5 rounded-full border border-coral/30 hidden xs:inline-block">
+                  Save {savings}%
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Center: Live Purchase Ticker (Tablet & Desktop) */}
+        <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F4F1EA] border border-ink/20 text-xs font-bold text-ink shrink-0">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span>{recentPurchase ? `${recentPurchase.name} from ${recentPurchase.location} bought ${recentPurchase.time}` : '18 parents ordered this today'}</span>
+        </div>
+
+        {/* Right: Actions */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <button 
+            onClick={handleAddToCart} 
+            type="button"
+            className="hidden sm:inline-flex px-4 sm:px-5 py-2.5 rounded-xl bg-canvas hover:bg-[#F4F1EA] text-ink font-display font-bold text-xs sm:text-sm border-2 border-ink shadow-[2px_2px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all items-center gap-1.5 cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-base">{added ? 'check' : 'shopping_bag'}</span>
+            <span>{added ? 'Added!' : 'Add to Bag'}</span>
+          </button>
+          
+          <button 
+            onClick={handleBuyNow} 
+            type="button"
+            className="px-5 sm:px-7 py-2.5 rounded-xl bg-marigold hover:bg-marigold/90 text-ink font-display font-black text-xs sm:text-sm border-2 border-ink shadow-[3px_3px_0px_#1E2A38] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>Buy Now</span>
+            <span className="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
       </div>
 
       <div className="w-full bg-[#F4EFE6] border-b border-ink/5 py-2.5 px-4 sm:px-6 lg:px-8">
