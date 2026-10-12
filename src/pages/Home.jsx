@@ -74,12 +74,6 @@ export default function Home() {
   <div className="max-w-7xl mx-auto w-full px-gutter relative z-10 py-2">
     <div className="max-w-xl flex flex-col gap-3 lg:gap-4">
       
-      {/* Logo inside Hero */}
-      <div className="mb-2">
-        <span className="font-display-hero text-4xl text-[#0b3359] font-black tracking-tight">
-          Todds<span className="text-[#f58f29]">IQ</span><span className="text-sm align-super ml-1">™</span>
-        </span>
-      </div>
 
       {/* Kicker Badge */}
       <div className="inline-flex items-center gap-2 self-start bg-transparent border border-[#d1d9e0] px-4 py-1.5 rounded-full text-[#0b3359] font-bold text-sm tracking-wide shadow-sm bg-white/30 backdrop-blur-sm">
