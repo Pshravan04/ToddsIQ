@@ -208,7 +208,7 @@ export default function Home() {
 </Link>
 </div>
 
-<div className="group bg-[#F4F1EA]-lowest rounded-3xl p-space-lg border-2 border-ink shadow-[6px_6px_0px_#ff6154] hover:-translate-y-1 hover:shadow-[8px_8px_0px_#ff6154] transition-all flex flex-col justify-between relative">
+<div className="group bg-[#F4F1EA]-lowest rounded-3xl p-space-lg border-2 border-ink shadow-[5px_5px_0px_#1E2A38] hover:-translate-y-1 hover:shadow-[7px_7px_0px_#1E2A38] transition-all flex flex-col justify-between">
 <div className="space-y-space-md">
 <div className="flex justify-between items-center">
 <span className="px-3 py-1 rounded-full bg-coral text-canvas font-label-sm text-label-sm font-bold border border-ink">
@@ -225,6 +225,7 @@ export default function Home() {
 <div>
 <h3 className="font-headline-sm text-headline-sm text-ink">Preschool &amp; Pre-K</h3>
 <p className="font-body-sm text-body-sm text-ink-variant mt-1">Guided drawing mentors, early phonics mastery, spatial logic, and snap track engineering.</p>
+</div>
 </div>
 <Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/preschool">
 <span className="">Shop Ages 3–5</span>
@@ -249,6 +250,7 @@ export default function Home() {
 <div>
 <h3 className="font-headline-sm text-headline-sm text-ink">Big Kids &amp; Explorers</h3>
 <p className="font-body-sm text-body-sm text-ink-variant mt-1">Multi-level track physics, handheld optical microscopes, and advanced mechanical building sets.</p>
+</div>
 </div>
 <Link className="mt-space-lg w-full py-2.5 bg-[#0b3359] hover:bg-[#0b3359]/90 text-canvas text-center font-label-md text-label-md rounded-xl border border-ink shadow-[2px_2px_0px_#1E2A38] transition-colors flex items-center justify-center gap-1" to="/collections/big-kids">
 <span className="">Shop Ages 5+</span>
