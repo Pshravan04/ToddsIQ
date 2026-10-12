@@ -17,7 +17,7 @@ const COLLECTION_MAP = {
   'big-kids-ages-5': { title: 'Big Kids & Explorers (5+)', sub: 'Multi-level track physics, microscopes, and building sets.', category: 'Big Kids' },
 };
 
-const FILTERS = ['All', 'STEM & Learning', 'Arts & Crafts', 'Building', 'Reading', 'Sensory'];
+const FILTERS = ['All', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'];
 const SORTS = ['Featured', 'Price: Low–High', 'Price: High–Low', 'Newest'];
 
 export default function Collection() {
@@ -27,8 +27,14 @@ export default function Collection() {
   
   const [info, setInfo] = useState(COLLECTION_MAP[id] || { title: (id || 'All').replace(/-/g, ' ').toUpperCase(), sub: '', category: null });
   const [activeFilter, setActiveFilter] = useState(() => {
-    if (filterParam && FILTERS.some(f => f.toLowerCase() === filterParam.toLowerCase())) {
-      return FILTERS.find(f => f.toLowerCase() === filterParam.toLowerCase());
+    if (filterParam) {
+      const match = FILTERS.find(f => 
+        f.toLowerCase() === filterParam.toLowerCase() ||
+        (f.includes('1-3') && filterParam.includes('1-3')) ||
+        (f.includes('3-5') && filterParam.includes('3-5')) ||
+        (f.includes('5+') && filterParam.includes('5+'))
+      );
+      if (match) return match;
     }
     return 'All';
   });
@@ -38,9 +44,15 @@ export default function Collection() {
 
   useEffect(() => {
     const f = searchParams.get('filter');
-    if (f && FILTERS.some(item => item.toLowerCase() === f.toLowerCase())) {
-      setActiveFilter(FILTERS.find(item => item.toLowerCase() === f.toLowerCase()));
-    } else if (!f) {
+    if (f) {
+      const match = FILTERS.find(item => 
+        item.toLowerCase() === f.toLowerCase() ||
+        (item.includes('1-3') && f.includes('1-3')) ||
+        (item.includes('3-5') && f.includes('3-5')) ||
+        (item.includes('5+') && f.includes('5+'))
+      );
+      if (match) setActiveFilter(match);
+    } else {
       setActiveFilter('All');
     }
   }, [searchParams]);
@@ -93,21 +105,22 @@ export default function Collection() {
      products = products.filter(p => p.categories && p.categories.some(c => c.toLowerCase().includes(id.toLowerCase())));
   }
 
-  // Sub-filter by Tag
+  // Sub-filter by Age Category
   if (activeFilter !== 'All') {
     products = products.filter(p => {
-      if (!p.categories || !Array.isArray(p.categories)) return false;
-      const upperFilter = activeFilter.toUpperCase();
-      return p.categories.some(cat => {
-        const upperCat = (cat || '').toUpperCase();
-        if (upperCat === upperFilter) return true;
-        if (upperFilter === 'STEM & LEARNING' && (upperCat.includes('STEM') || upperCat.includes('LEARN') || upperCat.includes('SCIENCE'))) return true;
-        if (upperFilter === 'ARTS & CRAFTS' && (upperCat.includes('ART') || upperCat.includes('CRAFT'))) return true;
-        if (upperFilter === 'BUILDING' && (upperCat.includes('BUILD') || upperCat.includes('BLOCK') || upperCat.includes('TRACK'))) return true;
-        if (upperFilter === 'READING' && (upperCat.includes('READ') || upperCat.includes('BOOK') || upperCat.includes('PHONIC'))) return true;
-        if (upperFilter === 'SENSORY' && (upperCat.includes('SENSORY') || upperCat.includes('TACTILE'))) return true;
-        return false;
-      });
+      const age = p.ageBand || '';
+      const tags = (p.categories || []).map(c => (c || '').toLowerCase());
+      
+      if (activeFilter.includes('1-3') || activeFilter.includes('1–3')) {
+        return age === '1-3' || tags.some(t => t.includes('1-3') || t.includes('toddler'));
+      }
+      if (activeFilter.includes('3-5') || activeFilter.includes('3–5')) {
+        return age === '3-5' || tags.some(t => t.includes('3-5') || t.includes('preschool'));
+      }
+      if (activeFilter.includes('5+')) {
+        return age === '5+' || tags.some(t => t.includes('5+') || t.includes('big kid') || t.includes('big-kid'));
+      }
+      return true;
     });
   }
 
