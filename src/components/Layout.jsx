@@ -37,7 +37,7 @@ export default function Layout({ children }) {
   const { cartCount, cartTotal, isCartOpen, setIsCartOpen } = useCart();
   const { currency, currencyDetails, changeCurrency, availableCurrencies, formatPrice } = useCurrency();
   const CHIPS = [
-    `⚡ FREE Express Shipping Over ${formatPrice(50)}`,
+    '⚡ 40% OFF + Free Shipping — Ending Soon!',
     '🛡️ 30-Day Risk-Free Guarantee',
     '⭐ 4.9/5 Rating (28,000+ Happy Families)',
   ];
