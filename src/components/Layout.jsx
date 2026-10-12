@@ -51,22 +51,78 @@ export default function Layout({ children }) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  const [currentChipIndex, setCurrentChipIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentChipIndex((prev) => (prev + 1) % CHIPS.length);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [CHIPS.length]);
+
   const marqueeItems = [...CHIPS, ...CHIPS, ...CHIPS, ...CHIPS];
 
   return (
     <>
       {/* Announcement Bar */}
       <div className="announcement-bar" role="region" aria-label="Announcements">
-        <div className="announcement-track">
-          {marqueeItems.map((chip, i) => (
-            <span key={i} className="announcement-chip">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                <circle cx="7" cy="7" r="6" fill="currentColor" opacity=".2"/>
-                <circle cx="7" cy="7" r="2.5" fill="currentColor"/>
-              </svg>
-              <span>{chip}</span>
-            </span>
-          ))}
+        {/* Desktop continuous infinite marquee */}
+        <div className="announcement-desktop-track">
+          <div className="announcement-track">
+            {marqueeItems.map((chip, i) => (
+              <span key={i} className="announcement-chip">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <circle cx="7" cy="7" r="6" fill="currentColor" opacity=".2"/>
+                  <circle cx="7" cy="7" r="2.5" fill="currentColor"/>
+                </svg>
+                <span>{chip}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile rotating ticker (stops for 3.5s per point) */}
+        <div className="announcement-mobile">
+          <button
+            type="button"
+            className="announcement-mobile-nav"
+            onClick={() => setCurrentChipIndex((prev) => (prev - 1 + CHIPS.length) % CHIPS.length)}
+            aria-label="Previous announcement"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+          </button>
+
+          <div className="announcement-mobile-content">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentChipIndex}
+                initial={{ opacity: 0, y: 7 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -7 }}
+                transition={{ duration: 0.28, ease: "easeOut" }}
+                className="announcement-mobile-item"
+              >
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <circle cx="7" cy="7" r="6" fill="currentColor" opacity=".2"/>
+                  <circle cx="7" cy="7" r="2.5" fill="currentColor"/>
+                </svg>
+                <span>{CHIPS[currentChipIndex]}</span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          <button
+            type="button"
+            className="announcement-mobile-nav"
+            onClick={() => setCurrentChipIndex((prev) => (prev + 1) % CHIPS.length)}
+            aria-label="Next announcement"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
         </div>
       </div>
 

@@ -109,7 +109,9 @@ p{max-width:68ch;color:var(--text-secondary);}
 .btn-sm{padding:.5rem 1rem;font-size:.8125rem;}
 
 /* 5. Announcement Bar */
-.announcement-bar{background:var(--ink-navy);color:#fff;font-size:.8125rem;font-weight:500;overflow:hidden;line-height:1;position:relative;width:100%;user-select:none;-webkit-user-select:none;touch-action:pan-y;}
+.announcement-bar{background:var(--ink-navy);color:#fff;font-size:.8125rem;font-weight:500;overflow:hidden;line-height:1;position:relative;width:100%;user-select:none;-webkit-user-select:none;}
+.announcement-desktop-track{display:none;}
+@media(min-width:768px){.announcement-desktop-track{display:block;width:100%;overflow:hidden;}}
 .announcement-track{display:flex;width:max-content;flex-wrap:nowrap;will-change:transform;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);animation:marquee 20s linear infinite;}
 @media(min-width:768px){.announcement-track{animation-duration:32s;}}
 @media(hover:hover) and (pointer:fine){.announcement-track:hover{animation-play-state:paused;}}
@@ -118,6 +120,13 @@ p{max-width:68ch;color:var(--text-secondary);}
 .announcement-chip svg{color:var(--crayon-marigold);flex-shrink:0;}
 @keyframes marquee{0%{transform:translate3d(0,0,0);}100%{transform:translate3d(-50%,0,0);}}
 @-webkit-keyframes marquee{0%{-webkit-transform:translate3d(0,0,0);}100%{-webkit-transform:translate3d(-50%,0,0);}}
+.announcement-mobile{display:flex;align-items:center;justify-content:space-between;padding:.55rem .75rem;min-height:38px;width:100%;position:relative;}
+@media(min-width:768px){.announcement-mobile{display:none;}}
+.announcement-mobile-nav{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:rgba(255,255,255,.65);background:transparent;border:none;cursor:pointer;flex-shrink:0;transition:color .15s,background .15s;padding:0;}
+.announcement-mobile-nav:active{color:#fff;background:rgba(255,255,255,.15);}
+.announcement-mobile-content{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;height:22px;position:relative;text-align:center;padding:0 .25rem;}
+.announcement-mobile-item{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;font-size:clamp(.7rem,3vw,.78125rem);font-weight:600;color:#fff;white-space:nowrap;letter-spacing:-.01em;}
+.announcement-mobile-item svg{color:var(--crayon-marigold);flex-shrink:0;}
 
 /* 6. Header */
 header{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);border-bottom:1px solid rgba(30,42,56,.08);box-shadow:var(--shadow-xs);}
