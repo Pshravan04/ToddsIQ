@@ -81,6 +81,16 @@ const CURATED_AGE_PRIORITY = {
   ]
 };
 
+const normalizeFilter = (val) => {
+  if (!val) return null;
+  const s = String(val).toLowerCase().replace(/[\u2013\u2014]/g, '-').replace(/\s+/g, '');
+  if (s.includes('1-3') || s.includes('toddler')) return 'Ages 1–3';
+  if (s.includes('3-5') || s.includes('preschool')) return 'Ages 3–5';
+  if (s.includes('5+') || s.includes('bigkid') || s.includes('5plus')) return 'Ages 5+';
+  if (s === 'all') return 'All';
+  return null;
+};
+
 export default function Collection() {
   const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -95,16 +105,8 @@ export default function Collection() {
   const [customMeta, setCustomMeta] = useState(null);
 
   const resolveFilter = (param, collectionId) => {
-    if (param) {
-      const match = FILTERS.find(f => 
-        f.toLowerCase() === param.toLowerCase() ||
-        (f.includes('1-3') && param.includes('1-3')) ||
-        (f.includes('3-5') && param.includes('3-5')) ||
-        (f.includes('5+') && param.includes('5+'))
-      );
-      if (match) return match;
-      if (param.toLowerCase() === 'all') return 'All';
-    }
+    const fromParam = normalizeFilter(param);
+    if (fromParam) return fromParam;
     const col = COLLECTION_MAP[collectionId];
     return col?.defaultFilter || 'All';
   };
@@ -151,11 +153,11 @@ export default function Collection() {
     if (f === 'All') {
       newParams.set('filter', 'all');
     } else if (f.includes('1-3') || f.includes('1–3')) {
-      newParams.set('filter', 'Ages 1–3');
+      newParams.set('filter', 'ages-1-3');
     } else if (f.includes('3-5') || f.includes('3–5')) {
-      newParams.set('filter', 'Ages 3–5');
+      newParams.set('filter', 'ages-3-5');
     } else if (f.includes('5+')) {
-      newParams.set('filter', 'Ages 5+');
+      newParams.set('filter', 'ages-5+');
     }
     setSearchParams(newParams, { replace: true });
   };
