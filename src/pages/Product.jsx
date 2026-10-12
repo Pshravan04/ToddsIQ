@@ -8,6 +8,99 @@ import drawingRobotImg from '../assets/drawing_companion_robot.jpg';
 import creativeRobotImg from '../assets/creative_potential_robot.jpg';
 import heroToysBannerImg from '../assets/hero_toys_banner.jpg';
 
+// Helper to cleanly parse product descriptions into intro paragraph + compact highlights
+function parseProductDescription(html) {
+  if (!html) return { introHtml: '', highlightsTitle: '', highlights: [], restHtml: '' };
+
+  // Match "Why parents love it:" or "Key Highlights" or similar patterns
+  const pattern = /(?:<p[^>]*>)?<(?:strong|h4|h3|h2|b)[^>]*>(Why parents love it:?|✨ Key Highlights:?|Key Highlights:?|Why Parents Love It:?|Features:?)<\/(?:strong|h4|h3|h2|b)>(?:<\/p>)?/i;
+  const match = html.match(pattern);
+
+  if (match) {
+    const splitIndex = match.index;
+    const introHtml = html.substring(0, splitIndex).trim();
+    const afterMatch = html.substring(splitIndex + match[0].length);
+
+    // Look for the <ul> list of points
+    const ulMatch = afterMatch.match(/<ul[^>]*>(.*?)<\/ul>/is);
+    if (ulMatch) {
+      const liMatches = [...ulMatch[1].matchAll(/<li[^>]*>(.*?)<\/li>/gi)]
+        .map(m => m[1].replace(/<[^>]+>/g, '').trim())
+        .filter(Boolean);
+      const restHtml = afterMatch.substring(ulMatch.index + ulMatch[0].length).trim();
+      return {
+        introHtml: introHtml || "Build, create, and explore with hands-on, milestone-driven screen-free play.",
+        highlightsTitle: match[1].replace(/:$/, '').trim(),
+        highlights: liMatches,
+        restHtml
+      };
+    }
+  }
+
+  // Fallback 1: check if there's any <ul>
+  const ulMatch = html.match(/<ul[^>]*>(.*?)<\/ul>/is);
+  if (ulMatch) {
+    const introHtml = html.substring(0, ulMatch.index).trim();
+    const liMatches = [...ulMatch[1].matchAll(/<li[^>]*>(.*?)<\/li>/gi)]
+      .map(m => m[1].replace(/<[^>]+>/g, '').trim())
+      .filter(Boolean);
+    const restHtml = html.substring(ulMatch.index + ulMatch[0].length).trim();
+    return {
+      introHtml: introHtml || html,
+      highlightsTitle: 'Why parents love it:',
+      highlights: liMatches,
+      restHtml
+    };
+  }
+
+  // Fallback 2: Check for plain text lines containing "Why parents love it"
+  if (html.includes('Why parents love it')) {
+    const parts = html.split(/Why parents love it:?/i);
+    const intro = parts[0].trim();
+    const bullets = (parts[1] || '')
+      .split(/\n|<br\s*\/?>/)
+      .map(s => s.replace(/^[•\-\*✓\s]+/, '').trim())
+      .filter(s => s.length > 2);
+    return {
+      introHtml: intro,
+      highlightsTitle: 'Why parents love it:',
+      highlights: bullets,
+      restHtml: ''
+    };
+  }
+
+  // Plain single paragraph
+  return {
+    introHtml: html,
+    highlightsTitle: '',
+    highlights: [],
+    restHtml: ''
+  };
+}
+
+// Helper to parse option value badges, emojis, and titles
+function parseOptionValue(val) {
+  if (!val) return { emoji: null, title: '', badge: null };
+  
+  const emojiRegex = /^(\p{Extended_Pictographic}|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]|\uD83E[\uDD00-\uDFFF]|\u2728|\uD83D\uDC8E|\uD83C\uDFC6|\uD83C\uDF81|\uD83E\uDDE9)\s*/u;
+  const match = val.match(emojiRegex);
+  const emoji = match ? match[1] : null;
+  let cleanText = match ? val.replace(emojiRegex, '').trim() : val.trim();
+
+  let badge = null;
+  const parenMatch = cleanText.match(/\((.*?)\)/);
+  if (parenMatch) {
+    badge = parenMatch[1];
+    cleanText = cleanText.replace(/\(.*?\)/, '').trim();
+  } else if (cleanText.includes('123 PCS') || cleanText.toLowerCase().includes('master')) {
+    badge = 'Best Value';
+  } else if (cleanText.includes('81 PCS') || cleanText.toLowerCase().includes('pro')) {
+    badge = 'Popular';
+  }
+
+  return { emoji, title: cleanText, badge };
+}
+
 export default function Product() {
   const { id, slug } = useParams();
   const { addItem, setIsCartOpen, checkoutUrl } = useCart();
@@ -25,6 +118,7 @@ export default function Product() {
   
   // Track selected options as { [optionName]: optionValue }
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [showSticky, setShowSticky] = useState(false);
   const ctaRef = useRef(null);
 
@@ -53,6 +147,7 @@ export default function Product() {
     window.scrollTo(0, 0);
     setQty(1);
     setSelectedOptions({});
+    setIsDescExpanded(false);
   }, [routeParam]);
 
   useEffect(() => {
@@ -198,12 +293,71 @@ export default function Product() {
                   </div>
                 </div>
 
-                <div>
-                  <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-ink leading-tight">
-                    {product.title}
-                  </h1>
-                  <div className="text-sm text-ink-muted mt-3 leading-relaxed whitespace-pre-line" dangerouslySetInnerHTML={{ __html: product.descriptionHtml || product.description || "The gentle cognitive tutor that turns playtime into achievable, milestone-driven progression." }} />
-                </div>
+                {(() => {
+                  const rawHtml = product.descriptionHtml || product.description || "The gentle cognitive tutor that turns playtime into achievable, milestone-driven progression.";
+                  const parsedDesc = parseProductDescription(rawHtml);
+
+                  return (
+                    <div>
+                      <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-ink leading-tight">
+                        {product.title}
+                      </h1>
+                      
+                      {/* Description Paragraph with Read More / Read Less Toggle */}
+                      <div className="mt-2.5">
+                        <div className="relative">
+                          <div 
+                            className={`text-xs sm:text-sm text-ink-muted leading-relaxed transition-all duration-300 overflow-hidden ${
+                              isDescExpanded ? 'max-h-[1200px]' : 'max-h-[58px] sm:max-h-[66px]'
+                            }`}
+                            dangerouslySetInnerHTML={{ __html: parsedDesc.introHtml }}
+                          />
+                          {!isDescExpanded && (
+                            <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+                          )}
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setIsDescExpanded(!isDescExpanded)}
+                          className="mt-1 inline-flex items-center gap-1 text-xs font-bold text-coral hover:text-coral/80 transition-colors py-0.5 focus:outline-none cursor-pointer"
+                        >
+                          <span>{isDescExpanded ? 'Read Less' : 'Read More'}</span>
+                          <span className={`material-symbols-outlined text-sm transition-transform duration-200 ${isDescExpanded ? 'rotate-180' : ''}`}>
+                            expand_more
+                          </span>
+                        </button>
+                      </div>
+
+                      {/* Why parents love it: (Highlights list with compact spacing & icons) */}
+                      {parsedDesc.highlights && parsedDesc.highlights.length > 0 && (
+                        <div className="mt-3 pt-3 border-t border-ink/5">
+                          <div className="text-xs font-bold uppercase tracking-wider text-ink/75 mb-2 flex items-center gap-1.5">
+                            <span className="material-symbols-outlined text-coral text-base" style={{ fontVariationSettings: '"FILL" 1' }}>favorite</span>
+                            <span>{parsedDesc.highlightsTitle || 'Why parents love it:'}</span>
+                          </div>
+                          <ul className="flex flex-col gap-1.5">
+                            {parsedDesc.highlights.map((point, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-ink/85 leading-snug">
+                                <span className="flex-shrink-0 mt-0.5 w-4 h-4 rounded-full bg-teal/15 text-teal flex items-center justify-center text-[10px] font-bold">
+                                  ✓
+                                </span>
+                                <span className="flex-1 font-medium">{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Additional Details if expanded */}
+                      {isDescExpanded && parsedDesc.restHtml && (
+                        <div 
+                          className="mt-3 pt-3 border-t border-ink/5 text-xs sm:text-sm text-ink-muted leading-relaxed"
+                          dangerouslySetInnerHTML={{ __html: parsedDesc.restHtml }}
+                        />
+                      )}
+                    </div>
+                  );
+                })()}
 
                 {/* Price */}
                 <div className="bg-canvas p-4 rounded-2xl border border-ink/10 flex flex-col gap-2">
@@ -216,12 +370,17 @@ export default function Product() {
 
                 {/* Variants if any */}
                 {hasVariants && (
-                  <div className="flex flex-col gap-5">
+                  <div className="flex flex-col gap-4">
                     {product.options.map((opt, optIndex) => (
-                      <div key={optIndex} className="flex flex-col gap-3">
+                      <div key={optIndex} className="flex flex-col gap-2.5">
                         <div className="flex items-center justify-between">
-                          <span className="font-display text-sm font-bold text-ink">{opt.name}:</span>
-                          {opt.name.includes("STEM Set") && <span className="text-xs font-bold text-coral uppercase tracking-wide bg-coral/10 px-2 py-0.5 rounded-md">Flash sale ends 14:45</span>}
+                          <div className="flex items-center gap-1.5">
+                            <span className="font-display text-sm font-bold text-ink">{opt.name}:</span>
+                          </div>
+                          <span className="text-[11px] font-bold text-coral bg-coral/10 px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-2xs">
+                            <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse"></span>
+                            {selectedOptions[opt.name] || opt.values[0]}
+                          </span>
                         </div>
                         
                         {opt.subtitles ? (
@@ -239,20 +398,33 @@ export default function Product() {
                                const compPrice = hypotheticalVariant?.compareAtPrice ?? (opt.compareAtPrices ? opt.compareAtPrices[i] : null);
                                
                                return (
-                                 <button key={i} onClick={() => {
-                                   setSelectedOptions({...selectedOptions, [opt.name]: v});
-                                   if (hypotheticalVariant?.image) {
-                                     setActiveImage(hypotheticalVariant.image);
-                                   } else if (optIndex === 0 && displayImages[i]) {
-                                     setActiveImage(displayImages[i]);
-                                   }
-                                 }} className={`flex flex-col text-left p-4 rounded-2xl border-2 transition-all relative overflow-hidden ${isSelected ? 'bg-coral/5 border-coral shadow-[2px_2px_0px_#1E2A38]' : 'bg-white border-ink/10 hover:border-ink/30 hover:shadow-sm'}`}>
+                                 <button 
+                                   key={i} 
+                                   type="button"
+                                   onClick={() => {
+                                     setSelectedOptions({...selectedOptions, [opt.name]: v});
+                                     if (hypotheticalVariant?.image) {
+                                       setActiveImage(hypotheticalVariant.image);
+                                     } else if (optIndex === 0 && displayImages[i]) {
+                                       setActiveImage(displayImages[i]);
+                                     }
+                                   }} 
+                                   className={`flex flex-col text-left p-4 rounded-2xl border-2 transition-all duration-200 relative overflow-hidden active:scale-[0.99] cursor-pointer ${
+                                     isSelected 
+                                       ? 'bg-gradient-to-r from-coral/10 via-coral/5 to-white border-coral shadow-[3px_3px_0px_#1E2A38] -translate-y-0.5' 
+                                       : 'bg-white border-ink/15 hover:border-ink/40 hover:-translate-y-0.5 hover:shadow-xs'
+                                   }`}
+                                 >
                                    {opt.badges && opt.badges[i] && (
-                                     <div className="absolute top-0 right-0 bg-marigold text-ink text-[10px] font-bold px-3 py-1 rounded-bl-xl border-b-2 border-l-2 border-ink">{opt.badges[i]}</div>
+                                     <div className="absolute top-0 right-0 bg-marigold text-ink text-[10px] font-bold px-3 py-0.5 rounded-bl-xl border-b-2 border-l-2 border-ink shadow-xs">
+                                       {opt.badges[i]}
+                                     </div>
                                    )}
                                    <div className="flex items-start justify-between gap-4 w-full">
                                      <div className="flex flex-col gap-1">
-                                       <span className="font-display font-bold text-base text-ink flex items-center gap-1.5">{opt.icons && opt.icons[i]} {v}</span>
+                                       <span className="font-display font-bold text-base text-ink flex items-center gap-1.5">
+                                         {opt.icons && opt.icons[i]} {v}
+                                       </span>
                                        <span className="text-xs text-ink-muted pr-12">{opt.subtitles[i]}</span>
                                      </div>
                                      <div className="flex flex-col items-end text-right min-w-[70px]">
@@ -261,32 +433,93 @@ export default function Product() {
                                      </div>
                                    </div>
                                  </button>
-                               )
+                               );
                             })}
                           </div>
                         ) : (
-                          <div className="flex flex-wrap gap-2">
+                          <div className={`grid ${
+                            opt.values.length === 3 
+                              ? 'grid-cols-3' 
+                              : opt.values.length === 2 
+                                ? 'grid-cols-1 sm:grid-cols-2' 
+                                : 'grid-cols-2 sm:grid-cols-3'
+                          } gap-2.5`}>
                             {opt.values.map((v, i) => {
                               const isSelected = selectedOptions[opt.name] === v;
+                              const parsed = parseOptionValue(v);
                               
                               const hypotheticalVariant = product.variants?.find(variant => 
                                 variant.selectedOptions.every(so => 
                                   so.name === opt.name ? so.value === v : so.value === selectedOptions[so.name]
                                 )
                               );
+
+                              const price = hypotheticalVariant?.price;
+                              const compPrice = hypotheticalVariant?.compareAtPrice;
                               
                               return (
-                                <button key={i} onClick={() => {
-                                   setSelectedOptions({...selectedOptions, [opt.name]: v});
-                                   if (hypotheticalVariant?.image) {
-                                     setActiveImage(hypotheticalVariant.image);
-                                   } else if (optIndex === 0 && displayImages[i]) {
-                                     setActiveImage(displayImages[i]);
-                                   }
-                                 }} className={`px-4 py-2 rounded-xl border-2 font-bold text-sm transition-all ${isSelected ? 'bg-coral/10 border-coral text-coral shadow-sm' : 'bg-white border-ink/10 text-ink hover:border-ink/30'}`}>
-                                  {v}
+                                <button 
+                                  key={i} 
+                                  type="button"
+                                  onClick={() => {
+                                    setSelectedOptions({...selectedOptions, [opt.name]: v});
+                                    if (hypotheticalVariant?.image) {
+                                      setActiveImage(hypotheticalVariant.image);
+                                    } else if (optIndex === 0 && displayImages[i]) {
+                                      setActiveImage(displayImages[i]);
+                                    }
+                                  }} 
+                                  className={`group relative flex flex-col items-center justify-center p-3 sm:p-3.5 rounded-2xl border-2 transition-all duration-200 cursor-pointer overflow-hidden text-center active:scale-[0.97] ${
+                                    isSelected 
+                                      ? 'bg-gradient-to-b from-coral/10 via-coral/5 to-white border-coral shadow-[3px_3px_0px_#1E2A38] -translate-y-0.5 ring-2 ring-coral/20' 
+                                      : 'bg-white border-ink/15 hover:border-ink/40 hover:bg-canvas/40 hover:-translate-y-0.5 hover:shadow-xs text-ink'
+                                  }`}
+                                >
+                                  {/* Top-right active check badge or empty radio */}
+                                  <div className={`absolute top-2 right-2 w-4 h-4 rounded-full flex items-center justify-center transition-all ${
+                                    isSelected 
+                                      ? 'bg-coral text-white scale-100 shadow-xs' 
+                                      : 'border border-ink/20 bg-white/90 group-hover:border-ink/40'
+                                  }`}>
+                                    {isSelected ? (
+                                      <span className="material-symbols-outlined text-[11px] font-black leading-none">check</span>
+                                    ) : null}
+                                  </div>
+
+                                  {/* Badge (e.g. Popular, Best Value, 40% OFF) */}
+                                  {parsed.badge && (
+                                    <span className={`inline-block text-[9px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded-full mb-1.5 border shadow-2xs ${
+                                      isSelected 
+                                        ? 'bg-coral text-white border-coral' 
+                                        : 'bg-marigold/20 text-ink border-marigold/40'
+                                    }`}>
+                                      {parsed.badge}
+                                    </span>
+                                  )}
+
+                                  {/* Emoji / Icon */}
+                                  {parsed.emoji && (
+                                    <span className="text-xl sm:text-2xl mb-1 transform group-hover:scale-110 transition-transform">
+                                      {parsed.emoji}
+                                    </span>
+                                  )}
+
+                                  {/* Title */}
+                                  <span className={`font-display font-extrabold text-xs sm:text-sm leading-tight transition-colors ${
+                                    isSelected ? 'text-coral' : 'text-ink'
+                                  }`}>
+                                    {parsed.title}
+                                  </span>
+
+                                  {/* Pricing info if available */}
+                                  {price != null && (
+                                    <div className="flex items-center gap-1 mt-1 text-[11px]">
+                                      <span className={`font-bold ${isSelected ? 'text-coral' : 'text-ink'}`}>${price.toFixed(2)}</span>
+                                      {compPrice != null && <span className="line-through text-ink-light text-[10px]">${compPrice.toFixed(2)}</span>}
+                                    </div>
+                                  )}
                                 </button>
-                              )
+                              );
                             })}
                           </div>
                         )}
