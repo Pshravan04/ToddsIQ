@@ -109,7 +109,7 @@ export default function Home() {
       {/* Buttons */}
       <div className="flex flex-wrap items-center gap-3 pt-1">
         <Link className="px-5 py-2.5 bg-coral text-canvas rounded-xl border-2 border-ink font-label-lg text-sm shadow-[3px_3px_0px_#1E2A38] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#1E2A38] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center gap-2" to="/collections/best-sellers">
-          <span>SHOP BESTSELLERS — FROM {formatPrice(49)}</span>
+          <span>Shop Now</span>
           <span className="material-symbols-outlined text-base">arrow_forward</span>
         </Link>
         <Link className="px-5 py-2.5 bg-transparent text-[#0b3359] rounded-xl border-2 border-[#0b3359] font-label-lg text-sm font-bold shadow-sm hover:bg-white/50 backdrop-blur-sm transition-all flex items-center gap-2" to="/collections">
