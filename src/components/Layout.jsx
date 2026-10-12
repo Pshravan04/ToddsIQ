@@ -12,18 +12,9 @@ const NAV = [
     label: 'Shop by Age',
     mega: true,
     ages: [
-      { label: 'Tiny Tots', sub: '0–18 months', emoji: '🍼', color: '#FF9F7F', bg: '#FFF4F2', href: '/collections/tiny-tots' },
-      { label: 'Toddlers', sub: '18 mo–3 yrs',  emoji: '🧸', color: '#6C8EF5', bg: '#EEF1FD', href: '/collections/toddler' },
-      { label: 'Pre-K',    sub: '3–5 years',    emoji: '🎨', color: '#1F9D8A', bg: '#E8F8F5', href: '/collections/preschool' },
-      { label: 'Big Kids', sub: '6–12 years',   emoji: '🔭', color: '#FFB627', bg: '#FFF8E7', href: '/collections/big-kids' },
-    ],
-    interests: [
-      { label: 'STEM & Science', emoji: '🔬', color: '#6C8EF5' },
-      { label: 'Arts & Crafts',  emoji: '🎨', color: '#F06292' },
-      { label: 'Building',       emoji: '🧱', color: '#FFB627' },
-      { label: 'Reading',        emoji: '📚', color: '#1F9D8A' },
-      { label: 'Math & Logic',   emoji: '🧮', color: '#FF6154' },
-      { label: 'Sensory Play',   emoji: '🌈', color: '#66BB6A' },
+      { label: 'Ages 1–3', sub: 'Sensory exploration & motor skills', emoji: '🧸', color: '#6C8EF5', bg: '#EEF1FD', href: '/collections/toddler' },
+      { label: 'Ages 3–5', sub: 'Drawing robots & phonics',          emoji: '🎨', color: '#1F9D8A', bg: '#E8F8F5', href: '/collections/preschool' },
+      { label: 'Ages 5+',  sub: 'Advanced STEM & kinetic physics',    emoji: '🔭', color: '#FFB627', bg: '#FFF8E7', href: '/collections/big-kids' },
     ],
   },
   { label: 'About Us',     href: '/about' },
@@ -177,10 +168,10 @@ export default function Layout({ children }) {
           <div className="space-y-4">
             <h3 className="font-label-lg text-label-lg font-bold">Shop</h3>
             <ul className="space-y-2 font-body-sm text-body-sm text-ink-variant">
-              <li><Link to="/collections/tiny-tots" className="hover:text-coral transition-colors">Tiny Tots (0-18m)</Link></li>
-              <li><Link to="/collections/toddler" className="hover:text-coral transition-colors">Toddlers (18m-3y)</Link></li>
-              <li><Link to="/collections/preschool" className="hover:text-coral transition-colors">Pre-K (3-5y)</Link></li>
-              <li><Link to="/collections/big-kids" className="hover:text-coral transition-colors">Big Kids (6-12y)</Link></li>
+              <li><Link to="/collections/toddler" className="hover:text-coral transition-colors">Ages 1–3</Link></li>
+              <li><Link to="/collections/preschool" className="hover:text-coral transition-colors">Ages 3–5</Link></li>
+              <li><Link to="/collections/big-kids" className="hover:text-coral transition-colors">Ages 5+</Link></li>
+              <li><Link to="/collections/best-sellers" className="hover:text-coral transition-colors">Best Sellers</Link></li>
             </ul>
           </div>
 
@@ -297,55 +288,39 @@ function NavItem({ item }) {
           <AnimatePresence>
             {isHovered && (
               <motion.div 
-                initial={{ opacity: 0, y: 15, scale: 0.98, filter: 'blur(4px)' }}
+                initial={{ opacity: 0, y: 12, scale: 0.98, filter: 'blur(4px)' }}
                 animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: 10, scale: 0.98, filter: 'blur(2px)' }}
+                exit={{ opacity: 0, y: 8, scale: 0.98, filter: 'blur(2px)' }}
                 transition={{ type: "spring", stiffness: 350, damping: 25, mass: 0.8 }}
-                className="absolute top-[calc(100%+12px)] left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur-2xl rounded-[32px] shadow-[0_32px_64px_-12px_rgba(30,42,56,0.15),0_0_0_1px_rgba(30,42,56,0.05)] p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 w-[90vw] max-w-[760px] z-[200] origin-top"
+                className="absolute top-[calc(100%+10px)] left-0 bg-white/98 backdrop-blur-2xl rounded-2xl shadow-[0_20px_40px_-8px_rgba(30,42,56,0.18),0_0_0_1px_rgba(30,42,56,0.06)] p-3 flex flex-col gap-1 w-[320px] z-[200] origin-top border border-ink/10"
               >
-                <div className="absolute -top-8 left-0 right-0 h-8 bg-transparent" />
-                <div className="flex flex-col gap-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-ink/40 mb-1 ml-2">Shop by Age</p>
-                  <div className="flex flex-col gap-2">
-                    {item.ages.map((a, i) => (
-                      <motion.div 
-                        initial={{ opacity: 0, x: -10 }} 
-                        animate={{ opacity: 1, x: 0 }} 
-                        transition={{ delay: 0.04 * i }}
-                        key={a.label}
-                      >
-                        <Link to={a.href} onClick={() => setIsHovered(false)} className="group flex items-center gap-4 p-3 rounded-2xl hover:bg-[#F4F1EA] transition-all">
-                          <div className="w-14 h-14 rounded-full flex items-center justify-center text-2xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 shadow-sm border border-ink/5" style={{ background: a.bg }}>
-                            {a.emoji}
-                          </div>
-                          <div>
-                            <strong className="block text-[16px] font-bold text-ink group-hover:text-coral transition-colors">{a.label}</strong>
-                            <span className="text-[14px] text-ink/60">{a.sub}</span>
-                          </div>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
+                <div className="absolute -top-6 left-0 right-0 h-6 bg-transparent" />
+                <div className="px-3 py-1.5 border-b border-ink/5 mb-1">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-ink/40">Shop by Age</p>
                 </div>
-                <div className="flex flex-col gap-4">
-                  <p className="text-xs font-bold uppercase tracking-widest text-ink/40 mb-1 ml-2">Shop by Interest</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    {item.interests.map((int, i) => (
-                      <motion.div 
-                        initial={{ opacity: 0, x: 10 }} 
-                        animate={{ opacity: 1, x: 0 }} 
-                        transition={{ delay: 0.04 * i }}
-                        key={int.label}
+                <div className="flex flex-col gap-1">
+                  {item.ages.map((a, i) => (
+                    <motion.div 
+                      initial={{ opacity: 0, x: -8 }} 
+                      animate={{ opacity: 1, x: 0 }} 
+                      transition={{ delay: 0.03 * i }}
+                      key={a.label}
+                    >
+                      <Link 
+                        to={a.href} 
+                        onClick={() => setIsHovered(false)} 
+                        className="group flex items-center gap-3.5 p-2.5 rounded-xl hover:bg-[#F4F1EA] transition-all"
                       >
-                        <Link to="/collections" onClick={() => setIsHovered(false)} className="group flex items-center gap-3 p-3 rounded-2xl hover:bg-[#F4F1EA] transition-all">
-                          <span className="w-12 h-12 rounded-[16px] flex items-center justify-center text-xl transition-transform duration-300 group-hover:scale-110 shadow-sm border border-ink/5" style={{ background: int.color + '20' }}>
-                            {int.emoji}
-                          </span>
-                          <span className="text-[14.5px] font-semibold text-ink/80 group-hover:text-ink transition-colors">{int.label}</span>
-                        </Link>
-                      </motion.div>
-                    ))}
-                  </div>
+                        <div className="w-11 h-11 rounded-xl flex items-center justify-center text-xl transition-transform duration-300 group-hover:scale-110 shadow-sm border border-ink/5 flex-shrink-0" style={{ background: a.bg }}>
+                          {a.emoji}
+                        </div>
+                        <div>
+                          <strong className="block text-[15px] font-bold text-ink group-hover:text-coral transition-colors">{a.label}</strong>
+                          <span className="text-[12px] text-ink/60 line-clamp-1">{a.sub}</span>
+                        </div>
+                      </Link>
+                    </motion.div>
+                  ))}
                 </div>
               </motion.div>
             )}
