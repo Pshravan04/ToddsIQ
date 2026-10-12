@@ -18,9 +18,11 @@ export default function Home() {
   const [productsData, setProductsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [visibleCount, setVisibleCount] = useState(8);
+
   useEffect(() => {
     async function loadProducts() {
-      const data = await getProducts(20);
+      const data = await getProducts(250);
       setProductsData(data);
       setLoading(false);
     }
@@ -30,13 +32,29 @@ export default function Home() {
   const { addItem } = useCart();
   const { formatPrice } = useCurrency();
   const featured = productsData.slice(0, 8);
-  const displayBestsellers = productsData.filter(product => {
+
+  const filteredBestsellers = productsData.filter(product => {
     if (activeBestsellerTab === 'All Ages') return true;
-    if (activeBestsellerTab === 'Ages 1–3') return product.ageBand === '1-3';
-    if (activeBestsellerTab === 'Ages 3–5') return product.ageBand === '3-5' || product.ageBand === '3-8';
-    if (activeBestsellerTab === 'Ages 5+') return product.ageBand === '5+' || product.ageBand === '3-8';
+    if (activeBestsellerTab.includes('1-3') || activeBestsellerTab.includes('1–3')) {
+      return product.ageBand === '1-3';
+    }
+    if (activeBestsellerTab.includes('3-5') || activeBestsellerTab.includes('3–5')) {
+      return product.ageBand === '3-5' || product.ageBand === '3-8';
+    }
+    if (activeBestsellerTab.includes('5+')) {
+      return product.ageBand === '5+' || product.ageBand === '3-8';
+    }
     return true;
-  }).slice(0, 4);
+  });
+
+  const displayBestsellers = filteredBestsellers.slice(0, visibleCount);
+
+  const getCollectionLink = (tab) => {
+    if (tab.includes('1-3') || tab.includes('1–3')) return { path: '/collections/toddler', label: 'Explore All Ages 1–3 Toys' };
+    if (tab.includes('3-5') || tab.includes('3–5')) return { path: '/collections/preschool', label: 'Explore All Ages 3–5 Toys' };
+    if (tab.includes('5+')) return { path: '/collections/big-kids', label: 'Explore All Ages 5+ Toys' };
+    return { path: '/collections/best-sellers', label: 'Explore All Best Sellers' };
+  };
 
   const carouselRef = useRef(null);
   const scrollCarousel = (direction) => {
@@ -264,19 +282,36 @@ export default function Home() {
 </div>
 
 <div className="flex items-center gap-2 flex-wrap">
-{['All Ages', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'].map(tab => (
-  <button 
-    key={tab}
-    onClick={() => setActiveBestsellerTab(tab)}
-    className={`px-4 py-1.5 rounded-full font-label-sm text-label-sm transition-colors ${
-      activeBestsellerTab === tab 
-        ? 'bg-white text-ink border-2 border-ink shadow-[2px_2px_0px_#1E2A38] font-bold' 
-        : 'bg-canvas hover:bg-white text-ink-variant border border-outline'
-    }`}
-  >
-    {tab}
-  </button>
-))}
+{['All Ages', 'Ages 1–3', 'Ages 3–5', 'Ages 5+'].map(tab => {
+  const count = productsData.filter(p => {
+    if (tab === 'All Ages') return true;
+    if (tab.includes('1-3') || tab.includes('1–3')) return p.ageBand === '1-3';
+    if (tab.includes('3-5') || tab.includes('3–5')) return p.ageBand === '3-5' || p.ageBand === '3-8';
+    if (tab.includes('5+')) return p.ageBand === '5+' || p.ageBand === '3-8';
+    return true;
+  }).length;
+
+  return (
+    <button 
+      key={tab}
+      onClick={() => { setActiveBestsellerTab(tab); setVisibleCount(8); }}
+      className={`px-4 py-1.5 rounded-full font-label-sm text-label-sm transition-all flex items-center gap-1.5 ${
+        activeBestsellerTab === tab 
+          ? 'bg-white text-ink border-2 border-ink shadow-[2px_2px_0px_#1E2A38] font-bold' 
+          : 'bg-canvas hover:bg-white text-ink-variant border border-outline hover:border-ink/40'
+      }`}
+    >
+      <span>{tab}</span>
+      {count > 0 && (
+        <span className={`text-[11px] px-1.5 py-0.5 rounded-full font-semibold ${
+          activeBestsellerTab === tab ? 'bg-marigold text-ink' : 'bg-black/5 text-ink-variant'
+        }`}>
+          {count}
+        </span>
+      )}
+    </button>
+  );
+})}
 </div>
 </div>
 
@@ -284,6 +319,35 @@ export default function Home() {
 {displayBestsellers.map(product => (
   <ProductCard key={product.id} product={product} />
 ))}
+</div>
+
+{/* Action buttons: Show More & Explore Collection */}
+<div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-6">
+  {filteredBestsellers.length > visibleCount && (
+    <button
+      type="button"
+      onClick={() => setVisibleCount(prev => prev + 8)}
+      className="px-6 py-2.5 rounded-xl bg-white hover:bg-white/90 text-ink font-bold text-sm border-2 border-ink shadow-[2px_2px_0px_#1E2A38] transition-all hover:-translate-y-0.5 active:translate-y-0"
+    >
+      Show More ({filteredBestsellers.length - visibleCount} more)
+    </button>
+  )}
+  {visibleCount > 8 && (
+    <button
+      type="button"
+      onClick={() => setVisibleCount(8)}
+      className="px-5 py-2.5 rounded-xl bg-canvas hover:bg-white text-ink-variant font-semibold text-sm border border-outline transition-all"
+    >
+      Show Less
+    </button>
+  )}
+  <Link
+    to={getCollectionLink(activeBestsellerTab).path}
+    className="inline-flex items-center gap-1.5 px-6 py-2.5 rounded-xl bg-[#0b3359] hover:bg-[#0b3359]/90 text-white font-bold text-sm border border-ink shadow-[2px_2px_0px_#1E2A38] transition-all hover:-translate-y-0.5 active:translate-y-0"
+  >
+    <span>{getCollectionLink(activeBestsellerTab).label}</span>
+    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+  </Link>
 </div>
 </div>
 </section></FadeInUp>

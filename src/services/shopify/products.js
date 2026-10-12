@@ -92,7 +92,21 @@ export async function getProducts(first = 250, query = '') {
       variables: { first, query }
     });
     if (!data || !data.products) throw new Error("Invalid response: products is missing");
-    return data.products.edges.map(edge => normalizeProduct(edge.node));
+    const shopifyItems = data.products.edges.map(edge => normalizeProduct(edge.node)).filter(Boolean);
+
+    // If Shopify store has fewer products imported, merge with localProducts so age groups are completely populated
+    if (shopifyItems.length < 15 && Array.isArray(localProducts) && localProducts.length > 0) {
+      const existingHandles = new Set(shopifyItems.map(p => p.handle || p.id));
+      const existingTitles = new Set(shopifyItems.map(p => p.title?.toLowerCase()));
+      const remainingLocal = localProducts.filter(p => 
+        !existingHandles.has(p.handle) && 
+        !existingHandles.has(p.id) && 
+        !existingTitles.has(p.title?.toLowerCase())
+      );
+      return [...shopifyItems, ...remainingLocal];
+    }
+
+    return shopifyItems;
   } catch (error) {
     console.error("Error fetching products:", error);
     // Fallback to local products for uninterrupted UI if Shopify is down or not fully setup

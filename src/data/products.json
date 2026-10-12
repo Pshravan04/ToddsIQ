@@ -1,16 +1,79 @@
 [
   {
-    "id": "toddsiq-best-sellers-0",
-    "title": "ToddsIQ™ MagTrack",
-    "price": 69,
-    "compareAtPrice": 139,
+    "id": "drawing-robot",
+    "handle": "drawing-robot",
+    "slug": "drawing-robot",
+    "title": "ToddsIQ™ Drawing Robot – Interactive Drawing Toy for Kids Ages 3+",
+    "price": 89.99,
+    "compareAtPrice": 135,
     "ageBand": "3-5",
     "categories": [
       "Best Sellers",
-      "Building"
+      "Arts & Crafts",
+      "STEM & Learning",
+      "Preschool"
     ],
-    "rating": 4.8,
-    "reviews": 252,
+    "badge": "SAVE 33%",
+    "rating": 5,
+    "reviews": 128,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1d67404e-bcf6-477f-89f0-cc61486c88f4.png?v=1743026935",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1d67404e-bcf6-477f-89f0-cc61486c88f4.png?v=1743026935",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-bot-full-pack-02.png?v=1789966331",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/6.webp?v=1776276014",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/2d17ed1b-c25b-41c8-b612-436fc15f69bc.png?v=1776276014",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-bot-full-pack-01.png?v=1789972674"
+    ],
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Pink"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 50768918217041,
+        "title": "Blue",
+        "price": 89,
+        "compareAtPrice": 129,
+        "availableForSale": true,
+        "sku": "BLUEBOT",
+        "selectedOptions": []
+      },
+      {
+        "id": 50768918249809,
+        "title": "Pink",
+        "price": 89,
+        "compareAtPrice": 129,
+        "availableForSale": true,
+        "sku": "PINKBOT",
+        "selectedOptions": []
+      }
+    ],
+    "description": "A little robot that turns \"I can't draw\" into \"look what I made.\" ToddsIQ Bot guides kids step by step with a clear, real voice while it draws alongside them — a screen-free kit that blends drawing, early robotics and hands-on STEM play. Kids pick a card, load it, and follow along as the Bot brings ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Drawing Robot – Interactive Drawing Toy for Kids Ages 3+! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "3dmagictracktrainset",
+    "handle": "3dmagictracktrainset",
+    "slug": "3dmagictracktrainset",
+    "title": "ToddsIQ™ 3D Stem Magic Track Train Set",
+    "price": 39.99,
+    "compareAtPrice": 60,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Building",
+      "STEM & Learning",
+      "Preschool"
+    ],
+    "badge": "SAVE 33%",
+    "rating": 5,
+    "reviews": 128,
     "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546",
@@ -24,8 +87,6 @@
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/863e6c75-e3eb-4fb9-b1f8-edccf374bcbf_70548431-7df3-42d2-bc62-5ba682dceb57.png?v=1775435140",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/645c019a-1e70-4b5c-909f-89a4a603312f_61f8f267-23e8-41d0-982d-d0827da0d897.png?v=1775435140"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Version",
@@ -36,67 +97,138 @@
         ]
       }
     ],
-    "description": "The train set kids engineer themselves. MagTrack's modular magnetic tracks snap together into loops, bridges and brand-new routes — then the motorized train takes the maiden run. Design, test, fix, rebuild: every layout is a small engineering project that builds spatial reasoning and planning through hands-on STEM play. USB-rechargeable train, no screens anywhere. Includes the motorized train and expandable magnetic track pieces. Recommended for ages 3 and up."
-  },
-  {
-    "id": "toddsiq-best-sellers-1",
-    "title": "ToddsIQ™ Bot - Full Pack",
-    "price": 89.99,
-    "compareAtPrice": 150.00,
-    "ageBand": "3-8",
-    "categories": [
-      "Best Sellers",
-      "Arts & Crafts"
-    ],
-    "rating": 4.8999999999999995,
-    "reviews": 863,
-    "thumbnail": "/images/bot-single.png",
-    "images": [
-      "/images/bot-single.png",
-      "/images/bot-duo.png",
-      "/images/bot-family.png",
-      "/images/bot-classroom.png"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
+    "variants": [
       {
-        "name": "Choose Your Perfect STEM Set",
-        "values": ["Single Robot", "Duo Pack", "Family Pack", "Classroom Pack"],
-        "prices": [89.99, 149.99, 199.99, 239.99],
-        "compareAtPrices": [150.00, 300.00, 450.00, 600.00],
-        "icons": ["🤖", "⭐", "🎉", "🏫"],
-        "subtitles": ["✨ Best for Individual Play", "👨👧 Perfect for siblings & gifting", "👨👩👧👦 Perfect for families & gifting", "💎 Maximum savings on 4 robots"],
-        "badges": ["", "SAVE 50%", "SAVE 56%", "SAVE 60%"]
+        "id": 52382835933521,
+        "title": "Rookie",
+        "price": 69,
+        "compareAtPrice": 139,
+        "availableForSale": true,
+        "sku": "MAGTRACK-32",
+        "selectedOptions": []
       },
       {
-        "name": "Color",
-        "values": ["IQ Blue 💙 (Pro)"]
+        "id": 52382835966289,
+        "title": "PRO",
+        "price": 119,
+        "compareAtPrice": 169,
+        "availableForSale": true,
+        "sku": "MAGTRACK-68",
+        "selectedOptions": []
+      },
+      {
+        "id": 52382836031825,
+        "title": "Master",
+        "price": 159,
+        "compareAtPrice": 299,
+        "availableForSale": true,
+        "sku": "MAGTRACK-141",
+        "selectedOptions": []
       }
     ],
-    "description": "Your Child’s Creative Companion! ✨\n\n🧠 Designed to Spark Young Minds\n✨ 100% screen-free fun\n🎁 Perfect gift for kids aged 3+\n💖 Loved by Parents. Adored by Kids\n🌍 Trusted by families around the world\n\nFREE SHIPPING + EASY 30-DAY RETURNS"
+    "description": "The train set kids engineer themselves. MagTrack's modular magnetic tracks snap together into loops, bridges and brand-new routes — then the motorized train takes the maiden run. Design, test, fix, rebuild: every layout is a small engineering project that builds spatial reasoning and planning throug...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this 3D Stem Magic Track Train Set! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-2",
-    "title": "ToddsIQ™ Lingo",
+    "id": "toddsiq-magtrack",
+    "handle": "toddsiq-magtrack",
+    "slug": "toddsiq-magtrack",
+    "title": "ToddsIQ™ MagTrack™",
+    "price": 69,
+    "compareAtPrice": 139,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Building",
+      "STEM & Learning",
+      "Preschool"
+    ],
+    "badge": "SAVE 50%",
+    "rating": 5,
+    "reviews": 128,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magtrack-03.png?v=1789972736",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magtrack-01.png?v=1789972717",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magtrack-05.png?v=1789972736",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magtrack-04.png?v=1789972736",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magtrack-02.png?v=1789972736",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/6a8eaac1-5d40-418f-aa89-b6522654543f_1e60f38e-84d1-4c22-bb85-35158bc9c2a0.webp?v=1775435265",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/Untitled_design_1.png?v=1775435140",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/863e6c75-e3eb-4fb9-b1f8-edccf374bcbf_70548431-7df3-42d2-bc62-5ba682dceb57.png?v=1775435140",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/645c019a-1e70-4b5c-909f-89a4a603312f_61f8f267-23e8-41d0-982d-d0827da0d897.png?v=1775435140"
+    ],
+    "options": [
+      {
+        "name": "Version",
+        "values": [
+          "Rookie",
+          "PRO",
+          "Master"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 52382835933521,
+        "title": "Rookie",
+        "price": 69,
+        "compareAtPrice": 139,
+        "availableForSale": true,
+        "sku": "MAGTRACK-32",
+        "selectedOptions": []
+      },
+      {
+        "id": 52382835966289,
+        "title": "PRO",
+        "price": 119,
+        "compareAtPrice": 169,
+        "availableForSale": true,
+        "sku": "MAGTRACK-68",
+        "selectedOptions": []
+      },
+      {
+        "id": 52382836031825,
+        "title": "Master",
+        "price": 159,
+        "compareAtPrice": 299,
+        "availableForSale": true,
+        "sku": "MAGTRACK-141",
+        "selectedOptions": []
+      }
+    ],
+    "description": "The train set kids engineer themselves. MagTrack's modular magnetic tracks snap together into loops, bridges and brand-new routes — then the motorized train takes the maiden run. Design, test, fix, rebuild: every layout is a small engineering project that builds spatial reasoning and planning throug...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this MagTrack™! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-quarry",
+    "handle": "toddsiq-quarry",
+    "slug": "toddsiq-quarry",
+    "title": "ToddsIQ™ Quarry™",
     "price": 69,
     "compareAtPrice": 129,
     "ageBand": "3-5",
     "categories": [
       "Best Sellers",
-      "Reading"
+      "Building",
+      "Preschool"
     ],
-    "rating": 4.8,
-    "reviews": 1615,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260321_142758_6ba6d13e-bfc0-4876-8f19-1f53cdb76da3.png?v=1774103383",
+    "badge": "SAVE 47%",
+    "rating": 5,
+    "reviews": 128,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260812_220149_8d58d5ce-cb53-41cc-8d7a-115f17f7de43.png?v=1786572585",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260321_142758_6ba6d13e-bfc0-4876-8f19-1f53cdb76da3.png?v=1774103383",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lingo-02.png?v=1789972717",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lingo-03.png?v=1789972717",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lingo-01.jpg?v=1789972697"
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260812_220149_8d58d5ce-cb53-41cc-8d7a-115f17f7de43.png?v=1786572585",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-quarry-01.png?v=1789972779",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/472f152612a148aa9f26bd6b75b4b4c9.jpg?v=1786572553",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/d2da79d4cec64463a177b307e2bb7cbf.jpg?v=1786572552",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/402c563119a049a7b06933ed1b3f9ce6.jpg?v=1786572552",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/709beeddfd614050a546c46ecad75cde.jpg?v=1786572551",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260812_220833_8f16fbd6-3a14-4c95-9bcf-e1cfcfc22cd3.png?v=1786572615"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Title",
@@ -105,20 +237,1058 @@
         ]
       }
     ],
-    "description": "Forty little books, one big milestone: reading on their own. Lingo is a set of 40 Read &amp; Rhyme phonics flip books where kids physically flip letters to build words. Word families, CVC words, short and long vowels, Magic E, digraphs and blends — every flip is hands-on phonics practice that turns sounding-out into a game. Includes all 40 phonics flip books. Recommended for early readers ages 3 and up."
+    "variants": [
+      {
+        "id": 54559001805137,
+        "title": "Default Title",
+        "price": 69,
+        "compareAtPrice": 129,
+        "availableForSale": true,
+        "sku": "QUARRY",
+        "selectedOptions": []
+      }
+    ],
+    "description": "A working quarry, not another parked truck. Kids build the route, load rocks at the loading station, run the conveyor, and send the motorized dump truck hauling its load around the track they designed a complete construction site that actually works, powered by their hands instead of a screen. The m...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Quarry™! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-3",
-    "title": "ToddsIQ™ Spark",
+    "id": "toddsiq-nestwood-full-pack",
+    "handle": "toddsiq-nestwood-full-pack",
+    "slug": "toddsiq-nestwood-full-pack",
+    "title": "ToddsIQ™ NestWood - Full Pack™",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Building",
+      "Sensory"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.9,
+    "reviews": 142,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/S0f68304fd4a940898ccef91d20b71b9aw.jpg?v=1770342496",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H6883932feffb401ebdecd29256a261b4T.jpg_720x720q50.jpg?v=1770342496",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H68cc0a1795ba465f9282af28a49c1d46X.jpg_150x150_a241bbe2-5941-48a2-a62c-6cb938c246b9.jpg?v=1770342496"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 51593911959889,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "NESTWOOD",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Forty-two wooden Tetris-style blocks, one deceptively simple challenge: make them fit. NestWood turns spatial reasoning into hands-on play kids come back to again and again. Start with easy fits and work up through progressive challenges — rotating, flipping and planning until every piece clicks int...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this NestWood - Full Pack™! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-pippo",
+    "handle": "toddsiq-pippo",
+    "slug": "toddsiq-pippo",
+    "title": "ToddsIQ™ Pippo™ - Talking Word Cards",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Reading",
+      "STEM & Learning"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.9,
+    "reviews": 215,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/pip1.png?v=1783643069",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/pip1.png?v=1783643069",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/pipo2.png?v=1783643069",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-pippo-01.png?v=1789972758"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54282058137937,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 89,
+        "availableForSale": true,
+        "sku": "PIPPO",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Meet Pippo, the talking puppy that turns pointing into words. Toddlers tap a card, Pippo says the word in a clear, real voice, and the repeat button plays it again as many times as they need. 73 cards of first words make vocabulary practice feel like playing with a pet — screen-free language learnin...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Pippo™ - Talking Word Cards! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-chime",
+    "handle": "toddsiq-chime",
+    "slug": "toddsiq-chime",
+    "title": "ToddsIQ™ Chime™ - Musical Sensory Bell",
+    "price": 69,
+    "compareAtPrice": 99,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Sensory"
+    ],
+    "badge": "SAVE 30%",
+    "rating": 4.8,
+    "reviews": 96,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/chime1.png?v=1783644821",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/chime1.png?v=1783644821",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/chime2.png?v=1783644821",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-chime-01.png?v=1789972674"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54282524361041,
+        "title": "Default Title",
+        "price": 69,
+        "compareAtPrice": 89,
+        "availableForSale": true,
+        "sku": "CHIME",
+        "selectedOptions": []
+      }
+    ],
+    "description": "The toy that calms the room. Chime is a solid-wood marble tree: drop a marble at the top and it cascades down rainbow leaves with a soft, musical ding. Mesmerizing to watch, soothing to hear, and beautiful enough to live on the shelf — no batteries, no volume knob, no screen. A favorite for wind-dow...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Chime™ - Musical Sensory Bell! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-squishblocks",
+    "handle": "toddsiq-squishblocks",
+    "slug": "toddsiq-squishblocks",
+    "title": "ToddsIQ™ SquishBlocks™ - Soft Sensory Blocks",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Sensory",
+      "Building"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.9,
+    "reviews": 178,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260321_164711_d93d7566-f244-4ed1-a1d9-b2427e776bb5.png?v=1774129301",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260321_164711_d93d7566-f244-4ed1-a1d9-b2427e776bb5.png?v=1774129301",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishblocks-03.jpg?v=1789972844",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishblocks-01.jpg?v=1789972824",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishblocks-02.jpg?v=1789972824"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 53356829376849,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 89,
+        "availableForSale": true,
+        "sku": "SQUISH",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Building blocks that squish back. SquishBlocks are soft, satisfying blocks kids can stack, squeeze and connect — construction play and sensory play in one. The gentle texture is perfect for little hands (and quiet-time focus), while stacking and building supports calm, imaginative, screen-free play....",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this SquishBlocks™ - Soft Sensory Blocks! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-aquadoodle-book",
+    "handle": "toddsiq-aquadoodle-book",
+    "slug": "toddsiq-aquadoodle-book",
+    "title": "ToddsIQ™ AquaDoodle Book™ - Mess-Free Water Painting",
+    "price": 25,
+    "compareAtPrice": 45,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Arts & Crafts"
+    ],
+    "badge": "SAVE 44%",
+    "rating": 4.8,
+    "reviews": 189,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-aquadoodle-book-01.png?v=1789972636",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-aquadoodle-book-01.png?v=1789972636",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/8d2866f8c0704749a16f130631538b6e.jpg?v=1762025724",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-aquadoodle-book-02.png?v=1789972636",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-aquadoodle-book-03.png?v=1789972636",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ac8b32740d6d4c61bfba397d00b9aae4.jpg?v=1762029475"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 52255243403601,
+        "title": "Default Title",
+        "price": 25,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "AQUADOODLE",
+        "selectedOptions": []
+      }
+    ],
+    "description": "A drawing book that never runs out. Kids doodle with just water — lines appear like magic, dry clear, and the page is ready to draw all over again. No ink, no markers, no mess: perfect for car rides, restaurants and quiet time. Toddlers build pen control and creativity while the seats stay clean. In...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this AquaDoodle Book™ - Mess-Free Water Painting! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-blocks-full-pack",
+    "handle": "toddsiq-blocks-full-pack",
+    "slug": "toddsiq-blocks-full-pack",
+    "title": "ToddsIQ™ Blocks - Full Pack™ - Tactile Magnetic Cubes",
+    "price": 59,
+    "compareAtPrice": 99,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Building"
+    ],
+    "badge": "SAVE 40%",
+    "rating": 4.9,
+    "reviews": 112,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/41c0f17a156f74bcbac9e8de7bcaf623.png?v=1756393843",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/41c0f17a156f74bcbac9e8de7bcaf623.png?v=1756393843",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/5a24e60a7027c2996efd0144535e4299.jpg?v=1756393949",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/888ed2f14d753b17e73516e6aa11cf27.jpg?v=1756393970",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/7754d9e0c01de5625d8fdce30f810289.jpg?v=1756393981",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/152eb88f5e893638a2b309bbc5bf39ae.jpg?v=1756393991",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ed3d9a4742a9e2642b6e92a405b4acdb.jpg?v=1756394006",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/227e0305f45167ff75cb39caceeb18d0.jpg?v=1756394029",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/141cd099287f2f7b14295c4d38b880d0.jpg?v=1756394053",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/65492b435d34b5dd62df442597b253e1.jpg?v=1756394064"
+    ],
+    "options": [
+      {
+        "name": "Version",
+        "values": [
+          "Royal Empire",
+          "Ocean Castle",
+          "Rainbow Palace",
+          "Starlight Unicorn",
+          "Hero Fire Station",
+          "Construction Crew",
+          "Arctic Adventure",
+          "Fire & Ice Clash",
+          "Pirate Adventure",
+          "Woodland Adventure"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 51742478074193,
+        "title": "Royal Empire",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-KINGDOM",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478106961,
+        "title": "Ocean Castle",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-BLUECASTLE",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478139729,
+        "title": "Rainbow Palace",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-COLORFULCASTLE",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478172497,
+        "title": "Starlight Unicorn",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-UNICORN",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478205265,
+        "title": "Hero Fire Station",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-FIREFIGHTER",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478238033,
+        "title": "Construction Crew",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-ENGINEERING",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478270801,
+        "title": "Arctic Adventure",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-ICESNOWWORLD",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478303569,
+        "title": "Fire & Ice Clash",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-ICEFIRE",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478336337,
+        "title": "Pirate Adventure",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-PIRATESHIP",
+        "selectedOptions": []
+      },
+      {
+        "id": 51742478369105,
+        "title": "Woodland Adventure",
+        "price": 59,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BLOCKS-GREATFOREST",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Castles, spaceships, animal kingdoms — then it all comes apart and becomes something new. ToddsIQ Blocks are magnetic building blocks that snap together into real 3D structures. Kids plan, build, knock down and rebuild, developing spatial reasoning and engineering thinking through open-ended constru...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Blocks - Full Pack™ - Tactile Magnetic Cubes! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-count-crew-full-pack",
+    "handle": "toddsiq-count-crew-full-pack",
+    "slug": "toddsiq-count-crew-full-pack",
+    "title": "ToddsIQ™ Count Crew - Full Pack™ - Wooden Math Lab",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "STEM & Learning"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.8,
+    "reviews": 87,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71SvbhgSDXL._AC_SL1500.jpg?v=1755129410",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71SvbhgSDXL._AC_SL1500.jpg?v=1755129410",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71Qs017cIZL._AC_SL1500.jpg?v=1755129410",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/61XZC475uCL._AC_SL1500.jpg?v=1755129410",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71xHnH55cML._AC_SL1500.jpg?v=1755129410",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/711ULpG8JXL._AC_SL1500.jpg?v=1755129410",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71RMZQa-iZL._AC_SL1500.jpg?v=1755129410",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/717ouYsCK3L._AC_SL1500.jpg?v=1755129410"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 51655244480849,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "COUNTCREW",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Math that lives in their hands, not on a screen. Count Crew turns numbers into things kids can hold, sort, stack and count. Through play, kids practice counting, number recognition and early adding — building real number confidence one game at a time. No worksheets, no drills, no screens. The Full P...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Count Crew - Full Pack™ - Wooden Math Lab! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-turbomonster-pack",
+    "handle": "toddsiq-turbomonster-pack",
+    "slug": "toddsiq-turbomonster-pack",
+    "title": "ToddsIQ™ TurboMonster Pack™ - Push & Go Trucks",
+    "price": 39,
+    "compareAtPrice": 59,
+    "ageBand": "1-3",
+    "categories": [
+      "Best Sellers",
+      "Toddler",
+      "Active"
+    ],
+    "badge": "SAVE 34%",
+    "rating": 4.8,
+    "reviews": 134,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-turbomonster-pack-01.png?v=1789972862",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-turbomonster-pack-01.png?v=1789972862",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81d8ZAc6QSL._AC_SX466.jpg?v=1770344220",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81Kq4AaphaL._AC_SX466.jpg?v=1770344220",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81ndTdwo3kL._AC_SX466.jpg?v=1770344220",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81py38XgGKL._AC_SX466.jpg?v=1770344220",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81rfcEnim1L._AC_SX466.jpg?v=1770344220",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/819Cz9ytbQL._AC_SX466.jpg?v=1770344220"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 52274388861265,
+        "title": "Default Title",
+        "price": 39,
+        "compareAtPrice": 99,
+        "availableForSale": true,
+        "sku": "MONSTERTOY3",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Built to be crashed. TurboMonster trucks are chunky, rugged monster trucks that survive exactly the kind of play energetic kids dish out. Push them, race them, launch them off the couch — big wheels and tough bodies keep rolling through living-room rallies and backyard expeditions alike. Active, ima...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this TurboMonster Pack™ - Push & Go Trucks! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-lingo",
+    "handle": "toddsiq-lingo",
+    "slug": "toddsiq-lingo",
+    "title": "ToddsIQ™ Lingo™ - Phonics Card Reader",
+    "price": 69,
+    "compareAtPrice": 119,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Reading",
+      "Preschool",
+      "STEM & Learning"
+    ],
+    "badge": "SAVE 42%",
+    "rating": 4.9,
+    "reviews": 164,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260321_142758_6ba6d13e-bfc0-4876-8f19-1f53cdb76da3.png?v=1774103383",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260321_142758_6ba6d13e-bfc0-4876-8f19-1f53cdb76da3.png?v=1774103383",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lingo-02.png?v=1789972717",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lingo-03.png?v=1789972717",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lingo-01.jpg?v=1789972697"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 53232184885585,
+        "title": "Default Title",
+        "price": 69,
+        "compareAtPrice": 129,
+        "availableForSale": true,
+        "sku": "LINGO",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Forty little books, one big milestone: reading on their own. Lingo is a set of 40 Read &amp; Rhyme phonics flip books where kids physically flip letters to build words. Word families, CVC words, short and long vowels, Magic E, digraphs and blends — every flip is hands-on phonics practice that turns ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Lingo™ - Phonics Card Reader! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-magic-gel",
+    "handle": "toddsiq-magic-gel",
+    "slug": "toddsiq-magic-gel",
+    "title": "ToddsIQ™ Magic Gel™ - 3D Water Elf Craft Kit",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Arts & Crafts",
+      "Sensory",
+      "Preschool"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.9,
+    "reviews": 204,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71sVlEzmTvL._AC_SL1500.jpg?v=1770328151",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71sVlEzmTvL._AC_SL1500.jpg?v=1770328151",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magic-gel-02.webp?v=1789972717",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/c33b5d4c-5d7d-4956-9f70-ff62571abbd4_TYTvEX7qcuf.webp?v=1770328151",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71FNbZGWYtL._AC_SL1500.jpg?v=1770328151",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71l3WwxPX0L._AC_SL1500.jpg?v=1770328151",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magic-gel-01.png?v=1789972717"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 52103985955153,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "MAGICGEL",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Pour, dip, and watch it become a dinosaur. Magic Gel is a water-activated craft kit where liquid color firms up in minutes into squishy 3D creatures kids made themselves. Molding, squeezing and creating builds fine motor skills and patience — with a non-toxic formula and a quick-rinse reset that kee...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Magic Gel™ - 3D Water Elf Craft Kit! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-sandlab",
+    "handle": "toddsiq-sandlab",
+    "slug": "toddsiq-sandlab",
+    "title": "ToddsIQ™ Sandlab™ - Magic Kinetic Sand Lab",
+    "price": 79,
+    "compareAtPrice": 129,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Arts & Crafts",
+      "Sensory",
+      "Preschool"
+    ],
+    "badge": "SAVE 39%",
+    "rating": 4.8,
+    "reviews": 153,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/32323.png?v=1781187726",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/32323.png?v=1781187726",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/666.png?v=1781187727",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/525.png?v=1781187726",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/766.png?v=1781187726",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/24424.png?v=1781187727",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/3232324.png?v=1781187726"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54037278130513,
+        "title": "Default Title",
+        "price": 79,
+        "compareAtPrice": 89,
+        "availableForSale": true,
+        "sku": "SANDLAB",
+        "selectedOptions": []
+      }
+    ],
+    "description": "The sensory bin that cleans itself up. Sandlab packs moldable sand and glow-in-the-dark stones into a bin that snaps shut in seconds — indoor sand play without the indoor sand problem. Squeezing, shaping and burying treasure builds focus and calm through rich sensory play; the glow stones turn light...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Sandlab™ - Magic Kinetic Sand Lab! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-buildbox",
+    "handle": "toddsiq-buildbox",
+    "slug": "toddsiq-buildbox",
+    "title": "ToddsIQ™ BuildBox™ - 3D Drill & Tool Construction",
+    "price": 69,
+    "compareAtPrice": 119,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Building",
+      "STEM & Learning",
+      "Preschool"
+    ],
+    "badge": "SAVE 42%",
+    "rating": 4.9,
+    "reviews": 177,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260414_145227_a646dde6-eb98-42c8-b8ec-d3aa42421096.png?v=1776178450",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260414_145227_a646dde6-eb98-42c8-b8ec-d3aa42421096.png?v=1776178450",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-01.png?v=1789966331",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hippo-all-in-one-tool-hub-diy-montessori-tool-box-set-844844.webp?v=1776181977",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-02.png?v=1789966331",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-05.png?v=1789966331",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-04.png?v=1789966331",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-03.png?v=1789966331"
+    ],
+    "options": [
+      {
+        "name": "Color",
+        "values": [
+          "Blue",
+          "Pink"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 53526606741841,
+        "title": "Blue",
+        "price": 69,
+        "compareAtPrice": 109,
+        "availableForSale": true,
+        "sku": "BUILDBOX-BLUE",
+        "selectedOptions": []
+      },
+      {
+        "id": 53526606774609,
+        "title": "Pink",
+        "price": 69,
+        "compareAtPrice": 109,
+        "availableForSale": true,
+        "sku": "BUILDBOX-PINK",
+        "selectedOptions": []
+      }
+    ],
+    "description": "A real workshop, sized for small hands. BuildBox puts working kid-scale tools — drill, wrench, bolts — into little builders' hands and lets them actually build. Projects come together, come apart and become something new, while the toolbox itself converts into a workbench and seat. No apps, no batte...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this BuildBox™ - 3D Drill & Tool Construction! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-skypop",
+    "handle": "toddsiq-skypop",
+    "slug": "toddsiq-skypop",
+    "title": "ToddsIQ™ SkyPop™ - 360° Cyclone Bubble Launcher",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Active",
+      "Sensory",
+      "Preschool"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.7,
+    "reviews": 98,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260420_184013_b2382585-29be-4a5f-bbe7-8367830af410.png?v=1776710510",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260420_184013_b2382585-29be-4a5f-bbe7-8367830af410.png?v=1776710510",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-skypop-01.png?v=1789972803",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-skypop-02.png?v=1789972803"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 53581580009809,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 79,
+        "availableForSale": true,
+        "sku": "SKYPOP",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Push the button, flood the yard with bubbles. SkyPop is an outdoor bubble machine on an adjustable tower (28–47 in) with LED lights and music that turns any backyard into a chase scene. Kids run, jump and pop while SkyPop keeps the bubbles coming — USB-C rechargeable with a fillable base, ready for ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this SkyPop™ - 360° Cyclone Bubble Launcher! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-shapecrew",
+    "handle": "toddsiq-shapecrew",
+    "slug": "toddsiq-shapecrew",
+    "title": "ToddsIQ™ ShapeCrew™ - Montessori Geometric Tangram",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "STEM & Learning",
+      "Preschool"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.8,
+    "reviews": 122,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ChatGPTImageMay12_2026_10_52_50AM.png?v=1778597596",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ChatGPTImageMay12_2026_10_52_50AM.png?v=1778597596",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ChatGPTImageMay12_2026_10_55_45AM.png?v=1778597763",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-shapecrew-01.png?v=1789972780",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-shapecrew-02.png?v=1789972780"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 53756830777681,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 79,
+        "availableForSale": true,
+        "sku": "SHAPECREW",
+        "selectedOptions": []
+      }
+    ],
+    "description": "One hundred twenty shapes, endless pictures. ShapeCrew is a wooden pattern puzzle where kids rebuild colorful designs — or invent their own — on a wooden frame board. Following the pattern cards trains shape recognition, spatial reasoning and focus; free-building trains imagination. Both happen with...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this ShapeCrew™ - Montessori Geometric Tangram! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-magic-art-full-pack",
+    "handle": "toddsiq-magic-art-full-pack",
+    "slug": "toddsiq-magic-art-full-pack",
+    "title": "ToddsIQ™ Magic Art - Full Pack™",
+    "price": 69,
+    "compareAtPrice": 99,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Arts & Crafts",
+      "Preschool"
+    ],
+    "badge": "SAVE 30%",
+    "rating": 4.9,
+    "reviews": 184,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/GUEST_bf30f02f-0791-4dd8-bb23-28c8268b2370.webp?v=1744071080",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/GUEST_bf30f02f-0791-4dd8-bb23-28c8268b2370.webp?v=1744071080",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/5ab98f16-6076-4978-b0f7-e69bef8fb96e.36d66c759adf0f4b708563ea9c2ab6a8_b4ac8193-9d55-46a2-a94d-075a4c2a8efa.webp?v=1744071110",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-wonder-magic-art-full-pack-01.png?v=1789972889"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 50808156848465,
+        "title": "Default Title",
+        "price": 69,
+        "compareAtPrice": 99,
+        "availableForSale": true,
+        "sku": "MAGIC01",
+        "selectedOptions": []
+      }
+    ],
+    "description": "All the painting, none of the mess. Magic Art pairs special reactive paper with an interactive brush, so color appears only on the page — never on hands, walls or the sofa. Kids color and paint independently at home or on the road while parents skip the cleanup. Every finished sheet builds creativit...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Magic Art - Full Pack™! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-lizard-play-pack",
+    "handle": "toddsiq-lizard-play-pack",
+    "slug": "toddsiq-lizard-play-pack",
+    "title": "ToddsIQ™ Lizard - Play Pack™ - Smart Bionic Pet",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Active",
+      "STEM & Learning",
+      "Preschool"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.8,
+    "reviews": 91,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_210519_3e1e6e80-3e39-4a0c-aeaa-9e7535653890_1.png?v=1770328116",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_210519_3e1e6e80-3e39-4a0c-aeaa-9e7535653890_1.png?v=1770328116",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/3.webp?v=1770328116",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lizard-play-pack-01.png?v=1789972717",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/5_f952ba13-1823-4c80-a598-5966f8853dd2.webp?v=1770328116",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/gif-1-optimize.webp?v=1770328116",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/gif-2-optimize.webp?v=1770328116"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 51903933907281,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "LIZARD01",
+        "selectedOptions": []
+      }
+    ],
+    "description": "It climbs the wall. Actually climbs the wall. The ToddsIQ Lizard is a remote-control gecko that scurries up walls, windows and ceilings — and sends kids running after it. Easy controls sized for small hands make it a first RC toy kids master fast, trading couch time for laps around the living room. ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Lizard - Play Pack™ - Smart Bionic Pet! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-wordplay",
+    "handle": "toddsiq-wordplay",
+    "slug": "toddsiq-wordplay",
+    "title": "ToddsIQ™ WordPlay™ - Rotary Spelling Blocks",
+    "price": 29,
+    "compareAtPrice": 49,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Reading",
+      "Preschool"
+    ],
+    "badge": "SAVE 41%",
+    "rating": 4.8,
+    "reviews": 110,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_182034_80f5607a-f7a0-441b-bc22-9e023978a478.png?v=1770315927",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_182034_80f5607a-f7a0-441b-bc22-9e023978a478.png?v=1770315927",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-wordplay-01.png?v=1789972889",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71EFPV5knHL._AC_SL1500.jpg?v=1770317345",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71rugMJBKrL._AC_SL1500.jpg?v=1770317345",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71mragYsuFL._AC_SL1500.jpg?v=1770317345",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71-i-XG57vL._AC_SL1500.jpg?v=1770317345",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71JErR9s7IL._AC_SL1500.jpg?v=1770317345",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71F29NnVnnL._AC_SL1500.jpg?v=1770317345",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71_z2pnh0UL._AC_SL1500.jpg?v=1770317345"
+    ],
+    "options": [
+      {
+        "name": "Version",
+        "values": [
+          "Blue",
+          "Pink"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 52984609374545,
+        "title": "Blue",
+        "price": 29,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "WORDPLAY-BLUE",
+        "selectedOptions": []
+      },
+      {
+        "id": 52984609407313,
+        "title": "Pink",
+        "price": 29,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "WORDPLAY-PINK",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Spelling practice they mistake for a game. WordPlay turns letters into playing pieces kids combine, swap and race to build into real words. Each round grows vocabulary, spelling and early reading skills — the kind of practice that happens voluntarily, without screens or flashcard drills. The Complet...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this WordPlay™ - Rotary Spelling Blocks! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-run",
+    "handle": "toddsiq-run",
+    "slug": "toddsiq-run",
+    "title": "ToddsIQ™ Run™ - Automatic Domino Train",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Building",
+      "STEM & Learning",
+      "Preschool"
+    ],
+    "badge": "SAVE 38%",
+    "rating": 4.9,
+    "reviews": 215,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260912_162113_23014e3d-7a6d-41c0-ab82-ee1c97458488.png?v=1789240817",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260912_162032_0c930115-ec8d-484c-b16d-4cc40da48ad5.png?v=1789240817"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54848914686289,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 79,
+        "availableForSale": true,
+        "sku": "RUN",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Load a stack of tiles into one of the two trays, clip it onto the train and push the green switch. The train drives forward and sets the tiles down in a spaced row behind it, which is the one part of building a domino run that small hands cannot do. Your child decides where the row goes, and when it...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Run™ - Automatic Domino Train! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-relay",
+    "handle": "toddsiq-relay",
+    "slug": "toddsiq-relay",
+    "title": "ToddsIQ™ Relay™ - Marble Coaster Track Run",
+    "price": 49,
+    "compareAtPrice": 89,
+    "ageBand": "3-5",
+    "categories": [
+      "Best Sellers",
+      "Building",
+      "Active",
+      "STEM & Learning",
+      "Preschool"
+    ],
+    "badge": "SAVE 45%",
+    "rating": 4.9,
+    "reviews": 138,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay1.png?v=1790182797",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay1.png?v=1790182797",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay2.png?v=1790182797",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay5.png?v=1790182797",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay6.png?v=1790182798",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay7.png?v=1790182798",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay4.png?v=1790182797",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay3.png?v=1790182798"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54812010676561,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "RELAY",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Your child presses a lever and the car pops up and sticks to the helicopter. They turn a crank and another one climbs the slope. They rotate a handle and the turntable spins the next car toward the bridge. Nothing on this track moves on its own. That is the whole idea. Most car toys have a button th...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Relay™ - Marble Coaster Track Run! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-spark",
+    "handle": "toddsiq-spark",
+    "slug": "toddsiq-spark",
+    "title": "ToddsIQ™ Spark™ - Circuit Building Experiments Lab",
     "price": 99,
     "compareAtPrice": 169,
     "ageBand": "5+",
     "categories": [
       "Best Sellers",
-      "Math"
+      "STEM & Learning",
+      "Big Kids"
     ],
-    "rating": 4.8999999999999995,
-    "reviews": 1693,
+    "badge": "SAVE 41%",
+    "rating": 5,
+    "reviews": 168,
     "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260306_170829_172d8ce4-7fd0-4f87-bb86-3832cc7866e9.jpg?v=1772816992",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260306_170829_172d8ce4-7fd0-4f87-bb86-3832cc7866e9.jpg?v=1772816992",
@@ -131,8 +1301,6 @@
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-02.png?v=1789972803",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-spark-01.png?v=1789972803"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Title",
@@ -141,20 +1309,37 @@
         ]
       }
     ],
-    "description": "Their first circuit, their first \"it works!\" Spark is an electronic logic board where kids snap in function modules to solve real puzzles with real electricity. With 5 function modules and 500+ puzzle combinations, challenges scale from first connections at age 5 to genuine logic problems at age 10 — teaching circuits, sequencing and problem-solving as kids grow. USB rechargeable and fully screen-free. Includes the Spark logic board and 5 snap-in modules. Recommended for ages 5–10."
+    "variants": [
+      {
+        "id": 53221981389137,
+        "title": "Default Title",
+        "price": 99,
+        "compareAtPrice": 169,
+        "availableForSale": true,
+        "sku": "SPARK",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Their first circuit, their first \"it works!\" Spark is an electronic logic board where kids snap in function modules to solve real puzzles with real electricity. With 5 function modules and 500+ puzzle combinations, challenges scale from first connections at age 5 to genuine logic problems at age 10 ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Spark™ - Circuit Building Experiments Lab! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-4",
-    "title": "ToddsIQ™ MicroScope Explorer",
+    "id": "toddsiq-microscope-explorer",
+    "handle": "toddsiq-microscope-explorer",
+    "slug": "toddsiq-microscope-explorer",
+    "title": "ToddsIQ™ MicroScope Explorer™ - 1000x Optical Lab",
     "price": 69,
-    "compareAtPrice": 99,
+    "compareAtPrice": 119,
     "ageBand": "5+",
     "categories": [
       "Best Sellers",
-      "STEM & Learning"
+      "STEM & Learning",
+      "Big Kids"
     ],
-    "rating": 5,
-    "reviews": 292,
+    "badge": "SAVE 42%",
+    "rating": 4.9,
+    "reviews": 195,
     "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157",
@@ -164,8 +1349,6 @@
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-microscope-explorer-05.png?v=1789972758",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-microscope-explorer-04.png?v=1789972758"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Title",
@@ -174,54 +1357,38 @@
         ]
       }
     ],
-    "description": "The hidden world, suddenly visible. The MicroScope Explorer gives kids a real look at leaves, bugs, fabric and everything else they can get under the lens. Every specimen becomes a question, and every question becomes screen-free science — sized and simplified so young scientists can explore on their own. Includes the kids' microscope and exploration accessories. Recommended for ages 5 and up — a back-to-school favorite."
-  },
-  {
-    "id": "toddsiq-best-sellers-5",
-    "title": "ToddsIQ™ Quarry",
-    "price": 69,
-    "compareAtPrice": 129,
-    "ageBand": "3-5",
-    "categories": [
-      "Best Sellers",
-      "Building"
-    ],
-    "rating": 4.8999999999999995,
-    "reviews": 1214,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260812_220149_8d58d5ce-cb53-41cc-8d7a-115f17f7de43.png?v=1786572585",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260812_220149_8d58d5ce-cb53-41cc-8d7a-115f17f7de43.png?v=1786572585",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-quarry-01.png?v=1789972779",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/472f152612a148aa9f26bd6b75b4b4c9.jpg?v=1786572553",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/d2da79d4cec64463a177b307e2bb7cbf.jpg?v=1786572552",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/402c563119a049a7b06933ed1b3f9ce6.jpg?v=1786572552",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/709beeddfd614050a546c46ecad75cde.jpg?v=1786572551",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260812_220833_8f16fbd6-3a14-4c95-9bcf-e1cfcfc22cd3.png?v=1786572615"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
+    "variants": [
       {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
+        "id": 52274834014545,
+        "title": "Default Title",
+        "price": 69,
+        "compareAtPrice": 99,
+        "availableForSale": true,
+        "sku": "MICROSCOPE01",
+        "selectedOptions": []
       }
     ],
-    "description": "A working quarry, not another parked truck. Kids build the route, load rocks at the loading station, run the conveyor, and send the motorized dump truck hauling its load around the track they designed a complete construction site that actually works, powered by their hands instead of a screen. The motorized chassis swaps between machines to keep the site running, and the track rebuilds into new layouts, so every session becomes a new job to plan. Loading, hauling and dumping cycles teach cause-and-effect and planning through hands-on, screen-free play. Includes the motorized dump truck, loading station with working conveyor, rock pieces and a customizable track set. Recommended for builders ages 3 and up."
+    "description": "The hidden world, suddenly visible. The MicroScope Explorer gives kids a real look at leaves, bugs, fabric and everything else they can get under the lens. Every specimen becomes a question, and every question becomes screen-free science — sized and simplified so young scientists can explore on thei...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this MicroScope Explorer™ - 1000x Optical Lab! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-6",
-    "title": "ToddsIQ™ Clash",
+    "id": "toddsiq-clash",
+    "handle": "toddsiq-clash",
+    "slug": "toddsiq-clash",
+    "title": "ToddsIQ™ Clash™ - Kinetic Physics Marble Arena",
     "price": 79,
     "compareAtPrice": 139,
     "ageBand": "5+",
     "categories": [
       "Best Sellers",
-      "Active"
+      "Active",
+      "STEM & Learning",
+      "Big Kids"
     ],
-    "rating": 4.8999999999999995,
-    "reviews": 115,
+    "badge": "SAVE 43%",
+    "rating": 4.9,
+    "reviews": 147,
     "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/clash1.png?v=1787515480",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/clash1.png?v=1787515480",
@@ -230,8 +1397,6 @@
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/clash4.png?v=1787515480",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/clash5.png?v=1787515480"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Title",
@@ -240,50 +1405,37 @@
         ]
       }
     ],
-    "description": "Two snakes, two remotes, one floor. Clash is a duel that starts the second the box opens, with no turns to take, no timer to set and no adult refereeing who goes next. The magnetic blocks are the food. Every block a snake swallows locks onto its tail and makes it longer, so you can see who is winning from across the room. The heads light up and react while the chase is on, and both snakes charge over USB, so there are no batteries to hunt for. Includes 2 remote control snakes in yellow and green, 2 remotes, 16 magnetic blocks and 2 USB charging cables. Recommended for ages 6 and up. Contains small parts and magnets: swallowed magnets can cause serious internal injury, so keep away from younger children and supervise play."
-  },
-  {
-    "id": "toddsiq-best-sellers-7",
-    "title": "ToddsIQ™ Pippo",
-    "price": 49,
-    "compareAtPrice": 89,
-    "ageBand": "1-3",
-    "categories": [
-      "Best Sellers",
-      "Reading"
-    ],
-    "rating": 4.8999999999999995,
-    "reviews": 1702,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/pip1.png?v=1783643069",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/pip1.png?v=1783643069",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/pipo2.png?v=1783643069",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-pippo-01.png?v=1789972758"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
+    "variants": [
       {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
+        "id": 54663794262353,
+        "title": "Default Title",
+        "price": 79,
+        "compareAtPrice": 139,
+        "availableForSale": true,
+        "sku": "CLASH",
+        "selectedOptions": []
       }
     ],
-    "description": "Meet Pippo, the talking puppy that turns pointing into words. Toddlers tap a card, Pippo says the word in a clear, real voice, and the repeat button plays it again as many times as they need. 73 cards of first words make vocabulary practice feel like playing with a pet — screen-free language learning toddlers can drive themselves. Includes Pippo and 73 word cards. Recommended for ages 2 and up."
+    "description": "Two snakes, two remotes, one floor. Clash is a duel that starts the second the box opens, with no turns to take, no timer to set and no adult refereeing who goes next. The magnetic blocks are the food. Every block a snake swallows locks onto its tail and makes it longer, so you can see who is winnin...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Clash™ - Kinetic Physics Marble Arena! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-8",
-    "title": "ToddsIQ™ SnapTalk Duo",
+    "id": "toddsiq-snaptalk-duo",
+    "handle": "toddsiq-snaptalk-duo",
+    "slug": "toddsiq-snaptalk-duo",
+    "title": "ToddsIQ™ SnapTalk Duo™ - Long-Range Explorer Walkie Talkies",
     "price": 69,
-    "compareAtPrice": 129,
+    "compareAtPrice": 119,
     "ageBand": "5+",
     "categories": [
       "Best Sellers",
-      "Active"
+      "Active",
+      "Big Kids"
     ],
-    "rating": 4.8999999999999995,
-    "reviews": 789,
+    "badge": "SAVE 42%",
+    "rating": 4.8,
+    "reviews": 131,
     "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260203_225735_63353917-a3aa-4a40-845c-9cc35ffdef8b.jpg?v=1770159840",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260203_225735_63353917-a3aa-4a40-845c-9cc35ffdef8b.jpg?v=1770159840",
@@ -293,8 +1445,6 @@
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-snaptalk-duo-05.jpg?v=1789972533",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-snaptalk-duo-01.png?v=1789972532"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Version",
@@ -305,27 +1455,60 @@
         ]
       }
     ],
-    "description": "Their first phone call — without a phone. SnapTalk Duo is a pair of kid-sized video walkie-talkies with real two-way audio and video between handsets. Secret missions across the house, check-ins from the backyard, sibling headquarters under the bunk bed: SnapTalk keeps kids connected and moving — no phone, no apps, no internet. Includes 2 rechargeable video walkie-talkie handsets. Recommended for ages 5 and up."
+    "variants": [
+      {
+        "id": 52968402583889,
+        "title": "Both Blue",
+        "price": 69,
+        "compareAtPrice": 129,
+        "availableForSale": true,
+        "sku": "SNAPTALK-2BLUE",
+        "selectedOptions": []
+      },
+      {
+        "id": 52968402616657,
+        "title": "Both Pink",
+        "price": 69,
+        "compareAtPrice": 129,
+        "availableForSale": true,
+        "sku": "SNAPTALK-2PINK",
+        "selectedOptions": []
+      },
+      {
+        "id": 52968402649425,
+        "title": "Blue + Pink",
+        "price": 69,
+        "compareAtPrice": 129,
+        "availableForSale": true,
+        "sku": "SNAPTALK-PINK+BLUE",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Their first phone call — without a phone. SnapTalk Duo is a pair of kid-sized video walkie-talkies with real two-way audio and video between handsets. Secret missions across the house, check-ins from the backyard, sibling headquarters under the bunk bed: SnapTalk keeps kids connected and moving — no...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this SnapTalk Duo™ - Long-Range Explorer Walkie Talkies! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-9",
-    "title": "ToddsIQ™ FracSnap",
+    "id": "toddsiq-fracsnap",
+    "handle": "toddsiq-fracsnap",
+    "slug": "toddsiq-fracsnap",
+    "title": "ToddsIQ™ FracSnap™ - Magnetic Visual Math Fraction Tiles",
     "price": 39,
     "compareAtPrice": 69,
     "ageBand": "5+",
     "categories": [
       "Best Sellers",
-      "Math"
+      "STEM & Learning",
+      "Big Kids"
     ],
-    "rating": 4.8999999999999995,
-    "reviews": 1333,
+    "badge": "SAVE 43%",
+    "rating": 4.9,
+    "reviews": 154,
     "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260415_174358_cffca3bd-9f8e-4544-8e20-6e69fd3fe24e.png?v=1776275118",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260415_174358_cffca3bd-9f8e-4544-8e20-6e69fd3fe24e.png?v=1776275118",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-fracsnap-01.png?v=1789972674"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Title",
@@ -334,283 +1517,44 @@
         ]
       }
     ],
-    "description": "Fractions kids can hold. FracSnap is a magnetic fraction book with 102 color-coded pieces — circles and bars from ½ down to 1/12 — that snap into place so math finally makes visual sense. Kids see that two quarters equal a half by building it, turning the most abstract topic in elementary math into hands-on play. No screens, no apps, no tears. Includes the magnetic book and 102 fraction pieces. Recommended for ages 4–10."
-  },
-  {
-    "id": "toddsiq-best-sellers-10",
-    "title": "ToddsIQ™ NestWood - Full Pack",
-    "price": 49,
-    "compareAtPrice": 69,
-    "ageBand": "1-3",
-    "categories": [
-      "Best Sellers",
-      "Building"
-    ],
-    "rating": 4.8999999999999995,
-    "reviews": 1808,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260206_013551_ff4152e4-a004-4b20-93a1-f0cd1ab36300.jpg?v=1770342496",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/S0f68304fd4a940898ccef91d20b71b9aw.jpg?v=1770342496",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H6883932feffb401ebdecd29256a261b4T.jpg_720x720q50.jpg?v=1770342496",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/H68cc0a1795ba465f9282af28a49c1d46X.jpg_150x150_a241bbe2-5941-48a2-a62c-6cb938c246b9.jpg?v=1770342496"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
+    "variants": [
       {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
+        "id": 53539189784913,
+        "title": "Default Title",
+        "price": 39,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "FRACSNAP",
+        "selectedOptions": []
       }
     ],
-    "description": "Forty-two wooden Tetris-style blocks, one deceptively simple challenge: make them fit. NestWood turns spatial reasoning into hands-on play kids come back to again and again. Start with easy fits and work up through progressive challenges — rotating, flipping and planning until every piece clicks into place. Open-ended, Montessori-inspired and completely screen-free. Includes 42 durable wooden blocks in a rainbow of shapes. A quiet-time favorite for toddlers and preschoolers."
+    "description": "Fractions kids can hold. FracSnap is a magnetic fraction book with 102 color-coded pieces — circles and bars from ½ down to 1/12 — that snap into place so math finally makes visual sense. Kids see that two quarters equal a half by building it, turning the most abstract topic in elementary math into ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this FracSnap™ - Magnetic Visual Math Fraction Tiles! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-11",
-    "title": "ToddsIQ™ Sandlab",
+    "id": "toddsiq-pixelforge",
+    "handle": "toddsiq-pixelforge",
+    "slug": "toddsiq-pixelforge",
+    "title": "ToddsIQ™ PixelForge™ - Magnetic Mosaic Pixel Art Studio",
     "price": 79,
-    "compareAtPrice": 89,
-    "ageBand": "3-5",
-    "categories": [
-      "Best Sellers",
-      "Arts & Crafts"
-    ],
-    "rating": 4.8999999999999995,
-    "reviews": 787,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/32323.png?v=1781187726",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/32323.png?v=1781187726",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/666.png?v=1781187727",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/525.png?v=1781187726",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/766.png?v=1781187726",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/24424.png?v=1781187727",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/3232324.png?v=1781187726"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "description": "The sensory bin that cleans itself up. Sandlab packs moldable sand and glow-in-the-dark stones into a bin that snaps shut in seconds — indoor sand play without the indoor sand problem. Squeezing, shaping and burying treasure builds focus and calm through rich sensory play; the glow stones turn lights-off time into a treasure hunt. Includes the snap-shut bin, moldable sand and glow stones. Recommended for ages 3 and up."
-  },
-  {
-    "id": "toddsiq-best-sellers-12",
-    "title": "ToddsIQ™ Magic Gel",
-    "price": 49,
-    "compareAtPrice": 69,
-    "ageBand": "3-5",
-    "categories": [
-      "Best Sellers",
-      "Arts & Crafts"
-    ],
-    "rating": 4.8999999999999995,
-    "reviews": 1522,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71sVlEzmTvL._AC_SL1500.jpg?v=1770328151",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71sVlEzmTvL._AC_SL1500.jpg?v=1770328151",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magic-gel-02.webp?v=1789972717",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/c33b5d4c-5d7d-4956-9f70-ff62571abbd4_TYTvEX7qcuf.webp?v=1770328151",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71FNbZGWYtL._AC_SL1500.jpg?v=1770328151",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71l3WwxPX0L._AC_SL1500.jpg?v=1770328151",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magic-gel-01.png?v=1789972717"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "description": "Pour, dip, and watch it become a dinosaur. Magic Gel is a water-activated craft kit where liquid color firms up in minutes into squishy 3D creatures kids made themselves. Molding, squeezing and creating builds fine motor skills and patience — with a non-toxic formula and a quick-rinse reset that keeps the mess in the bin, not on the table. The Full Pack includes 30 pieces with molds and precision tips. Recommended for ages 3 and up."
-  },
-  {
-    "id": "toddsiq-best-sellers-13",
-    "title": "ToddsIQ™ SkyPop",
-    "price": 49,
-    "compareAtPrice": 79,
-    "ageBand": "3-5",
-    "categories": [
-      "Best Sellers",
-      "Active"
-    ],
-    "rating": 4.8,
-    "reviews": 797,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260420_184013_b2382585-29be-4a5f-bbe7-8367830af410.png?v=1776710510",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260420_184013_b2382585-29be-4a5f-bbe7-8367830af410.png?v=1776710510",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-skypop-01.png?v=1789972803",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-skypop-02.png?v=1789972803"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "description": "Push the button, flood the yard with bubbles. SkyPop is an outdoor bubble machine on an adjustable tower (28–47 in) with LED lights and music that turns any backyard into a chase scene. Kids run, jump and pop while SkyPop keeps the bubbles coming — USB-C rechargeable with a fillable base, ready for parties, park days and everyday golden hour. Includes the bubble tower machine with fillable base. Recommended for ages 3 and up."
-  },
-  {
-    "id": "toddsiq-best-sellers-14",
-    "title": "ToddsIQ™ Chime",
-    "price": 69,
-    "compareAtPrice": 89,
-    "ageBand": "1-3",
-    "categories": [
-      "Best Sellers",
-      "Sensory"
-    ],
-    "rating": 4.8,
-    "reviews": 209,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/chime1.png?v=1783644821",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/chime1.png?v=1783644821",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/chime2.png?v=1783644821",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-chime-01.png?v=1789972674"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "description": "The toy that calms the room. Chime is a solid-wood marble tree: drop a marble at the top and it cascades down rainbow leaves with a soft, musical ding. Mesmerizing to watch, soothing to hear, and beautiful enough to live on the shelf — no batteries, no volume knob, no screen. A favorite for wind-down time. Includes the solid wood marble tree and its marbles. Recommended for ages 3 and up."
-  },
-  {
-    "id": "toddsiq-best-sellers-15",
-    "title": "ToddsIQ™ BuildBox",
-    "price": 69,
-    "compareAtPrice": 109,
-    "ageBand": "3-5",
-    "categories": [
-      "Best Sellers",
-      "Building"
-    ],
-    "rating": 5,
-    "reviews": 1788,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260414_145227_a646dde6-eb98-42c8-b8ec-d3aa42421096.png?v=1776178450",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260414_145227_a646dde6-eb98-42c8-b8ec-d3aa42421096.png?v=1776178450",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-01.png?v=1789966331",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hippo-all-in-one-tool-hub-diy-montessori-tool-box-set-844844.webp?v=1776181977",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-02.png?v=1789966331",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-05.png?v=1789966331",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-04.png?v=1789966331",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-buildbox-03.png?v=1789966331"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
-      {
-        "name": "Color",
-        "values": [
-          "Blue",
-          "Pink"
-        ]
-      }
-    ],
-    "description": "A real workshop, sized for small hands. BuildBox puts working kid-scale tools — drill, wrench, bolts — into little builders' hands and lets them actually build. Projects come together, come apart and become something new, while the toolbox itself converts into a workbench and seat. No apps, no batteries — just proud little builders. Includes the tool set, bolts and the convertible toolbox workbench. Recommended for ages 3 and up."
-  },
-  {
-    "id": "toddsiq-best-sellers-16",
-    "title": "ToddsIQ™ Lizard - Play Pack",
-    "price": 49,
-    "compareAtPrice": 69,
-    "ageBand": "3-5",
-    "categories": [
-      "Best Sellers",
-      "Active"
-    ],
-    "rating": 4.8,
-    "reviews": 1151,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_210519_3e1e6e80-3e39-4a0c-aeaa-9e7535653890_1.png?v=1770328116",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_210519_3e1e6e80-3e39-4a0c-aeaa-9e7535653890_1.png?v=1770328116",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/3.webp?v=1770328116",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-lizard-play-pack-01.png?v=1789972717",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/5_f952ba13-1823-4c80-a598-5966f8853dd2.webp?v=1770328116",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/gif-1-optimize.webp?v=1770328116",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/gif-2-optimize.webp?v=1770328116"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "description": "It climbs the wall. Actually climbs the wall. The ToddsIQ Lizard is a remote-control gecko that scurries up walls, windows and ceilings — and sends kids running after it. Easy controls sized for small hands make it a first RC toy kids master fast, trading couch time for laps around the living room. USB rechargeable, so the chase never waits on batteries. Includes the wall-climbing gecko and its remote control; charges over USB. Recommended for ages 3 and up."
-  },
-  {
-    "id": "toddsiq-best-sellers-17",
-    "title": "ToddsIQ™ Magic Art - Full Pack",
-    "price": 69,
-    "compareAtPrice": 99,
-    "ageBand": "3-5",
-    "categories": [
-      "Best Sellers",
-      "Arts & Crafts"
-    ],
-    "rating": 4.8,
-    "reviews": 1066,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/GUEST_bf30f02f-0791-4dd8-bb23-28c8268b2370.webp?v=1744071080",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/GUEST_bf30f02f-0791-4dd8-bb23-28c8268b2370.webp?v=1744071080",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/5ab98f16-6076-4978-b0f7-e69bef8fb96e.36d66c759adf0f4b708563ea9c2ab6a8_b4ac8193-9d55-46a2-a94d-075a4c2a8efa.webp?v=1744071110",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-wonder-magic-art-full-pack-01.png?v=1789972889"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "description": "All the painting, none of the mess. Magic Art pairs special reactive paper with an interactive brush, so color appears only on the page — never on hands, walls or the sofa. Kids color and paint independently at home or on the road while parents skip the cleanup. Every finished sheet builds creativity, focus and pride, completely screen-free. The Full Pack includes the Magic Art brush and special no-mess paper. Great for ages 3 and up — and it pairs with the 50-sheet refill pack for marathon little artists."
-  },
-  {
-    "id": "toddsiq-best-sellers-18",
-    "title": "ToddsIQ™ PixelForge",
-    "price": 79,
-    "compareAtPrice": 119,
+    "compareAtPrice": 129,
     "ageBand": "5+",
     "categories": [
       "Best Sellers",
-      "Arts & Crafts"
+      "Arts & Crafts",
+      "Building",
+      "Big Kids"
     ],
-    "rating": 4.8999999999999995,
-    "reviews": 275,
+    "badge": "SAVE 39%",
+    "rating": 4.8,
+    "reviews": 102,
     "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/eae18afe977e49d486a9d8a4d90d795b.jpg?v=1778598373",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/eae18afe977e49d486a9d8a4d90d795b.jpg?v=1778598373",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-pixelforge-01.png?v=1789972758",
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-pixelforge-02.png?v=1789972758"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
     "options": [
       {
         "name": "Title",
@@ -619,29 +1563,112 @@
         ]
       }
     ],
-    "description": "Pixel art, made of wood and magnets. PixelForge gives kids 288 magnetic pieces and a display board to snap together pictures, patterns and scenes — one satisfying click at a time. A 162-page book with 280+ designs offers endless projects to copy or remix, building concentration, fine motor precision and creative confidence along the way. Includes 288 magnetic wooden pieces, the display board and the design book. Recommended for ages 3 and up."
+    "variants": [
+      {
+        "id": 53756898312529,
+        "title": "Default Title",
+        "price": 79,
+        "compareAtPrice": 119,
+        "availableForSale": true,
+        "sku": "PIXELFORGE",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Pixel art, made of wood and magnets. PixelForge gives kids 288 magnetic pieces and a display board to snap together pictures, patterns and scenes — one satisfying click at a time. A 162-page book with 280+ designs offers endless projects to copy or remix, building concentration, fine motor precision...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this PixelForge™ - Magnetic Mosaic Pixel Art Studio! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-best-sellers-19",
-    "title": "ToddsIQ™ ShapeCrew",
-    "price": 49,
-    "compareAtPrice": 79,
-    "ageBand": "3-5",
+    "id": "toddsiq-blitz",
+    "handle": "toddsiq-blitz",
+    "slug": "toddsiq-blitz",
+    "title": "ToddsIQ™ Blitz™ - Light-Speed Electronic Reaction Game",
+    "price": 29,
+    "compareAtPrice": 49,
+    "ageBand": "5+",
     "categories": [
       "Best Sellers",
-      "Math"
+      "Sensory",
+      "Big Kids"
     ],
-    "rating": 5,
-    "reviews": 1418,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ChatGPTImageMay12_2026_10_52_50AM.png?v=1778597596",
+    "badge": "SAVE 41%",
+    "rating": 4.8,
+    "reviews": 219,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_180411_74154205-a821-4f73-b05b-fb9bc598ab52.png?v=1788466992",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ChatGPTImageMay12_2026_10_52_50AM.png?v=1778597596",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/ChatGPTImageMay12_2026_10_55_45AM.png?v=1778597763",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-shapecrew-01.png?v=1789972780",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-shapecrew-02.png?v=1789972780"
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_180411_74154205-a821-4f73-b05b-fb9bc598ab52.png?v=1788466992",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_201624_66a74ef6-c169-43f4-8f28-b4aeb44629fd.png?v=1788466992",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_201716_85a3c089-fc69-459c-be27-aa83e122c355.png?v=1788466992",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_201845_4f9a04a0-8134-44ee-90b4-3a7263d29ddd.png?v=1788466992"
     ],
+    "options": [
+      {
+        "name": "Character",
+        "values": [
+          "Blue Cat",
+          "Pink Rabbit",
+          "Yellow Deer"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54787851649361,
+        "title": "Blue Cat",
+        "price": 29,
+        "compareAtPrice": 49,
+        "availableForSale": true,
+        "sku": "BLITZ-CAT",
+        "selectedOptions": []
+      },
+      {
+        "id": 54787851682129,
+        "title": "Pink Rabbit",
+        "price": 29,
+        "compareAtPrice": 49,
+        "availableForSale": true,
+        "sku": "BLITZ-RABBIT",
+        "selectedOptions": []
+      },
+      {
+        "id": 54787851714897,
+        "title": "Yellow Deer",
+        "price": 29,
+        "compareAtPrice": 49,
+        "availableForSale": true,
+        "sku": "BLITZ-DEER",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Bubbles light up at random and your child has to press them down before the timer runs out. Clear the round, flip it over, push the raised cover on the back, and the next level starts faster than the last one. Hit the mode switch and the game changes completely. Now the lights show a pattern and the...",
     "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My child absolutely loves this! - Parent",
+    "testimony": "Verified Parent Review: My kids love this Blitz™ - Light-Speed Electronic Reaction Game! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-spiderracer-duo",
+    "handle": "toddsiq-spiderracer-duo",
+    "slug": "toddsiq-spiderracer-duo",
+    "title": "ToddsIQ™ SpiderRacer Duo™ - Anti-Gravity Wall Climbing Cars",
+    "price": 39,
+    "compareAtPrice": 69,
+    "ageBand": "5+",
+    "categories": [
+      "Best Sellers",
+      "Active",
+      "Big Kids"
+    ],
+    "badge": "SAVE 43%",
+    "rating": 4.7,
+    "reviews": 84,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81k92-9bmoL._AC_SL1500.jpg?v=1762877721",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81k92-9bmoL._AC_SL1500.jpg?v=1762877721",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71TNv0vPlGL._AC_SL1500.jpg?v=1762877721",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/7192LCaAaVL._AC_SL1500.jpg?v=1762877721",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81bBA66on1L._AC_SL1500.jpg?v=1762877721",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81AiE3Ad_EL._AC_SL1500.jpg?v=1762877721",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81Os5dilyqL._AC_SL1500.jpg?v=1762877721"
+    ],
     "options": [
       {
         "name": "Title",
@@ -650,426 +1677,308 @@
         ]
       }
     ],
-    "description": "One hundred twenty shapes, endless pictures. ShapeCrew is a wooden pattern puzzle where kids rebuild colorful designs — or invent their own — on a wooden frame board. Following the pattern cards trains shape recognition, spatial reasoning and focus; free-building trains imagination. Both happen without a screen in sight. Includes 120 wooden shapes, 40 pattern cards and the frame board. Recommended for ages 3 and up."
+    "variants": [
+      {
+        "id": 52326616203601,
+        "title": "Default Title",
+        "price": 39,
+        "compareAtPrice": 99,
+        "availableForSale": true,
+        "sku": "SPIDER",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Two cars. Two remotes. One living-room championship. SpiderRacer Duo is a pair of remote-control stunt cars built for head-to-head racing. Flips, spins and gravity-defying tricks keep siblings and friends competing lap after lap — active play that gets kids off the couch and into the race, with easy...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this SpiderRacer Duo™ - Anti-Gravity Wall Climbing Cars! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-toddler-0",
-    "title": "ToddsIQ™ Lingo",
-    "price": 83.99,
-    "compareAtPrice": 143.99,
-    "ageBand": "1-3",
+    "id": "toddsiq-spell-play-full-pack",
+    "handle": "toddsiq-spell-play-full-pack",
+    "slug": "toddsiq-spell-play-full-pack",
+    "title": "ToddsIQ™ Spell & Play - Full Pack™",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "5+",
     "categories": [
-      "Toddler",
-      "STEM & Learning"
+      "Best Sellers",
+      "Reading",
+      "Big Kids"
     ],
-    "rating": 4.5,
-    "reviews": 1107,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844",
+    "badge": "SAVE 38%",
+    "rating": 4.8,
+    "reviews": 95,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/4b82b018714ced61d37c2351159044fc775b38f9-700.avif?v=1755040801",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/Screenshot2026-09-18at9.44.48AM.png?v=1789739103",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471"
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/4b82b018714ced61d37c2351159044fc775b38f9-700.avif?v=1755040801",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/711jOjM791L._AC_SL1500.jpg?v=1755125015",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/037e9faffc115f792d7c4dfef0e7e6efbbd284bc-600.avif?v=1755125015",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/086c62f1f87521e154981df9f103c798c139ec6c-600.avif?v=1755125015",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/bd341798d9cbaa11ebafcda16152f8449fb77bbe-600.avif?v=1755125015",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/fa757b313d829f159256c3625e9e9ea41e0e83f2.avif?v=1755125015",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/71UerS3HIWL._AC_SL1500.jpg?v=1755125015",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/616Uk1TMEvL._AC_SL1500.jpg?v=1755125015",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/61TE5MbU88L._AC_SL1500.jpg?v=1755125015"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Worth every penny. We use it every single day for learning time. - Amanda R.",
     "options": [
       {
-        "name": "Edition",
+        "name": "Version",
         "values": [
-          "Standard",
-          "Deluxe Pack"
+          "Alphabet",
+          "Numeric"
         ]
       }
     ],
-    "description": "The ToddsIQ Lingo™ is designed specifically for 1-3 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-toddler-1",
-    "title": "ToddsIQ™ Run",
-    "price": 119.99,
-    "compareAtPrice": 167.99,
-    "ageBand": "1-3",
-    "categories": [
-      "Toddler",
-      "STEM & Learning"
-    ],
-    "rating": 4.7,
-    "reviews": 1369,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay1.png?v=1790182797",
-    "images": [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDWDLjOZUb6gQTYJmMKEFbQmMYVa2fjTz5qF7LEC_h4kuwdOzozt-eoe2Q6qx5NFNvc6_eQZN5cpa44kMOGVP4CRlAJztommG6sA5FzAC4EzcCyCWvXW4-uzhlOxAiVZC8oUsBjfb80iln4WqF-aR9Dh2XAj3QrbA60i5En8VI-88QW2PARaPyq5mJhNWjca1KPmVXVHPW4YOc7HBq1Rf8afKgcJ8V756tshNvl5dGez4ooS9wMZlGhoA",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Absolutely incredible! My kids haven't touched their iPads in a week. They love it! - Sarah M.",
-    "options": [
+    "variants": [
       {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
+        "id": 51718567690577,
+        "title": "Alphabet",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "SPELLPLAY-ALPHABET",
+        "selectedOptions": []
+      },
+      {
+        "id": 51718567723345,
+        "title": "Numeric",
+        "price": 49,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "SPELLPLAY-NUMERIC",
+        "selectedOptions": []
       }
     ],
-    "description": "The ToddsIQ Run™ is designed specifically for 1-3 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-toddler-2",
-    "title": "ToddsIQ™ Chime",
-    "price": 64.99,
-    "compareAtPrice": 147.99,
-    "ageBand": "1-3",
-    "categories": [
-      "Toddler",
-      "STEM & Learning"
-    ],
-    "rating": 4.7,
-    "reviews": 1909,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802",
-    "images": [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDWDLjOZUb6gQTYJmMKEFbQmMYVa2fjTz5qF7LEC_h4kuwdOzozt-eoe2Q6qx5NFNvc6_eQZN5cpa44kMOGVP4CRlAJztommG6sA5FzAC4EzcCyCWvXW4-uzhlOxAiVZC8oUsBjfb80iln4WqF-aR9Dh2XAj3QrbA60i5En8VI-88QW2PARaPyq5mJhNWjca1KPmVXVHPW4YOc7HBq1Rf8afKgcJ8V756tshNvl5dGez4ooS9wMZlGhoA",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844"
-    ],
+    "description": "The moment letters stop being abstract: kids build real words with their own hands. Spell &amp; Play turns spelling practice into a game young readers actually ask to play. Pick a word, find the letters, snap them into place — each round builds letter recognition, phonics and early reading confidenc...",
     "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "My 4-year-old was able to figure this out so quickly. So intuitive! - David K.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ Chime™ is designed specifically for 1-3 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
+    "testimony": "Verified Parent Review: My kids love this Spell & Play - Full Pack™! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-toddler-3",
-    "title": "ToddsIQ™ Chime",
-    "price": 39.99,
-    "compareAtPrice": 158.99,
-    "ageBand": "1-3",
+    "id": "toddsiq-apex",
+    "handle": "toddsiq-apex",
+    "slug": "toddsiq-apex",
+    "title": "ToddsIQ™ Apex™ - Motorized Mist-Breathing Dragon",
+    "price": 69,
+    "compareAtPrice": 119,
+    "ageBand": "5+",
     "categories": [
-      "Toddler",
-      "STEM & Learning"
+      "Best Sellers",
+      "Active",
+      "Building",
+      "Big Kids"
     ],
-    "rating": 4.7,
-    "reviews": 176,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/Screenshot2026-09-18at9.44.48AM.png?v=1789739103",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/Screenshot2026-09-18at9.44.48AM.png?v=1789739103",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Worth every penny. We use it every single day for learning time. - Amanda R.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ Chime™ is designed specifically for 1-3 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-toddler-4",
-    "title": "ToddsIQ™ Lingo",
-    "price": 52.99,
-    "compareAtPrice": 142.99,
-    "ageBand": "1-3",
-    "categories": [
-      "Toddler",
-      "STEM & Learning"
-    ],
+    "badge": "SAVE 42%",
     "rating": 4.9,
-    "reviews": 1430,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157",
+    "reviews": 118,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_202033_b54d8bcc-af19-4560-b794-18f815dff7ec.png?v=1788467392",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844"
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_202033_b54d8bcc-af19-4560-b794-18f815dff7ec.png?v=1788467392",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_202100_0c5155c2-d5ca-45a0-8b3f-6afef96a0e46.png?v=1788467392",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_202100_069edaf8-2376-413f-b28f-f779e555740f.png?v=1788467393",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_202719_497b5a7c-cfc9-459d-82ac-cda52481f386.png?v=1788467407",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260903_203125_13f6c31f-7158-4cd8-96b8-e80ce3da4919.png?v=1788467665"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "The build quality is fantastic, and it actually teaches them useful skills. Highly recommend. - James T.",
     "options": [
       {
-        "name": "Edition",
+        "name": "Title",
         "values": [
-          "Standard",
-          "Deluxe Pack"
+          "Default Title"
         ]
       }
     ],
-    "description": "The ToddsIQ Lingo™ is designed specifically for 1-3 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
+    "variants": [
+      {
+        "id": 54787680731473,
+        "title": "Default Title",
+        "price": 69,
+        "compareAtPrice": 119,
+        "availableForSale": true,
+        "sku": "APEX",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Press one button and a T-Rex walks out across the floor, head swinging and claws reaching, roaring loud enough to make the dog leave the room. Press another and a cloud of cool mist rolls out of it while seven LED colors light that cloud up red, then blue, then green. Apex walks forward, turns where...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Apex™ - Motorized Mist-Breathing Dragon! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-preschool-0",
-    "title": "ToddsIQ™ Squishy",
-    "price": 57.99,
-    "compareAtPrice": 142.99,
-    "ageBand": "3-5",
+    "id": "toddsiq-readladder",
+    "handle": "toddsiq-readladder",
+    "slug": "toddsiq-readladder",
+    "title": "ToddsIQ™ ReadLadder™ - Leveled Phonics Master Flip Board",
+    "price": 49,
+    "compareAtPrice": 79,
+    "ageBand": "5+",
     "categories": [
-      "Preschool",
-      "STEM & Learning"
+      "Best Sellers",
+      "Reading",
+      "Big Kids"
     ],
-    "rating": 4.7,
-    "reviews": 1878,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802",
+    "badge": "SAVE 38%",
+    "rating": 4.8,
+    "reviews": 76,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-readladder-01.png?v=1789972780",
     "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/Screenshot2026-09-18at9.44.48AM.png?v=1789739103",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471"
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-readladder-01.png?v=1789972780",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-readladder-02.png?v=1789972780"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "My 4-year-old was able to figure this out so quickly. So intuitive! - David K.",
     "options": [
       {
-        "name": "Edition",
+        "name": "Title",
         "values": [
-          "Standard",
-          "Deluxe Pack"
+          "Default Title"
         ]
       }
     ],
-    "description": "The ToddsIQ Squishy™ is designed specifically for 3-5 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
+    "variants": [
+      {
+        "id": 54153919988049,
+        "title": "Default Title",
+        "price": 49,
+        "compareAtPrice": 79,
+        "availableForSale": true,
+        "sku": "READLADDER",
+        "selectedOptions": []
+      }
+    ],
+    "description": "From first sounds to full sentences, one rung at a time. ReadLadder is a teacher-made set of learn-to-read cards organized into 20 leveled stages. Kids climb at their own pace — mastering sounds, then words, then sentences — with wins frequent enough to keep confidence high and eye-rolls low. Screen...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this ReadLadder™ - Leveled Phonics Master Flip Board! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-preschool-1",
-    "title": "ToddsIQ™ Pippo",
-    "price": 67.99,
-    "compareAtPrice": 139.99,
-    "ageBand": "3-5",
+    "id": "toddsiq-100-000-whys",
+    "handle": "toddsiq-100-000-whys",
+    "slug": "toddsiq-100-000-whys",
+    "title": "ToddsIQ™ 100,000 Whys™ - Science Encyclopedia Question Lab",
+    "price": 39,
+    "compareAtPrice": 69,
+    "ageBand": "5+",
     "categories": [
-      "Preschool",
-      "STEM & Learning"
+      "Best Sellers",
+      "Reading",
+      "Big Kids"
     ],
+    "badge": "SAVE 43%",
+    "rating": 4.9,
+    "reviews": 142,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-100-000-whys-01.png?v=1789972606",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-100-000-whys-01.png?v=1789972606",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-100-000-whys-02.png?v=1789972606"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54095204876625,
+        "title": "Default Title",
+        "price": 39,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "BOOK100WHY",
+        "selectedOptions": []
+      }
+    ],
+    "description": "For the kid who asks \"why\" 400 times a day — finally, a book that keeps up. 100,000 Whys answers the questions kids actually ask across 6 science themes: astronomy, geography, technology, plants, animals and the human body. Comic illustrations on every page turn complex ideas into pictures kids read...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this 100,000 Whys™ - Science Encyclopedia Question Lab! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-vortex",
+    "handle": "toddsiq-vortex",
+    "slug": "toddsiq-vortex",
+    "title": "ToddsIQ™ Vortex™ - Kinetic Fluid Sensory Chamber",
+    "price": 39,
+    "compareAtPrice": 69,
+    "ageBand": "5+",
+    "categories": [
+      "Best Sellers",
+      "Sensory",
+      "Big Kids"
+    ],
+    "badge": "SAVE 43%",
     "rating": 4.7,
-    "reviews": 1998,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802",
+    "reviews": 63,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-02.png?v=1789972862",
+    "images": [
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-02.png?v=1789972862",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-03.png?v=1789972889",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-01.png?v=1789972862"
+    ],
+    "options": [
+      {
+        "name": "Title",
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "variants": [
+      {
+        "id": 54812022735185,
+        "title": "Default Title",
+        "price": 39,
+        "compareAtPrice": 69,
+        "availableForSale": true,
+        "sku": "VORTEX",
+        "selectedOptions": []
+      }
+    ],
+    "description": "Lay the rope in a circle on any table. Split the pieces, ten each. Take turns dropping one inside the circle, and if yours snaps onto pieces already sitting there, you pick all of them up and add them to your pile. First player to run out wins. That is the entire game, and you just learned it. Most ...",
+    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    "testimony": "Verified Parent Review: My kids love this Vortex™ - Kinetic Fluid Sensory Chamber! Definitely a screen-free winner. - Sarah M."
+  },
+  {
+    "id": "toddsiq-squishy-advent",
+    "handle": "toddsiq-squishy-advent",
+    "slug": "toddsiq-squishy-advent",
+    "title": "ToddsIQ™ Squishy Advent™ - Sensory Character Discovery Box",
+    "price": 29,
+    "compareAtPrice": 49,
+    "ageBand": "5+",
+    "categories": [
+      "Best Sellers",
+      "Sensory",
+      "Big Kids"
+    ],
+    "badge": "SAVE 41%",
+    "rating": 4.8,
+    "reviews": 88,
+    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844",
     "images": [
       "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/Screenshot2026-09-18at9.44.48AM.png?v=1789739103"
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260913_141724_1654ce8b-ef0b-45cc-85ca-bd9469763a5a.png?v=1789310683",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260913_141758_21869145-6586-4f1c-9d16-e413e74385e5.png?v=1789310683",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260913_142941_44f1bfff-1106-4d76-ae54-a7b82be4fd8d.png?v=1789310683",
+      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260913_143016_d87c68c4-8793-48e8-9084-6359c3cf0272.png?v=1789310683"
     ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Worth every penny. We use it every single day for learning time. - Amanda R.",
     "options": [
       {
-        "name": "Edition",
+        "name": "Title",
         "values": [
-          "Standard",
-          "Deluxe Pack"
+          "Default Title"
         ]
       }
     ],
-    "description": "The ToddsIQ Pippo™ is designed specifically for 3-5 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-preschool-2",
-    "title": "ToddsIQ™ CodeMaster",
-    "price": 40.99,
-    "compareAtPrice": 131.99,
-    "ageBand": "3-5",
-    "categories": [
-      "Preschool",
-      "STEM & Learning"
-    ],
-    "rating": 4.5,
-    "reviews": 187,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay1.png?v=1790182797"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Finally a toy that challenges them without frustrating them. - Elena P.",
-    "options": [
+    "variants": [
       {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
+        "id": 54915492151633,
+        "title": "Default Title",
+        "price": 29,
+        "compareAtPrice": 49,
+        "availableForSale": true,
+        "sku": "SQUISHY-ADVENT",
+        "selectedOptions": []
       }
     ],
-    "description": "The ToddsIQ CodeMaster™ is designed specifically for 3-5 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-preschool-3",
-    "title": "ToddsIQ™ DrawBot",
-    "price": 72.99,
-    "compareAtPrice": 154.99,
-    "ageBand": "3-8",
-    "categories": [
-      "Preschool",
-      "STEM & Learning"
-    ],
-    "rating": 4.5,
-    "reviews": 300,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay1.png?v=1790182797"
-    ],
+    "description": "Starting the first of December, your child opens one numbered door before school and pulls out a soft little dumpling character in a Santa hat or a set of antlers. A chocolate calendar is gone thirty seconds after the door opens, and by the tenth it is just sugar on an empty stomach. This one leaves...",
     "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Absolutely incredible! My kids haven't touched their iPads in a week. They love it! - Sarah M.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ DrawBot™ is designed specifically for 3-5 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-preschool-4",
-    "title": "ToddsIQ™ Lingo",
-    "price": 54.99,
-    "compareAtPrice": 139.99,
-    "ageBand": "3-5",
-    "categories": [
-      "Preschool",
-      "STEM & Learning"
-    ],
-    "rating": 4.5,
-    "reviews": 1852,
-    "thumbnail": "https://lh3.googleusercontent.com/aida-public/AB6AXuDWDLjOZUb6gQTYJmMKEFbQmMYVa2fjTz5qF7LEC_h4kuwdOzozt-eoe2Q6qx5NFNvc6_eQZN5cpa44kMOGVP4CRlAJztommG6sA5FzAC4EzcCyCWvXW4-uzhlOxAiVZC8oUsBjfb80iln4WqF-aR9Dh2XAj3QrbA60i5En8VI-88QW2PARaPyq5mJhNWjca1KPmVXVHPW4YOc7HBq1Rf8afKgcJ8V756tshNvl5dGez4ooS9wMZlGhoA",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/Screenshot2026-09-18at9.44.48AM.png?v=1789739103"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Absolutely incredible! My kids haven't touched their iPads in a week. They love it! - Sarah M.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ Lingo™ is designed specifically for 3-5 to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-big-kids-0",
-    "title": "ToddsIQ™ Blitz",
-    "price": 47.99,
-    "compareAtPrice": 156.99,
-    "ageBand": "5+",
-    "categories": [
-      "Big Kids",
-      "STEM & Learning"
-    ],
-    "rating": 4.9,
-    "reviews": 1473,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/81C9-rNwEBL._AC_SL1500.avif?v=1789240802"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "The build quality is fantastic, and it actually teaches them useful skills. Highly recommend. - James T.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ Blitz™ is designed specifically for 5+ to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-big-kids-1",
-    "title": "ToddsIQ™ Chime",
-    "price": 114.99,
-    "compareAtPrice": 153.99,
-    "ageBand": "5+",
-    "categories": [
-      "Big Kids",
-      "STEM & Learning"
-    ],
-    "rating": 4.7,
-    "reviews": 1651,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/a0ce02a2989848088175136d47c86f3b.jpg?v=1762029471",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Finally a toy that challenges them without frustrating them. - Elena P.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ Chime™ is designed specifically for 5+ to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-big-kids-2",
-    "title": "ToddsIQ™ Chime",
-    "price": 58.99,
-    "compareAtPrice": 161.99,
-    "ageBand": "5+",
-    "categories": [
-      "Big Kids",
-      "STEM & Learning"
-    ],
-    "rating": 4.8,
-    "reviews": 1955,
-    "thumbnail": "https://lh3.googleusercontent.com/aida-public/AB6AXuDWDLjOZUb6gQTYJmMKEFbQmMYVa2fjTz5qF7LEC_h4kuwdOzozt-eoe2Q6qx5NFNvc6_eQZN5cpa44kMOGVP4CRlAJztommG6sA5FzAC4EzcCyCWvXW4-uzhlOxAiVZC8oUsBjfb80iln4WqF-aR9Dh2XAj3QrbA60i5En8VI-88QW2PARaPyq5mJhNWjca1KPmVXVHPW4YOc7HBq1Rf8afKgcJ8V756tshNvl5dGez4ooS9wMZlGhoA",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay1.png?v=1790182797",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-squishy-advent-01.png?v=1789972844"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "My 4-year-old was able to figure this out so quickly. So intuitive! - David K.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ Chime™ is designed specifically for 5+ to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
-  },
-  {
-    "id": "toddsiq-big-kids-3",
-    "title": "ToddsIQ™ Squishy",
-    "price": 108.99,
-    "compareAtPrice": 140.99,
-    "ageBand": "5+",
-    "categories": [
-      "Big Kids",
-      "STEM & Learning"
-    ],
-    "rating": 4.6,
-    "reviews": 1902,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/relay1.png?v=1790182797",
-    "images": [
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDWDLjOZUb6gQTYJmMKEFbQmMYVa2fjTz5qF7LEC_h4kuwdOzozt-eoe2Q6qx5NFNvc6_eQZN5cpa44kMOGVP4CRlAJztommG6sA5FzAC4EzcCyCWvXW4-uzhlOxAiVZC8oUsBjfb80iln4WqF-aR9Dh2XAj3QrbA60i5En8VI-88QW2PARaPyq5mJhNWjca1KPmVXVHPW4YOc7HBq1Rf8afKgcJ8V756tshNvl5dGez4ooS9wMZlGhoA",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/hf_20260205_215043_23e2763a-851d-4d12-9455-1dd47e177044.jpg?v=1770329157"
-    ],
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "My 4-year-old was able to figure this out so quickly. So intuitive! - David K.",
-    "options": [
-      {
-        "name": "Edition",
-        "values": [
-          "Standard",
-          "Deluxe Pack"
-        ]
-      }
-    ],
-    "description": "The ToddsIQ Squishy™ is designed specifically for 5+ to promote screen-free learning, spatial reasoning, and critical thinking. Made with premium, child-safe materials."
+    "testimony": "Verified Parent Review: My kids love this Squishy Advent™ - Sensory Character Discovery Box! Definitely a screen-free winner. - Sarah M."
   }
 ]
