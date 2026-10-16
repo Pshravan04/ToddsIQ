@@ -113,6 +113,7 @@ export function normalizeProduct(shopifyProduct) {
     // Keep local ID mapping temporarily or use handle so routing works seamlessly
     id: localProduct.id || shopifyProduct.handle, 
     handle: shopifyProduct.handle,
+    slug: shopifyProduct.handle,
     shopifyId: shopifyProduct.id,
     title: shopifyProduct.title || localProduct.title || 'Unknown Product',
     description: shopifyProduct.description || (shopifyProduct.descriptionHtml ? shopifyProduct.descriptionHtml.replace(/<[^>]+>/g, '') : '') || localProduct.description || '',
@@ -163,23 +164,48 @@ export async function getProducts(first = 250, query = '') {
 }
 
 export async function getProductByHandle(handle) {
+  if (!handle) return null;
+  const localFallback = localProducts.find(p => p.id === handle || p.handle === handle || p.slug === handle);
+
   try {
-    // Check if the passed handle is actually a local ID like 'toddsiq-best-sellers-1'
-    const localFallback = localProducts.find(p => p.id === handle);
-    const shopifyHandle = localFallback ? (localFallback.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')) : handle;
-    
-    const data = await shopifyFetch({
+    // 1. Direct handle fetch (e.g. 'drawing-robot', 'toddsiq-shapecrew')
+    let data = await shopifyFetch({
       query: GET_PRODUCT_BY_HANDLE_QUERY,
-      variables: { handle: shopifyHandle }
+      variables: { handle }
     });
     
-    if (data.product) {
+    if (data?.product) {
       return normalizeProduct(data.product);
+    }
+
+    // 2. Try with or without 'toddsiq-' prefix
+    const altHandle = handle.startsWith('toddsiq-') 
+      ? handle.replace(/^toddsiq-/, '') 
+      : `toddsiq-${handle}`;
+
+    data = await shopifyFetch({
+      query: GET_PRODUCT_BY_HANDLE_QUERY,
+      variables: { handle: altHandle }
+    });
+
+    if (data?.product) {
+      return normalizeProduct(data.product);
+    }
+
+    // 3. Try local fallback's explicit handle if distinct
+    if (localFallback?.handle && localFallback.handle !== handle && localFallback.handle !== altHandle) {
+      data = await shopifyFetch({
+        query: GET_PRODUCT_BY_HANDLE_QUERY,
+        variables: { handle: localFallback.handle }
+      });
+      if (data?.product) {
+        return normalizeProduct(data.product);
+      }
     }
     
     return localFallback || null;
   } catch (error) {
     console.error("Error fetching product by handle:", error);
-    return localProducts.find(p => p.id === handle) || null;
+    return localFallback || null;
   }
 }

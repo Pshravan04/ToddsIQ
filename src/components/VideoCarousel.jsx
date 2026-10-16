@@ -19,7 +19,7 @@ const VIDEOS = [
       title: 'ToddsIQ™ Drawing Robot',
       price: 89.99,
       comparePrice: 129.00,
-      image: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1d67404e-bcf6-477f-89f0-cc61486c88f4.png',
+      image: 'https://cdn.shopify.com/s/files/1/0639/3875/6670/files/71cxQAHzeML._AC_SL1500.jpg?v=1761627481',
       handle: 'drawing-robot'
     }
   },
@@ -31,7 +31,7 @@ const VIDEOS = [
       title: 'ToddsIQ™ Drawing Robot – Blue',
       price: 89.99,
       comparePrice: 129.00,
-      image: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1d67404e-bcf6-477f-89f0-cc61486c88f4.png',
+      image: 'https://cdn.shopify.com/s/files/1/0639/3875/6670/files/71bV7xigvKL._AC_SL1500.jpg?v=1761721142',
       handle: 'drawing-robot'
     }
   },
@@ -43,7 +43,7 @@ const VIDEOS = [
       title: 'ToddsIQ™ 3D Stem Magic Track',
       price: 39.99,
       comparePrice: 60.00,
-      image: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1bfa1d9607ebc5ba45d4715da991f891.jpg',
+      image: 'https://cdn.shopify.com/s/files/1/0639/3875/6670/files/Train_51_PCS.png?v=1776607522',
       handle: '3dmagictracktrainset'
     }
   },
@@ -55,7 +55,7 @@ const VIDEOS = [
       title: 'ToddsIQ™ Drawing Robot',
       price: 89.99,
       comparePrice: 129.00,
-      image: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/1d67404e-bcf6-477f-89f0-cc61486c88f4.png',
+      image: 'https://cdn.shopify.com/s/files/1/0639/3875/6670/files/71cxQAHzeML._AC_SL1500.jpg?v=1761627481',
       handle: 'drawing-robot'
     }
   },
@@ -67,7 +67,7 @@ const VIDEOS = [
       title: 'ToddsIQ™ MagTrack™ Kinetic Set',
       price: 49.99,
       comparePrice: 79.99,
-      image: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/67277884ffae9d67566115993a466c40.jpg',
+      image: 'https://cdn.shopify.com/s/files/1/0639/3875/6670/files/MagTrack.webp?v=1791789141',
       handle: 'toddsiq-magtrack'
     }
   },
@@ -79,7 +79,7 @@ const VIDEOS = [
       title: 'ToddsIQ™ NestWood™ Montessori Set',
       price: 44.99,
       comparePrice: 65.00,
-      image: 'https://cdn.shopify.com/s/files/1/0916/9852/8593/files/94f72877a561e1b2eec07cbcf6e0ad52.jpg',
+      image: 'https://cdn.shopify.com/s/files/1/0639/3875/6670/files/thoson-wonder-nestwood-full-pack-01.png?v=1791789230',
       handle: 'toddsiq-nestwood-full-pack'
     }
   }

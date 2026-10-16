@@ -80,7 +80,7 @@ export default function Contact() {
             </div>
             <div className="w-full md:w-1/2">
               <div className="rounded-3xl border-2 border-ink shadow-[6px_6px_0px_#1E2A38] overflow-hidden bg-[#FFF8E7] relative aspect-[4/3] w-full max-w-lg mx-auto">
-                <img src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/863e6c75-e3eb-4fb9-b1f8-edccf374bcbf_70548431-7df3-42d2-bc62-5ba682dceb57.png?v=1775435140" alt="ToddsIQ Help" className="w-full h-full object-cover mix-blend-multiply" />
+                <img src="https://cdn.shopify.com/s/files/1/0639/3875/6670/files/863e6c75-e3eb-4fb9-b1f8-edccf374bcbf_70548431-7df3-42d2-bc62-5ba682dceb57.png?v=1791789143" alt="ToddsIQ Help" className="w-full h-full object-cover mix-blend-multiply" />
                 <div className="absolute top-4 right-4 bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm uppercase tracking-wider px-3 py-1 rounded-full border border-ink shadow-[2px_2px_0px_#1E2A38] font-bold">
                   LET'S TALK
                 </div>

@@ -1,12 +1,15 @@
 import { createStorefrontApiClient } from '@shopify/storefront-api-client';
 
-const domain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN;
-const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN;
+const DEFAULT_DOMAIN = '065gcz-yy.myshopify.com';
+const DEFAULT_STOREFRONT_TOKEN = '675b99db3c74a099fc84d340717a25dc';
+
+const domain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN || DEFAULT_DOMAIN;
+const storefrontAccessToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || DEFAULT_STOREFRONT_TOKEN;
 const apiVersion = import.meta.env.VITE_SHOPIFY_STOREFRONT_API_VERSION || '2026-07';
 
 // Ensure we have a valid domain format for the client
 // The client expects something like 'https://toddsiq.myshopify.com'
-const storeDomain = domain ? (domain.startsWith('http') ? domain : `https://${domain}`) : '';
+const storeDomain = domain ? (domain.startsWith('http') ? domain : `https://${domain}`) : `https://${DEFAULT_DOMAIN}`;
 
 let client = null;
 

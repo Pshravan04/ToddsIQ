@@ -36,7 +36,7 @@ export default function About() {
           </div>
           <div className="w-full md:w-1/2">
              <div className="rounded-3xl border-2 border-ink shadow-[6px_6px_0px_#1E2A38] overflow-hidden bg-[#F4F1EA]-lowest relative aspect-[4/3] w-full">
-               <img src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546" alt="ToddsIQ Hands-on Play" className="w-full h-full object-cover mix-blend-multiply" />
+               <img src="https://cdn.shopify.com/s/files/1/0639/3875/6670/files/MagTrack.webp?v=1791789141" alt="ToddsIQ Hands-on Play" className="w-full h-full object-cover mix-blend-multiply" />
                <div className="absolute top-4 right-4 bg-coral text-canvas font-label-sm text-label-sm uppercase tracking-wider px-3 py-1 rounded-full border border-ink shadow-[2px_2px_0px_#1E2A38] font-bold">
                   CREATIVE COMPANION
                 </div>
@@ -71,7 +71,7 @@ export default function About() {
           <div className="w-full md:w-1/2 order-2 md:order-1 relative">
             <div className="rounded-3xl border-2 border-ink shadow-[5px_5px_0px_#ff6154] overflow-hidden bg-white relative aspect-square w-full max-w-md mx-auto p-space-lg flex items-center justify-center">
               <img 
-                src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-magtrack-03.png?v=1789972736" 
+                src="https://cdn.shopify.com/s/files/1/0639/3875/6670/files/thoson-magtrack-03.png?v=1791789142" 
                 alt="Child Hands-On Play" 
                 className="w-full h-full object-contain"
               />
@@ -179,7 +179,7 @@ export default function About() {
           </div>
           <div className="w-full md:w-1/2">
              <div className="rounded-3xl border-2 border-ink shadow-[6px_6px_0px_#1E2A38] overflow-hidden bg-white aspect-[4/3] w-full max-w-md mx-auto relative">
-               <img src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/6a8eaac1-5d40-418f-aa89-b6522654543f_1e60f38e-84d1-4c22-bb85-35158bc9c2a0.webp?v=1775435265" alt="Child discovering" className="w-full h-full object-cover" />
+               <img src="https://cdn.shopify.com/s/files/1/0639/3875/6670/files/6a8eaac1-5d40-418f-aa89-b6522654543f_1e60f38e-84d1-4c22-bb85-35158bc9c2a0.webp?v=1791789141" alt="Child discovering" className="w-full h-full object-cover" />
              </div>
           </div>
         </div>
@@ -225,7 +225,7 @@ export default function About() {
 
             <div className="w-full lg:w-1/2 relative">
               <div className="rounded-3xl border-2 border-ink shadow-[5px_5px_0px_#1E2A38] overflow-hidden bg-[#FFF8E7] aspect-square w-full max-w-md mx-auto">
-                <img src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/863e6c75-e3eb-4fb9-b1f8-edccf374bcbf_70548431-7df3-42d2-bc62-5ba682dceb57.png?v=1775435140" alt="ToddsIQ Product Details" className="w-full h-full object-cover mix-blend-multiply" />
+                <img src="https://cdn.shopify.com/s/files/1/0639/3875/6670/files/863e6c75-e3eb-4fb9-b1f8-edccf374bcbf_70548431-7df3-42d2-bc62-5ba682dceb57.png?v=1791789143" alt="ToddsIQ Product Details" className="w-full h-full object-cover mix-blend-multiply" />
               </div>
               <div className="absolute top-1/2 -right-2 md:-right-8 -translate-y-1/2 bg-white px-6 py-4 rounded-2xl border-2 border-ink shadow-[4px_4px_0px_#1E2A38] rotate-2 z-10 hidden sm:block">
                 <span className="font-label-xs block text-ink-variant mb-1 tracking-widest font-bold">TODDSIQ™</span>
@@ -258,7 +258,7 @@ export default function About() {
           </div>
           <div className="w-full md:w-2/5 hidden md:block relative z-10">
             <div className="rounded-2xl border-2 border-ink shadow-[4px_4px_0px_#1E2A38] overflow-hidden bg-[#F4F1EA] aspect-square w-full rotate-3 max-w-sm mx-auto">
-              <img src="https://cdn.shopify.com/s/files/1/0916/9852/8593/files/MagTrack.webp?v=1763487546" alt="ToddsIQ Products" className="w-full h-full object-cover mix-blend-multiply" />
+              <img src="https://cdn.shopify.com/s/files/1/0639/3875/6670/files/MagTrack.webp?v=1791789141" alt="ToddsIQ Products" className="w-full h-full object-cover mix-blend-multiply" />
             </div>
           </div>
           
