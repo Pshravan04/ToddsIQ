@@ -87,12 +87,12 @@ export default function CartDrawer({ open, onClose }) {
                       {item.variantTitle && item.variantTitle !== 'Default Title' && <p className="text-xs text-ink/60 mt-1">{item.variantTitle}</p>}
                       <div className="mt-auto flex items-center justify-between">
                         <div className="flex items-center gap-3 bg-[#F4F1EA] border-2 border-ink rounded-full px-2 py-1">
-                          <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, item.qty - 1)}>−</button>
-                          <span className="text-sm font-bold w-4 text-center">{item.qty}</span>
-                          <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, item.qty + 1)}>+</button>
+                          <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, (Number(item.qty) || 1) - 1)} aria-label="Decrease quantity">−</button>
+                          <span className="text-sm font-bold w-4 text-center">{Math.max(Number(item.qty) || 1, 1)}</span>
+                          <button className="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white text-ink transition-colors font-bold" onClick={() => updateQty(item.id, (Number(item.qty) || 1) + 1)} aria-label="Increase quantity">+</button>
                         </div>
                         <div className="font-display font-bold text-lg text-ink">
-                          {formatPrice(item.price * item.qty)}
+                          {formatPrice((Number(item.price) || 0) * Math.max(Number(item.qty) || 1, 1))}
                         </div>
                       </div>
                     </div>

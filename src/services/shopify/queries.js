@@ -123,40 +123,50 @@ export const GET_COLLECTION_BY_HANDLE_QUERY = `
   ${PRODUCT_FRAGMENT}
 `;
 
-export const CREATE_CART_MUTATION = `
-  mutation createCart($input: CartInput) {
-    cartCreate(input: $input) {
-      cart {
-        id
-        checkoutUrl
-        cost {
-          totalAmount {
-            amount
-            currencyCode
+export const CART_FIELDS_FRAGMENT = `
+  fragment CartFields on Cart {
+    id
+    checkoutUrl
+    cost {
+      totalAmount {
+        amount
+        currencyCode
+      }
+      subtotalAmount {
+        amount
+        currencyCode
+      }
+    }
+    lines(first: 100) {
+      edges {
+        node {
+          id
+          quantity
+          cost {
+            amountPerQuantity {
+              amount
+              currencyCode
+            }
+            totalAmount {
+              amount
+              currencyCode
+            }
           }
-        }
-        lines(first: 100) {
-          edges {
-            node {
+          merchandise {
+            ... on ProductVariant {
               id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  price {
-                    amount
-                    currencyCode
-                  }
-                  image {
-                    url
-                    altText
-                  }
-                  product {
-                    title
-                    handle
-                  }
-                }
+              title
+              price {
+                amount
+                currencyCode
+              }
+              image {
+                url
+                altText
+              }
+              product {
+                title
+                handle
               }
             }
           }
@@ -164,174 +174,58 @@ export const CREATE_CART_MUTATION = `
       }
     }
   }
+`;
+
+export const CREATE_CART_MUTATION = `
+  mutation createCart($input: CartInput) {
+    cartCreate(input: $input) {
+      cart {
+        ...CartFields
+      }
+    }
+  }
+  ${CART_FIELDS_FRAGMENT}
 `;
 
 export const ADD_LINES_MUTATION = `
   mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
     cartLinesAdd(cartId: $cartId, lines: $lines) {
       cart {
-        id
-        checkoutUrl
-        cost {
-          totalAmount {
-            amount
-            currencyCode
-          }
-        }
-        lines(first: 100) {
-          edges {
-            node {
-              id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  price {
-                    amount
-                    currencyCode
-                  }
-                  image {
-                    url
-                    altText
-                  }
-                  product {
-                    title
-                    handle
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...CartFields
       }
     }
   }
+  ${CART_FIELDS_FRAGMENT}
 `;
 
 export const UPDATE_LINES_MUTATION = `
   mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
     cartLinesUpdate(cartId: $cartId, lines: $lines) {
       cart {
-        id
-        checkoutUrl
-        cost {
-          totalAmount {
-            amount
-            currencyCode
-          }
-        }
-        lines(first: 100) {
-          edges {
-            node {
-              id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  price {
-                    amount
-                    currencyCode
-                  }
-                  image {
-                    url
-                    altText
-                  }
-                  product {
-                    title
-                    handle
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...CartFields
       }
     }
   }
+  ${CART_FIELDS_FRAGMENT}
 `;
 
 export const REMOVE_LINES_MUTATION = `
   mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
     cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
       cart {
-        id
-        checkoutUrl
-        cost {
-          totalAmount {
-            amount
-            currencyCode
-          }
-        }
-        lines(first: 100) {
-          edges {
-            node {
-              id
-              quantity
-              merchandise {
-                ... on ProductVariant {
-                  id
-                  title
-                  price {
-                    amount
-                    currencyCode
-                  }
-                  image {
-                    url
-                    altText
-                  }
-                  product {
-                    title
-                    handle
-                  }
-                }
-              }
-            }
-          }
-        }
+        ...CartFields
       }
     }
   }
+  ${CART_FIELDS_FRAGMENT}
 `;
 
 export const GET_CART_QUERY = `
   query getCart($cartId: ID!) {
     cart(id: $cartId) {
-      id
-      checkoutUrl
-      cost {
-        totalAmount {
-          amount
-          currencyCode
-        }
-      }
-      lines(first: 100) {
-        edges {
-          node {
-            id
-            quantity
-            merchandise {
-              ... on ProductVariant {
-                id
-                title
-                price {
-                  amount
-                  currencyCode
-                }
-                image {
-                  url
-                  altText
-                }
-                product {
-                  title
-                  handle
-                }
-              }
-            }
-          }
-        }
-      }
+      ...CartFields
     }
   }
+  ${CART_FIELDS_FRAGMENT}
 `;
+
