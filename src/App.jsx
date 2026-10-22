@@ -49,6 +49,14 @@ function ProductErrorBoundaryFallback({ error }) {
   );
 }
 
+function CartRouteHandler() {
+  const { setIsCartOpen } = useCart();
+  useEffect(() => {
+    setIsCartOpen(true);
+  }, [setIsCartOpen]);
+  return <Home />;
+}
+
 function App() {
   return (
     <CurrencyProvider>
@@ -58,6 +66,7 @@ function App() {
         <ScrollToHash />
         <Routes>
           <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/cart" element={<Layout><CartRouteHandler /></Layout>} />
           <Route path="/collections/:id" element={<Layout><Collection /></Layout>} />
           <Route path="/collections" element={<Layout><Collection /></Layout>} />
           <Route path="/products/:id" element={<Layout><ErrorBoundary FallbackComponent={ProductErrorBoundaryFallback}><Product /></ErrorBoundary></Layout>} />
