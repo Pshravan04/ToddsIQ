@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/cart/c/:path*",
+      "destination": "https://065gcz-yy.myshopify.com/cart/c/:path*"
+    },
+    {
+      "source": "/checkouts/:path*",
+      "destination": "https://065gcz-yy.myshopify.com/checkouts/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
