@@ -1950,51 +1950,6 @@
     "testimony": "Verified Parent Review: My kids love this 100,000 Whys™ - Science Encyclopedia Question Lab! Definitely a screen-free winner. - Sarah M."
   },
   {
-    "id": "toddsiq-vortex",
-    "handle": "toddsiq-vortex",
-    "slug": "toddsiq-vortex",
-    "title": "ToddsIQ™ Vortex™ - Kinetic Fluid Sensory Chamber",
-    "price": 39,
-    "compareAtPrice": 69,
-    "ageBand": "5+",
-    "categories": [
-      "Best Sellers",
-      "Sensory",
-      "Big Kids"
-    ],
-    "badge": "SAVE 43%",
-    "rating": 4.7,
-    "reviews": 63,
-    "thumbnail": "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-02.png?v=1789972862",
-    "images": [
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-02.png?v=1789972862",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-03.png?v=1789972889",
-      "https://cdn.shopify.com/s/files/1/0916/9852/8593/files/thoson-vortex-01.png?v=1789972862"
-    ],
-    "options": [
-      {
-        "name": "Title",
-        "values": [
-          "Default Title"
-        ]
-      }
-    ],
-    "variants": [
-      {
-        "id": 54812022735185,
-        "title": "Default Title",
-        "price": 39,
-        "compareAtPrice": 69,
-        "availableForSale": true,
-        "sku": "VORTEX",
-        "selectedOptions": []
-      }
-    ],
-    "description": "Lay the rope in a circle on any table. Split the pieces, ten each. Take turns dropping one inside the circle, and if yours snaps onto pieces already sitting there, you pick all of them up and add them to your pile. First player to run out wins. That is the entire game, and you just learned it. Most ...",
-    "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    "testimony": "Verified Parent Review: My kids love this Vortex™ - Kinetic Fluid Sensory Chamber! Definitely a screen-free winner. - Sarah M."
-  },
-  {
     "id": "toddsiq-squishy-advent",
     "handle": "toddsiq-squishy-advent",
     "slug": "toddsiq-squishy-advent",
