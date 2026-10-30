@@ -228,9 +228,10 @@ export default function Layout({ children }) {
             <h3 className="font-label-lg text-label-lg font-bold">Support</h3>
             <ul className="space-y-2 font-body-sm text-body-sm text-ink-variant">
               <li><Link to="/faq" className="hover:text-coral transition-colors">FAQ & Help Center</Link></li>
-              <li><Link to="/shipping" className="hover:text-coral transition-colors">Shipping & Returns</Link></li>
+              <li><Link to="/track" className="hover:text-coral transition-colors">Track Your Order</Link></li>
+              <li><Link to="/shipping" className="hover:text-coral transition-colors">Shipping Policy</Link></li>
+              <li><Link to="/refund-policy" className="hover:text-coral transition-colors">Refund & Returns (30-Day Guarantee)</Link></li>
               <li><Link to="/contact" className="hover:text-coral transition-colors">Contact Us</Link></li>
-              <li><Link to="/track" className="hover:text-coral transition-colors">Track Order</Link></li>
             </ul>
           </div>
 
@@ -248,9 +249,11 @@ export default function Layout({ children }) {
         
         <div className="container mx-auto px-gutter mt-space-xl pt-space-md border-t-2 border-ink flex flex-col md:flex-row items-center justify-between gap-4 font-body-xs text-body-xs text-ink-variant">
           <p>© {new Date().getFullYear()} ToddsIQ. All rights reserved.</p>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4 md:gap-6 justify-center">
             <Link to="/privacy" className="hover:text-coral transition-colors">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-coral transition-colors">Terms of Service</Link>
+            <Link to="/shipping" className="hover:text-coral transition-colors">Shipping Policy</Link>
+            <Link to="/refund-policy" className="hover:text-coral transition-colors">Refund Policy</Link>
           </div>
         </div>
       </footer>
@@ -305,6 +308,23 @@ export default function Layout({ children }) {
                     )}
                   </div>
                 ))}
+
+                {/* Mobile Help & Policies Links */}
+                <div className="pt-4 mt-2 border-t border-surface-container flex flex-col gap-1">
+                  <span className="px-4 py-1.5 text-xs font-bold text-ink-variant uppercase tracking-wider block">Help & Guarantees</span>
+                  <Link to="/faq" onClick={() => setMobileMenuOpen(false)} className="px-4 py-2 rounded-xl hover:bg-[#F4F1EA] text-sm font-bold text-ink flex items-center gap-2">
+                    <span className="material-symbols-outlined text-base text-coral">help</span> FAQ & Help Center
+                  </Link>
+                  <Link to="/track" onClick={() => setMobileMenuOpen(false)} className="px-4 py-2 rounded-xl hover:bg-[#F4F1EA] text-sm font-bold text-ink flex items-center gap-2">
+                    <span className="material-symbols-outlined text-base text-coral">local_shipping</span> Track Order
+                  </Link>
+                  <Link to="/shipping" onClick={() => setMobileMenuOpen(false)} className="px-4 py-2 rounded-xl hover:bg-[#F4F1EA] text-sm font-bold text-ink flex items-center gap-2">
+                    <span className="material-symbols-outlined text-base text-coral">inventory_2</span> Shipping Policy
+                  </Link>
+                  <Link to="/refund-policy" onClick={() => setMobileMenuOpen(false)} className="px-4 py-2 rounded-xl hover:bg-[#F4F1EA] text-sm font-bold text-ink flex items-center gap-2">
+                    <span className="material-symbols-outlined text-base text-coral">verified_user</span> 30-Day Guarantee & Returns
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </>

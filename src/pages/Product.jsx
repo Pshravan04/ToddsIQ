@@ -700,18 +700,18 @@ export default function Product() {
 
                 {/* Reassurance */}
                 <div className="pt-2 border-t border-ink/10 grid grid-cols-3 gap-2 text-center text-xs text-ink-muted font-medium">
-                  <div className="flex flex-col items-center gap-1">
+                  <Link to="/refund-policy" className="flex flex-col items-center gap-1 hover:text-coral transition-colors">
                     <span className="material-symbols-outlined text-teal text-xl">verified_user</span>
                     <span>30-Day Trial</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
+                  </Link>
+                  <Link to="/shipping" className="flex flex-col items-center gap-1 hover:text-coral transition-colors">
                     <span className="material-symbols-outlined text-coral text-xl">local_shipping</span>
                     <span>Fast Shipping</span>
-                  </div>
-                  <div className="flex flex-col items-center gap-1">
+                  </Link>
+                  <Link to="/faq" className="flex flex-col items-center gap-1 hover:text-coral transition-colors">
                     <span className="material-symbols-outlined text-periwinkle text-xl">eco</span>
                     <span>Kid Safe</span>
-                  </div>
+                  </Link>
                 </div>
 
               </div>
@@ -838,7 +838,9 @@ export default function Product() {
                   
                   <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-bold text-ink-muted">
                     <span className="material-symbols-outlined text-teal text-base">verified_user</span>
-                    <span>30-Day Living Room Guarantee • Free Shipping</span>
+                    <span>
+                      <Link to="/refund-policy" className="hover:text-coral transition-colors underline">30-Day Living Room Guarantee</Link> • <Link to="/shipping" className="hover:text-coral transition-colors underline">Free Shipping</Link>
+                    </span>
                   </div>
                 </div>
 

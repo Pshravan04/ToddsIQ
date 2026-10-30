@@ -9,7 +9,13 @@ import Product from './pages/Product';
 import Checkout from './pages/Checkout';
 import About from './pages/About';
 import Contact from './pages/Contact';
-import { CartProvider } from './context/CartContext';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService';
+import ShippingPolicy from './pages/ShippingPolicy';
+import RefundPolicy from './pages/RefundPolicy';
+import FAQ from './pages/FAQ';
+import TrackOrder from './pages/TrackOrder';
+import { CartProvider, useCart } from './context/CartContext';
 import { CurrencyProvider } from './context/CurrencyContext';
 
 function ScrollToHash() {
@@ -74,6 +80,29 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/about" element={<Layout><About /></Layout>} />
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
+
+          {/* Important Policy & Support Pages */}
+          <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
+          <Route path="/privacy-policy" element={<Layout><PrivacyPolicy /></Layout>} />
+          <Route path="/policies/privacy-policy" element={<Layout><PrivacyPolicy /></Layout>} />
+
+          <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
+          <Route path="/terms-of-service" element={<Layout><TermsOfService /></Layout>} />
+          <Route path="/policies/terms-of-service" element={<Layout><TermsOfService /></Layout>} />
+
+          <Route path="/shipping" element={<Layout><ShippingPolicy /></Layout>} />
+          <Route path="/shipping-policy" element={<Layout><ShippingPolicy /></Layout>} />
+          <Route path="/policies/shipping-policy" element={<Layout><ShippingPolicy /></Layout>} />
+
+          <Route path="/refund-policy" element={<Layout><RefundPolicy /></Layout>} />
+          <Route path="/returns" element={<Layout><RefundPolicy /></Layout>} />
+          <Route path="/policies/refund-policy" element={<Layout><RefundPolicy /></Layout>} />
+
+          <Route path="/faq" element={<Layout><FAQ /></Layout>} />
+          <Route path="/help" element={<Layout><FAQ /></Layout>} />
+
+          <Route path="/track" element={<Layout><TrackOrder /></Layout>} />
+          <Route path="/track-order" element={<Layout><TrackOrder /></Layout>} />
         </Routes>
       </BrowserRouter>
     </CartProvider>

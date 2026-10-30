@@ -243,6 +243,16 @@ export default function Checkout() {
                 <span className="material-symbols-outlined text-[16px]">verified_user</span>
                 Secure 256-bit SSL Encryption
               </div>
+
+              <div className="mt-6 pt-4 border-t border-ink/10 flex flex-wrap justify-center gap-x-3 gap-y-1 text-[11px] text-ink/50 font-medium">
+                <Link to="/shipping" target="_blank" className="hover:text-coral transition-colors underline">Shipping</Link>
+                <span>•</span>
+                <Link to="/refund-policy" target="_blank" className="hover:text-coral transition-colors underline">Returns</Link>
+                <span>•</span>
+                <Link to="/privacy" target="_blank" className="hover:text-coral transition-colors underline">Privacy</Link>
+                <span>•</span>
+                <Link to="/terms" target="_blank" className="hover:text-coral transition-colors underline">Terms</Link>
+              </div>
             </div>
           </div>
         </div>
